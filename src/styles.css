@@ -1,0 +1,272 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #FFFFFF;
+    color: #0F172A;
+    font-family: "IBM Plex Sans", Roboto, "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    color: #0F172A;
+    font-family: "Barlow Semi Condensed", "IBM Plex Sans", sans-serif;
+    letter-spacing: -0.004em;
+    font-weight: 700;
+    font-feature-settings: "kern" 1;
+  }
+
+  /* numerals line up in tables, stats and prices */
+  .tabular, [data-stat] {
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Anchor jumps must clear the sticky header (46px utility + 57px bar). */
+section[id],
+div[id]:not([id='root']) {
+  scroll-margin-top: 118px;
+}
+
+/* Photo slot placeholder marker for user guidance */
+.photo-slot-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px dashed #38BDF8;
+  color: #E0F2FE;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 11px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(4px);
+}
+
+
+/* Hero still fallback: a 22-second drift reads as motion without a video file. */
+@keyframes heroDrift {
+  0%   { transform: scale(1.06) translate3d(0, 0, 0); }
+  50%  { transform: scale(1.12) translate3d(-1.6%, -1.2%, 0); }
+  100% { transform: scale(1.06) translate3d(0, 0, 0); }
+}
+.hero-drift {
+  animation: heroDrift 26s ease-in-out infinite;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-drift { animation: none; transform: none; }
+}
+
+/* ---------- motion system ----------
+ * Four primitives only: reveal-on-scroll, sheen on hover, marquee drift and a
+ * slow hero drift. Everything else stays still, so the page never twitches.
+ */
+
+[data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 18px, 0);
+  transition: opacity 0.7s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 0.61, 0.36, 1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* a light sweep that crosses a card once on hover */
+.sheen {
+  position: relative;
+  overflow: hidden;
+}
+.sheen::after {
+  content: '';
+  position: absolute;
+  inset: -30% -60%;
+  background: linear-gradient(
+    100deg,
+    transparent 38%,
+    rgba(255, 255, 255, 0.55) 48%,
+    rgba(255, 255, 255, 0.9) 52%,
+    transparent 62%
+  );
+  transform: translateX(-120%);
+  pointer-events: none;
+  opacity: 0;
+}
+.sheen:hover::after,
+.sheen:focus-visible::after {
+  animation: sheenSweep 0.95s ease-out;
+}
+@keyframes sheenSweep {
+  0%   { transform: translateX(-120%); opacity: 0.9; }
+  100% { transform: translateX(120%); opacity: 0; }
+}
+
+/* one-off light pass over the hero photograph */
+.hero-sheen::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    104deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.22) 45%,
+    rgba(255, 255, 255, 0.42) 50%,
+    rgba(255, 255, 255, 0.2) 55%,
+    transparent 70%
+  );
+  transform: translateX(-100%);
+  animation: heroSheen 9s ease-in-out 1.6s infinite;
+  pointer-events: none;
+  mix-blend-mode: screen;
+}
+@keyframes heroSheen {
+  0%, 62%  { transform: translateX(-100%); opacity: 0; }
+  70%      { opacity: 0.85; }
+  88%      { transform: translateX(100%); opacity: 0; }
+  100%     { transform: translateX(100%); opacity: 0; }
+}
+
+/* continuous horizontal board strip */
+.marquee {
+  display: flex;
+  width: max-content;
+  animation: marqueeRun 46s linear infinite;
+}
+.marquee:hover {
+  animation-play-state: paused;
+}
+@keyframes marqueeRun {
+  from { transform: translate3d(0, 0, 0); }
+  to   { transform: translate3d(-50%, 0, 0); }
+}
+
+/* slow float for the 3D icon tiles */
+@keyframes tileFloat {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50%      { transform: translate3d(0, -3px, 0); }
+}
+
+/* image zoom inside a hovered card */
+.zoom-parent img {
+  transition: transform 0.9s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.zoom-parent:hover img {
+  transform: scale(1.055);
+}
+
+/* ---------------------------------------------------------------------------
+ * Flip band. Front face is the board photograph; back face is the spec strip.
+ * Hovering the media turns it, and the corner button turns it on touch, where
+ * hover never fires.
+ * ------------------------------------------------------------------------- */
+.flip {
+  position: relative;
+  perspective: 1400px;
+}
+.flip-inner {
+  position: absolute;
+  inset: 0;
+  transform-style: preserve-3d;
+  transition: transform 0.72s cubic-bezier(0.22, 0.61, 0.36, 1);
+  will-change: transform;
+}
+.flip:hover .flip-inner,
+.flip.is-flipped .flip-inner,
+.flip:focus-within .flip-inner {
+  transform: rotateY(180deg);
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+/* cursor-follow tilt, 2–3 degrees only — enough to read as depth, not a toy */
+.tilt {
+  transform: perspective(900px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) translateZ(0);
+  transition: transform 0.25s ease-out;
+}
+
+/* scroll cue */
+@keyframes cueBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.75; }
+  50%      { transform: translateY(4px); opacity: 1; }
+}
+.hero-cue svg {
+  animation: cueBounce 2.4s ease-in-out infinite;
+}
+
+/* thin reading-progress rule under the header */
+.progress-rule {
+  transform-origin: 0 50%;
+  transform: scaleX(var(--p, 0));
+  transition: transform 0.12s linear;
+}
+
+/* draggable rails */
+.drag-rail {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  cursor: grab;
+}
+.drag-rail::-webkit-scrollbar {
+  display: none;
+}
+.drag-rail.is-dragging {
+  cursor: grabbing;
+  scroll-behavior: auto;
+}
+.drag-rail.is-dragging * {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+  .marquee { animation: none; }
+  .hero-sheen::before { animation: none; opacity: 0; }
+  .sheen:hover::after { animation: none; }
+  .zoom-parent:hover img { transform: none; }
+  .flip-inner { transition: none; }
+  .hero-cue svg { animation: none; }
+  .tilt { transition: none; }
+}
+
+/* hero scrim — sideways on desktop, top-down and near-opaque on phones */
+.hero-scrim {
+  background: linear-gradient(
+    95deg,
+    rgba(248, 252, 249, 0.86) 0%,
+    rgba(248, 252, 249, 0.79) 18%,
+    rgba(248, 252, 249, 0.60) 34%,
+    rgba(248, 252, 249, 0.28) 48%,
+    rgba(248, 252, 249, 0.07) 62%,
+    rgba(248, 252, 249, 0) 76%
+  );
+}
+@media (max-width: 767px) {
+  .hero-scrim {
+    background: linear-gradient(
+      180deg,
+      rgba(246, 251, 247, 0.94) 0%,
+      rgba(246, 251, 247, 0.9) 34%,
+      rgba(246, 251, 247, 0.78) 62%,
+      rgba(246, 251, 247, 0.5) 84%,
+      rgba(246, 251, 247, 0.34) 100%
+    );
+  }
+}
