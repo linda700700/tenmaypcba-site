@@ -1,0 +1,67 @@
+name: Build and publish
+
+# Push to src to publish. main holds only the built output, so editing a file
+# there does nothing; src is the branch that gets built.
+on:
+  push:
+    branches: [src]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Install
+        run: npm ci --no-audit --no-fund
+
+      - name: Build
+        run: npx vite build
+
+      - name: Publish dist to main
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          cd "$RUNNER_TEMP"
+          rm -rf publish
+          mkdir publish
+          cd publish
+          git init -q
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add origin "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git fetch -q --depth=1 origin main
+          git checkout -q -B main FETCH_HEAD
+
+          # .git must be excluded or this delete removes the repository itself.
+          # The three excluded files are Pages settings that are not build output:
+          # the custom domain, the Jekyll opt-out and the domain verification token.
+          rsync -a --delete \
+            --exclude '.git' \
+            --exclude 'CNAME' \
+            --exclude '.nojekyll' \
+            --exclude '47f21dfb48da328caa9209536c92dfc6.txt' \
+            "$GITHUB_WORKSPACE/dist/" .
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Build matches what is already published; nothing to commit."
+            exit 0
+          fi
+          git commit -q -m "Publish build ${GITHUB_SHA:0:8}"
+          git push -q origin HEAD:main
+          echo "Published."
