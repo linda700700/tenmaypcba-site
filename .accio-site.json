@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 2,
+  "siteId": "9ut9u9ire3cr2frx",
+  "name": "pcba-site",
+  "kind": "react-vite",
+  "devCommand": "vite",
+  "buildCommand": "vite build",
+  "outputDir": "dist",
+  "entry": "index.html",
+  "createdBy": "accio-site-builder",
+  "createdAt": "2026-10-25T13:14:14.923Z",
+  "siteIdSyncStatus": "synced",
+  "installedAt": "2026-10-25T13:29:38.331Z",
+  "databaseUrl": "",
+  "integrations": {
+    "supabase": {
+      "provider": "polardb_supabase",
+      "projectUrl": "https://site-builder.alibaba.com/supabase/v1/sites/9ut9u9ire3cr2frx",
+      "projectId": "9ut9u9ire3cr2frx",
+      "connectedAt": "2026-10-28T13:45:58.249Z"
+    }
+  },
+  "subdomain": "tenmay-pcba",
+  "publishedUrl": "https://tenmay-pcba.site.accio.ai",
+  "publishedAt": "2026-11-02T07:07:05.828Z",
+  "deployId": "dep_1793603222008_d9f9df8b"
+}

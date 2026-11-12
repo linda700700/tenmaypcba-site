@@ -50,6 +50,7 @@ export function renderMarkdown(source) {
   const out = [];
   let para = [];
   let list = null; // { ordered, items }
+  let table = null; // raw pipe rows, flushed when the block ends
 
   const flushPara = () => {
     if (!para.length) return;
@@ -67,6 +68,13 @@ export function renderMarkdown(source) {
   for (const raw of lines) {
     const line = raw.trimEnd();
     const t = line.trim();
+
+    // A pending table must be emitted before whatever ends it. Without this the
+    // next heading is pushed first and the table lands after it.
+    if (table && !/^\|/.test(t)) {
+      out.push({ type: 'table', rows: table });
+      table = null;
+    }
 
     if (!t) {
       flushPara();
@@ -89,6 +97,14 @@ export function renderMarkdown(source) {
       continue;
     }
 
+    const img = t.match(/^!\[([^\]]*)\]\(([^)\s]+)\)$/);
+    if (img) {
+      flushPara();
+      flushList();
+      out.push({ type: 'img', alt: img[1], src: img[2] });
+      continue;
+    }
+
     const quote = t.match(/^>\s?(.*)$/);
     if (quote) {
       flushPara();
@@ -97,6 +113,13 @@ export function renderMarkdown(source) {
       continue;
     }
 
+    if (/^\|/.test(t)) {
+      flushPara();
+      flushList();
+      if (!table) table = [];
+      table.push(t);
+      continue;
+    }
     const ul = t.match(/^[-*]\s+(.*)$/);
     const ol = t.match(/^\d+\.\s+(.*)$/);
     if (ul || ol) {
@@ -116,7 +139,18 @@ export function renderMarkdown(source) {
 
   flushPara();
   flushList();
+  if (table) out.push({ type: 'table', rows: table });
   return out;
+}
+
+function parseTable(rows) {
+  const cells = (line) =>
+    line.replace(/^\||\|$/g, '').split('|').map((c) => c.trim());
+  const isSeparator = (line) => /^\|?[\s:|-]+\|?$/.test(line);
+  return {
+    head: cells(rows[0]),
+    data: rows.slice(1).filter((r) => !isSeparator(r)).map(cells),
+  };
 }
 
 const H_CLASS = {
@@ -135,6 +169,51 @@ export function Markdown({ source }) {
     }
     if (b.type === 'hr') {
       return <hr key={key} className="my-8 border-slate-200" />;
+    }
+    if (b.type === 'img') {
+      return (
+        <figure key={key} className="my-8">
+          <img
+            src={b.src}
+            alt={b.alt}
+            loading="lazy"
+            decoding="async"
+            className="w-full rounded-lg ring-1 ring-slate-200"
+          />
+          {b.alt ? (
+            <figcaption className="mt-2 text-[12.5px] leading-snug text-slate-500">{b.alt}</figcaption>
+          ) : null}
+        </figure>
+      );
+    }
+    if (b.type === 'table') {
+      const { head, data } = parseTable(b.rows);
+      return (
+        <div key={key} className="my-7 overflow-x-auto">
+          <table className="w-full min-w-[520px] border-collapse text-left text-[14px] leading-snug">
+            <thead>
+              <tr className="border-b-2 border-slate-300">
+                {head.map((c, j) => (
+                  <th key={j} className="py-2 pr-4 align-bottom font-semibold text-slate-900">
+                    {inline(c, `${key}-h${j}`)}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {data.map((row, r) => (
+                <tr key={r} className="border-b border-slate-200 align-top">
+                  {row.map((c, j) => (
+                    <td key={j} className="py-2 pr-4 text-slate-700">
+                      {inline(c, `${key}-${r}-${j}`)}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
     }
     if (b.type === 'quote') {
       return (

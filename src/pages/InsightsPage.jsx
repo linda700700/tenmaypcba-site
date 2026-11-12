@@ -38,6 +38,15 @@ export default function InsightsPage() {
               href={lead.href}
               className="group block border border-slate-200 p-6 transition-colors hover:border-[#126B3F]/50 hover:bg-brand-50/40 sm:p-8"
             >
+              {lead.cover ? (
+                <img
+                  src={lead.cover}
+                  alt={lead.coverAlt || ''}
+                  width="1400"
+                  height="933"
+                  className="mb-5 w-full rounded object-cover ring-1 ring-slate-200"
+                />
+              ) : null}
               <div className="flex flex-wrap items-center gap-3 text-[12px] text-slate-500">
                 <span className="font-semibold uppercase tracking-wide text-[#126B3F]">
                   Latest
@@ -68,17 +77,32 @@ export default function InsightsPage() {
                     href={a.href}
                     className="group flex flex-col border border-slate-200 p-6 transition-colors hover:border-[#126B3F]/50 hover:bg-brand-50/40"
                   >
-                    <div className="flex flex-wrap items-center gap-3 text-[12px] text-slate-500">
-                      <span>{formatDate(a.date)}</span>
-                      <span className="inline-flex items-center gap-1">
-                        <Clock className="h-3.5 w-3.5" />
-                        {a.minutes} min
-                      </span>
+                    <div className="flex items-start gap-4">
+                      {a.coverThumb || a.cover ? (
+                        <img
+                          src={a.coverThumb || a.cover}
+                          alt={a.coverAlt || ''}
+                          width="800"
+                          height="533"
+                          loading="lazy"
+                          decoding="async"
+                          className="hidden h-[62px] w-[93px] shrink-0 rounded object-cover ring-1 ring-slate-200 sm:block"
+                        />
+                      ) : null}
+                      <div className="min-w-0">
+                        <div className="flex flex-wrap items-center gap-3 text-[12px] text-slate-500">
+                          <span>{formatDate(a.date)}</span>
+                          <span className="inline-flex items-center gap-1">
+                            <Clock className="h-3.5 w-3.5" />
+                            {a.minutes} min
+                          </span>
+                        </div>
+                        <h2 className="mt-2 text-[18px] font-bold leading-snug text-slate-900 group-hover:text-[#126B3F]">
+                          {a.title}
+                        </h2>
+                      </div>
                     </div>
-                    <h2 className="mt-2.5 text-[18px] font-bold leading-snug text-slate-900 group-hover:text-[#126B3F]">
-                      {a.title}
-                    </h2>
-                    <p className="mt-2 flex-1 text-[14px] leading-relaxed text-slate-600">
+                    <p className="mt-3 flex-1 text-[14px] leading-relaxed text-slate-600">
                       {a.summary}
                     </p>
                     <span className="mt-4 inline-flex items-center gap-1.5 text-[13.5px] font-semibold text-[#126B3F]">

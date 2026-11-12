@@ -26,9 +26,14 @@ export default function DragRail({ children, ariaLabel, itemWidth = 248, classNa
     readEdges();
     el.addEventListener('scroll', readEdges, { passive: true });
     window.addEventListener('resize', readEdges);
+    // A rail inside a hidden panel measures 0 wide and looks like it has
+    // nothing to scroll. Re-read whenever its box appears or changes size.
+    const ro = new ResizeObserver(readEdges);
+    ro.observe(el);
     return () => {
       el.removeEventListener('scroll', readEdges);
       window.removeEventListener('resize', readEdges);
+      ro.disconnect();
     };
   }, [readEdges]);
 

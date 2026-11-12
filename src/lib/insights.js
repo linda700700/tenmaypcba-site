@@ -61,6 +61,9 @@ export const ARTICLES = Object.entries(RAW)
         .map((s) => s.trim())
         .filter(Boolean),
       minutes: readingMinutes(body),
+      cover: meta.cover || '',
+      coverAlt: meta.coverAlt || '',
+      coverThumb: meta.coverThumb || '',
       body,
     };
   })

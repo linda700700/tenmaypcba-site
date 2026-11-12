@@ -23,7 +23,11 @@ function ArticleJsonLd({ article }) {
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/assets/images/logo-192.webp` },
     },
     mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/insights/${article.slug}.html` },
-    image: `${SITE_URL}/assets/images/macro-joints.webp`,
+    // The article's own cover, so the structured-data image matches the page
+    // rather than falling back to a stock shot shared by every article.
+    image: article.cover
+      ? `${SITE_URL}${article.cover}`
+      : `${SITE_URL}/assets/images/macro-joints.webp`,
   };
   return (
     <script
@@ -68,6 +72,25 @@ export default function ArticlePage({ article }) {
       </header>
 
       <div className="mx-auto max-w-[820px] px-4 py-10 sm:px-6 lg:py-14">
+        {article.cover ? (
+          <figure className="mb-9">
+            <img
+              src={article.cover}
+              alt={article.coverAlt || ''}
+              width="1400"
+              height="933"
+              fetchpriority="high"
+              decoding="async"
+              className="w-full rounded-lg object-cover ring-1 ring-slate-200"
+            />
+            {article.coverAlt ? (
+              <figcaption className="mt-2 text-[12.5px] leading-snug text-slate-500">
+                {article.coverAlt}
+              </figcaption>
+            ) : null}
+          </figure>
+        ) : null}
+
         <div className="max-w-[720px]">
           <Markdown source={article.body} />
         </div>

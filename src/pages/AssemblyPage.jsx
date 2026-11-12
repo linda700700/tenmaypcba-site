@@ -99,7 +99,6 @@ const TABS = [
 
 export default function AssemblyPage() {
   const [tab, setTab] = useState(0);
-  const active = TABS[tab];
 
   return (
     <>
@@ -171,85 +170,93 @@ export default function AssemblyPage() {
               ))}
             </div>
 
-            <div className="grid grid-cols-1 gap-0 lg:grid-cols-12">
-              {/* flow */}
-              <div className="p-5 sm:p-7 lg:col-span-8">
-                <p className="text-[13.5px] leading-relaxed text-slate-600">{active.intro}</p>
+            {/* Every stage stays in the DOM. Only the active one is shown, so the
+                crawler and the prerendered HTML see all three instead of one. */}
+            {TABS.map((t, i) => (
+              <div
+                key={t.id}
+                className={i === tab ? 'grid grid-cols-1 gap-0 lg:grid-cols-12' : 'hidden'}
+              >
+                {/* flow */}
+                <div className="p-5 sm:p-7 lg:col-span-8">
+                  <h2 className="text-[19px] font-bold tracking-tight text-slate-900">{t.label}</h2>
+                  <p className="mt-2 text-[13.5px] leading-relaxed text-slate-600">{t.intro}</p>
 
-                <ol className="mt-6 space-y-2.5">
-                  {active.steps.map((step, i) => {
-                    const Icon = step.icon;
-                    return (
-                      <li key={step.title} className="relative">
-                        <div className="flex items-center gap-3.5 rounded-lg border border-brand-200/50 bg-slate-50/70 px-4 py-3">
-                          <IconTile icon={Icon} size="sm" tone="brand" />
-                          <div className="min-w-0">
-                            <div className="text-[13.5px] font-bold text-slate-900">{step.title}</div>
-                            <div className="text-[13px] leading-snug text-slate-600">{step.detail}</div>
+                  <ol className="mt-6 space-y-2.5">
+                    {t.steps.map((step, j) => {
+                      const Icon = step.icon;
+                      return (
+                        <li key={step.title} className="relative">
+                          <div className="flex items-center gap-3.5 rounded-lg border border-brand-200/50 bg-slate-50/70 px-4 py-3">
+                            <IconTile icon={Icon} size="sm" tone="brand" />
+                            <div className="min-w-0">
+                              <div className="text-[13.5px] font-bold text-slate-900">{step.title}</div>
+                              <div className="text-[13px] leading-snug text-slate-600">{step.detail}</div>
+                            </div>
+                            <span className="ml-auto text-[12px] font-bold text-slate-300">0{j + 1}</span>
                           </div>
-                          <span className="ml-auto text-[12px] font-bold text-slate-300">0{i + 1}</span>
-                        </div>
-                        {i < active.steps.length - 1 && (
-                          <div aria-hidden="true" className="ml-[26px] h-3 w-px bg-brand-300" />
-                        )}
-                      </li>
-                    );
-                  })}
-                </ol>
+                          {j < t.steps.length - 1 && (
+                            <div aria-hidden="true" className="ml-[26px] h-3 w-px bg-brand-300" />
+                          )}
+                        </li>
+                      );
+                    })}
+                  </ol>
+                </div>
+
+                {/* aside */}
+                <aside className="border-t border-brand-200/50 bg-slate-50/60 p-5 sm:p-7 lg:col-span-4 lg:border-l lg:border-t-0">
+                  <h3 className="flex items-center gap-2 text-[15px] font-bold text-slate-900">
+                    <Flag className="h-4 w-4 text-brand-600" />
+                    {t.aside.title}
+                  </h3>
+
+                  <div className="mt-4">
+                    <div className="text-[11.5px] font-bold uppercase tracking-wide text-slate-500">You provide</div>
+                    <ul className="mt-1.5 space-y-1">
+                      {t.aside.provide.map((x) => (
+                        <li key={x} className="flex items-start gap-1.5 text-[13px] leading-snug text-slate-700">
+                          <Check className="mt-0.5 h-3 w-3 shrink-0 text-brand-600" />
+                          {x}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-4">
+                    <div className="text-[11.5px] font-bold uppercase tracking-wide text-slate-500">We check before quoting</div>
+                    <ul className="mt-1.5 space-y-1">
+                      {t.aside.checks.map((x) => (
+                        <li key={x} className="flex items-start gap-1.5 text-[13px] leading-snug text-slate-700">
+                          <Check className="mt-0.5 h-3 w-3 shrink-0 text-slate-400" />
+                          {x}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div className="mt-4 rounded-lg border border-brand-200/50 bg-white p-3">
+                    <div className="text-[11.5px] font-bold uppercase tracking-wide text-slate-500">You receive</div>
+                    <p className="mt-1 text-[13px] leading-relaxed text-slate-700">{t.aside.output}</p>
+                  </div>
+
+                  <a
+                    href="/#rfq"
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-3 text-[14px] font-bold text-white transition-colors hover:bg-brand-700"
+                  >
+                    Get an itemised quote
+                    <ArrowRight className="h-4 w-4" />
+                  </a>
+                  <a
+                    href="/capabilities.html"
+                    className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300/80 bg-white px-4 py-2.5 text-[13.5px] font-semibold text-slate-700 hover:border-brand-300 hover:text-brand-700"
+                  >
+                    <Download className="h-3.5 w-3.5" />
+                    See the process limits
+                  </a>
+                </aside>
               </div>
-
-              {/* aside */}
-              <aside className="border-t border-brand-200/50 bg-slate-50/60 p-5 sm:p-7 lg:col-span-4 lg:border-l lg:border-t-0">
-                <h2 className="flex items-center gap-2 text-[15px] font-bold text-slate-900">
-                  <Flag className="h-4 w-4 text-brand-600" />
-                  {active.aside.title}
-                </h2>
-
-                <div className="mt-4">
-                  <div className="text-[11.5px] font-bold uppercase tracking-wide text-slate-500">You provide</div>
-                  <ul className="mt-1.5 space-y-1">
-                    {active.aside.provide.map((p) => (
-                      <li key={p} className="flex items-start gap-1.5 text-[13px] leading-snug text-slate-700">
-                        <Check className="mt-0.5 h-3 w-3 shrink-0 text-brand-600" />
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-4">
-                  <div className="text-[11.5px] font-bold uppercase tracking-wide text-slate-500">We check before quoting</div>
-                  <ul className="mt-1.5 space-y-1">
-                    {active.aside.checks.map((p) => (
-                      <li key={p} className="flex items-start gap-1.5 text-[13px] leading-snug text-slate-700">
-                        <Check className="mt-0.5 h-3 w-3 shrink-0 text-slate-400" />
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-4 rounded-lg border border-brand-200/50 bg-white p-3">
-                  <div className="text-[11.5px] font-bold uppercase tracking-wide text-slate-500">You receive</div>
-                  <p className="mt-1 text-[13px] leading-relaxed text-slate-700">{active.aside.output}</p>
-                </div>
-
-                <a
-                  href="/#rfq"
-                  className="mt-4 flex w-full items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-3 text-[14px] font-bold text-white transition-colors hover:bg-brand-700"
-                >
-                  Get an itemised quote
-                  <ArrowRight className="h-4 w-4" />
-                </a>
-                <a
-                  href="/capabilities.html"
-                  className="mt-2 flex w-full items-center justify-center gap-2 rounded-lg border border-slate-300/80 bg-white px-4 py-2.5 text-[13.5px] font-semibold text-slate-700 hover:border-brand-300 hover:text-brand-700"
-                >
-                  <Download className="h-3.5 w-3.5" />
-                  See the process limits
-                </a>
-              </aside>
-            </div>
+            ))}
           </div>
 
           {/* the three stages, as they actually look */}

@@ -1,6 +1,13 @@
 import React, { useState } from 'react';
 import { Cpu, CheckCircle2, ArrowRight } from 'lucide-react';
 
+const TABS = [
+  { id: 'smt', label: 'Surface Mount (SMT)' },
+  { id: 'tht', label: 'THT & Mixed Technology' },
+  { id: 'testing', label: 'Testing & 3D X-Ray' },
+  { id: 'sourcing', label: 'Component Sourcing & CoC' },
+];
+
 export default function CapabilityMatrix() {
   const [activeTab, setActiveTab] = useState('smt');
 
@@ -82,12 +89,7 @@ export default function CapabilityMatrix() {
 
         {/* Category Tabs */}
         <div className="flex flex-wrap gap-2.5 mt-8">
-          {[
-            { id: 'smt', label: 'Surface Mount (SMT)' },
-            { id: 'tht', label: 'THT & Mixed Technology' },
-            { id: 'testing', label: 'Testing & 3D X-Ray' },
-            { id: 'sourcing', label: 'Component Sourcing & CoC' },
-          ].map((tab) => (
+          {TABS.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
@@ -102,15 +104,23 @@ export default function CapabilityMatrix() {
           ))}
         </div>
 
-        {/* Tab Detail Card */}
-        <div className="mt-6 bg-white border border-brand-200/50 rounded-xl p-6 sm:p-8 shadow-sm">
+        {/* Every tab stays in the DOM so the spec tables reach the crawler;
+            only the active one is shown. */}
+        {TABS.map((t) => (
+        <div
+          key={t.id}
+          className={[
+            'mt-6 bg-white border border-brand-200/50 rounded-xl p-6 sm:p-8 shadow-sm',
+            t.id === activeTab ? '' : 'hidden',
+          ].join(' ')}
+        >
           <div className="mb-6 pb-4 border-b border-slate-100">
             <h3 className="text-xl font-bold text-slate-900 flex items-center gap-2.5">
               <Cpu className="w-5 h-5 text-[#126B3F]" />
-              <span>{capabilities[activeTab].title}</span>
+              <span>{capabilities[t.id].title}</span>
             </h3>
             <p className="text-sm text-slate-600 mt-1.5">
-              {capabilities[activeTab].description}
+              {capabilities[t.id].description}
             </p>
           </div>
 
@@ -129,7 +139,7 @@ export default function CapabilityMatrix() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 font-sans">
-                {capabilities[activeTab].specs.map((row, idx) => (
+                {capabilities[t.id].specs.map((row, idx) => (
                   <tr key={idx} className="hover:bg-slate-50/60 transition-colors">
                     <td className="py-3.5 px-4 font-semibold text-slate-900">{row.parameter}</td>
                     <td className="py-3.5 px-4 text-slate-600">{row.standard}</td>
@@ -148,7 +158,7 @@ export default function CapabilityMatrix() {
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>
-        </div>
+        </div>        ))}
 
       </div>
     </section>

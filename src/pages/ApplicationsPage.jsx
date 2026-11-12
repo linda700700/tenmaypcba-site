@@ -41,7 +41,6 @@ export default function ApplicationsPage({ initialHash = '' }) {
     if (hash) window.setTimeout(() => scrollToHash(hash), 120);
   }, [hash]);
 
-  const sector = SECTORS.find((s) => s.id === active) || SECTORS[0];
 
   return (
     <div data-component="applications-page">
@@ -165,7 +164,9 @@ export default function ApplicationsPage({ initialHash = '' }) {
         <div className="mx-auto grid max-w-[1240px] grid-cols-1 gap-8 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
           {/* product cards */}
           <div className="space-y-5 lg:col-span-8">
-            {sector.cases.map((c, i) => (
+            {SECTORS.map((s) => (
+              <div key={s.id} className={s.id === active ? 'space-y-5' : 'hidden'}>
+                {s.cases.map((c, i) => (
               <article
                 key={c.id}
                 id={c.id}
@@ -242,6 +243,8 @@ export default function ApplicationsPage({ initialHash = '' }) {
                 </p>
                 </div>
               </article>
+                ))}
+              </div>
             ))}
           </div>
 
@@ -252,7 +255,14 @@ export default function ApplicationsPage({ initialHash = '' }) {
                 <div className="text-[11.5px] font-bold uppercase tracking-[0.16em] text-brand-700">
                   Why these four
                 </div>
-                <p className="mt-3 text-[15px] leading-[1.7] text-slate-700">{sector.blurb}</p>
+                {SECTORS.map((s) => (
+                  <p
+                    key={s.id}
+                    className={`mt-3 text-[15px] leading-[1.7] text-slate-700 ${s.id === active ? '' : 'hidden'}`}
+                  >
+                    {s.blurb}
+                  </p>
+                ))}
                 <div className="mt-5 flex items-center gap-2 border-t border-slate-100 pt-4 text-[13.5px] text-slate-600">
                   <Layers className="h-4 w-4 text-brand-600" />
                   Same floor, same inspection, every family
