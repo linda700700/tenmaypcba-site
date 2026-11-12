@@ -84,16 +84,18 @@ function routePrerender() {
 
       // Sitemap is generated rather than hand-maintained: a route that is not in
       // it is a page search engines have to discover on their own.
-      const today = new Date().toISOString().slice(0, 10);
+      // <lastmod> is optional. Stamping every static page with the build date
+      // claims the page changed when only the build ran, so pages without a
+      // real content date leave it out instead of guessing.
       const urls = routes
-        .map(
-          (r) => `  <url>
-    <loc>${r.url}</loc>
-    <lastmod>${r.lastmod || today}</lastmod>
+        .map((r) => {
+          const lastmod = r.lastmod ? `\n    <lastmod>${r.lastmod}</lastmod>` : '';
+          return `  <url>
+    <loc>${r.url}</loc>${lastmod}
     <changefreq>${r.lastmod ? 'yearly' : 'monthly'}</changefreq>
     <priority>${r.priority}</priority>
-  </url>`
-        )
+  </url>`;
+        })
         .join('\n');
       writeFileSync(
         join(root, 'dist/sitemap.xml'),
