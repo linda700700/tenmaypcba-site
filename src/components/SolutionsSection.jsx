@@ -140,7 +140,6 @@ const FLAT = GROUPS.flatMap((g) => g.items.map((item) => ({ ...item, group: g.ti
 
 export default function SolutionsSection() {
   const [activeId, setActiveId] = useState(FLAT[0].id);
-  const s = FLAT.find((x) => x.id === activeId) || FLAT[0];
 
   return (
     <section id="solutions" className="scroll-mt-32 bg-white py-16 sm:py-20 border-b border-brand-200/50" data-component="solutions-section">
@@ -243,51 +242,64 @@ export default function SolutionsSection() {
             </div>
           </nav>
 
-          {/* ── Banner: image + text combined ─────────────────────────── */}
+          {/* ── Banner: every process rendered, inactive ones hidden ───── */}
           <div className="relative rounded overflow-hidden border border-brand-200/50 bg-slate-100 h-[420px] sm:h-[500px] lg:h-[540px]">
-            <img
-              key={s.id}
-              src={s.image}
-              {...imgAttrs(s.image)}
-              alt={s.shot}
-              className="absolute inset-0 w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-slate-950/25" />
+            {FLAT.map((item) => {
+              const on = item.id === activeId;
+              return (
+                <div key={item.id} id={`process-${item.id}`} hidden={!on} className="absolute inset-0">
+                  <img
+                    src={item.image}
+                    {...imgAttrs(item.image)}
+                    alt={item.shot}
+                    loading={on ? 'eager' : 'lazy'}
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-slate-950/25" />
 
-            {/* top meta */}
-            <div className="absolute top-0 inset-x-0 p-4 flex items-start justify-between gap-3">
-              <span className="inline-flex items-center gap-1.5 rounded bg-white/12 backdrop-blur-sm border border-white/20 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
-                {s.group}
-              </span>
-            </div>
+                  {/* top meta */}
+                  <div className="absolute top-0 inset-x-0 p-4 flex items-start justify-between gap-3">
+                    <span className="inline-flex items-center gap-1.5 rounded bg-white/12 backdrop-blur-sm border border-white/20 px-2 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
+                      {item.group}
+                    </span>
+                  </div>
 
-            {/* bottom copy */}
-            <div className="absolute inset-x-0 bottom-0 px-5 sm:px-6 pb-5 sm:pb-6 pt-24 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent">
-              <h3 className="text-white text-xl sm:text-2xl font-bold tracking-tight drop-shadow-sm">{s.label}</h3>
-              <p className="text-slate-200/95 text-[13.5px] sm:text-[14px] mt-2 leading-relaxed max-w-[440px]">
-                {s.promise}
-              </p>
-              <div className="flex flex-wrap gap-1.5 mt-3.5">
-                {s.chips.map((c) => (
-                  <span
-                    key={c}
-                    className="rounded border border-white/25 bg-white/12 px-2 py-1 text-[12px] font-semibold text-white tabular-nums"
-                  >
-                    {c}
-                  </span>
-                ))}
-              </div>
-            </div>
+                  {/* bottom copy */}
+                  <div className="absolute inset-x-0 bottom-0 px-5 sm:px-6 pb-5 sm:pb-6 pt-24 bg-gradient-to-t from-slate-950 via-slate-950/90 to-transparent">
+                    <h3 className="text-white text-xl sm:text-2xl font-bold tracking-tight drop-shadow-sm">{item.label}</h3>
+                    <p className="text-slate-200/95 text-[13.5px] sm:text-[14px] mt-2 leading-relaxed max-w-[440px]">
+                      {item.promise}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 mt-3.5">
+                      {item.chips.map((c) => (
+                        <span
+                          key={c}
+                          className="rounded border border-white/25 bg-white/12 px-2 py-1 text-[12px] font-semibold text-white tabular-nums"
+                        >
+                          {c}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
           </div>
 
           {/* ── Spec card ─────────────────────────────────────────────── */}
           <div className="lg:sticky lg:top-[124px]">
-            <div className="bg-white rounded border border-brand-200/50 shadow-[0_10px_30px_-14px_rgba(15,23,42,0.22)] p-5">
-              <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">{s.group}</div>
-              <h3 className="text-[16px] font-bold text-slate-900 tracking-tight mt-1 leading-snug">{s.label}</h3>
+            {FLAT.map((item) => (
+            <div
+              key={item.id}
+              hidden={item.id !== activeId}
+              className="bg-white rounded border border-brand-200/50 shadow-[0_10px_30px_-14px_rgba(15,23,42,0.22)] p-5"
+            >
+              <div className="text-[10px] font-bold uppercase tracking-[0.14em] text-slate-400">{item.group}</div>
+              <h3 className="text-[16px] font-bold text-slate-900 tracking-tight mt-1 leading-snug">{item.label}</h3>
 
               <dl className="mt-3.5 rounded bg-slate-50 border border-slate-100 px-3.5 py-2 divide-y divide-slate-200/70">
-                {s.specs.map(([label, value]) => (
+                {item.specs.map(([label, value]) => (
                   <div key={label} className="flex items-start justify-between gap-3 py-[7px]">
                     <dt className="text-[12.5px] text-slate-500 leading-snug">{label}</dt>
                     <dd className="text-[12.5px] font-semibold text-slate-900 text-right leading-snug">{value}</dd>
@@ -314,6 +326,7 @@ export default function SolutionsSection() {
                 <span>Full capability table</span>
               </a>
             </div>
+            ))}
 
             <p className="text-[11.5px] text-slate-400 mt-3 leading-relaxed px-1">
               Figures are production limits held on the shop floor, not catalogue targets. Anything outside them is
