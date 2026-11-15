@@ -1,0 +1,27 @@
+# TENGMEI — Shenzhen Tengmei Technology Co., Ltd.
+
+> PCBA contract manufacturer in Shenzhen, China, since 2008. High-mix, low-volume electronics assembly: SMT from 01005 passives, through-hole, in-line SPI / AOI / X-ray, conformal coating and box build, from fifty pieces at a three-day standard lead time.
+
+Operating facts stated on the site: eight Yamaha YSM20 / YSM10 placement lines, minimum component 01005 (0.4 × 0.2 mm), minimum IC pitch 0.30 mm, panel size up to 800 × 480 mm, in-line SPI, AOI and X-ray, workmanship reference IPC-A-610, minimum order fifty pieces, three-day standard lead time. Contact: WhatsApp +86 173 6105 8693, phone +86 139 2377 2594.
+
+## Main pages
+
+- [Home](https://tenmaypcba.com/): what the floor does, order models, quality stations, FAQ and RFQ form.
+- [Assembly services](https://tenmaypcba.com/assembly.html): the three process routes — surface mount, through-hole and mechanical, and inspection and finishing — step by step, with what the buyer supplies and receives.
+- [Capabilities](https://tenmaypcba.com/capabilities.html): placement, inspection, coating and bare-board limits as they run today, including the operations not held in-house.
+- [Applications](https://tenmaypcba.com/applications.html): twelve board families across consumer, industrial and automotive aftermarket, each with a typical batch size and the file set to send.
+- [Insights](https://tenmaypcba.com/insights.html): process notes written for engineers and buyers.
+
+## Process notes
+
+- [What actually limits 01005 placement yield?](https://tenmaypcba.com/insights/01005-placement-what-limits-yield.html): stencil area ratio, paste type, pad and mask choices, and what inspection can verify at that size.
+- [01005 vs 0201: which package should your design use?](https://tenmaypcba.com/insights/01005-vs-0201.html): the footprint, cost and yield trade-off between the two smallest passive packages.
+- [Why does a 50-piece PCBA run cost more per board than 5,000?](https://tenmaypcba.com/insights/fifty-piece-run-cost.html): which costs are fixed per job, how setup divides across a batch, and how reel minimums move the total.
+- [Which BOM problems force a re-quote?](https://tenmaypcba.com/insights/bom-substitution-checklist.html): eight checks on lifecycle, alternates, electrical margins, polarity, moisture sensitivity, packaging, order multiple and provenance.
+- [What is HMLV in PCBA — and when does it cost more than high volume?](https://tenmaypcba.com/insights/what-is-hmlv-pcba.html): high-mix low-volume as a production model, where the extra cost sits, and when a small batch is the cheaper decision.
+- [What can SPI, AOI and X-ray catch — and what can they not?](https://tenmaypcba.com/insights/what-aoi-xray-cannot-catch.html): what each inspection station proves, what passes through it, and which faults still need electrical test.
+
+## Optional
+
+- [Sitemap](https://tenmaypcba.com/sitemap.xml)
+- [Contact and RFQ](https://tenmaypcba.com/#rfq)

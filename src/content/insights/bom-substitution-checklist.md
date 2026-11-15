@@ -1,82 +1,113 @@
 ---
-title: "The BOM substitution checklist that avoids a re-quote"
-seoTitle: "BOM Substitution Checklist for PCBA Re-Quotes"
-description: "Most re-quotes are caused by a BOM that cannot be bought as written. This checklist catches the eight things that force a substitution, before assembly starts."
+title: "Which BOM problems force a re-quote — and how do you catch them first?"
+seoTitle: "BOM Substitution Checklist: Stop the PCBA Re-Quote"
+description: "A BOM can be complete and still unbuyable. Eight checks on lifecycle, alternates, ratings, MSL, packaging and MOQ decide whether parts arrive as listed."
 date: 2026-11-06
 tags: BOM, Procurement, DFM
 summary: "A BOM that reads correctly can still be unbuyable. These eight checks decide whether the parts arrive as listed or the job stops for approval."
+cover: "/assets/images/final-check-packing.webp"
+coverThumb: "/assets/images/final-check-packing-thumb.webp"
+coverAlt: "Operator in gloves checking a PCB under a magnifier lamp at a packing bench, a checklist on a clipboard beside an open carton of packed boards"
 ---
 
-A BOM can be complete, internally consistent and still unbuildable. The part number exists, the quantity is right, the reference designators all match — and then procurement finds that the exact part is on a fourteen-week lead, or only sold in reels of five thousand, or marked obsolete by the manufacturer.
+Eight checks cover almost every substitution that stops a job: lifecycle status, a real second source, electrical margins, package and polarity, moisture sensitivity, packaging format, order multiple, and date-code provenance. A BOM that passes all eight can be bought as written, which means no approval loop and no price movement before assembly starts.
 
-At that point the job stops. Someone has to propose an alternative, someone else has to approve it, and the price may move. That is the re-quote, and almost all of it is avoidable with a pass through the BOM before the enquiry is sent.
+## What is a re-quote, and why does it cost time?
+
+A re-quote is what happens when procurement cannot buy the BOM as written. The part number exists, the quantity is right, the reference designators all match — and then the exact part turns out to be on a fourteen-week lead, sold only in reels of five thousand, or marked obsolete.
+
+At that point the job stops. Someone proposes an alternative, someone else approves it, and the price may move. Nearly all of it is avoidable with a pass through the BOM before the enquiry is sent.
+
+## The eight checks, on one page
+
+| # | Check | What goes wrong when it fails |
+| --- | --- | --- |
+| 1 | Lifecycle status | An end-of-life part is available this build and gone the next; the replacement was never qualified |
+| 2 | Real second source | "Or equivalent" moves the decision to whoever is buying, which is the wrong place for it |
+| 3 | Electrical margins | The substitute matches the headline value and fails two lines down on tolerance, rating or thermal drift |
+| 4 | Package, land and polarity | Same footprint, different pin function — or a part placed the wrong way round |
+| 5 | Moisture sensitivity level | A higher MSL adds baking and a floor-life clock nobody planned for |
+| 6 | Packaging format | Cut tape that cannot be fed turns machine placement into hand placement |
+| 7 | Order multiple | A part sold in reels of four thousand for a build that consumes twenty |
+| 8 | Date code and provenance | Old material or open-market stock goes into a product with a warranty |
 
 ## 1. Is the part still active?
 
-Manufacturer lifecycle status is the first check and the cheapest. A part marked end-of-life or not-recommended-for-new-designs will eventually stop being available, and the version you get on the next build may not be the one you qualified.
+Lifecycle status is the first check and the cheapest. A part marked end-of-life or not-recommended-for-new-designs will stop being available eventually, and the version on the next build may not be the one you qualified.
 
-Most distributor sites show lifecycle status on the product page. Checking the twenty highest-value lines usually catches the whole problem.
+Distributor product pages usually carry status. Checking the twenty highest-value lines catches most of the problem, because that is where the cost and the risk sit.
 
-## 2. Is there a second source in the BOM?
+## 2. Is there a real second source?
 
-Two different things get called a second source and only one of them helps:
+Two different things get called a second source, and only one helps:
 
-- **An alternate manufacturer's part number, listed with its own MPN.** Useful. It can be bought directly.
-- **The phrase "or equivalent".** Not useful on its own. It moves the decision to whoever is buying, which is the wrong place for it.
+- **An alternate manufacturer's part number, listed with its own MPN.** Useful — it can be bought directly.
+- **The phrase "or equivalent".** Not useful on its own. It hands the decision to the buyer at the factory, who has no visibility of why the part was chosen.
 
 If a line must not be substituted — a specific regulator, a matched pair, an MCU with calibrated internals — say so explicitly. Silence reads as permission.
 
 ## 3. Do the electrical parameters actually match?
 
-The common failure is a substitution that looks right on the headline spec and is wrong two lines down. Before approving an alternate, check:
+The common failure is a substitution that is right on the headline spec and wrong in the detail. Before approving an alternate, check:
 
-- Tolerance and temperature coefficient, not just nominal value.
-- Voltage rating, including derating margin.
-- Package and pinout — same footprint does not always mean same pin function.
-- Timing or frequency characteristics for anything involving a crystal or oscillator.
-- Operating temperature range. An industrial part swapped for a commercial one is a field failure waiting to be shipped.
+| Parameter | What to compare, not just copy |
+| --- | --- |
+| Tolerance and temperature coefficient | Nominal value, then drift over the operating range |
+| Voltage rating | Include the derating margin the design assumes |
+| Package and pinout | Same footprint does not always mean same pin function |
+| Timing or frequency | Anything with a crystal or oscillator |
+| Operating temperature range | An industrial part swapped for a commercial one is a field failure waiting to ship |
 
-## 4. Package, footprint and polarity
+## 4. Does the land pattern and polarity carry over?
 
-A 0402 part is not always the same 0402 land. Check the manufacturer's recommended land pattern for the alternate rather than assuming the footprint carries over. For anything with polarity — diodes, tantalum capacitors, electrolytics, LEDs — check that the marking orientation matches what the assembly drawing expects.
+A 0402 part is not always the same 0402 land. Check the alternate manufacturer's recommended land pattern instead of assuming the footprint transfers. For anything with polarity — diodes, tantalum capacitors, electrolytics, LEDs — check that the marking orientation matches the assembly drawing.
 
-This is where a substitution turns into a silent defect: the board builds, passes basic inspection, and fails in the field because the part went on the wrong way round.
+This is where a substitution becomes a silent defect: the board builds, passes basic inspection, and fails in the field because the part went on the wrong way round.
 
-## 5. Moisture sensitivity level
+## 5. Did the moisture sensitivity level change?
 
-An alternate with a higher moisture sensitivity level changes the handling requirement. It may need baking before use, and it has a floor-life limit once the seal is broken.
+An alternate with a higher MSL changes the handling requirement. It may need baking before use, and it has a floor-life limit once the seal is broken.
 
-If the original was MSL 1 and the alternate is MSL 3, the process has changed even though the part number swap looked trivial. Tell the assembler, or they will find out at reflow.
+If the original was MSL 1 and the alternate is MSL 3, the process has changed even though the part-number swap looked trivial. Tell the assembler, or they find out at reflow.
 
-## 6. Packaging: reel, cut tape, tray, tube
+## 6. Is the packaging feedable?
 
-Quantity is not the same as packaging. A part quoted as "cut tape" may arrive as loose pieces that cannot be fed automatically, which turns a machine placement into a hand placement and moves the price.
+Quantity is not packaging. A part quoted as cut tape may arrive as loose pieces that cannot be fed automatically, which turns machine placement into hand placement and moves the price.
 
-For small runs, check whether the part is available in a partial reel or a feedable cut length. This single item causes more small-batch price movement than any other line in the BOM.
+| Packaging | Effect on a small build |
+| --- | --- |
+| Full reel | Feedable, but may carry an order multiple far above usage |
+| Partial reel or feedable cut length | The practical option for small runs; ask for it explicitly |
+| Loose cut tape | Usually hand placement, and a price change |
+| Tray or tube | Fine for the parts designed for it; not interchangeable with reel |
 
-## 7. Minimum order quantity and multiple
+For small runs, this single item causes more price movement than any other line in the BOM.
 
-A line needing twenty pieces of a part sold in reels of four thousand is not a pricing detail — it is a purchasing decision. Decide in advance how the balance is handled: bought and stocked, consigned by you, or avoided by choosing a part with a smaller multiple.
+## 7. What is the order multiple?
 
-## 8. Date code and provenance
+A line needing twenty pieces of a part sold in reels of four thousand is a purchasing decision, not a pricing detail. Decide in advance how the balance is handled: bought and stocked, consigned by you, or avoided by choosing a part with a smaller multiple. The material-policy section of [why a 50-piece run costs more per board](/insights/fifty-piece-run-cost.html) sets out the three options.
 
-For anything going into a product with a warranty, the age of the material matters. Ask what date-code policy applies, and whether the parts come from authorised distribution or the open market.
+## 8. Is the date code and provenance on record?
 
-Open-market sourcing is legitimate and sometimes the only option for an obsolete part. It is not the same as authorised stock, and the difference should be on the record rather than discovered later.
+For anything going into a product with a warranty, the age of the material matters. Ask what date-code policy applies and whether parts come from authorised distribution or the open market.
 
-## Writing the BOM so it survives procurement
+Open-market sourcing is legitimate, and sometimes the only option for an obsolete part. It is not the same as authorised stock, and the difference belongs on the record rather than discovered later.
 
-Four columns, added to a normal BOM, remove most of the back-and-forth:
+## What four columns make a BOM survive procurement?
+
+Add these to a normal BOM and most of the back-and-forth disappears:
 
 - **Approved alternates**, each with a real manufacturer part number.
 - **Substitution rule** per line: `exact` where nothing may change, `equivalent` where a matching spec is acceptable.
 - **Critical parameters** for lines marked equivalent — the two or three numbers that must match.
-- **Notes** for anything with a handling constraint, a polarity quirk, or a matched pair.
+- **Notes** for anything with a handling constraint, a polarity quirk or a matched pair.
 
-That is a small amount of work at design time and it removes an entire class of delay at build time.
+Small work at design time, and it removes an entire class of delay at build time.
 
-## What we ask for
+## What we will not do
 
-For a first enquiry we need the Gerber, the BOM and the centroid file. If the BOM carries alternates and substitution rules, the DFM note comes back faster because there is less to ask about.
+- No silent substitution. Where a line cannot be bought as written, we say which line, what the options are, and the price effect of each.
+- No approval after the fact. If a substitution needs sign-off, the run waits for it rather than shipping and explaining.
+- No claim that an alternate is fully equivalent without the two or three critical parameters being named.
 
-Where a line cannot be bought as written, we say which line and what the options are, with the price effect of each. What we do not do is substitute quietly and let the difference surface in inspection.
+For a first enquiry we need the Gerber, the BOM and the centroid. If the BOM carries alternates and substitution rules, the DFM note comes back faster because there is less to ask about. The [capabilities page](/capabilities.html) covers the component sourcing and CoC side — what we buy, what we verify on incoming material, and what we do not hold in-house.

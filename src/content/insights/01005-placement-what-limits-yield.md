@@ -1,65 +1,88 @@
 ---
-title: "01005 placement: what actually limits your yield"
-seoTitle: "01005 Placement: What Actually Limits Your Yield"
-description: "01005 passives fail for reasons that have nothing to do with the placement machine. Stencil aperture, paste type, pad design and inspection each set a ceiling."
+title: "What actually limits 01005 placement yield?"
+seoTitle: "What Limits 01005 Placement Yield? Four Hard Ceilings"
+description: "01005 passives fail for reasons that have nothing to do with the placement head. Stencil aperture, paste type, pad geometry and inspection each set a ceiling."
 date: 2026-11-06
 tags: SMT, Yield, Fine-pitch
-summary: "The placer is rarely the constraint. Stencil, paste, pad geometry and inspection each cap what 01005 can do on a real line."
+summary: "The placer is rarely the constraint. Stencil, paste, pad geometry and inspection each cap what a 01005 design can do on a real line."
+cover: "/assets/images/aoi-inspection.webp"
+coverThumb: "/assets/images/aoi-inspection-thumb.webp"
+coverAlt: "Operator in a blue gown and hair net seated at an AOI machine, a green PCB with highlighted placements on the monitor, board magazine at the right"
 ---
 
-Most conversations about 01005 start with the wrong question: which machine can place it. Almost every current placer can. The interesting question is why a board that places cleanly still fails at reflow or at AOI, and that answer usually has nothing to do with the head.
+The placement head is almost never the limit. A 01005 part is about 0.4 × 0.2 mm, and every current placer can position it. What caps yield is how much solder the stencil releases, which paste carries it, whether the pads hold it centred, and whether inspection can see the joint at all.
 
-A 01005 part is roughly 0.4 mm by 0.2 mm. At that size the process stops being about positioning accuracy and starts being about how much solder you can reliably deposit and how much of it stays where you put it.
+## Is the placement machine the limit?
 
-## Start with the stencil, not the machine
+No, and treating it as the limit leads to the wrong fixes. A board that places cleanly and still fails at reflow or at AOI is showing a paste-volume problem, not a positioning problem. Turning up placement accuracy cannot deposit more solder.
 
-Paste release is the first ceiling. For a 01005 land, the aperture is small enough that the area ratio — aperture opening area divided by the area of the aperture walls — decides whether paste leaves the stencil at all.
+At this size the process stops being about positioning and starts being about deposit — how much solder lands on the pad, and how much of it stays where it was put.
 
-When that ratio gets low, paste tends to stay in the aperture and release unevenly. The result looks like a placement problem: parts tombstone or pull to one pad, or the joint has too little solder on one side. It is not a placement problem. Changing the placer settings will not fix it.
+## What does the stencil set?
 
-Practical levers, in the order worth trying:
+Paste release is the first ceiling. For a 01005 land the aperture is small enough that the area ratio — aperture opening area against the area of its walls — decides whether paste leaves the stencil at all.
 
-- Thinner stencil foil. Reducing thickness improves the area ratio for the same aperture, at the cost of paste volume on the larger parts sharing the board.
-- Laser-cut or electroformed apertures rather than anything with a rougher wall finish.
-- Aperture geometry adjusted to the land rather than copied from it, so the deposit is centred.
-- Nano-coating on the stencil, which helps release when a thin foil is not an option.
+When that ratio falls too low, paste stays in the aperture and releases unevenly. It looks like a placement defect: parts tombstone, pull to one pad, or end up with too little solder on one side. Changing placer settings will not fix any of those.
 
-## Paste type follows the aperture
+| Lever | What it buys | What it costs |
+| --- | --- | --- |
+| Thinner stencil foil | Better area ratio at the same aperture | Less paste volume for the larger parts sharing the panel |
+| Laser-cut or electroformed apertures | Cleaner wall finish, more consistent release | Higher stencil cost per revision |
+| Aperture geometry adjusted to the land, not copied from it | A centred deposit | Time at the DFM stage |
+| Nano-coating on the foil | Release when a thin foil is not an option | Consumable cost per stencil |
 
-Type 3 paste in a 01005 aperture is a volume problem before it is a printing problem. Type 4 is the usual answer, and Type 5 is used where apertures are smaller still.
+## Which paste type does 01005 need?
 
-The trade-off is real and worth stating plainly: finer powder oxidises faster and has a shorter stencil life. A Type 5 paste left on the stencil across a long run behaves worse than a Type 4 paste that is refreshed on schedule. If a line is running 01005 alongside 0402 and larger parts on one board, the paste choice is a compromise across the whole panel, not a decision made for the smallest part alone.
+Type 3 paste in a 01005 aperture is a volume problem before it is a printing problem. Type 4 is the usual answer, and Type 5 appears where apertures are smaller still.
 
-## Pad design and solder mask
+| Paste type | Where it fits | Trade-off |
+| --- | --- | --- |
+| Type 3 | 0402 and larger | Will not reliably fill a 01005 aperture |
+| Type 4 | 01005 alongside 0402 and above | The normal compromise on mixed panels |
+| Type 5 | Apertures below the 01005 window | Finer powder oxidises faster and shortens stencil life |
 
-Two layout choices cause most of the avoidable 01005 defects:
+The compromise is worth stating plainly: a Type 5 paste left on the stencil across a long run behaves worse than a Type 4 paste refreshed on schedule. On a mixed panel the paste choice is made for the whole board, not for the smallest part alone.
 
-**Solder mask defined versus copper defined lands.** Mask-defined pads reduce the effective copper area and make the deposit less predictable at this scale. Copper-defined with a mask dam is the more forgiving arrangement.
+## Which pad and mask choices cause 01005 defects?
 
-**Via-in-pad without fill and planarisation.** Paste wicks into the via and the part sits low or drifts. If the design needs via-in-pad under a 01005 land, the via needs filling and capping, which is a fabrication decision made long before assembly.
+Two layout decisions cause most of the avoidable defects, and a third is quieter:
 
-A third, quieter one: asymmetric copper around the two pads. Uneven thermal mass during reflow pulls the part toward the hotter side. At 0402 it is survivable. At 01005 it is a tombstone.
+| Layout choice | What happens at 01005 | What to do instead |
+| --- | --- | --- |
+| Solder-mask-defined land | Effective copper area shrinks and the deposit becomes unpredictable | Copper-defined land with a mask dam |
+| Via-in-pad without fill | Paste wicks into the via; the part sits low or drifts | Fill and cap the via at fabrication, or move it out of the land |
+| Asymmetric copper around the two pads | Uneven thermal mass pulls the part toward the hotter side | Balance copper on both pads |
 
-## The machine still matters, just less
+The third one is survivable at 0402 and a tombstone at 01005. It is a layout fix, and it is decided before the files ever reach an assembly floor.
 
-Placement force and nozzle selection are where the placer earns its place. Too much force embeds the part in the paste and squeezes it out to the sides; too little leaves it sitting on top, and reflow pulls it off-centre. Vacuum nozzles sized for the part, with force set low, are the normal configuration.
+## Where does the placer still matter?
 
-Vision recognition needs a clean contrast between part and background. Black parts on dark tape, or parts with a mirror finish, occasionally need a different lighting recipe. This is a per-part setup item, not a per-board one, which is why high-mix work carries setup cost that a single-product line never sees.
+Placement force and nozzle choice are where the machine earns its place. Too much force embeds the part in the paste and squeezes it sideways; too little leaves it sitting on top, and reflow pulls it off-centre. Vacuum nozzles sized to the part, with force set low, are the normal configuration.
 
-## Inspection is the real limit on what you can claim
+Vision also needs clean contrast between part and background. Black parts on dark tape, or parts with a mirror finish, occasionally need a different lighting recipe. That is a per-part setup item, not a per-board one — which is exactly why high-mix work carries setup cost a single-product line never sees.
 
-Here is the part most quotes skip. You can place 01005 and still not be able to verify it.
+## What can inspection actually verify at 01005?
 
-Optical inspection at this scale depends on resolution and on how much shadow the surrounding components cast. A board with tall electrolytic capacitors next to 01005 passives will have blind angles. X-ray helps with joints under area-array parts, but it is not a substitute for optical inspection of passives — the solder volume is small and the contrast is poor.
+This is the part most capability tables skip. A line can place 01005 and still not be able to verify it.
 
-So the honest statement is narrower than "we can place 01005". It is: we can place 01005, and we can inspect it optically where the neighbouring geometry allows, and we will tell you which parts of your board fall outside that.
+Optical inspection at this scale depends on resolution and on how much shadow the neighbouring components cast. A board with tall electrolytics beside 01005 passives has blind angles. X-ray helps with joints under area-array parts, but it is not a substitute for optical inspection of passives — the solder volume is small and the contrast is poor.
 
-## What to send with the enquiry
+So the accurate claim is narrower than "we place 01005". It is: we place 01005, we inspect it optically where the neighbouring geometry allows, and we tell you which areas of your board fall outside that.
 
-If a design uses 01005, three things decide whether the quote is realistic:
+## What we will not claim
+
+- No pass-yield percentage for 01005 on your design before the stencil and pad geometry have been reviewed.
+- No blanket "100% inspected" statement: optical coverage depends on component height around the part.
+- No quoting a 01005 build from a BOM alone. The stencil drawing and the land pattern decide whether the job is routine or engineering-reviewed.
+
+## What to send with a 01005 enquiry
+
+Three things decide whether the quote is realistic:
 
 1. The paste type the design assumes, or the smallest aperture on the stencil drawing.
 2. Whether any 01005 land has via-in-pad beneath it.
-3. How many 01005 parts sit next to tall components, since that determines inspectability.
+3. How many 01005 parts sit next to tall components, since that decides inspectability.
 
-Send the Gerber, the BOM and the centroid, and ask for a DFM note specifically on the 01005 areas. A supplier who answers that note in writing is telling you something more useful than a capability table.
+Send the Gerber, the BOM and the centroid, and ask for a DFM note specifically on the 01005 areas. The [capabilities page](/capabilities.html) lists the placement window we hold today — 01005 passives, 0.3 mm minimum IC pitch, boards up to 800 × 480 mm — and the [assembly page](/assembly.html) shows where in-line SPI, AOI and X-ray sit in the flow. A supplier who answers a DFM note in writing tells you more than any capability table.
+
+If the package choice is still open, [01005 vs 0201](/insights/01005-vs-0201.html) sets out when the smaller part is actually necessary, and [what AOI and X-ray can and cannot catch](/insights/what-aoi-xray-cannot-catch.html) explains the inspection gap in more detail.
