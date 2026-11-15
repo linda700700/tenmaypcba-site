@@ -23,7 +23,7 @@ export default function CapabilityMatrix() {
         { parameter: 'Minimum PCB Dimensions', standard: '50 mm × 50 mm (Breakaway)', advanced: 'Single board 10 mm × 10 mm' },
         { parameter: 'PCB Layer Count', standard: 'Set by the board fab', advanced: '1 – 32 layers typical' },
         { parameter: 'Component Package Types', standard: 'BGA, CSP, QFN, DFN, SOP, TSOP', advanced: 'Package-on-Package (PoP), Flip-Chip' },
-        { parameter: 'Placement Throughput', standard: '2,000,000 points per day', advanced: 'Across all eight lines' },
+        { parameter: 'Placement Throughput', standard: '2,000,000 points per day', advanced: 'About 250,000 per line; 300,000 on simple consumer boards' },
       ]
     },
     tht: {
