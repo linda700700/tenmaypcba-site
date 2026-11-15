@@ -2,7 +2,7 @@
 
 > PCBA contract manufacturer in Shenzhen, China, since 2008. High-mix, low-volume electronics assembly: SMT from 01005 passives, through-hole, in-line SPI / AOI / X-ray, conformal coating and box build, from fifty pieces at a three-day standard lead time.
 
-Operating facts stated on the site: eight Yamaha YSM20 / YSM10 placement lines, minimum component 01005 (0.4 × 0.2 mm), minimum IC pitch 0.30 mm, panel size up to 800 × 480 mm, in-line SPI, AOI and X-ray, workmanship reference IPC-A-610, minimum order fifty pieces, three-day standard lead time. Placement throughput is two million points a day across those eight lines — about 250,000 per line per day, rising to 300,000 on simple consumer boards. Contact: WhatsApp +86 173 6105 8693, phone +86 139 2377 2594.
+Operating facts stated on the site: eight Yamaha YSM20 / YSM10 placement lines, minimum component 01005 (0.4 × 0.2 mm), minimum IC pitch 0.30 mm, panel size up to 800 × 480 mm, in-line SPI, AOI and X-ray, workmanship reference IPC-A-610, minimum order fifty pieces, three-day standard lead time. Placement throughput is 300,000 points a day across those eight lines — about 37,500 per line per day. Contact: WhatsApp +86 173 6105 8693, phone +86 139 2377 2594.
 
 ## Main pages
 
