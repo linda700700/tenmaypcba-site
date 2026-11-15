@@ -9,7 +9,7 @@ const smtTable = [
   ['QFN / DFN lead pitch', '0.50 mm', '0.35 mm', 'Thermal pad aperture tuned per paste volume'],
   ['Fine-pitch leadframe (SOP/TSOP)', '0.4 mm', '0.3 mm', 'Lead coplanarity checked off-line'],
   ['Placement verification', '01005 passives', '0.3 mm minimum IC pitch', 'Verified on every first article by 3D AOI'],
-  ['Placement throughput', '2,000,000 points per day', 'about 250,000 per line, up to 300,000 on simple consumer boards', 'Stated per day, because that is how jobs are scheduled'],
+  ['Placement throughput', '300,000 points per day', 'about 37,500 per line per day', 'Stated per day, because that is how jobs are scheduled'],
   ['Maximum board size', '800 × 480 mm', 'Larger panels quoted on request', 'Panelisation agreed at DFM stage'],
   ['Minimum board size', '50 × 50 mm with breakaway', '10 × 10 mm single board', 'Carrier fixture for boards below 50 mm'],
   ['Board thickness range', '0.8 – 3.2 mm standard', 'Thinner stock run on a carrier', 'Confirmed against the stackup at DFM'],

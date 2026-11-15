@@ -25,7 +25,7 @@ const SERVICES = [
     image: '/assets/images/feeder-kitting.webp',
     alt: 'Placement head mounting components onto a panel',
     href: '/capabilities.html#smt',
-    points: ['8 lines, 2M points per day', 'Boards up to 800 × 480 mm', 'Selective solder for connectors'],
+    points: ['8 lines, 300K points per day', 'Boards up to 800 × 480 mm', 'Selective solder for connectors'],
   },
   {
     icon: ScanEye,

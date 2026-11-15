@@ -17,14 +17,14 @@ const GROUPS = [
         image: '/assets/images/feeder-kitting.webp',
         shot: 'Yamaha YSM20 head placing 01005 passives, nozzle close-up',
         promise: 'Eight production lines of Yamaha YSM20 and YSM10 equipment, running high-mix work with in-line print, placement and joint inspection on every shift.',
-        chips: ['01005', '0.3 mm pitch', '800 × 480 mm', '2M points/day'],
+        chips: ['01005', '0.3 mm pitch', '800 × 480 mm', '300K points/day'],
         specs: [
           ['Placement equipment', 'Yamaha YSM20 / YSM10'],
           ['Production lines', '8'],
           ['Finest IC pitch', '0.3 mm'],
           ['Maximum board', '800 × 480 mm'],
           ['Double-sided placement', 'Yes'],
-          ['Daily capacity', '2,000,000 placements'],
+          ['Daily capacity', '300,000 placements'],
         ],
       },
       {

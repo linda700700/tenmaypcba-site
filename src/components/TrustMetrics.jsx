@@ -66,7 +66,7 @@ export default function TrustMetrics() {
               <CheckSquare className="w-4 h-4 text-emerald-600" />
             </div>
             <div>
-               <div className="text-base font-bold text-slate-900">2M pts/day</div>
+               <div className="text-base font-bold text-slate-900">300K pts/day</div>
                <div className="text-slate-500 text-[12px]">Placement capacity</div>
             </div>
           </div>

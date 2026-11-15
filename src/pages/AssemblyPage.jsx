@@ -289,7 +289,7 @@ export default function AssemblyPage() {
           <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
             {[
               ['8', 'production lines'],
-              ['2M', 'points per day'],
+              ['300K', 'points per day'],
               ['01005', 'smallest part'],
               ['3', 'day standard build'],
             ].map(([big, label]) => (

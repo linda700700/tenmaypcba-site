@@ -102,7 +102,7 @@ export default function Hero() {
 
           <p className="mt-5 max-w-[520px] text-[17px] leading-[1.65] text-slate-700">
             {hero.sub ||
-              'Eight production lines, two million points a day, fifty pieces or five thousand. Same inspection on every batch, three-day standard turnaround.'}
+              'Eight production lines, 300,000 points a day, fifty pieces or five thousand. Same inspection on every batch, three-day standard turnaround.'}
           </p>
 
           <div className="mt-8 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap sm:items-center">
