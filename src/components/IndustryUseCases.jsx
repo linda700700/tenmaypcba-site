@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ArrowRight, Layers, Gauge, ChevronRight } from 'lucide-react';
 import { SECTORS, PRIORITY } from '../data/useCases';
 import IconTile from './IconTile';
+import { imgAttrs } from '../lib/imageSize';
 
 const TONE = {
   blue: 'border-brand-300 bg-brand-50',
@@ -71,7 +72,8 @@ export default function IndustryUseCases() {
         <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-12">
           <article className="overflow-hidden rounded-xl border border-brand-200/50 lg:col-span-7">
             <div className="relative aspect-[16/11] overflow-hidden">
-              <img src={sector.image} alt={sector.imageAlt} loading="lazy" className="h-full w-full object-cover" />
+              <img src={sector.image}
+              {...imgAttrs(sector.image)} alt={sector.imageAlt} loading="lazy" className="h-full w-full object-cover" />
               <span className="absolute left-4 top-4 rounded bg-brand-600 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
                 Lead product family
               </span>
@@ -114,7 +116,8 @@ export default function IndustryUseCases() {
                 <li key={c.id}>
                   <a href={`/applications.html#${c.id}`} className="group flex items-start gap-3 py-3.5">
                     <span className="zoom-parent mt-0.5 h-14 w-[68px] shrink-0 overflow-hidden rounded-md border border-brand-200/50 bg-slate-50">
-                      <img src={c.image} alt={c.name} loading="lazy" className="h-full w-full object-cover" />
+                      <img src={c.image}
+                      {...imgAttrs(c.image)} alt={c.name} loading="lazy" className="h-full w-full object-cover" />
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-baseline justify-between gap-2">

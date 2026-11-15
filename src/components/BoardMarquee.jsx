@@ -1,5 +1,6 @@
 import React from 'react';
 import { SECTORS } from '../data/useCases';
+import { imgAttrs } from '../lib/imageSize';
 
 /*
  * Continuous board strip under the hero. Pure CSS transform animation, paused
@@ -19,6 +20,7 @@ function Tile({ b }) {
       <div className="zoom-parent overflow-hidden rounded-lg border border-brand-200/50 bg-white">
         <img
           src={b.image}
+          {...imgAttrs(b.image)}
           alt={b.name}
           loading="lazy"
           className="h-[112px] w-full object-cover sm:h-[132px]"

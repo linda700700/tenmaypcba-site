@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { RotateCw, Layers } from 'lucide-react';
+import { imgAttrs } from '../lib/imageSize';
 
 /*
  * Photo band that turns over. Front: the actual board photograph. Back: the
@@ -25,7 +26,8 @@ export default function FlipMedia({ image, alt, index, title, lines, className =
       <div className="flip-inner">
         {/* front — photograph */}
         <div className="flip-face bg-slate-100">
-          <img src={image} alt={alt} loading="lazy" className="h-full w-full object-cover" />
+          <img src={image}
+          {...imgAttrs(image)} alt={alt} loading="lazy" className="h-full w-full object-cover" />
           <span className="absolute left-3 top-3 rounded bg-white/85 px-2 py-1 font-mono text-[11px] font-bold text-brand-800 backdrop-blur-sm">
             {String(index).padStart(2, '0')}
           </span>

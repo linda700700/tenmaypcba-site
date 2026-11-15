@@ -1,4 +1,5 @@
 import React from 'react';
+import { imgAttrs } from './imageSize';
 
 /*
  * A deliberately small Markdown subset. The site has no Markdown dependency and
@@ -175,6 +176,7 @@ export function Markdown({ source }) {
         <figure key={key} className="my-8">
           <img
             src={b.src}
+            {...imgAttrs(b.src)}
             alt={b.alt}
             loading="lazy"
             decoding="async"

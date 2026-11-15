@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
+import { imgAttrs } from '../lib/imageSize';
 
 /*
  * Every value in this file comes from the factory's own answers (see
@@ -247,6 +248,7 @@ export default function SolutionsSection() {
             <img
               key={s.id}
               src={s.image}
+              {...imgAttrs(s.image)}
               alt={s.shot}
               className="absolute inset-0 w-full h-full object-cover"
             />

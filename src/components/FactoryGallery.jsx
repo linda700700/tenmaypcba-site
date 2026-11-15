@@ -1,6 +1,7 @@
 import React from 'react';
 import { Video, CheckCircle2 } from 'lucide-react';
 import DragRail from './DragRail';
+import { imgAttrs } from '../lib/imageSize';
 
 /*
  * Shop floor, one station per card, on a rail you can drag. Each photograph is
@@ -131,6 +132,7 @@ export default function FactoryGallery() {
               <div className="group relative aspect-[16/9] overflow-hidden bg-slate-100">
                 <img
                   src={item.image}
+                  {...imgAttrs(item.image)}
                   alt={item.alt}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"

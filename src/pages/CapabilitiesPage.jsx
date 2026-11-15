@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, ChevronRight, Download, FileText, CheckCircle2, Activity, Cpu, Zap, Radio, UploadCloud, ShieldCheck } from 'lucide-react';
+import { imgAttrs } from '../lib/imageSize';
 
 const smtTable = [
   ['Minimum component size', '0201 (0.6 × 0.3 mm)', '01005 (0.4 × 0.2 mm)', 'Passive placement verified by 3D AOI'],
@@ -359,6 +360,7 @@ export default function CapabilitiesPage() {
                         {img && (
                           <img
                             src={img}
+                            {...imgAttrs(img)}
                             alt={title}
                             loading="lazy"
                             className="w-full h-[110px] object-cover rounded-sm border border-brand-200/50 bg-slate-100"

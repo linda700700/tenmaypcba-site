@@ -2,6 +2,7 @@ import React from 'react';
 import { ArrowRight, Check, Package, Cpu, ScanEye, Layers } from 'lucide-react';
 import IconTile from './IconTile';
 import Tilt from './Tilt';
+import { imgAttrs } from '../lib/imageSize';
 
 /*
  * Image-led service cards. One line of positioning, three verifiable bullets,
@@ -77,6 +78,7 @@ export default function CoreServices() {
               <div className="h-[136px] overflow-hidden bg-slate-100">
                 <img
                   src={s.image}
+                  {...imgAttrs(s.image)}
                   alt={s.alt}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"

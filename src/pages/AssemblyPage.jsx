@@ -3,6 +3,7 @@ import { ArrowRight, ChevronRight, Check, Flag, Download, MessageCircle } from '
 import IconTile from '../components/IconTile';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 import { FileCheck2, ClipboardList, PackageCheck, Cpu, ScanEye, Truck, Flame, Wrench, Boxes, Layers } from 'lucide-react';
+import { imgAttrs } from '../lib/imageSize';
 
 const TABS = [
   {
@@ -270,6 +271,7 @@ export default function AssemblyPage() {
                 <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                   <img
                     src={src}
+                    {...imgAttrs(src)}
                     alt={line}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"

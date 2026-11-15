@@ -7,6 +7,7 @@ import { SECTORS } from '../data/useCases';
 import { waLink, DEFAULT_WA_TEXT } from '../data/company';
 import FlipMedia from '../components/FlipMedia';
 import DragRail from '../components/DragRail';
+import { imgAttrs } from '../lib/imageSize';
 
 /*
  * Applications landing page. One page, twelve anchor targets — every product
@@ -118,6 +119,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
                 <span className="block h-[132px] overflow-hidden bg-slate-100">
                   <img
                     src={c.image}
+                    {...imgAttrs(c.image)}
                     alt={c.name}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"

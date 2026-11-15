@@ -4,6 +4,7 @@ import {
   Upload, MapPin, Clock, MessageCircle,
 } from 'lucide-react';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
+import { imgAttrs } from '../lib/imageSize';
 
 /*
  * Navigation data. Every figure here is a confirmed factory number — do not add
@@ -571,6 +572,7 @@ export default function Navbar({ currentPath = '/' }) {
                     <div className="relative w-[132px] shrink-0 bg-slate-100">
                       <img
                         src={activeSection.promo.image}
+                        {...imgAttrs(activeSection.promo.image)}
                         alt=""
                         className="absolute inset-0 w-full h-full object-cover"
                       />
