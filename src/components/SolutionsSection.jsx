@@ -15,7 +15,7 @@ const GROUPS = [
         id: 'smt',
         label: 'SMT Assembly',
         image: '/assets/images/feeder-kitting.webp',
-        shot: 'Yamaha YSM20 head placing 01005 passives, nozzle close-up',
+        shot: 'Reels loaded onto a feeder cart before an SMT changeover',
         promise: 'Eight production lines of Yamaha YSM20 and YSM10 equipment, running high-mix work with in-line print, placement and joint inspection on every shift.',
         chips: ['01005', '0.3 mm pitch', '800 × 480 mm', '300K points/day'],
         specs: [
@@ -30,8 +30,8 @@ const GROUPS = [
       {
         id: 'tht',
         label: 'Through-Hole Insertion',
-        image: '/assets/images/hero-line-aisle.webp',
-        shot: 'Operator inserting connectors at a THT station, boards staged behind',
+        image: '/assets/images/tht-selective-solder.webp',
+        shot: 'Through-hole connectors soldered at a station, boards staged behind',
         promise: 'Through-hole parts are inserted by hand on the same floor as reflow, so a mixed board never travels between suppliers.',
         chips: ['Manual insertion', 'Same site as SMT', '40 staff'],
         specs: [
@@ -43,8 +43,8 @@ const GROUPS = [
       {
         id: 'postsolder',
         label: 'Hand & Post Soldering',
-        image: '/assets/images/tht-selective-solder.webp',
-        shot: 'Post-solder bench with irons, fume extraction and a board in fixture',
+        image: '/assets/images/macro-joints.webp',
+        shot: 'Solder joints under magnification',
         promise: 'Post-soldering and rework finish connectors, shields and through-hole joints before the board moves to inspection.',
         chips: ['Hand stations', 'After reflow', 'In-house rework'],
         specs: [
@@ -57,7 +57,7 @@ const GROUPS = [
         id: 'mixed',
         label: 'Mixed Technology',
         image: '/assets/images/macro-joints.webp',
-        shot: 'Mixed-technology board, SMT passives beside a through-hole connector',
+        shot: 'Passives and a fine-pitch IC on a mixed-technology board',
         promise: 'Boards carrying both fine-pitch SMT and through-hole connectors move from reflow to insertion to post-solder in one flow.',
         chips: ['SMT + THT', 'Double-sided', '800 × 480 mm'],
         specs: [
@@ -75,8 +75,8 @@ const GROUPS = [
       {
         id: 'inspection',
         label: 'Inspection · SPI / AOI / X-ray',
-        image: '/assets/images/xray-inspection.webp',
-        shot: 'AOI monitor showing a flagged joint, X-ray image beside it',
+        image: '/assets/images/aoi-inspection.webp',
+        shot: 'AOI monitor showing a board with flagged joints',
         promise: 'Print, placement and joint quality are verified in-line on Zhenhuaxing equipment — three gates before a board is released.',
         chips: ['SPI', 'AOI', 'X-ray', 'Zhenhuaxing'],
         specs: [
@@ -90,8 +90,8 @@ const GROUPS = [
       {
         id: 'coating',
         label: 'Conformal Coating',
-        image: '/assets/images/final-check-packing.webp',
-        shot: 'Coating booth with masked board on the turntable',
+        image: '/assets/images/conformal-coating.webp',
+        shot: 'Coating booth with a masked board on the turntable',
         promise: 'Conformal coating is applied on site after inspection, so the board that leaves is the board that was tested.',
         chips: ['In-house', 'After inspection'],
         specs: [
@@ -103,8 +103,8 @@ const GROUPS = [
       {
         id: 'depaneling',
         label: 'Depaneling & Programming',
-        image: '/assets/images/aoi-inspection.webp',
-        shot: 'Depaneling router separating a panel, programmer beside it',
+        image: '/assets/images/hero-line-aisle.webp',
+        shot: 'Production floor — panel separation and programming sit at the end of each line',
         promise: 'Panels are separated and devices programmed at dedicated stations before packing, with the firmware version bound to the lot.',
         chips: ['Depaneling machine', 'Programming station'],
         specs: [
@@ -121,8 +121,8 @@ const GROUPS = [
       {
         id: 'turnkey',
         label: 'Turnkey & Board Supply',
-        image: '/assets/images/macro-joints.webp',
-        shot: 'Incoming bare-board inspection against a stackup drawing',
+        image: '/assets/images/final-check-packing.webp',
+        shot: 'Final check and packing of a finished batch',
         promise: 'We do not fabricate bare boards. Boards are purchased from qualified partner fabs and inspected on arrival; volume beyond eight lines is routed to a partner plant of several hundred staff.',
         chips: ['0 in-house fab', 'Partner fabs', 'Overflow plant'],
         specs: [
