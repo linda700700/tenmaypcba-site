@@ -94,7 +94,24 @@ try {
   check(hp.present, 'honeypot field is in the form');
   check(hp.offscreen && hp.ariaHidden, 'honeypot is off-screen and hidden from assistive tech',
     JSON.stringify(hp));
-  check(hp.tabIndex === -1 && !hp.focused, 'honeypot cannot take keyboard focus', JSON.stringify(hp));
+  // tabIndex -1 is the property that matters: it removes the field from the tab
+  // order while still allowing programmatic focus. Tabbing through the real
+  // fields is the check, not .focus(), which always succeeds by design.
+  check(hp.tabIndex === -1, 'honeypot is out of the tab order', `tabIndex=${hp.tabIndex}`);
+
+  await page.focus('#rfq input[name=email]');
+  const trail = [];
+  for (let i = 0; i < 7; i += 1) {
+    await page.keyboard.press('Tab');
+    trail.push(
+      await page.evaluate(() => {
+        const el = document.activeElement;
+        if (!el) return 'none';
+        return el.getAttribute('name') || el.getAttribute('type') || el.tagName;
+      })
+    );
+  }
+  check(!trail.includes('website'), 'tabbing never lands on the honeypot', trail.join(' > '));
 
   await page.$eval('#rfq', (el) => el.scrollIntoView({ block: 'center' }));
   await new Promise((r) => setTimeout(r, 800));
