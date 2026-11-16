@@ -10,6 +10,12 @@ name: RFQ intake probe
 # via the write_test_row input.
 
 on:
+  # Editing this file is the trigger: the push that changes it runs the probe
+  # exactly once, and nothing else ever does. workflow_dispatch is kept for a
+  # future where src becomes the default branch.
+  push:
+    paths:
+      - '.github/workflows/rfq-probe.yml'
   workflow_dispatch:
     inputs:
       write_test_row:
@@ -28,7 +34,7 @@ jobs:
         env:
           INTAKE: https://tenmay-rfq-intake.tenmaypcba.workers.dev
           ORIGIN: https://tenmaypcba.com
-          WRITE_ROW: ${{ inputs.write_test_row }}
+          WRITE_ROW: ${{ inputs.write_test_row || 'false' }}
         run: |
           set -uo pipefail
 
