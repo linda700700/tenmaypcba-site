@@ -49,8 +49,10 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: rfq-e2e-screenshot
-          path: rfq-success.png
+          name: rfq-e2e-screenshots
+          path: |
+            rfq-form.png
+            rfq-success.png
           if-no-files-found: warn
 
       - name: Remove the row this check created
