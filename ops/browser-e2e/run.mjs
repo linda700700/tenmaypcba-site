@@ -72,8 +72,29 @@ try {
 
   // The form lives in the prerendered markup, so this only passes if the HTML
   // itself is intact; the click below is what needs the JavaScript bundle.
-  await page.waitForSelector('#rfq input[type=email]', { timeout: 30000 });
+  await page.waitForSelector('#rfq input[name=email]', { timeout: 30000 });
   check(true, 'RFQ form is in the served HTML');
+
+  // The honeypot only works if it is unreachable by a person. Assert that
+  // rather than trusting the styling: an off-screen field that can still be
+  // tabbed into is a way to lose real enquiries.
+  const hp = await page.evaluate(() => {
+    const el = document.querySelector('#rfq input[name=website]');
+    if (!el) return { present: false };
+    const r = el.getBoundingClientRect();
+    el.focus();
+    return {
+      present: true,
+      focused: document.activeElement === el,
+      offscreen: r.right < 0 || r.bottom < 0 || r.width < 2 || r.height < 2,
+      ariaHidden: el.closest('[aria-hidden="true"]') !== null,
+      tabIndex: el.tabIndex,
+    };
+  });
+  check(hp.present, 'honeypot field is in the form');
+  check(hp.offscreen && hp.ariaHidden, 'honeypot is off-screen and hidden from assistive tech',
+    JSON.stringify(hp));
+  check(hp.tabIndex === -1 && !hp.focused, 'honeypot cannot take keyboard focus', JSON.stringify(hp));
 
   await page.$eval('#rfq', (el) => el.scrollIntoView({ block: 'center' }));
   await new Promise((r) => setTimeout(r, 800));
@@ -105,12 +126,14 @@ try {
   );
   check(model, 'procurement model button clickable');
 
-  await page.type('#rfq input[type=email]', EMAIL);
-  await page.type('#rfq input[type=text]', COMPANY);
-  await page.type('#rfq textarea', 'Automated end-to-end check from the deploy pipeline. Safe to delete.');
+  await page.type('#rfq input[name=email]', EMAIL);
+  await page.type('#rfq input[name=company]', COMPANY);
+  await page.type('#rfq textarea[name=notes]', 'Automated end-to-end check from the deploy pipeline. Safe to delete.');
 
-  const emailValue = await page.$eval('#rfq input[type=email]', (el) => el.value);
+  const emailValue = await page.$eval('#rfq input[name=email]', (el) => el.value);
   check(emailValue === EMAIL, 'typed email lands in the field', emailValue);
+  const hpValue = await page.$eval('#rfq input[name=website]', (el) => el.value);
+  check(hpValue === '', 'honeypot stayed empty for a real visitor', hpValue || '(empty)');
 
   await page.click('#rfq button[type=submit]');
 
