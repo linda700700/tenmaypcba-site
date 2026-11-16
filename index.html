@@ -118,6 +118,12 @@
         }, true);
       })();
     </script>
+    <!-- First-party collection. Nothing to configure here on purpose: this head
+         is copied into all 11 prerendered routes, so any constant placed in it
+         would need 11 edits later. The endpoint lives in /tm-data.js, on its own
+         line, as the single switch. While that switch is empty there is no
+         visitor id, no request, and no extra field in the quote form. -->
+    <script src="/tm-data.js" defer></script>
     <!-- deploy-stamp: 2026-10-28T14:30Z seo-head -->
   </head>
   <body>

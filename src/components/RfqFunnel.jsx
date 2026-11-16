@@ -2,7 +2,14 @@ import React, { useState } from 'react';
 import { CheckCircle2, FileText, Lock, ArrowRight, Clock, Send, MessageCircle } from 'lucide-react';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 
-const INTAKE_URL = 'https://tenmay-rfq-intake.tenmaypcba.workers.dev';
+/*
+ * Where a quote request is written. Defaults to the Cloudflare Worker that is
+ * live today. Once the Hong Kong data plane answers, set VITE_INTAKE_URL at
+ * build time to its /intake path and the same form moves over with no code
+ * change; the payload it sends is identical.
+ */
+const INTAKE_URL =
+  import.meta.env.VITE_INTAKE_URL || 'https://tenmay-rfq-intake.tenmaypcba.workers.dev';
 
 // The tracker is defined in index.html so it survives a failed bundle. Only the
 // outcome of the submit needs a call from here — the page cannot observe it.
@@ -80,6 +87,11 @@ export default function RfqFunnel() {
           quantity: Number(quantity) || null,
           need: lines.join('\n'),
           website: '',
+          // Only present once first-party collection is armed in index.html.
+          // The intake server uses it to join this submission to what the same
+          // visitor read on the site before writing; undefined is dropped by
+          // JSON.stringify, so the payload is unchanged while disarmed.
+          vid: window.tmVisitorId || undefined,
         }),
       });
 
