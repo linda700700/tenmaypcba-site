@@ -1,0 +1,17 @@
+{
+  "name": "tenmay-dataplane",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "First-party data plane for tenmaypcba.com: intake, events, attribution, push.",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "STORE=memory DRY_RUN=1 DEV_ALLOW=1 PORT=8787 node server.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  }
+}

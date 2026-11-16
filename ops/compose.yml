@@ -1,0 +1,54 @@
+# tenmay dataplane — phase 1 (no public port yet, everything on loopback)
+# Postgres + Node dataplane. Caddy is added in phase 2 (see enable-tls.sh).
+#
+#   cd /opt/tenmay && docker compose up -d
+#
+name: tenmay
+
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: dataplane
+      POSTGRES_USER: tenmay
+      POSTGRES_PASSWORD: ${PG_PASSWORD:?PG_PASSWORD must be set in .env}
+      # Deterministic collation so the schema behaves identically everywhere.
+      POSTGRES_INITDB_ARGS: "--locale=C --encoding=UTF8"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+      - /opt/tenmay/dataplane/schema.sql:/docker-entrypoint-initdb.d/10-schema.sql:ro
+    ports:
+      - "127.0.0.1:5432:5432"
+    mem_limit: 512m
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U tenmay -d dataplane"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+  dataplane:
+    image: node:20-alpine
+    restart: unless-stopped
+    working_dir: /app
+    # One `npm install` on first boot, then normal start. `pg` is the only dependency.
+    command: sh -c "npm install --omit=dev --no-audit --no-fund && exec node server.js"
+    volumes:
+      - /opt/tenmay/dataplane:/app
+    env_file:
+      - /opt/tenmay/dataplane.env
+    ports:
+      - "127.0.0.1:8787:8787"
+    depends_on:
+      db:
+        condition: service_healthy
+    mem_limit: 256m
+    logging:
+      driver: json-file
+      options: { max-size: "10m", max-file: "3" }
+
+volumes:
+  dbdata:
