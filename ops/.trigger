@@ -1,3 +1,3 @@
-script: ops/verify-keyonly.sh
+script: ops/inspect-inbox.sh
 dry: 0
-# verify key-only and disarm the revert; 20261116-125529
+# after lockdown: confirm ops still works with key only; 20261116-125744
