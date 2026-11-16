@@ -152,6 +152,13 @@ try {
   const hpValue = await page.$eval('#rfq input[name=website]', (el) => el.value);
   check(hpValue === '', 'honeypot stayed empty for a real visitor', hpValue || '(empty)');
 
+  // Keep a picture of the form as a visitor sees it, filled in: the success
+  // panel alone cannot show whether the three-step strip renders or the badge
+  // copy landed.
+  await page.$eval('#rfq', (el) => el.scrollIntoView({ block: 'start' }));
+  await new Promise((r) => setTimeout(r, 400));
+  await page.screenshot({ path: 'rfq-form.png' });
+
   await page.click('#rfq button[type=submit]');
 
   let succeeded = true;
