@@ -12,9 +12,6 @@ const TONE = {
 
 export default function IndustryUseCases() {
   const [active, setActive] = useState(0);
-  const sector = SECTORS[active];
-  const featured = sector.cases.find((c) => c.id === sector.imageCase) || sector.cases[0];
-  const others = sector.cases.filter((c) => c.id !== featured.id);
 
   return (
     <section id="applications" className="scroll-mt-24 border-y border-brand-200/50 bg-white py-16 sm:py-20">
@@ -68,12 +65,21 @@ export default function IndustryUseCases() {
           ))}
         </div>
 
-        {/* featured case + list */}
-        <div className="mt-6 grid grid-cols-1 gap-5 lg:grid-cols-12">
+        {/* featured case + list — every sector is rendered, so the served HTML
+            carries all twelve product families and not just the selected one.
+            The inactive sectors sit in a plain wrapper with the hidden
+            attribute: no display utility on it, or the class would beat the
+            user-agent rule and the panel would stay on screen. */}
+        {SECTORS.map((s, i) => {
+          const featured = s.cases.find((c) => c.id === s.imageCase) || s.cases[0];
+          const others = s.cases.filter((c) => c.id !== featured.id);
+          return (
+            <div key={s.id} hidden={i !== active} className="mt-6">
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-12">
           <article className="overflow-hidden rounded-xl border border-brand-200/50 lg:col-span-7">
             <div className="relative aspect-[16/11] overflow-hidden">
-              <img src={sector.image}
-              {...imgAttrs(sector.image)} alt={sector.imageAlt} loading="lazy" className="h-full w-full object-cover" />
+              <img src={s.image}
+              {...imgAttrs(s.image)} alt={s.imageAlt} loading="lazy" className="h-full w-full object-cover" />
               <span className="absolute left-4 top-4 rounded bg-brand-600 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
                 Lead product family
               </span>
@@ -110,7 +116,7 @@ export default function IndustryUseCases() {
           </article>
 
           <div className="lg:col-span-5">
-            <p className="text-[13px] leading-relaxed text-slate-500">{sector.blurb}</p>
+            <p className="text-[13px] leading-relaxed text-slate-500">{s.blurb}</p>
             <ul className="mt-3 divide-y divide-slate-100 border-y border-slate-100">
               {others.map((c) => (
                 <li key={c.id}>
@@ -144,6 +150,9 @@ export default function IndustryUseCases() {
             </a>
           </div>
         </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );
