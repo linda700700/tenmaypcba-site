@@ -4,6 +4,14 @@ import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 
 const INTAKE_URL = 'https://tenmay-rfq-intake.tenmaypcba.workers.dev';
 
+// The tracker is defined in index.html so it survives a failed bundle. Only the
+// outcome of the submit needs a call from here — the page cannot observe it.
+const track = (name, params) => {
+  if (typeof window !== 'undefined' && typeof window.tmTrack === 'function') {
+    window.tmTrack(name, params);
+  }
+};
+
 export default function RfqFunnel() {
   const [quantity, setQuantity] = useState('50');
   const [serviceType, setServiceType] = useState('turnkey');
@@ -80,15 +88,26 @@ export default function RfqFunnel() {
       if (res.ok && out.ok) {
         setReference(out.ref || '');
         setSubmitted(true);
+        // No email, no company, no notes: the event carries only what a report
+        // needs to segment the lead by service and size.
+        track('form_submit_success', {
+          form: 'rfq',
+          service: serviceType,
+          quantity: Number(quantity) || 0,
+        });
       } else if (res.status === 429) {
         setError('Too many requests from this network. Try again in a minute.');
+        track('form_submit_failed', { form: 'rfq', reason: 'rate_limit' });
       } else if (res.status === 400) {
         setError('Please check the email address and try again.');
+        track('form_submit_failed', { form: 'rfq', reason: 'invalid_email' });
       } else {
         setError('The form could not be sent. Send the same details on WhatsApp below.');
+        track('form_submit_failed', { form: 'rfq', reason: 'server' });
       }
     } catch {
       setError('Your network could not reach our form server. Send the same details on WhatsApp below.');
+      track('form_submit_failed', { form: 'rfq', reason: 'network' });
     } finally {
       clearTimeout(timer);
       setSending(false);
