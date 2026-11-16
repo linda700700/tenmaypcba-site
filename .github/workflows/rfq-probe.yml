@@ -34,7 +34,7 @@ jobs:
         env:
           INTAKE: https://tenmay-rfq-intake.tenmaypcba.workers.dev
           ORIGIN: https://tenmaypcba.com
-          WRITE_ROW: 'true'
+          WRITE_ROW: ${{ inputs.write_test_row || 'false' }}
         run: |
           set -uo pipefail
 
