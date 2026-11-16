@@ -79,6 +79,30 @@ for r in rows:
     print("    removed #%s %s" % (r.get("id"), r.get("email")))
 '
 
+say "3b. remove this repository's own acceptance-check rows"
+# The end-to-end check has to post a real row to prove the path works, and it
+# addresses the row to check@tenmaypcba.com, so the sweep above does not catch
+# it. It marks itself in the company column instead: anything starting with
+# "SAMPLE ROW" was written by ops/browser-contract.sh, never by a buyer.
+DEL2="$(curl -sS -m 20 -X DELETE \
+  "$BASE/rest/v1/inquiries?customer=like.SAMPLE%20ROW%20-%20acceptance%20check*" \
+  -H "apikey: $ANON" -H "authorization: Bearer $tok" \
+  -H 'prefer: return=representation' </dev/null 2>/dev/null)"
+printf '%s' "$DEL2" | python3 -c '
+import json,sys
+raw=sys.stdin.read()
+try:
+    rows=json.loads(raw)
+except Exception:
+    print("    raw:", raw[:200]); raise SystemExit
+if not isinstance(rows,list):
+    print("    raw:", raw[:200]); raise SystemExit
+if not rows:
+    print("    nothing to remove"); raise SystemExit
+for r in rows:
+    print("    removed #%s %s" % (r.get("id"), str(r.get("customer"))[:60]))
+'
+
 say "4. what the workbench counts now"
 NOW="$(curl -sS -m 20 -o /dev/null -D - "$BASE/rest/v1/inquiries?select=id" \
   -H "apikey: $ANON" -H "authorization: Bearer $tok" \
