@@ -85,7 +85,11 @@ jobs:
           SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD || secrets.TENMAYPCBA }}
           SCRIPT: ${{ steps.t.outputs.script }}
           DRY: ${{ steps.t.outputs.dry }}
-          TENMAY_BOT_PASS: ${{ secrets.TENMAY_BOT_PASS }}
+          # Three spellings are accepted on purpose. GitHub rejects a secret
+          # name containing a stray space with a generic message, and the
+          # obvious fix is to retype a shorter name — so the shorter ones work
+          # here too instead of costing another round trip.
+          TENMAY_BOT_PASS: ${{ secrets.TENMAY_BOT_PASS || secrets.TENMAYBOTPASS || secrets.BOTPASS }}
           BOT_EMAIL: bot@tenmaypcba.com
         run: |
           set -o pipefail
