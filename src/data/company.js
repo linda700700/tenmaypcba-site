@@ -30,6 +30,18 @@ export const COMPANY = {
   languages: ['English', 'Chinese'],
 };
 
+/*
+ * ISO 9001 certificate. The number is displayed on the quality section and is
+ * the first thing a procurement engineer checks, so it lives in data rather
+ * than in copy: an empty value renders "issued on request" instead of a claim
+ * nobody can verify.
+ */
+export const ISO_CERT = {
+  standard: 'ISO 9001:2015',
+  number: '',   // e.g. 'CN 123456' — leave empty until the real number is entered
+  body: '',     // issuing body, e.g. 'SGS'
+};
+
 export const waLink = (text) =>
   `${COMPANY.whatsappHref}?text=${encodeURIComponent(text)}`;
 

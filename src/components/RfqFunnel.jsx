@@ -33,6 +33,12 @@ export default function RfqFunnel() {
   const [email, setEmail] = useState('');
   const [company, setCompany] = useState('');
   const [notes, setNotes] = useState('');
+  // Honeypot. A person never sees this field or tabs into it; a script that
+  // fills every input it finds does. The server rejects any submission where it
+  // carries a value, so spam costs one wasted request instead of a fake lead in
+  // the inbox. It is positioned off-screen rather than display:none because the
+  // cheap bots skip fields that are explicitly hidden.
+  const [honeypot, setHoneypot] = useState('');
   const [sending, setSending] = useState(false);
   const [reference, setReference] = useState('');
   const [error, setError] = useState('');
@@ -75,6 +81,16 @@ export default function RfqFunnel() {
       ].filter(Boolean).join('\n'),
     );
 
+    // Records the attempt separately from the success: without it a falling
+    // submit rate cannot be told apart from falling traffic.
+    track('form_submit_attempt', {
+      form: 'rfq',
+      service: serviceType,
+      quantity: Number(quantity) || 0,
+      has_notes: Boolean(notes),
+      has_company: Boolean(company),
+    });
+
     // A blocked network can hang the request for a long time; fail fast instead.
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), 15000);
@@ -91,7 +107,8 @@ export default function RfqFunnel() {
           process: serviceType,
           quantity: Number(quantity) || null,
           need: lines.join('\n'),
-          website: '',
+          // Filled only by something that fills every input on the page.
+          website: honeypot,
           // Only present once first-party collection is armed in index.html.
           // The intake server uses it to join this submission to what the same
           // visitor read on the site before writing; undefined is dropped by
@@ -116,8 +133,13 @@ export default function RfqFunnel() {
         setError('Too many requests from this network. Try again in a minute.');
         track('form_submit_failed', { form: 'rfq', reason: 'rate_limit' });
       } else if (res.status === 400) {
-        setError('Please check the email address and try again.');
-        track('form_submit_failed', { form: 'rfq', reason: 'invalid_email' });
+        setError(
+          'We could not take this submission. Check the email address, then try again or send it on WhatsApp below.'
+        );
+        track('form_submit_failed', {
+          form: 'rfq',
+          reason: out.error === 'rejected' ? 'rejected' : 'invalid_email',
+        });
       } else {
         setError('The form could not be sent. Send the same details on WhatsApp below.');
         track('form_submit_failed', { form: 'rfq', reason: 'server' });
@@ -139,7 +161,12 @@ export default function RfqFunnel() {
         <div className="text-center max-w-2xl mx-auto pb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-white border border-brand-200/50 text-xs font-semibold text-[#126B3F] rounded-full shadow-sm mb-3">
             <Lock className="w-3.5 h-3.5" />
-            <span>MUTUAL NDA & ENCRYPTED TRANSMISSION PROTOCOL</span>
+            {/* Says what actually happens. The previous wording ("mutual NDA and
+                encrypted transmission protocol") described a process the page
+                does not run — no NDA is signed before a quote, and "protocol"
+                implies more than TLS. A procurement engineer reads that as
+                overclaiming, which costs more trust than the badge buys. */}
+            <span>NDA ON REQUEST · SUBMITTED OVER HTTPS</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight">
             Request Your Itemized 24-Hour Quote
@@ -147,6 +174,27 @@ export default function RfqFunnel() {
           <p className="text-sm text-slate-600 mt-2.5 leading-relaxed">
             Tell us what you are building and we reply with a secure upload link. Our bilingual manufacturing engineering team reviews your design rules and returns an auditable proposal within one working day.
           </p>
+
+          {/* The three things a first-time visitor is actually unsure about:
+              how long this takes, whether files are needed now, and what comes
+              back. Stated before the form so the ask feels bounded. */}
+          <ol className="mt-6 grid grid-cols-1 gap-3 text-left sm:grid-cols-3">
+            {[
+              ['1', 'You submit the requirement', 'About a minute. No files needed yet — no BOM, no Gerber.'],
+              ['2', 'We reply within one working day', 'A secure upload link plus any DFM questions, in one message.'],
+              ['3', 'You get an itemized quote', 'Per-line pricing, lead time, and the assumptions written down.'],
+            ].map(([n, title, body]) => (
+              <li key={n} className="flex gap-2.5 rounded-xl border border-brand-200/50 bg-white/70 px-3.5 py-3">
+                <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#126B3F] text-[11px] font-bold text-white">
+                  {n}
+                </span>
+                <span>
+                  <span className="block text-[12.5px] font-bold text-slate-900">{title}</span>
+                  <span className="mt-0.5 block text-[12px] leading-relaxed text-slate-600">{body}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
         </div>
 
         {/* Funnel Card */}
@@ -163,9 +211,9 @@ export default function RfqFunnel() {
               ) : null}
               <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
                 Your request is logged. An assembly engineer replies to
-                {' '}<span className="font-semibold text-slate-800">{email}</span> within one working day.
-                {' '}Files chosen on this page stay in your browser — send the Gerber / BOM archive on
-                {' '}<span className="text-[#126B3F] font-bold">WhatsApp {COMPANY.whatsappDisplay}</span> quoting the reference above.
+                {' '}<span className="font-semibold text-slate-800">{email}</span> within one working day,
+                with a secure upload link for the Gerber / BOM archive. If it is urgent, send the files on
+                {' '}<span className="text-[#126B3F] font-bold">WhatsApp {COMPANY.whatsappDisplay}</span> and quote the reference above.
               </p>
               <a
                 href={waLink(DEFAULT_WA_TEXT)}
@@ -268,6 +316,8 @@ export default function RfqFunnel() {
                   </label>
                   <input
                     type="email"
+                    name="email"
+                    autoComplete="email"
                     required
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -282,6 +332,8 @@ export default function RfqFunnel() {
                   </label>
                   <input
                     type="text"
+                    name="company"
+                    autoComplete="organization"
                     value={company}
                     onChange={(e) => setCompany(e.target.value)}
                     placeholder="e.g. Acme Hardware Ltd."
@@ -296,11 +348,33 @@ export default function RfqFunnel() {
                 </label>
                 <textarea
                   rows={2}
+                  name="notes"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
                   placeholder="e.g. Requires IPC Class 3 inspection, 0.4mm BGA on top side, conformal coating needed, target delivery within 10 days..."
                   className="w-full bg-slate-50 border border-brand-200/50 rounded-lg p-3 text-xs text-slate-900 focus:bg-white focus:border-[#126B3F] outline-none"
                 ></textarea>
+              </div>
+
+              {/* Off-screen, unfocusable, and ignored by password managers.
+                  aria-hidden keeps it away from screen readers; tabIndex -1
+                  keeps it away from the keyboard. */}
+              <div
+                aria-hidden="true"
+                className="pointer-events-none absolute left-[-9999px] top-auto h-px w-px overflow-hidden"
+              >
+                <label htmlFor="tm-hp">Company website</label>
+                <input
+                  id="tm-hp"
+                  name="website"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  data-lpignore="true"
+                  data-1p-ignore="true"
+                  value={honeypot}
+                  onChange={(e) => setHoneypot(e.target.value)}
+                />
               </div>
 
               {/* Submit CTA */}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { ISO_CERT } from '../data/company';
 import { Award, CheckCircle2, MinusCircle, ArrowRight } from 'lucide-react';
 
 /*
@@ -35,7 +36,13 @@ const STAGES = [
 ];
 
 const HELD = [
-  { code: 'ISO 9001', label: 'Quality management system', note: 'Certificate number issued on request' },
+  {
+    code: 'ISO 9001',
+    label: 'Quality management system',
+    note: ISO_CERT.number
+      ? `Certificate ${ISO_CERT.number}${ISO_CERT.body ? ` · ${ISO_CERT.body}` : ''}`
+      : 'Certificate number issued on request',
+  },
   { code: 'IPC-A-610', label: 'Workmanship acceptance', note: 'Acceptance class agreed per order' },
   { code: 'RoHS / REACH', label: 'Substance declarations', note: 'Issued per shipment' },
 ];
