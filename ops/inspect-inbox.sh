@@ -83,9 +83,11 @@ say "3b. remove this repository's own acceptance-check rows"
 # The end-to-end check has to post a real row to prove the path works, and it
 # addresses the row to check@tenmaypcba.com, so the sweep above does not catch
 # it. It marks itself in the company column instead: anything starting with
-# "SAMPLE ROW" was written by ops/browser-contract.sh, never by a buyer.
+# "SAMPLE ROW" was written by ops/browser-contract.sh or the browser e2e, never
+# by a buyer. The prefix is matched loosely on purpose — narrowing it to the
+# exact wording of one script let a second script's rows survive a cleanup.
 DEL2="$(curl -sS -m 20 -X DELETE \
-  "$BASE/rest/v1/inquiries?customer=like.SAMPLE%20ROW%20-%20acceptance%20check*" \
+  "$BASE/rest/v1/inquiries?customer=like.SAMPLE%20ROW*" \
   -H "apikey: $ANON" -H "authorization: Bearer $tok" \
   -H 'prefer: return=representation' </dev/null 2>/dev/null)"
 printf '%s' "$DEL2" | python3 -c '
