@@ -1,0 +1,110 @@
+name: server
+
+# Runs an ops/ script on the Hong Kong box (47.82.97.141) from a GitHub runner,
+# because the workstation this repo is edited from has no outbound SSH.
+#
+# Setup, once:
+#   Settings → Secrets and variables → Actions → New repository secret
+#     SWAS_ROOT_PASSWORD = the root password set in the Alibaba Cloud console
+# The password is never printed and never leaves the runner as a value; when the
+# box is fully provisioned, delete the secret and reset the root password.
+#
+# Until that secret exists this workflow fails on the first step and changes nothing.
+
+on:
+  workflow_dispatch:
+    inputs:
+      script:
+        description: "ops/ script to execute on the server"
+        required: true
+        default: "ops/provision.sh"
+        type: choice
+        options:
+          - ops/provision.sh
+          - ops/enable-tls.sh
+      dry_run:
+        description: "only print the machine identity, change nothing"
+        required: false
+        default: false
+        type: boolean
+
+concurrency:
+  group: server-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: src
+
+      - name: check secret
+        env:
+          SWAS_PASS: ${{ secrets.SWAS_ROOT_PASSWORD }}
+        run: |
+          if [ -z "$SWAS_PASS" ]; then
+            echo "::error::SWAS_ROOT_PASSWORD is not set. Add it under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          echo "secret present (length ${#SWAS_PASS})"
+
+      - name: connect
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq sshpass
+          for i in 1 2 3; do
+            if sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+                 -o ConnectTimeout=15 -p 22 root@47.82.97.141 'echo connected; uname -sr; nproc; free -g | awk "/^Mem:/{print \$2\" GiB\"}"'; then
+              exit 0
+            fi
+            echo "attempt $i failed, retrying in 10s"; sleep 10
+          done
+          echo "::error::cannot reach 47.82.97.141:22 from the runner"
+          exit 1
+        env:
+          SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD }}
+
+      - name: run script
+        env:
+          SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD }}
+          SCRIPT: ${{ inputs.script }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          if [ "$DRY_RUN" = "true" ]; then
+            sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 root@47.82.97.141 \
+              'hostname; cat /etc/os-release | head -3; df -h /; free -h; ss -lntp | head -20; docker --version 2>/dev/null || echo "docker: not installed"'
+            exit 0
+          fi
+          case "$SCRIPT" in
+            ops/provision.sh|ops/enable-tls.sh) ;;
+            *) echo "::error::refusing to run $SCRIPT"; exit 1 ;;
+          esac
+          test -s "$SCRIPT" || { echo "::error::$SCRIPT missing"; exit 1; }
+          # Stream the script over stdin; nothing is stored on the box except /opt/tenmay.
+          sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
+            -o ServerAliveInterval=30 -o ServerAliveCountMax=20 -p 22 root@47.82.97.141 \
+            'bash -s' < "$SCRIPT" 2>&1 | tee /tmp/run.log
+          # The remote exit status is lost through the pipe, so check the marker the
+          # scripts print when they finish, and fail loudly otherwise.
+          if grep -qE 'phase (1|2) complete' /tmp/run.log; then
+            echo "::notice::script reported completion"
+          else
+            echo "::error::script did not reach its completion marker — read the log above"
+            exit 1
+          fi
+
+      - name: verify from outside
+        run: |
+          echo "DNS (public resolvers):"
+          dig +short api.tenmaypcba.com @8.8.8.8 || true
+          dig +short rt.tenmaypcba.com @8.8.8.8 || true
+          echo "HTTPS:"
+          for h in api.tenmaypcba.com rt.tenmaypcba.com; do
+            code=$(curl -sS -o /tmp/h.txt -m 15 -w '%{http_code}' "https://$h/healthz" || true)
+            echo "https://$h/healthz -> ${code:-000} $(head -c 200 /tmp/h.txt 2>/dev/null)"
+          done
+          echo "Direct IP:"
+          curl -sS -o /dev/null -m 10 -w 'http://47.82.97.141 -> %{http_code}\n' http://47.82.97.141 || true
