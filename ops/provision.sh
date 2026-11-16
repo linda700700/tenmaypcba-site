@@ -28,7 +28,7 @@ die() { printf '\n\033[1;31m!!  %s\033[0m\n' "$*" >&2; exit 1; }
 wait_apt() {
   local n=0
   while fuser /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/lib/apt/lists/lock >/dev/null 2>&1; do
-    n=$((n+1)); [ "$n" -gt 90 ] && die "apt lock still held after ~7 min — run: ps aux | grep -E 'apt|dpkg'"
+    n=$((n+1)); [ "$n" -gt 60 ] && die "apt lock still held after ~10 min — run: ps aux | grep -E 'apt|dpkg'"
     printf '.'; sleep 5
   done
 }
@@ -51,6 +51,18 @@ printf '    public ip %s\n' "${PUBIP:-unknown}"
 say "2/7  base system"
 export DEBIAN_FRONTEND=noninteractive
 timedatectl set-timezone Asia/Shanghai
+
+# A fresh Ubuntu image starts apt-daily / unattended-upgrades on its own, and that
+# can hold the dpkg lock for 10+ minutes (measured: lock still held at 7 min).
+# Stop the timers and the running job, then repair anything it left half-configured.
+say "2a/7  quieting the automatic apt jobs so they stop holding the lock"
+systemctl stop apt-daily.timer apt-daily-upgrade.timer >/dev/null 2>&1 || true
+systemctl stop unattended-upgrades.service apt-daily.service apt-daily-upgrade.service >/dev/null 2>&1 || true
+pkill -TERM -f '/usr/bin/unattended-upgrade' >/dev/null 2>&1 || true
+pkill -TERM -f '/usr/bin/apt-get' >/dev/null 2>&1 || true
+sleep 3
+dpkg --configure -a >/dev/null 2>&1 || true
+ok "automatic apt jobs stopped for the duration of this run"
 wait_apt
 apt-get update -qq
 wait_apt
@@ -182,6 +194,7 @@ APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
 EOF
 systemctl enable --now unattended-upgrades >/dev/null 2>&1 || true
+systemctl start apt-daily.timer apt-daily-upgrade.timer >/dev/null 2>&1 || true
 ok "unattended security updates on"
 
 # ------------------------------------------------------------- 7 bring up
