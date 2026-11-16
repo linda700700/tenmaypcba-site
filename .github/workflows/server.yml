@@ -46,7 +46,7 @@ jobs:
             [ -n "$D" ] && DRY="$D"
           fi
           case "$SCRIPT" in
-            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh) ;;
+            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh|ops/set-anon-key.sh) ;;
             *) echo "::error::refusing to run '$SCRIPT'"; exit 1 ;;
           esac
           echo "script=$SCRIPT" >> "$GITHUB_OUTPUT"
