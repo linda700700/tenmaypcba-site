@@ -33,7 +33,7 @@ say "1. total rows the workbench would count"
 TOTAL="$(curl -sS -m 20 -o /dev/null -D - "$BASE/rest/v1/inquiries?select=id" \
   -H "apikey: $ANON" -H "authorization: Bearer $tok" \
   -H 'prefer: count=exact' </dev/null 2>/dev/null \
-  | tr -d '\r' | sed -nE 's|^content-range: *[0-9]+-[0-9]+/([0-9]+).*|\1|Ip')"
+  | tr -d '\r' | sed -nE 's|^content-range: *([0-9]+-[0-9]+|\*)/([0-9]+).*|\2|Ip')"
 printf '    inquiries: %s\n' "${TOTAL:-unknown}"
 
 say "2. newest 12 (id, ref, company, email, when)"
@@ -83,7 +83,7 @@ say "4. what the workbench counts now"
 NOW="$(curl -sS -m 20 -o /dev/null -D - "$BASE/rest/v1/inquiries?select=id" \
   -H "apikey: $ANON" -H "authorization: Bearer $tok" \
   -H 'prefer: count=exact' </dev/null 2>/dev/null \
-  | tr -d '\r' | sed -nE 's|^content-range: *[0-9]+-[0-9]+/([0-9]+).*|\1|Ip')"
+  | tr -d '\r' | sed -nE 's|^content-range: *([0-9]+-[0-9]+|\*)/([0-9]+).*|\2|Ip')"
 printf '    inquiries: %s\n' "${NOW:-unknown}"
 
 echo
