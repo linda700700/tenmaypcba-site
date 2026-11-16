@@ -1,3 +1,3 @@
-script: ops/probe-live.sh
+script: ops/lockdown-ssh.sh
 dry: 0
-# second proof of key auth, read-only; 20261116-123445
+# close the password door; 20261116-125318

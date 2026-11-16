@@ -49,7 +49,7 @@ jobs:
             [ -n "$D" ] && DRY="$D"
           fi
           case "$SCRIPT" in
-            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh|ops/set-anon-key.sh|ops/set-bot.sh|ops/inspect-inbox.sh|ops/browser-contract.sh|ops/install-ssh-key.sh) ;;
+            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh|ops/set-anon-key.sh|ops/set-bot.sh|ops/inspect-inbox.sh|ops/browser-contract.sh|ops/install-ssh-key.sh|ops/lockdown-ssh.sh|ops/verify-keyonly.sh) ;;
             *) echo "::error::refusing to run '$SCRIPT'"; exit 1 ;;
           esac
           echo "script=$SCRIPT" >> "$GITHUB_OUTPUT"
@@ -121,7 +121,7 @@ jobs:
           ./tmssh -p 22 root@47.82.97.141 \
             "BOT_EMAIL='$BOT_EMAIL' BOT_PASS='${TENMAY_BOT_PASS}' bash -s" < "$SCRIPT" 2>&1 \
             | tee /tmp/run.log
-          if grep -qE 'phase (1|2) complete|probe complete: all checks passed|inbox list complete|browser contract complete: all checks passed|ssh key install complete' /tmp/run.log; then
+          if grep -qE 'phase (1|2) complete|probe complete: all checks passed|inbox list complete|browser contract complete: all checks passed|ssh key install complete|ssh lockdown complete|ssh key-only verify complete' /tmp/run.log; then
             echo "::notice::$SCRIPT reported completion"
           else
             echo "::error::$SCRIPT did not reach its completion marker — read the log above"
