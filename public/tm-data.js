@@ -20,7 +20,7 @@
   // ---- the switch ----------------------------------------------------------
   // Empty = disarmed. Set to 'https://api.tenmaypcba.com' once that host answers
   // GET /healthz. This is the only line to change.
-  var ENDPOINT = '';
+  var ENDPOINT = 'https://api.tenmaypcba.com';
   // -------------------------------------------------------------------------
 
   var endpoint = ENDPOINT.replace(/\/+$/, '');
