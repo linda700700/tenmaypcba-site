@@ -37,9 +37,16 @@ export const COMPANY = {
  * nobody can verify.
  */
 export const ISO_CERT = {
-  standard: 'ISO 9001:2015',
-  number: '',   // e.g. 'CN 123456' — leave empty until the real number is entered
-  body: '',     // issuing body, e.g. 'SGS'
+  standard: 'GB/T 19001-2016 / ISO 9001:2015',
+  number: '38822Q00487R0S',
+  // Printed on the certificate exactly as the issuing body wrote it. Kept as a
+  // separate field rather than folded into the site's legal name: a buyer who
+  // checks the number will see this spelling, and showing it here is more
+  // credible than having them discover a difference.
+  holder: 'Shenzhen Tengmei Technology Co., Ltd.',
+  scope: 'processing and assembly of digital electronics',
+  body: '',        // issuing body — not printed on the page we hold
+  validUntil: '',  // expiry date — taken from the certificate, never guessed
 };
 
 export const waLink = (text) =>

@@ -40,7 +40,7 @@ const HELD = [
     code: 'ISO 9001',
     label: 'Quality management system',
     note: ISO_CERT.number
-      ? `Certificate ${ISO_CERT.number}${ISO_CERT.body ? ` · ${ISO_CERT.body}` : ''}`
+      ? `Certificate ${ISO_CERT.number}${ISO_CERT.validUntil ? ` · valid to ${ISO_CERT.validUntil}` : ''}`
       : 'Certificate number issued on request',
   },
   { code: 'IPC-A-610', label: 'Workmanship acceptance', note: 'Acceptance class agreed per order' },
@@ -115,6 +115,17 @@ export default function QualitySystem() {
                 </div>
               ))}
             </div>
+
+            {/* Everything in this line is printed on the certificate itself, so
+                it can be checked against the issuing body's register rather than
+                taken on trust. Nothing here is inferred. */}
+            {ISO_CERT.number ? (
+              <p className="mt-3 border-t border-slate-200/80 pt-3 text-[13px] leading-relaxed text-slate-500">
+                {ISO_CERT.standard} certificate {ISO_CERT.number}, held by{' '}
+                <span className="font-semibold text-slate-700">{ISO_CERT.holder}</span>, scope:{' '}
+                {ISO_CERT.scope}.
+              </p>
+            ) : null}
           </div>
 
           <div className="rounded-xl border border-dashed border-slate-300/80 bg-white/60 p-6">
