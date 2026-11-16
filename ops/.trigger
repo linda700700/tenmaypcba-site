@@ -1,3 +1,3 @@
 script: ops/inspect-inbox.sh
 dry: 0
-# final clean after the browser check; 20261116-093347
+# clean browser-check rows; 20261116-093549
