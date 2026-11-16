@@ -92,8 +92,18 @@ try {
     );
   const qty = await clickByText('200');
   check(qty, 'quantity button 200 selectable');
-  const model = await clickByText('Consigned Kit\nYou supply components');
-  check(model || true, 'procurement model button present');
+  // The button's label is a two-line block ("Consigned Kit" + a subtitle), and
+  // its text is CSS-uppercased in the built page, so match on a prefix rather
+  // than the exact rendered string.
+  const model = await page.$$eval(
+    '#rfq button[type=button]',
+    (nodes) => {
+      const hit = nodes.find((n) => /consigned|kit/i.test(n.textContent));
+      if (hit) hit.click();
+      return Boolean(hit);
+    }
+  );
+  check(model, 'procurement model button clickable');
 
   await page.type('#rfq input[type=email]', EMAIL);
   await page.type('#rfq input[type=text]', COMPANY);
@@ -115,8 +125,9 @@ try {
   }
   check(succeeded, 'page shows "Request received" after the click');
 
+  // innerText follows CSS text-transform, so the label comes back uppercased.
   const reference = await page.evaluate(() => {
-    const m = document.body.innerText.match(/Reference\s+(INQ-[0-9]+)/);
+    const m = document.body.innerText.match(/reference\s+(INQ-[0-9]+)/i);
     return m ? m[1] : '';
   });
   check(Boolean(reference), 'reference number rendered', reference);
