@@ -26,8 +26,16 @@ else
 fi
 
 say "3. page loads the beacon"
-HEAD="$(curl -sS -m 15 https://tenmaypcba.com/ || true)"
-printf '%s' "$HEAD" | grep -q 'tm-data.js' && ok "index.html references tm-data.js" || bad "index.html does not reference tm-data.js"
+HTML="$(curl -sSL -m 20 https://tenmaypcba.com/ || true)"
+N="$(printf '%s' "$HTML" | grep -c 'tm-data.js' || true)"
+if [ "${N:-0}" -ge 1 ]; then
+  ok "index.html references tm-data.js ($N refs, ${#HTML} bytes)"
+else
+  bad "index.html does not reference tm-data.js (${#HTML} bytes fetched)"
+  printf '    first 160 chars: %s\n' "$(printf '%s' "$HTML" | head -c 160 | tr '\n' ' ')"
+fi
+ARMED="$(printf '%s' "$HTML" | grep -o "ENDPOINT = '[^']*'" | head -1 || true)"
+printf '    inline copy: %s\n' "${ARMED:-none}"
 
 say "4. ingest accepts a beacon event"
 VID="probe-$(date +%s)-$RANDOM"
@@ -41,18 +49,22 @@ OUT="$(curl -sS -m 15 -o /dev/null -w '%{http_code}' \
 
 say "5. row landed in postgres, then removed"
 cd /opt/tenmay || exit 1
+# stdin must be /dev/null on every exec: this whole script is being fed to bash on
+# stdin, and a container that reads stdin eats the rest of the script.
 ROWS="$(docker compose exec -T db psql -U tenmay -d dataplane -tAc \
-  "select count(*) from events where vid='$VID'" 2>/dev/null | tr -d '[:space:]')"
+  "select count(*) from events where vid='$VID'" </dev/null 2>/dev/null | tr -d '[:space:]')"
 SESS="$(docker compose exec -T db psql -U tenmay -d dataplane -tAc \
-  "select landing from sessions where vid='$VID'" 2>/dev/null | tr -d '[:space:]')"
+  "select landing from sessions where vid='$VID'" </dev/null 2>/dev/null | tr -d '[:space:]')"
 if [ "$ROWS" = "1" ]; then
   ok "events row stored, sessions.landing=$SESS"
 else
   bad "expected 1 event row for $VID, got '${ROWS:-none}'"
 fi
+# also sweeps up the row left behind by the earlier interrupted probe run
 docker compose exec -T db psql -U tenmay -d dataplane -q \
-  -c "delete from events where vid='$VID'; delete from sessions where vid='$VID';" >/dev/null 2>&1 \
-  && ok "probe rows deleted" || bad "could not delete probe rows"
+  -c "delete from events where vid like 'probe-%'; delete from sessions where vid like 'probe-%';" \
+  </dev/null >/dev/null 2>&1 \
+  && ok "all probe rows deleted" || bad "could not delete probe rows"
 
 say "6. console stream is up"
 ON="$(curl -sS -m 10 https://api.tenmaypcba.com/stats/online || true)"
