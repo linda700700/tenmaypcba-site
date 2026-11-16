@@ -1,2 +1,2 @@
-script: ops/set-bot.sh
+script: ops/inspect-inbox.sh
 dry: 0
