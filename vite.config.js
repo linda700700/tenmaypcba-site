@@ -106,6 +106,22 @@ ${urls}
 `
       );
 
+      // An HTML file that loads a script 404 renders nothing at all: the visitor
+      // gets a blank page and the form is unreachable. That is silent — the
+      // build succeeds, the deploy succeeds, the site just stops working. It
+      // happened once: the HTML kept an older asset hash while dist/assets held
+      // the new one. Fail the build here rather than publish that.
+      const published = readFileSync(join(root, 'dist/index.html'), 'utf8');
+      const referenced = [...new Set(published.match(/\/assets\/[A-Za-z0-9._-]+/g) || [])];
+      const missing = referenced.filter(
+        (ref) => !existsSync(join(root, 'dist', ref.replace(/^\//, '')))
+      );
+      if (missing.length) {
+        throw new Error(
+          `prerendered HTML references assets that were not emitted: ${missing.join(', ')}`
+        );
+      }
+
       this.warn(`prerendered ${routes.length} routes, sitemap written`);
     },
   };
