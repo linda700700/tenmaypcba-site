@@ -46,7 +46,7 @@ jobs:
             [ -n "$D" ] && DRY="$D"
           fi
           case "$SCRIPT" in
-            ops/provision.sh|ops/enable-tls.sh) ;;
+            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh) ;;
             *) echo "::error::refusing to run '$SCRIPT'"; exit 1 ;;
           esac
           echo "script=$SCRIPT" >> "$GITHUB_OUTPUT"
@@ -98,7 +98,7 @@ jobs:
           sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
             -o ServerAliveInterval=30 -o ServerAliveCountMax=20 -p 22 root@47.82.97.141 \
             'bash -s' < "$SCRIPT" 2>&1 | tee /tmp/run.log
-          if grep -qE 'phase (1|2) complete' /tmp/run.log; then
+          if grep -qE 'phase (1|2) complete|probe complete: all checks passed' /tmp/run.log; then
             echo "::notice::$SCRIPT reported completion"
           else
             echo "::error::$SCRIPT did not reach its completion marker — read the log above"

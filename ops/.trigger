@@ -1,2 +1,2 @@
-script: ops/enable-tls.sh
+script: ops/probe-live.sh
 dry: 0
