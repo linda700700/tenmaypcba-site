@@ -3,108 +3,118 @@ name: server
 # Runs an ops/ script on the Hong Kong box (47.82.97.141) from a GitHub runner,
 # because the workstation this repo is edited from has no outbound SSH.
 #
-# Setup, once:
-#   Settings → Secrets and variables → Actions → New repository secret
-#     SWAS_ROOT_PASSWORD = the root password set in the Alibaba Cloud console
-# The password is never printed and never leaves the runner as a value; when the
-# box is fully provisioned, delete the secret and reset the root password.
+# Why the push trigger: workflow_dispatch only works for files on the default
+# branch, and the default branch here (main) is wiped by the publish build on
+# every push to src. So this lives on its own branch, ops-run, and runs on push.
 #
-# Until that secret exists this workflow fails on the first step and changes nothing.
+# What to run is read from ops/.trigger on the same branch:
+#     script: ops/provision.sh
+#     dry: 0
+#
+# Setup, once — Settings → Secrets and variables → Actions → New repository secret:
+#     SWAS_ROOT_PASSWORD = the root password set in the Alibaba Cloud console
+# The value is never printed and never returned to the caller. Once the box is
+# provisioned: delete the secret and reset the root password.
 
 on:
-  workflow_dispatch:
-    inputs:
-      script:
-        description: "ops/ script to execute on the server"
-        required: true
-        default: "ops/provision.sh"
-        type: choice
-        options:
-          - ops/provision.sh
-          - ops/enable-tls.sh
-      dry_run:
-        description: "only print the machine identity, change nothing"
-        required: false
-        default: false
-        type: boolean
+  push:
+    branches: [ops-run]
 
 concurrency:
-  group: server-${{ github.ref }}
+  group: server-ops-run
   cancel-in-progress: false
+
+permissions:
+  contents: read
 
 jobs:
   run:
     runs-on: ubuntu-latest
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
-        with:
-          ref: src
+
+      - name: read ops/.trigger
+        id: t
+        run: |
+          SCRIPT="ops/provision.sh"; DRY="0"
+          if [ -f ops/.trigger ]; then
+            S="$(awk -F': *' '/^script:/{print $2}' ops/.trigger | tr -d ' \r')"
+            D="$(awk -F': *' '/^dry:/{print $2}' ops/.trigger | tr -d ' \r')"
+            [ -n "$S" ] && SCRIPT="$S"
+            [ -n "$D" ] && DRY="$D"
+          fi
+          case "$SCRIPT" in
+            ops/provision.sh|ops/enable-tls.sh) ;;
+            *) echo "::error::refusing to run '$SCRIPT'"; exit 1 ;;
+          esac
+          echo "script=$SCRIPT" >> "$GITHUB_OUTPUT"
+          echo "dry=$DRY"       >> "$GITHUB_OUTPUT"
+          echo "will run $SCRIPT (dry=$DRY)"
 
       - name: check secret
         env:
           SWAS_PASS: ${{ secrets.SWAS_ROOT_PASSWORD }}
         run: |
           if [ -z "$SWAS_PASS" ]; then
-            echo "::error::SWAS_ROOT_PASSWORD is not set. Add it under Settings → Secrets and variables → Actions."
+            echo "::error::SWAS_ROOT_PASSWORD is not set. Settings → Secrets and variables → Actions → New repository secret, name SWAS_ROOT_PASSWORD, value = the root password you set in the Alibaba Cloud console."
             exit 1
           fi
-          echo "secret present (length ${#SWAS_PASS})"
+          echo "secret present (${#SWAS_PASS} chars)"
 
       - name: connect
+        env:
+          SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD }}
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq sshpass
           for i in 1 2 3; do
             if sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-                 -o ConnectTimeout=15 -p 22 root@47.82.97.141 'echo connected; uname -sr; nproc; free -g | awk "/^Mem:/{print \$2\" GiB\"}"'; then
+                 -o ConnectTimeout=15 -p 22 root@47.82.97.141 \
+                 'echo connected; hostname; uname -sr; nproc; free -h | awk "/^Mem:/{print \$2}"; df -h / | tail -1'; then
               exit 0
             fi
             echo "attempt $i failed, retrying in 10s"; sleep 10
           done
-          echo "::error::cannot reach 47.82.97.141:22 from the runner"
+          echo "::error::cannot reach 47.82.97.141:22 from the runner — check the SWAS firewall rules (allow 22) and that the instance is running"
           exit 1
-        env:
-          SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD }}
 
       - name: run script
         env:
           SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD }}
-          SCRIPT: ${{ inputs.script }}
-          DRY_RUN: ${{ inputs.dry_run }}
+          SCRIPT: ${{ steps.t.outputs.script }}
+          DRY: ${{ steps.t.outputs.dry }}
         run: |
-          if [ "$DRY_RUN" = "true" ]; then
+          set -o pipefail
+          if [ "$DRY" = "1" ]; then
+            echo "--- dry run: read-only inventory, nothing is changed ---"
             sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 root@47.82.97.141 \
-              'hostname; cat /etc/os-release | head -3; df -h /; free -h; ss -lntp | head -20; docker --version 2>/dev/null || echo "docker: not installed"'
+              'cat /etc/os-release | head -2; echo; df -h /; echo; free -h; echo; ss -lntp 2>/dev/null | head -20; echo; echo "docker: $(docker --version 2>/dev/null || echo not installed)"; echo "caddy: $(caddy version 2>/dev/null | head -1 || echo not installed)"; echo; ls -la /opt 2>/dev/null'
             exit 0
           fi
-          case "$SCRIPT" in
-            ops/provision.sh|ops/enable-tls.sh) ;;
-            *) echo "::error::refusing to run $SCRIPT"; exit 1 ;;
-          esac
           test -s "$SCRIPT" || { echo "::error::$SCRIPT missing"; exit 1; }
-          # Stream the script over stdin; nothing is stored on the box except /opt/tenmay.
+          echo "--- streaming $SCRIPT over ssh ---"
           sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
             -o ServerAliveInterval=30 -o ServerAliveCountMax=20 -p 22 root@47.82.97.141 \
             'bash -s' < "$SCRIPT" 2>&1 | tee /tmp/run.log
-          # The remote exit status is lost through the pipe, so check the marker the
-          # scripts print when they finish, and fail loudly otherwise.
           if grep -qE 'phase (1|2) complete' /tmp/run.log; then
-            echo "::notice::script reported completion"
+            echo "::notice::$SCRIPT reported completion"
           else
-            echo "::error::script did not reach its completion marker — read the log above"
+            echo "::error::$SCRIPT did not reach its completion marker — read the log above"
             exit 1
           fi
 
       - name: verify from outside
+        if: always()
         run: |
-          echo "DNS (public resolvers):"
-          dig +short api.tenmaypcba.com @8.8.8.8 || true
-          dig +short rt.tenmaypcba.com @8.8.8.8 || true
-          echo "HTTPS:"
+          echo "== DNS =="
           for h in api.tenmaypcba.com rt.tenmaypcba.com; do
-            code=$(curl -sS -o /tmp/h.txt -m 15 -w '%{http_code}' "https://$h/healthz" || true)
-            echo "https://$h/healthz -> ${code:-000} $(head -c 200 /tmp/h.txt 2>/dev/null)"
+            echo "$h -> $(dig +short "$h" @8.8.8.8 | tr '\n' ' ')"
           done
-          echo "Direct IP:"
-          curl -sS -o /dev/null -m 10 -w 'http://47.82.97.141 -> %{http_code}\n' http://47.82.97.141 || true
+          echo "== HTTPS =="
+          for h in api.tenmaypcba.com rt.tenmaypcba.com; do
+            code=$(curl -sS -o /tmp/h.txt -m 15 -w '%{http_code}' "https://$h/healthz" 2>/dev/null || true)
+            echo "https://$h/healthz -> ${code:-000} $(head -c 160 /tmp/h.txt 2>/dev/null)"
+          done
+          echo "== direct IP =="
+          curl -sS -o /dev/null -m 10 -w 'http://47.82.97.141 -> %{http_code}\n' http://47.82.97.141 2>/dev/null || echo "http://47.82.97.141 -> no answer (expected before phase 2)"
