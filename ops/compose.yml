@@ -38,6 +38,10 @@ services:
     command: sh -c "npm install --omit=dev --no-audit --no-fund && exec node server.js"
     volumes:
       - /opt/tenmay/dataplane:/app
+      # Service-account keys live here, root-only on the host and read-only in
+      # the container: Search Console today, GA4 later. The process only ever
+      # reads them, so a write would be a bug rather than a feature.
+      - /opt/tenmay/secrets:/etc/tenmay/secrets:ro
     env_file:
       - /opt/tenmay/dataplane.env
     ports:
