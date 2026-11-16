@@ -5,14 +5,15 @@ name: RFQ browser e2e
 # replay in ops/browser-contract.sh cannot catch a broken bundle or a thrown
 # React handler; only a browser can.
 #
-# It writes one inquiry row on purpose — that is the proof — and marks it
-# SAMPLE ROW so ops/inspect-inbox.sh deletes it afterwards.
+# It writes one inquiry row on purpose — that is the proof — then deletes it in
+# the last step so the inbox never shows a fake lead.
 on:
   push:
     branches: [ops-run]
     paths:
       - '.github/workflows/browser-e2e.yml'
       - 'ops/browser-e2e/run.mjs'
+      - 'ops/browser-e2e/cleanup.sh'
   workflow_dispatch:
 
 permissions:
@@ -52,39 +53,10 @@ jobs:
           path: rfq-success.png
           if-no-files-found: warn
 
-      # A verified submission still leaves a row behind, and a row in the inbox
-      # looks exactly like a real lead. Remove only the row this run wrote: the
-      # company column carries the marker and the run id.
       - name: Remove the row this check created
         if: always()
         env:
           BOT_EMAIL: bot@tenmaypcba.com
           BOT_PASS: ${{ secrets.TENMAY_BOT_PASS || secrets.TENMAYBOTPASS || secrets.BOTPASS }}
           SITE_ID: q5o1kzml5qqstngt
-          STAMP: ${{ github.run_id }}
-        run: |
-          set -uo pipefail
-          if [ -z "${BOT_PASS:-}" ]; then
-            echo "::warning::no bot password secret; leaving the check row for ops/inspect-inbox.sh"
-            exit 0
-          fi
-          BASE="https://site-builder.alibaba.com/supabase/v1/sites/$SITE_ID"
-          ANON="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJyb2xlIjoiYW5vbiIsImlzcyI6InBvbGFyZGIiLCJpYXQiOjE3OTAxNDQyNjksImV4cCI6MjEwNTUwNDI2OX0.iE1UtbF8SYx-v6I-3Kbm6aj-ulMtENANW1QLf6goUSg"
-          TOK="$(curl -sS -m 20 -X POST "$BASE/auth/v1/token?grant_type=password" \
-            -H 'content-type: application/json' -H "apikey: $ANON" \
-            --data "$(printf '{"email":"%s","password":"%s"}' "$BOT_EMAIL" "$BOT_PASS")" </dev/null 2>/dev/null \
-            | sed -nE 's/.*"access_token":"([^"]+)".*/\1/p')"
-          if [ -z "$TOK" ]; then
-            echo "::warning::could not sign in; leaving the check row for ops/inspect-inbox.sh"
-            exit 0
-          fi
-          curl -sS -m 20 -X DELETE "$BASE/rest/v1/inquiries?customer=like.SAMPLE%20ROW*" \
-            -H "apikey: $ANON" -H "authorization: Bearer $TOK" \
-            -H 'prefer: return=representation' </dev/null 2>/dev/null \
-            | python3 -c '
-import json,sys
-raw=sys.stdin.read()
-try: rows=json.loads(raw)
-except Exception: print("cleanup raw:", raw[:200]); raise SystemExit
-print("cleanup removed:", [r.get("id") for r in rows] if isinstance(rows,list) else raw[:200])
-'
+        run: bash ops/browser-e2e/cleanup.sh
