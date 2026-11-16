@@ -17,6 +17,11 @@
  *   GET  /attr?ids=26,27          attribution for one or more inquiries
  *   GET  /rt?token=<jwt>          Server-Sent Events stream for the console
  *   GET  /stats/online            how many visitors are active right now
+ *   GET  /seo/summary?days=28     Search Console totals + the run behind them
+ *   GET  /seo/pages?days=28       clicks/impressions/position per page
+ *   GET  /seo/queries?days=28     clicks/impressions/position per query
+ *   GET  /seo/series?days=90      one point per day, for the chart
+ *   POST /seo/sync?days=10        pull now instead of waiting for cron
  *
  * SSE rather than WebSocket on purpose: the stream is one-way, EventSource
  * reconnects by itself, and it needs no dependency on either end.
@@ -25,6 +30,7 @@
 import http from 'node:http';
 import crypto from 'node:crypto';
 import { openStore } from './lib/db.js';
+import { runSync, syncStatus } from './lib/gsc-sync.js';
 
 const PORT = Number(process.env.PORT || 8787);
 const DRY_RUN = process.env.DRY_RUN === '1';
@@ -318,6 +324,70 @@ async function handleStream(req, res, url, origin) {
   req.on('close', () => { clearInterval(beat); clients.delete(res); });
 }
 
+
+/* ── search console ──────────────────────────────────────────────────────── */
+
+/*
+ * Read endpoints are operator-only for the same reason /attr is: this is
+ * business data and the console bundle is public, so the browser proves who it
+ * is with its own session token rather than with a key baked into the build.
+ *
+ * Shape is fixed on purpose — the console falls back to sample data when any of
+ * these fields are missing, and an explicit `configured: false` is what tells it
+ * to do so instead of rendering zeros as if Google had said zero.
+ */
+const DAYS = (raw, fallback = 28) => {
+  const n = Number(raw);
+  return [7, 28, 90, 180].includes(n) ? n : fallback;
+};
+
+async function handleSeoSummary(res, url, origin) {
+  const days = DAYS(url.searchParams.get('days'));
+  const status = await syncStatus(store);
+  const win = await store.gscWindow(days);
+  return send(res, 200, {
+    ok: true,
+    days,
+    ...status,
+    window: win ? { from: win.from, to: win.to, previousFrom: win.prevFrom, previousTo: win.prevTo } : null,
+    coverage: win ? win.coverage : null,
+    current: win ? win.current : null,
+    previous: win ? win.previous : null,
+  }, origin);
+}
+
+async function handleSeoTable(res, url, origin, dim) {
+  const days = DAYS(url.searchParams.get('days'));
+  const limit = Math.max(1, Math.min(500, Number(url.searchParams.get('limit')) || 100));
+  const rows = await store.gscBreakdown(dim, days, limit);
+  const win = await store.gscWindow(days);
+  return send(res, 200, {
+    ok: true,
+    days,
+    dim,
+    window: win ? { from: win.from, to: win.to } : null,
+    rows: rows.map((r) => ({
+      [dim === 'page' ? 'page' : 'query']: r.key,
+      clicks: r.clicks,
+      impressions: r.impressions,
+      ctr: r.ctr,
+      position: r.position,
+    })),
+  }, origin);
+}
+
+async function handleSeoSeries(res, url, origin) {
+  const days = DAYS(url.searchParams.get('days'), 90);
+  const rows = await store.gscSeries(days);
+  return send(res, 200, { ok: true, days, points: rows }, origin);
+}
+
+async function handleSeoSync(res, url, origin) {
+  const days = Math.max(1, Math.min(480, Number(url.searchParams.get('days')) || 10));
+  const out = await runSync(store, { days });
+  return send(res, out.ok ? 200 : 502, out, origin);
+}
+
 /* ── server ──────────────────────────────────────────────────────────────── */
 
 const server = http.createServer(async (req, res) => {
@@ -331,7 +401,13 @@ const server = http.createServer(async (req, res) => {
 
   try {
     if (url.pathname === '/healthz') {
-      return send(res, 200, { ok: true, store: store.name, dryRun: DRY_RUN, clients: clients.size }, origin);
+      return send(res, 200, {
+        ok: true,
+        store: store.name,
+        dryRun: DRY_RUN,
+        clients: clients.size,
+        seo: await syncStatus(store),
+      }, origin);
     }
     if (url.pathname === '/collect' && req.method === 'POST') return await handleCollect(req, res, origin);
     if (url.pathname === '/intake' && req.method === 'POST') return await handleIntake(req, res, origin);
@@ -350,6 +426,23 @@ const server = http.createServer(async (req, res) => {
 
     if (url.pathname === '/stats/online') {
       return send(res, 200, { ok: true, online: await store.onlineSince(5 * 60_000) }, origin);
+    }
+
+
+    if (url.pathname.startsWith('/seo/')) {
+      if (url.pathname === '/seo/sync' && req.method !== 'POST') {
+        return send(res, 405, { ok: false, error: 'use POST' }, origin);
+      }
+      const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+      const token = bearer || url.searchParams.get('token') || '';
+      if (!(await operatorOk(token))) return send(res, 401, { ok: false, error: 'unauthorized' }, origin);
+
+      if (url.pathname === '/seo/summary') return await handleSeoSummary(res, url, origin);
+      if (url.pathname === '/seo/pages') return await handleSeoTable(res, url, origin, 'page');
+      if (url.pathname === '/seo/queries') return await handleSeoTable(res, url, origin, 'query');
+      if (url.pathname === '/seo/series') return await handleSeoSeries(res, url, origin);
+      if (url.pathname === '/seo/sync' && req.method === 'POST') return await handleSeoSync(res, url, origin);
+      return send(res, 404, { ok: false, error: 'not found' }, origin);
     }
 
     return send(res, 404, { ok: false, error: 'not found' }, origin);

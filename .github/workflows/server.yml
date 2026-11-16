@@ -49,7 +49,7 @@ jobs:
             [ -n "$D" ] && DRY="$D"
           fi
           case "$SCRIPT" in
-            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh|ops/set-anon-key.sh|ops/set-bot.sh|ops/inspect-inbox.sh|ops/browser-contract.sh|ops/install-ssh-key.sh|ops/lockdown-ssh.sh|ops/verify-keyonly.sh) ;;
+            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh|ops/set-anon-key.sh|ops/set-bot.sh|ops/inspect-inbox.sh|ops/browser-contract.sh|ops/install-ssh-key.sh|ops/lockdown-ssh.sh|ops/verify-keyonly.sh|ops/gsc-install.sh) ;;
             *) echo "::error::refusing to run '$SCRIPT'"; exit 1 ;;
           esac
           echo "script=$SCRIPT" >> "$GITHUB_OUTPUT"
@@ -105,6 +105,10 @@ jobs:
           # here too instead of costing another round trip.
           TENMAY_BOT_PASS: ${{ secrets.TENMAY_BOT_PASS || secrets.TENMAYBOTPASS || secrets.BOTPASS }}
           BOT_EMAIL: bot@tenmaypcba.com
+          # The Search Console service-account key. Same rule as the bot
+          # password: it travels through the runner's environment and an ssh
+          # stream, never through the repository or a log line.
+          GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
         run: |
           set -o pipefail
           if [ "$DRY" = "1" ]; then
@@ -114,6 +118,13 @@ jobs:
             exit 0
           fi
           test -s "$SCRIPT" || { echo "::error::$SCRIPT missing"; exit 1; }
+          if [ "$SCRIPT" = "ops/gsc-install.sh" ]; then
+            [ -n "${GSC_SA_JSON:-}" ] || { echo "::error::secret GSC_SA_JSON is empty - add the service-account json to repo secrets"; exit 1; }
+            echo "key: ${#GSC_SA_JSON} chars, streaming to /opt/tenmay/secrets/gsc.json"
+            printf '%s' "$GSC_SA_JSON" | ./tmssh -p 22 root@47.82.97.141 \
+              'umask 077; mkdir -p /opt/tenmay/secrets; chmod 700 /opt/tenmay/secrets; cat > /opt/tenmay/secrets/gsc.json'
+            echo "key placed on the box"
+          fi
           echo "--- streaming $SCRIPT over ssh (auth: $AUTH) ---"
           # The bot password travels inside the ssh command environment, not in
           # the script on disk, so it never lands in the repository. The remote
@@ -121,7 +132,7 @@ jobs:
           ./tmssh -p 22 root@47.82.97.141 \
             "BOT_EMAIL='$BOT_EMAIL' BOT_PASS='${TENMAY_BOT_PASS}' bash -s" < "$SCRIPT" 2>&1 \
             | tee /tmp/run.log
-          if grep -qE 'phase (1|2) complete|probe complete: all checks passed|inbox list complete|browser contract complete: all checks passed|ssh key install complete|ssh lockdown complete|ssh key-only verify complete' /tmp/run.log; then
+          if grep -qE 'phase (1|2) complete|probe complete: all checks passed|inbox list complete|browser contract complete: all checks passed|ssh key install complete|ssh lockdown complete|ssh key-only verify complete|gsc install complete' /tmp/run.log; then
             echo "::notice::$SCRIPT reported completion"
           else
             echo "::error::$SCRIPT did not reach its completion marker — read the log above"
