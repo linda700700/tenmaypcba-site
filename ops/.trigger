@@ -1,2 +1,2 @@
-script: ops/inspect-inbox.sh
+script: ops/browser-contract.sh
 dry: 0
