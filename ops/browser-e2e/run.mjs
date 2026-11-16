@@ -47,6 +47,12 @@ try {
   });
   page.on('pageerror', (e) => consoleErrors.push(`pageerror: ${String(e).slice(0, 200)}`));
 
+  // GA4 sends events as GET /g/collect?...&en=<event name>. Watching the wire is
+  // the only way to know a "key event" is worth configuring: the page can call
+  // gtag correctly and still have nothing leave the browser.
+  const gaEvents = [];
+  let gaRequests = 0;
+
   let submitBody = null;
   let intakeStatus = null;
   let intakeBody = null;
@@ -54,6 +60,12 @@ try {
   page.on('request', (r) => {
     if (r.method() === 'POST' && r.url().includes('/intake')) {
       submitBody = r.postData();
+    }
+    const u = r.url();
+    if (u.includes('/g/collect') || u.includes('google-analytics.com')) {
+      gaRequests += 1;
+      const m = u.match(/[?&]en=([^&]+)/);
+      if (m) gaEvents.push(decodeURIComponent(m[1]));
     }
   });
   page.on('response', async (r) => {
@@ -186,6 +198,25 @@ try {
     submitBody ? submitBody.slice(0, 160) : 'no body captured'
   );
   if (intakeBody) console.log(`    intake body: ${intakeBody}`);
+
+  // Give gtag a moment: it batches some events behind sendBeacon.
+  await new Promise((r) => setTimeout(r, 1500));
+  check(gaRequests > 0, 'GA4 is receiving hits', `${gaRequests} requests, events: ${[...new Set(gaEvents)].join(', ') || 'none'}`);
+  check(
+    gaEvents.includes('form_submit_attempt'),
+    'GA4 received form_submit_attempt',
+    gaEvents.filter((e) => e.startsWith('form_')).join(', ') || 'no form_ events'
+  );
+  check(
+    gaEvents.includes('form_submit_success'),
+    'GA4 received form_submit_success',
+    gaEvents.filter((e) => e.startsWith('form_')).join(', ') || 'no form_ events'
+  );
+
+  // The certificate is data, not copy: this asserts the real number reached the
+  // page rather than a placeholder. Update it when the certificate changes.
+  const certShown = await page.evaluate(() => document.body.innerText.includes('38822Q00487R0S'));
+  check(certShown, 'ISO 9001 certificate number is on the page');
 
   const visibleError = await page.evaluate(() => {
     const el = document.querySelector('#rfq [role="alert"]');
