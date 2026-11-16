@@ -3,13 +3,18 @@ import { CheckCircle2, FileText, Lock, ArrowRight, Clock, Send, MessageCircle } 
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 
 /*
- * Where a quote request is written. Defaults to the Cloudflare Worker that is
- * live today. Once the Hong Kong data plane answers, set VITE_INTAKE_URL at
- * build time to its /intake path and the same form moves over with no code
- * change; the payload it sends is identical.
+ * Where a quote request is written. It goes to our own service now, not the
+ * Cloudflare Worker: the same request returns the platform inquiry plus the
+ * lead's landing page, UTM and journey, which the Worker could not see.
+ *
+ * Written as a literal default rather than a bare env variable because .env is
+ * gitignored — a build run from the repository never sees VITE_INTAKE_URL, and
+ * relying on it alone would silently keep pointing at the Worker.
+ *
+ *   VITE_INTAKE_URL=https://...   point somewhere else
  */
 const INTAKE_URL =
-  import.meta.env.VITE_INTAKE_URL || 'https://tenmay-rfq-intake.tenmaypcba.workers.dev';
+  import.meta.env.VITE_INTAKE_URL || 'https://api.tenmaypcba.com/intake';
 
 // The tracker is defined in index.html so it survives a failed bundle. Only the
 // outcome of the submit needs a call from here — the page cannot observe it.
