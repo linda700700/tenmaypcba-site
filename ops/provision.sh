@@ -23,6 +23,16 @@ say() { printf '\n\033[1;36m==> %s\033[0m\n' "$*"; }
 ok()  { printf '\033[1;32m    OK\033[0m  %s\n' "$*"; }
 die() { printf '\n\033[1;31m!!  %s\033[0m\n' "$*" >&2; exit 1; }
 
+# unattended-upgrades and apt-daily can hold the dpkg lock for minutes right after
+# boot; waiting is correct, killing them is not.
+wait_apt() {
+  local n=0
+  while fuser /var/lib/dpkg/lock-frontend /var/lib/dpkg/lock /var/lib/apt/lists/lock >/dev/null 2>&1; do
+    n=$((n+1)); [ "$n" -gt 90 ] && die "apt lock still held after ~7 min — run: ps aux | grep -E 'apt|dpkg'"
+    printf '.'; sleep 5
+  done
+}
+
 # ---------------------------------------------------------------- 1 identity
 say "1/7  machine identity"
 [ "$(id -u)" = "0" ] || die "run as root (you are $(id -un))"
@@ -41,9 +51,11 @@ printf '    public ip %s\n' "${PUBIP:-unknown}"
 say "2/7  base system"
 export DEBIAN_FRONTEND=noninteractive
 timedatectl set-timezone Asia/Shanghai
+wait_apt
 apt-get update -qq
+wait_apt
 apt-get install -y -qq --no-install-recommends \
-  curl ca-certificates gnupg jq ufw fail2ban unattended-upgrades openssl >/dev/null
+  curl ca-certificates gnupg jq ufw fail2ban unattended-upgrades openssl psmisc procps >/dev/null
 ok "packages installed"
 
 if ! swapon --show | grep -q '/swapfile'; then
@@ -86,17 +98,20 @@ systemctl enable --now fail2ban >/dev/null 2>&1 || true
 systemctl restart fail2ban || true
 ok "fail2ban: $(fail2ban-client status sshd 2>/dev/null | awk -F: '/Currently banned/{print $2}' | tr -d ' ' || echo '?') currently banned"
 
-cat >/etc/apt/apt.conf.d/20auto-upgrades <<'EOF'
-APT::Periodic::Update-Package-Lists "1";
-APT::Periodic::Unattended-Upgrade "1";
-EOF
-systemctl enable --now unattended-upgrades >/dev/null 2>&1 || true
-ok "unattended security updates on"
+# Switched on at the end of the run instead: enabling it here starts an immediate
+# apt run that collides with the docker install below (this actually happened).
+ok "unattended security updates deferred to step 6"
 
 # ---------------------------------------------------------------- 4 docker
 say "4/7  docker"
 if ! command -v docker >/dev/null 2>&1; then
-  curl -fsSL https://get.docker.com | sh >/dev/null
+  DOCKER_OK=0
+  for attempt in 1 2 3; do
+    wait_apt
+    if curl -fsSL https://get.docker.com | sh >/dev/null 2>&1; then DOCKER_OK=1; break; fi
+    printf '    attempt %s failed, retrying in 15s\n' "$attempt"; sleep 15
+  done
+  [ "$DOCKER_OK" = "1" ] || { wait_apt; curl -fsSL https://get.docker.com | sh; die "docker install failed"; }
   ok "docker $(docker --version | awk '{print $3}' | tr -d ,)"
 else
   ok "docker already installed ($(docker --version | awk '{print $3}' | tr -d ,))"
@@ -159,6 +174,15 @@ EOF
 chmod 600 "$ROOT/.env" "$ROOT/dataplane.env"
 chmod 755 "$ROOT"
 ok "env files written, mode 600"
+
+# ------------------------------------------------- 6b security updates on
+say "6b/7  switching on unattended security updates"
+cat >/etc/apt/apt.conf.d/20auto-upgrades <<'EOF'
+APT::Periodic::Update-Package-Lists "1";
+APT::Periodic::Unattended-Upgrade "1";
+EOF
+systemctl enable --now unattended-upgrades >/dev/null 2>&1 || true
+ok "unattended security updates on"
 
 # ------------------------------------------------------------- 7 bring up
 say "7/7  starting containers"
