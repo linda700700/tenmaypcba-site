@@ -1,3 +1,3 @@
-script: ops/install-ssh-key.sh
+script: ops/inspect-inbox.sh
 dry: 0
-# authorise the ops key; 20261116-123023
+# prove key auth; 20261116-123240
