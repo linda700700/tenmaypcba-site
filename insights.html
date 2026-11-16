@@ -57,9 +57,10 @@
     <link rel="icon" type="image/png" sizes="180x180" href="/assets/images/favicon-180.png" />
     <link rel="apple-touch-icon" href="/assets/images/favicon-180.png" />
     <!-- Measurement. One constant to change.
-         While GA_ID is still the placeholder nothing is fetched and no request
-         leaves the page, so a missing or wrong property can never break
-         rendering. The listeners live here rather than inside React because
+         GA_ID is the GA4 measurement ID for the tenmaypcba.com web stream. If it
+         is ever blanked or reverted to the placeholder, nothing is fetched and
+         no request leaves the page, so a missing or wrong property can never
+         break rendering. The listeners live here rather than inside React because
          these pages are prerendered: a CTA is already clickable in the served
          HTML, and a click on it should still be counted when the bundle is
          slow, blocked or broken.
@@ -68,7 +69,7 @@
          text typed into any field. -->
     <script>
       (function () {
-        var GA_ID = 'G-XXXXXXXXXX';
+        var GA_ID = 'G-QSX2B7T8L';
         var configured = /^G-[A-Z0-9]{6,}$/.test(GA_ID) && GA_ID.indexOf('XXXX') === -1;
 
         window.dataLayer = window.dataLayer || [];
