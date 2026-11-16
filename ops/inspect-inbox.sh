@@ -57,5 +57,34 @@ for r in rows:
         str(r.get("email") or "-")[:30], str(r.get("created_at") or "")[:19]))
 '
 
+say "3. remove rows addressed to @example.com"
+# example.com is reserved by RFC 2606 and can never belong to a real buyer, so
+# rows there are always this repository's own probes. Auto-cleaning them keeps
+# the inbox honest without deleting anything a person wrote.
+DEL="$(curl -sS -m 20 -X DELETE "$BASE/rest/v1/inquiries?email=like.*%40example.com" \
+  -H "apikey: $ANON" -H "authorization: Bearer $tok" \
+  -H 'prefer: return=representation' </dev/null 2>/dev/null)"
+printf '%s' "$DEL" | python3 -c '
+import json,sys
+raw=sys.stdin.read()
+try:
+    rows=json.loads(raw)
+except Exception:
+    print("    raw:", raw[:200]); raise SystemExit
+if not isinstance(rows,list):
+    print("    raw:", raw[:200]); raise SystemExit
+if not rows:
+    print("    nothing to remove"); raise SystemExit
+for r in rows:
+    print("    removed #%s %s" % (r.get("id"), r.get("email")))
+'
+
+say "4. what the workbench counts now"
+NOW="$(curl -sS -m 20 -o /dev/null -D - "$BASE/rest/v1/inquiries?select=id" \
+  -H "apikey: $ANON" -H "authorization: Bearer $tok" \
+  -H 'prefer: count=exact' </dev/null 2>/dev/null \
+  | tr -d '\r' | sed -nE 's|^content-range: *[0-9]+-[0-9]+/([0-9]+).*|\1|Ip')"
+printf '    inquiries: %s\n' "${NOW:-unknown}"
+
 echo
 echo "inbox list complete"
