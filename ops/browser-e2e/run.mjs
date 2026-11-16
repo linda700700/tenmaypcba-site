@@ -65,9 +65,16 @@ try {
     const u = r.url();
     if (u.includes('/g/collect') || u.includes('google-analytics.com')) {
       gaRequests += 1;
-      const m = u.match(/[?&]en=([^&]+)/);
-      if (m) gaEvents.push(decodeURIComponent(m[1]));
-      if (gaHits.length < 12) gaHits.push(r.method() + ' ' + u.replace(/^https:\/\/[^/]+/, '').slice(0, 150));
+      // GA4 puts the event name in the query for a plain hit and in the POST
+      // body when it batches several events into one request. Reading only the
+      // URL made a delivered event look missing.
+      const raw = u + '\n' + (r.postData() || '');
+      for (const m of raw.matchAll(/(?:^|[?&\n])en=([^&\n]+)/g)) {
+        gaEvents.push(decodeURIComponent(m[1]));
+      }
+      if (gaHits.length < 12) {
+        gaHits.push(r.method() + ' ' + u.replace(/^https:\/\/[^/]+/, '').slice(0, 90) + ' body=' + (r.postData() || '').slice(0, 90));
+      }
     }
   });
   page.on('response', async (r) => {
