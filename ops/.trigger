@@ -1,3 +1,3 @@
-script: ops/lockdown-ssh.sh
+script: ops/verify-keyonly.sh
 dry: 0
-# close the password door; 20261116-125318
+# verify key-only and disarm the revert; 20261116-125529
