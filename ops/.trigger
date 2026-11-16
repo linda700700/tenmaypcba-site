@@ -1,2 +1,2 @@
-script: ops/provision.sh
+script: ops/enable-tls.sh
 dry: 0

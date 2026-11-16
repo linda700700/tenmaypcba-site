@@ -77,7 +77,9 @@ ok "caddy running"
 
 # ---------------------------------------------------------------- verify
 say "verifying from the public side"
+FAIL=""
 for d in $DOMAINS; do
+  CODE=""
   for i in $(seq 1 30); do
     CODE="$(curl -sS -o /dev/null -m 8 -w '%{http_code}' "https://$d/healthz" 2>/dev/null || true)"
     [ "$CODE" = "200" ] && break
@@ -86,9 +88,13 @@ for d in $DOMAINS; do
   if [ "$CODE" = "200" ]; then
     ok "https://$d/healthz → 200  $(curl -sS -m 6 "https://$d/healthz")"
   else
-    printf '\033[1;33m    pending\033[0m      https://%s/healthz → %s (cert may still be issuing; check: journalctl -u caddy -n 30)\n' "$d" "${CODE:-000}"
+    printf '\033[1;31m    FAIL\033[0m   https://%s/healthz → %s\n' "$d" "${CODE:-000}"
+    echo "----- caddy log (last 40) -----"
+    journalctl -u caddy -n 40 --no-pager 2>/dev/null || true
+    FAIL="$FAIL $d"
   fi
 done
+[ -z "$FAIL" ] || die "HTTPS not reachable for:$FAIL (see caddy log above)"
 
 echo
 echo "phase 2 complete. Next: point the site at the dataplane"
