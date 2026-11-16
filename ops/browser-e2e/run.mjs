@@ -51,6 +51,7 @@ try {
   // the only way to know a "key event" is worth configuring: the page can call
   // gtag correctly and still have nothing leave the browser.
   const gaEvents = [];
+  const gaHits = [];
   let gaRequests = 0;
 
   let submitBody = null;
@@ -66,6 +67,7 @@ try {
       gaRequests += 1;
       const m = u.match(/[?&]en=([^&]+)/);
       if (m) gaEvents.push(decodeURIComponent(m[1]));
+      if (gaHits.length < 12) gaHits.push(r.method() + ' ' + u.replace(/^https:\/\/[^/]+/, '').slice(0, 150));
     }
   });
   page.on('response', async (r) => {
@@ -198,6 +200,33 @@ try {
     submitBody ? submitBody.slice(0, 160) : 'no body captured'
   );
   if (intakeBody) console.log(`    intake body: ${intakeBody}`);
+
+  // Diagnostics, printed rather than asserted: when a hit is missing these
+  // lines say which link in the chain broke instead of leaving it to guesswork.
+  const diag = await page.evaluate(() => ({
+    gtag: typeof window.gtag,
+    tmTrack: typeof window.tmTrack,
+    wrapper: typeof window.tmTrack === 'function' && String(window.tmTrack).includes('tmBeacon'),
+    dataLayer: (window.dataLayer || []).map((a) => {
+      try {
+        return a[0] === 'event' ? 'event:' + a[1] : String(a[0]);
+      } catch (e) {
+        return '?';
+      }
+    }),
+    gtm: Object.keys(window.google_tag_manager || {}),
+  }));
+  console.log('    diag: ' + JSON.stringify(diag));
+
+  // One manual event through the same function the form uses. If this arrives
+  // and the form's events do not, the fault is in the form's call site; if it
+  // does not arrive, the fault is in the tracker itself.
+  await page.evaluate(() => {
+    if (typeof window.tmTrack === 'function') window.tmTrack('probe_manual_event', { form: 'probe' });
+  });
+  await new Promise((r) => setTimeout(r, 2500));
+  console.log('    after manual event: ' + JSON.stringify([...new Set(gaEvents)]));
+  for (const h of gaHits) console.log('    hit: ' + h);
 
   // Give gtag a moment: it batches some events behind sendBeacon.
   await new Promise((r) => setTimeout(r, 1500));
