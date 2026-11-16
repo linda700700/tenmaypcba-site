@@ -1,0 +1,53 @@
+name: RFQ browser e2e
+
+# Proves the funnel a real visitor gets: headless Chrome loads the live page,
+# fills the form, clicks send, and asserts the success panel. The server-side
+# replay in ops/browser-contract.sh cannot catch a broken bundle or a thrown
+# React handler; only a browser can.
+#
+# It writes one inquiry row on purpose — that is the proof — and marks it
+# SAMPLE ROW so ops/inspect-inbox.sh deletes it afterwards.
+on:
+  push:
+    branches: [ops-run]
+    paths:
+      - '.github/workflows/browser-e2e.yml'
+      - 'ops/browser-e2e/run.mjs'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Install puppeteer-core
+        run: npm init -y >/dev/null 2>&1 && npm i puppeteer-core@23 --no-audit --no-fund
+
+      - name: Resolve a Chrome binary
+        run: |
+          for c in /usr/bin/google-chrome /usr/bin/google-chrome-stable /usr/bin/chromium-browser /usr/bin/chromium; do
+            if [ -x "$c" ]; then echo "CHROME_PATH=$c" >> "$GITHUB_ENV"; echo "using $c"; exit 0; fi
+          done
+          echo "::error::no chrome binary on this runner"
+          exit 1
+
+      - name: Run the funnel in a real browser
+        env:
+          STAMP: ${{ github.run_id }}
+        run: node ops/browser-e2e/run.mjs
+
+      - name: Keep the screenshot
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rfq-e2e-screenshot
+          path: rfq-success.png
+          if-no-files-found: warn
