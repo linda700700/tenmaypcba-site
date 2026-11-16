@@ -11,11 +11,14 @@ name: server
 #     script: ops/provision.sh
 #     dry: 0
 #
-# Setup, once — Settings → Secrets and variables → Actions → New repository secret:
-#     SWAS_ROOT_PASSWORD = the root password set in the Alibaba Cloud console
-#   (this repo currently uses the name TENMAYPCBA; both names are accepted)
-# The value is never printed and never returned to the caller. Once the box is
-# provisioned: delete the secret and reset the root password.
+# Authentication, in order of preference:
+#     SWAS_SSH_KEY       — the private key whose public half ops/install-ssh-key.sh
+#                          authorised. Used with BatchMode, so a missing or
+#                          wrong key fails instead of quietly falling back.
+#     SWAS_ROOT_PASSWORD / TENMAYPCBA — legacy: the root password.
+# Once a key is installed, delete the password secret and rotate the password in
+# the Alibaba Cloud console: a password that exists anywhere is a password that
+# can leak somewhere.
 
 on:
   push:
@@ -46,43 +49,54 @@ jobs:
             [ -n "$D" ] && DRY="$D"
           fi
           case "$SCRIPT" in
-            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh|ops/set-anon-key.sh|ops/set-bot.sh|ops/inspect-inbox.sh|ops/browser-contract.sh) ;;
+            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh|ops/set-anon-key.sh|ops/set-bot.sh|ops/inspect-inbox.sh|ops/browser-contract.sh|ops/install-ssh-key.sh) ;;
             *) echo "::error::refusing to run '$SCRIPT'"; exit 1 ;;
           esac
           echo "script=$SCRIPT" >> "$GITHUB_OUTPUT"
           echo "dry=$DRY"       >> "$GITHUB_OUTPUT"
           echo "will run $SCRIPT (dry=$DRY)"
 
-      - name: check secret
+      # One wrapper, so the two ssh calls below cannot drift apart on auth.
+      - name: prepare ssh
         env:
-          SWAS_PASS: ${{ secrets.SWAS_ROOT_PASSWORD || secrets.TENMAYPCBA }}
+          SSH_KEY: ${{ secrets.SWAS_SSH_KEY }}
+          SSH_PASS: ${{ secrets.SWAS_ROOT_PASSWORD || secrets.TENMAYPCBA }}
         run: |
-          if [ -z "$SWAS_PASS" ]; then
-            echo "::error::no root password secret found — expected SWAS_ROOT_PASSWORD or TENMAYPCBA under Settings → Secrets and variables → Actions"
+          set -uo pipefail
+          mkdir -p ~/.ssh && chmod 700 ~/.ssh
+          if [ -n "${SSH_KEY:-}" ]; then
+            printf '%s\n' "$SSH_KEY" > ~/.ssh/id_tenmay
+            chmod 600 ~/.ssh/id_tenmay
+            AUTH=key
+            echo "auth: key (${#SSH_KEY} chars)"
+          elif [ -n "${SSH_PASS:-}" ]; then
+            AUTH=password
+            echo "::warning::no SWAS_SSH_KEY — falling back to the root password"
+            sudo apt-get update -qq && sudo apt-get install -y -qq sshpass
+          else
+            echo "::error::no credentials — set SWAS_SSH_KEY (preferred) or SWAS_ROOT_PASSWORD"
             exit 1
           fi
-          echo "secret present (${#SWAS_PASS} chars)"
+          echo "AUTH=$AUTH" >> "$GITHUB_ENV"
+          [ "$AUTH" = password ] && echo "::add-mask::$SSH_PASS" && echo "SSHPASS=$SSH_PASS" >> "$GITHUB_ENV"
+
+          install -m 755 ops/tmssh.sh ./tmssh
 
       - name: connect
-        env:
-          SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD || secrets.TENMAYPCBA }}
         run: |
-          sudo apt-get update -qq
-          sudo apt-get install -y -qq sshpass
           for i in 1 2 3; do
-            if sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-                 -o ConnectTimeout=15 -p 22 root@47.82.97.141 \
-                 'echo connected; hostname; uname -sr; nproc; free -h | awk "/^Mem:/{print \$2}"; df -h / | tail -1'; then
+            if ./tmssh -o ConnectTimeout=15 -p 22 root@47.82.97.141 \
+                 'echo connected; hostname; uname -sr; nproc; free -h | awk "/^Mem:/{print \$2}"; df -h / | tail -1' </dev/null; then
+              echo "authenticated via $AUTH"
               exit 0
             fi
             echo "attempt $i failed, retrying in 10s"; sleep 10
           done
-          echo "::error::cannot reach 47.82.97.141:22 from the runner — check the SWAS firewall rules (allow 22) and that the instance is running"
+          echo "::error::cannot reach 47.82.97.141:22 as root — check the SWAS firewall (allow 22), the instance state, and that the key is authorised"
           exit 1
 
       - name: run script
         env:
-          SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD || secrets.TENMAYPCBA }}
           SCRIPT: ${{ steps.t.outputs.script }}
           DRY: ${{ steps.t.outputs.dry }}
           # Three spellings are accepted on purpose. GitHub rejects a secret
@@ -95,20 +109,19 @@ jobs:
           set -o pipefail
           if [ "$DRY" = "1" ]; then
             echo "--- dry run: read-only inventory, nothing is changed ---"
-            sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22 root@47.82.97.141 \
-              'cat /etc/os-release | head -2; echo; df -h /; echo; free -h; echo; ss -lntp 2>/dev/null | head -20; echo; echo "docker: $(docker --version 2>/dev/null || echo not installed)"; echo "caddy: $(caddy version 2>/dev/null | head -1 || echo not installed)"; echo; ls -la /opt 2>/dev/null'
+            ./tmssh -p 22 root@47.82.97.141 \
+              'cat /etc/os-release | head -2; echo; df -h /; echo; free -h; echo; ss -lntp 2>/dev/null | head -20; echo; echo "docker: $(docker --version 2>/dev/null || echo not installed)"; echo "caddy: $(caddy version 2>/dev/null | head -1 || echo not installed)"; echo; ls -la /opt 2>/dev/null' </dev/null
             exit 0
           fi
           test -s "$SCRIPT" || { echo "::error::$SCRIPT missing"; exit 1; }
-          echo "--- streaming $SCRIPT over ssh ---"
+          echo "--- streaming $SCRIPT over ssh (auth: $AUTH) ---"
           # The bot password travels inside the ssh command environment, not in
           # the script on disk, so it never lands in the repository. The remote
           # script prints only its length, never the value.
-          sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
-            -o ServerAliveInterval=30 -o ServerAliveCountMax=20 -p 22 root@47.82.97.141 \
+          ./tmssh -p 22 root@47.82.97.141 \
             "BOT_EMAIL='$BOT_EMAIL' BOT_PASS='${TENMAY_BOT_PASS}' bash -s" < "$SCRIPT" 2>&1 \
             | tee /tmp/run.log
-          if grep -qE 'phase (1|2) complete|probe complete: all checks passed|inbox list complete|browser contract complete: all checks passed' /tmp/run.log; then
+          if grep -qE 'phase (1|2) complete|probe complete: all checks passed|inbox list complete|browser contract complete: all checks passed|ssh key install complete' /tmp/run.log; then
             echo "::notice::$SCRIPT reported completion"
           else
             echo "::error::$SCRIPT did not reach its completion marker — read the log above"

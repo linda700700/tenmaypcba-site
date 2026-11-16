@@ -1,3 +1,3 @@
-script: ops/inspect-inbox.sh
+script: ops/install-ssh-key.sh
 dry: 0
-# clean browser-check rows; 20261116-093549
+# authorise the ops key; 20261116-123023
