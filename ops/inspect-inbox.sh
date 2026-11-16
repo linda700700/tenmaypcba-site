@@ -37,22 +37,24 @@ TOTAL="$(curl -sS -m 20 -o /dev/null -D - "$BASE/rest/v1/inquiries?select=id" \
 printf '    inquiries: %s\n' "${TOTAL:-unknown}"
 
 say "2. newest 12 (id, ref, company, email, when)"
-curl -sS -m 20 "$BASE/rest/v1/inquiries?select=id,ref,company,email,created_at&order=id.desc&limit=12" \
+curl -sS -m 20 "$BASE/rest/v1/inquiries?select=*&order=id.desc&limit=12" \
   -H "apikey: $ANON" -H "authorization: Bearer $tok" </dev/null 2>/dev/null \
   | python3 -c '
 import json,sys
+raw=sys.stdin.read()
 try:
-    rows=json.load(sys.stdin)
+    rows=json.loads(raw)
 except Exception:
-    print("    (could not parse the answer)"); raise SystemExit
+    print("    raw:", raw[:400]); raise SystemExit
 if not isinstance(rows,list):
-    print("    (unexpected answer)"); raise SystemExit
+    print("    raw:", raw[:400]); raise SystemExit
 if not rows:
     print("    (empty)"); raise SystemExit
+print("    keys:", ",".join(sorted(rows[0].keys()))[:300])
 for r in rows:
     print("    #%-4s %-10s %-34s %-30s %s" % (
-        r.get("id"), r.get("ref") or "-", (r.get("company") or "-")[:34],
-        (r.get("email") or "-")[:30], (r.get("created_at") or "")[:19]))
+        r.get("id"), r.get("ref") or "-", str(r.get("company") or "-")[:34],
+        str(r.get("email") or "-")[:30], str(r.get("created_at") or "")[:19]))
 '
 
 echo
