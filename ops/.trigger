@@ -1,2 +1,2 @@
 script: ops/provision.sh
-dry: 1
+dry: 0
