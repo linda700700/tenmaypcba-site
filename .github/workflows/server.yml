@@ -46,7 +46,7 @@ jobs:
             [ -n "$D" ] && DRY="$D"
           fi
           case "$SCRIPT" in
-            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh|ops/set-anon-key.sh) ;;
+            ops/provision.sh|ops/enable-tls.sh|ops/probe-live.sh|ops/set-anon-key.sh|ops/set-bot.sh) ;;
             *) echo "::error::refusing to run '$SCRIPT'"; exit 1 ;;
           esac
           echo "script=$SCRIPT" >> "$GITHUB_OUTPUT"
@@ -85,6 +85,8 @@ jobs:
           SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD || secrets.TENMAYPCBA }}
           SCRIPT: ${{ steps.t.outputs.script }}
           DRY: ${{ steps.t.outputs.dry }}
+          TENMAY_BOT_PASS: ${{ secrets.TENMAY_BOT_PASS }}
+          BOT_EMAIL: bot@tenmaypcba.com
         run: |
           set -o pipefail
           if [ "$DRY" = "1" ]; then
@@ -95,9 +97,13 @@ jobs:
           fi
           test -s "$SCRIPT" || { echo "::error::$SCRIPT missing"; exit 1; }
           echo "--- streaming $SCRIPT over ssh ---"
+          # The bot password travels inside the ssh command environment, not in
+          # the script on disk, so it never lands in the repository. The remote
+          # script prints only its length, never the value.
           sshpass -e ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null \
             -o ServerAliveInterval=30 -o ServerAliveCountMax=20 -p 22 root@47.82.97.141 \
-            'bash -s' < "$SCRIPT" 2>&1 | tee /tmp/run.log
+            "BOT_EMAIL='$BOT_EMAIL' BOT_PASS='${TENMAY_BOT_PASS}' bash -s" < "$SCRIPT" 2>&1 \
+            | tee /tmp/run.log
           if grep -qE 'phase (1|2) complete|probe complete: all checks passed' /tmp/run.log; then
             echo "::notice::$SCRIPT reported completion"
           else

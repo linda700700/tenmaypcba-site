@@ -1,2 +1,2 @@
-script: ops/set-anon-key.sh
-dry: 0
+script: ops/provision.sh
+dry: 1
