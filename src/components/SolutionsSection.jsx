@@ -231,7 +231,10 @@ export default function SolutionsSection() {
               ))}
             </div>
 
-            <div className="hidden lg:block mt-4 rounded-sm border border-brand-200/50 bg-slate-50/70 p-3.5">
+            {/* Shown at every width: on mobile it sits under the chip rail,
+                which is the only process switcher there, and it is the one
+                way out of the section for someone who cannot name a process. */}
+            <div className="mt-3 lg:mt-4 rounded-sm border border-brand-200/50 bg-slate-50/70 p-3.5">
               <div className="text-[12.5px] font-bold text-slate-900">Not sure which process applies?</div>
               <p className="text-[12.5px] text-slate-600 mt-1 leading-relaxed">
                 Send the Gerber and BOM. An assembly engineer maps your design onto these eight processes in writing.
