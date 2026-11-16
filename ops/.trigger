@@ -1,3 +1,3 @@
-script: ops/browser-contract.sh
+script: ops/inspect-inbox.sh
 dry: 0
-# re-run after the asset-hash fix; 20261116-090954
+# clean probe rows; 20261116-091214
