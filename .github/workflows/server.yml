@@ -13,6 +13,7 @@ name: server
 #
 # Setup, once — Settings → Secrets and variables → Actions → New repository secret:
 #     SWAS_ROOT_PASSWORD = the root password set in the Alibaba Cloud console
+#   (this repo currently uses the name TENMAYPCBA; both names are accepted)
 # The value is never printed and never returned to the caller. Once the box is
 # provisioned: delete the secret and reset the root password.
 
@@ -54,17 +55,17 @@ jobs:
 
       - name: check secret
         env:
-          SWAS_PASS: ${{ secrets.SWAS_ROOT_PASSWORD }}
+          SWAS_PASS: ${{ secrets.SWAS_ROOT_PASSWORD || secrets.TENMAYPCBA }}
         run: |
           if [ -z "$SWAS_PASS" ]; then
-            echo "::error::SWAS_ROOT_PASSWORD is not set. Settings → Secrets and variables → Actions → New repository secret, name SWAS_ROOT_PASSWORD, value = the root password you set in the Alibaba Cloud console."
+            echo "::error::no root password secret found — expected SWAS_ROOT_PASSWORD or TENMAYPCBA under Settings → Secrets and variables → Actions"
             exit 1
           fi
           echo "secret present (${#SWAS_PASS} chars)"
 
       - name: connect
         env:
-          SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD }}
+          SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD || secrets.TENMAYPCBA }}
         run: |
           sudo apt-get update -qq
           sudo apt-get install -y -qq sshpass
@@ -81,7 +82,7 @@ jobs:
 
       - name: run script
         env:
-          SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD }}
+          SSHPASS: ${{ secrets.SWAS_ROOT_PASSWORD || secrets.TENMAYPCBA }}
           SCRIPT: ${{ steps.t.outputs.script }}
           DRY: ${{ steps.t.outputs.dry }}
         run: |
