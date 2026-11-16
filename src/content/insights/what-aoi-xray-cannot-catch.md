@@ -60,4 +60,4 @@ If the answer to the last one is "the customer tests it", then the inspection cl
 
 Inspection claims are easy to inflate and hard to audit. A manufacturer that says "we have AOI and X-ray" has told you about equipment. One that says "we catch placement defects optically, hidden joints by X-ray, and connectivity by flying probe — but not component value drift over temperature" has told you where your risk is.
 
-Shenzhen Tengmei Technology runs SPI, AOI and X-ray in line on its Yamaha YSM20/YSM10 lines; the [assembly page](/assembly.html) describes where each station sits in the flow, and [capabilities](/capabilities.html) lists the equipment. Electrical test is quoted per project rather than claimed as standard, because the fixture is product-specific.
+Shenzhen Tenmay Technology runs SPI, AOI and X-ray in line on its Yamaha YSM20/YSM10 lines; the [assembly page](/assembly.html) describes where each station sits in the flow, and [capabilities](/capabilities.html) lists the equipment. Electrical test is quoted per project rather than claimed as standard, because the fixture is product-specific.

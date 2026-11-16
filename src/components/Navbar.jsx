@@ -195,7 +195,7 @@ const NAV = [
       {
         title: 'Company',
         items: [
-          { label: 'About Tengmei', href: '/#about', kw: 'about company 2008 shenzhen' },
+          { label: 'About Tenmay', href: '/#about', kw: 'about company 2008 shenzhen' },
           { label: 'Factory floor', href: '/#facility', kw: 'factory equipment lines' },
           { label: 'How we work', href: '/#about', kw: 'values service patience honesty' },
           { label: 'Contact', href: '/#rfq', kw: 'contact email whatsapp phone' },
@@ -389,14 +389,14 @@ export default function Navbar({ currentPath = '/' }) {
           <a href="/" className="flex items-center gap-2.5 shrink-0 group">
             <img
               src="/assets/images/logo-96.webp"
-              alt="Shenzhen Tengmei Technology"
+              alt="Shenzhen Tenmay Technology"
               width="119"
               height="96"
               className="h-9 sm:h-10 w-auto object-contain"
             />
             <div>
               <div className="text-[15px] sm:text-[17px] font-bold tracking-[0.02em] text-slate-900 leading-none">
-                TENGMEI
+                TENMAY
               </div>
               <div className="text-[8px] sm:text-[9px] tracking-[0.12em] sm:tracking-[0.14em] text-slate-500 font-semibold uppercase mt-1">
                 PCBA Contract Manufacturing

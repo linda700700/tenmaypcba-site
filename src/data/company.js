@@ -16,8 +16,8 @@ export const SITE_URL = 'https://tenmaypcba.com';
 export const HERO_VIDEO = '';
 
 export const COMPANY = {
-  legalName: 'Shenzhen Tengmei Technology Co., Ltd.',
-  shortName: 'TENGMEI',
+  legalName: 'Shenzhen Tenmay Technology Co., Ltd.',
+  shortName: 'TENMAY',
   founded: '2008',
   city: 'Shenzhen',
   region: 'Guangdong',
@@ -34,4 +34,4 @@ export const waLink = (text) =>
   `${COMPANY.whatsappHref}?text=${encodeURIComponent(text)}`;
 
 export const DEFAULT_WA_TEXT =
-  'Hello Tengmei, I would like a quote for a PCBA build. I can share Gerber and BOM.';
+  'Hello Tenmay, I would like a quote for a PCBA build. I can share Gerber and BOM.';

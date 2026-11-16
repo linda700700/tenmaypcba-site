@@ -50,15 +50,15 @@ export default function AboutCompany() {
             <div className="bg-white border border-brand-200/50 rounded-lg p-8 flex flex-col items-center">
               <img
                 src="/assets/images/logo-192.webp"
-                alt="Shenzhen Tengmei Technology Co., Ltd."
+                alt="Shenzhen Tenmay Technology Co., Ltd."
                 width="238"
                 height="192"
                 className="h-24 w-auto object-contain"
               />
               <div className="mt-6 text-center">
-                <div className="text-[14px] font-bold tracking-[0.18em] text-slate-900">TENGMEI</div>
+                <div className="text-[14px] font-bold tracking-[0.18em] text-slate-900">TENMAY</div>
                 <div className="mt-1.5 text-[11.5px] tracking-[0.08em] text-slate-500 uppercase leading-relaxed">
-                  Shenzhen Tengmei<br />Technology Co., Ltd.
+                  Shenzhen Tenmay<br />Technology Co., Ltd.
                 </div>
               </div>
             </div>
@@ -75,7 +75,7 @@ export default function AboutCompany() {
 
           {/* Copy */}
           <div>
-            <div className="text-[12px] font-bold tracking-[0.18em] text-[#126B3F] uppercase">About Tengmei</div>
+            <div className="text-[12px] font-bold tracking-[0.18em] text-[#126B3F] uppercase">About Tenmay</div>
             <h2 className="mt-3 text-2xl sm:text-3xl lg:text-[34px] font-bold tracking-tight text-slate-900 leading-[1.2]">
               Eighteen years in Shenzhen,
               <br className="hidden sm:block" /> building boards for other people&rsquo;s products.
@@ -83,7 +83,7 @@ export default function AboutCompany() {
 
             <div className="mt-6 space-y-4 text-[15.5px] leading-relaxed text-slate-700 max-w-[680px]">
               <p>
-                Shenzhen Tengmei Technology Co., Ltd. was established in 2008 and is registered in
+                Shenzhen Tenmay Technology Co., Ltd. was established in 2008 and is registered in
                 Shenzhen, Guangdong. We are a PCBA contract manufacturer: surface-mount and
                 through-hole assembly, post-solder, conformal coating, programming and inspection,
                 run across eight production lines of Yamaha YSM20 and YSM10 equipment.

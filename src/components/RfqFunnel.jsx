@@ -51,7 +51,7 @@ export default function RfqFunnel() {
 
     setFallbackText(
       [
-        'Hello Tengmei, I would like a quote for a PCBA build.',
+        'Hello Tenmay, I would like a quote for a PCBA build.',
         '',
         `Service: ${serviceType}`,
         `Quantity: ${quantity} pcs`,

@@ -18,17 +18,17 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-2.5 text-white">
               <span className="w-9 h-9 bg-white rounded flex items-center justify-center shrink-0">
-                <img src="/assets/images/logo-48.webp" alt="Tengmei" width="60" height="48" className="h-6 w-auto object-contain" />
+                <img src="/assets/images/logo-48.webp" alt="Tenmay" width="60" height="48" className="h-6 w-auto object-contain" />
               </span>
               <span className="leading-tight">
-                <span className="block font-bold text-base tracking-[0.02em]">TENGMEI</span>
+                <span className="block font-bold text-base tracking-[0.02em]">TENMAY</span>
                 <span className="block text-[10px] font-medium uppercase tracking-[0.16em] text-slate-400">
                   ten-may &middot; PCBA
                 </span>
               </span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed">
-              Shenzhen Tengmei Technology Co., Ltd. — a PCBA contract manufacturer established in 2008, running eight production lines in Shenzhen, Guangdong. Price-competitive and quality-led, with flexible small-batch customisation.
+              Shenzhen Tenmay Technology Co., Ltd. — a PCBA contract manufacturer established in 2008, running eight production lines in Shenzhen, Guangdong. Price-competitive and quality-led, with flexible small-batch customisation.
             </p>
             <div className="text-[12px] text-slate-300">
               <span className="text-emerald-400 font-semibold">● ISO 9001 certified</span>

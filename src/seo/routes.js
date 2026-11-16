@@ -12,15 +12,15 @@ export const SITE_URL = 'https://tenmaypcba.com';
 
 export const ROUTE_HEADS = {
   '/': {
-    title: 'PCBA Contract Manufacturer in Shenzhen | TENGMEI',
+    title: 'PCBA Contract Manufacturer in Shenzhen | TENMAY',
     description:
       'PCBA contract manufacturer in Shenzhen since 2008. Eight Yamaha YSM20/YSM10 lines, SMT from 01005, in-line SPI/AOI/X-ray, three-day standard lead time.',
-    ogTitle: 'TENGMEI — PCBA Contract Manufacturer, Shenzhen',
+    ogTitle: 'TENMAY — PCBA Contract Manufacturer, Shenzhen',
     ogDescription:
       'Eight production lines, 300,000 placement points a day, three-day standard lead time. High-mix low-volume PCBA from fifty pieces upward.',
   },
   '/assembly': {
-    title: 'PCBA Assembly Services — SMT, THT, Coating | TENGMEI',
+    title: 'PCBA Assembly Services — SMT, THT, Coating | TENMAY',
     description:
       'SMT from 01005, 0.3 mm IC pitch, boards to 800 x 480 mm, through-hole and selective solder, conformal coating, programming and box build.',
     ogTitle: 'PCBA Assembly — SMT, Through-Hole, Coating',
@@ -28,7 +28,7 @@ export const ROUTE_HEADS = {
       'Turnkey and consignment PCBA: paste print, placement, reflow, in-line SPI/AOI/X-ray, through-hole, coating, programming and box build.',
   },
   '/applications': {
-    title: 'PCBA by Application — Twelve Board Families | TENGMEI',
+    title: 'PCBA by Application — Twelve Board Families | TENMAY',
     description:
       'Treadmill, e-bike, VFD, servo, HMI, power station, dashcam, parking sensor and EV charger boards: what each needs in process and inspection.',
     ogTitle: 'PCBA by Application — Twelve Board Families',
@@ -36,7 +36,7 @@ export const ROUTE_HEADS = {
       'Twelve board families we build repeatedly, with the process fit, batch band and inspection call for each one.',
   },
   '/insights': {
-    title: 'PCBA Process Notes and Engineering Insights | TENGMEI',
+    title: 'PCBA Process Notes and Engineering Insights | TENMAY',
     description:
       'Process limits, quoting arithmetic and BOM problems, written from the assembly line: 01005 yield, small-batch costing and BOM substitution checks.',
     ogTitle: 'Insights — Notes from the PCBA Line',
@@ -44,7 +44,7 @@ export const ROUTE_HEADS = {
       'Engineering notes on fine-pitch placement, small-batch economics and BOM substitution, from a high-mix PCBA floor in Shenzhen.',
   },
   '/capabilities': {
-    title: 'PCBA Manufacturing Capabilities & Equipment | TENGMEI',
+    title: 'PCBA Manufacturing Capabilities & Equipment | TENMAY',
     description:
       'Eight Yamaha YSM20/YSM10 lines, in-line SPI, AOI and X-ray, 01005 placement, 0.3 mm pitch, ISO 9001. What this floor can and cannot build.',
     ogTitle: 'PCBA Capabilities and Equipment',

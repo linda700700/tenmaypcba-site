@@ -209,7 +209,7 @@ export const USE_CASE_FAQ = [
   },
   {
     q: 'Do you need IATF 16949 to build automotive aftermarket PCBA?',
-    a: 'Aftermarket 12 V accessories such as jump starters and tyre inflators are sold as consumer products, so IATF 16949 is not a precondition. Tengmei holds ISO 9001. Work for vehicle manufacturers as a Tier supplier would require IATF 16949 and is outside the current scope.',
+    a: 'Aftermarket 12 V accessories such as jump starters and tyre inflators are sold as consumer products, so IATF 16949 is not a precondition. Tenmay holds ISO 9001. Work for vehicle manufacturers as a Tier supplier would require IATF 16949 and is outside the current scope.',
   },
   {
     q: 'Which products are the best fit for a shop without in-house ICT or FCT?',

@@ -55,6 +55,6 @@ That last question separates a genuine HMLV operation from one that simply toler
 
 ## What this looks like on a real line
 
-At the Shenzhen facility of Shenzhen Tengmei Technology, high-mix work is the normal case: eight Yamaha YSM20/YSM10 lines, batches from fifty pieces, and feeder carts loaded per order. The visible cost of HMLV is the kitting bench — the reels being loaded in the photograph above — because that is where changeover becomes labour.
+At the Shenzhen facility of Shenzhen Tenmay Technology, high-mix work is the normal case: eight Yamaha YSM20/YSM10 lines, batches from fifty pieces, and feeder carts loaded per order. The visible cost of HMLV is the kitting bench — the reels being loaded in the photograph above — because that is where changeover becomes labour.
 
 If you want the process side of this rather than the commercial side, the [assembly](/assembly.html) page covers what runs in line, and [capabilities](/capabilities.html) lists the placement limits that decide whether your design fits a small-batch line at all.
