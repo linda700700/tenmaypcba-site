@@ -1,25 +1,33 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 /*
- * Scroll reveal. One IntersectionObserver per element, unobserved after the
- * first pass, so a long page does not keep a live observer per section.
- * The visual transition lives in styles.css ([data-reveal]).
+ * Scroll reveal, as an enhancement only.
+ *
+ * The markup is readable before this runs: [data-reveal] has no opacity rule of
+ * its own, so no JS, no IntersectionObserver and prefers-reduced-motion all
+ * render the section normally. We hide a section only after confirming it sits
+ * outside the viewport at mount, which is the one case where hiding cannot be
+ * seen, and reveal it again when it scrolls in.
  */
+const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
+
 export default function Reveal({ children, delay = 0, as: Tag = 'div', className = '', ...rest }) {
   const ref = useRef(null);
-  const [seen, setSeen] = useState(false);
+  const [hidden, setHidden] = useState(false);
 
-  useEffect(() => {
+  useIsoLayoutEffect(() => {
     const el = ref.current;
-    if (!el || seen) return;
-    if (typeof IntersectionObserver === 'undefined') {
-      setSeen(true);
-      return;
-    }
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+
+    const box = el.getBoundingClientRect();
+    const onScreen = box.top < window.innerHeight && box.bottom > 0;
+    if (onScreen) return; // already visible — never take it away
+
+    setHidden(true);
     const io = new IntersectionObserver(
       (entries) => {
         if (entries.some((e) => e.isIntersecting)) {
-          setSeen(true);
+          setHidden(false);
           io.disconnect();
         }
       },
@@ -27,13 +35,13 @@ export default function Reveal({ children, delay = 0, as: Tag = 'div', className
     );
     io.observe(el);
     return () => io.disconnect();
-  }, [seen]);
+  }, []);
 
   return (
     <Tag
       ref={ref}
       data-reveal=""
-      className={`${seen ? 'is-in' : ''} ${className}`}
+      className={`${hidden ? 'reveal-hidden' : ''} ${className}`}
       style={{ '--reveal-delay': `${delay}ms` }}
       {...rest}
     >
