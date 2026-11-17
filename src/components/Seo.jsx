@@ -17,10 +17,12 @@ import { articleBySlug } from '../lib/insights';
  *  1. FAQPage is emitted on the homepage only. The FAQ block is rendered there
  *     and nowhere else, and shipping the same eight questions under eleven URLs
  *     is duplicate markup, not extra coverage.
- *  2. No `sameAs` and no street address yet. Both are only worth adding with
- *     real values — a wrong profile URL or an invented street number is a
- *     penalty risk, not a signal. They go in when the accounts and the
- *     registered address are confirmed.
+ *  2. `sameAs` is still empty, deliberately. The two directory profiles that
+ *     could fill it carry the old LED product line and an ISO 9001:2000 claim;
+ *     pointing sameAs at them would publish the contradiction rather than
+ *     resolve it. They go in once those profiles are corrected or retired.
+ *     The street address is no longer a placeholder — it is copied from the
+ *     licence, and it sits in company.js where the licence fields live.
  */
 function JsonLd({ id, data }) {
   return (
@@ -64,6 +66,8 @@ function breadcrumbsFor(path) {
     trail.push({ name: 'Applications', path });
   } else if (path === '/rfq') {
     trail.push({ name: 'Request a quote', path });
+  } else if (path === '/company') {
+    trail.push({ name: 'Company record', path });
   } else {
     return null;
   }
@@ -185,6 +189,23 @@ export default function Seo({ path = '/' }) {
       }
     : null;
 
+  /* /company is the page to quote when someone asks "who is this company".
+   * AboutPage with mainEntity pointing at the shared Organization @id ties the
+   * prose on that page to the entity defined everywhere else, instead of
+   * spawning a second, competing description of the same company. */
+  const aboutPage =
+    path === '/company'
+      ? {
+          '@context': 'https://schema.org',
+          '@type': 'AboutPage',
+          '@id': `${canonicalFor('/company')}#about`,
+          name: 'Company record',
+          about: { '@id': `${SITE_URL}/#organization` },
+          mainEntity: { '@id': `${SITE_URL}/#organization` },
+          inLanguage: 'en',
+        }
+      : null;
+
   const trail = breadcrumbsFor(path);
   const breadcrumb = trail
     ? {
@@ -223,6 +244,7 @@ export default function Seo({ path = '/' }) {
       <JsonLd id="ld-website" data={website} />
       <JsonLd id="ld-service" data={service} />
       {familyService ? <JsonLd id="ld-family-service" data={familyService} /> : null}
+      {aboutPage ? <JsonLd id="ld-about-page" data={aboutPage} /> : null}
       {breadcrumb ? <JsonLd id="ld-breadcrumb" data={breadcrumb} /> : null}
       {faq ? <JsonLd id="ld-faq" data={faq} /> : null}
     </>

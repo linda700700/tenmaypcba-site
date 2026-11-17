@@ -196,6 +196,7 @@ const NAV = [
         title: 'Company',
         items: [
           { label: 'About Tenmay', href: '/#about', kw: 'about company 2008 shenzhen' },
+          { label: 'Company record', href: '/company.html', kw: 'licence credit code registration iso certificate entity' },
           { label: 'Factory floor', href: '/#facility', kw: 'factory equipment lines' },
           { label: 'How we work', href: '/#about', kw: 'values service patience honesty' },
           { label: 'Contact', href: '/#rfq', kw: 'contact email whatsapp phone' },

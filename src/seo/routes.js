@@ -147,6 +147,14 @@ export const ROUTE_HEADS = {
     ogDescription:
       'One form to an assembly engineer: DFM note plus itemised price, with component lead time stated rather than hidden.',
   },
+  '/company': {
+    title: 'Company Record — Registration and Certificates | TENMAY',
+    description:
+      'Who TENMAY is in law: the registered Chinese name, unified social credit code, ISO 9001 certificate holder, founding date and what this plant does not do.',
+    ogTitle: 'Company Record — TENMAY',
+    ogDescription:
+      'Licence fields, the three name forms of one entity, the certificate edition status and the listings we are retiring.',
+  },
   '/privacy': {
     title: 'Privacy Policy — What We Collect and Why | TENMAY',
     description:
