@@ -41,6 +41,20 @@
       }
       a.plain { color: #2f6b4f; text-decoration: none; font-size: 14px; margin-left: 16px; }
       a.plain:hover, a.btn:hover { opacity: 0.9; }
+      .sub { margin: 26px 0 10px; font-size: 12px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b7d72; font-weight: 700; }
+      form { display: flex; gap: 8px; margin-bottom: 4px; }
+      input[type="search"] {
+        flex: 1; min-width: 0; padding: 11px 12px; font-size: 15px; color: #10231a;
+        border: 1px solid #cfdad2; border-radius: 8px; background: #fff; font-family: inherit;
+      }
+      input[type="search"]:focus { outline: 2px solid #14603f; outline-offset: 1px; }
+      button {
+        padding: 11px 16px; font-size: 15px; font-weight: 600; color: #fff; background: #14603f;
+        border: 0; border-radius: 8px; cursor: pointer; font-family: inherit;
+      }
+      .links { display: flex; flex-wrap: wrap; gap: 8px 18px; margin: 0; padding: 0; list-style: none; }
+      .links a { color: #2f6b4f; text-decoration: none; font-size: 14px; }
+      .links a:hover { text-decoration: underline; }
     </style>
   </head>
   <body>
@@ -53,7 +67,37 @@
       </p>
       <a class="btn" href="/">Back to the homepage</a>
       <a class="plain" href="/capabilities.html">Capabilities</a>
-      <a class="plain" href="/applications.html">Applications</a>
+      <a class="plain" href="/rfq.html">Request a quote</a>
+
+      <div class="sub">Find the page you wanted</div>
+      <form action="https://duckduckgo.com/" method="get" role="search">
+        <input type="hidden" name="sites" value="tenmaypcba.com" />
+        <input type="search" name="q" aria-label="Search tenmaypcba.com" placeholder="Part number, process or board type" />
+        <button type="submit">Search</button>
+      </form>
+
+      <div class="sub">Board families</div>
+      <ul class="links">
+        <li><a href="/applications/vfd.html">VFD / Inverter</a></li>
+        <li><a href="/applications/jump-starter.html">Jump Starter</a></li>
+        <li><a href="/applications/treadmill.html">Treadmill &amp; Fitness</a></li>
+        <li><a href="/applications/ebike.html">E-bike Controller</a></li>
+        <li><a href="/applications/power-station.html">Power Station</a></li>
+        <li><a href="/applications/robot-vacuum.html">Robot Vacuum</a></li>
+        <li><a href="/applications/servo.html">Servo Drives</a></li>
+        <li><a href="/applications/hmi.html">Industrial HMI</a></li>
+        <li><a href="/applications/led-driver.html">LED Drivers</a></li>
+        <li><a href="/applications/dashcam.html">Dashcam &amp; Mirror</a></li>
+        <li><a href="/applications/parking-sensor.html">Parking Sensors</a></li>
+        <li><a href="/applications/evse.html">EV Charging (EVSE)</a></li>
+      </ul>
+
+      <div class="sub">Also useful</div>
+      <ul class="links">
+        <li><a href="/insights.html">Insights</a></li>
+        <li><a href="/assembly.html">Assembly processes</a></li>
+        <li><a href="/company.html">Company</a></li>
+      </ul>
     </main>
   </body>
 </html>

@@ -57,6 +57,13 @@
       <description>On a small potted board, the order of the last two steps decides the scrap rate. Once the compound cures, nothing inside is inspectable or reworkable.</description>
     </item>
     <item>
+      <title>What a PCBA quote should contain — and what a bare number leaves out</title>
+      <link>https://tenmaypcba.com/insights/pcba-quote-what-it-should-contain.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/pcba-quote-what-it-should-contain.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A single unit price hides the assumptions that decide the real cost. These eleven lines show whether a PCBA quote can be compared, or only admired.</description>
+    </item>
+    <item>
       <title>Should one assembler build all three portable power station boards?</title>
       <link>https://tenmaypcba.com/insights/power-station-three-board-supplier.html</link>
       <guid isPermaLink="true">https://tenmaypcba.com/insights/power-station-three-board-supplier.html</guid>
@@ -97,6 +104,27 @@
       <guid isPermaLink="true">https://tenmaypcba.com/insights/consigned-vs-turnkey-pcba.html</guid>
       <pubDate>Mon, 16 Nov 2026 00:00:00 GMT</pubDate>
       <description>Where the three real costs sit when you consign components instead of buying turnkey, what changes at 50, 500 and 5,000 pieces, and which model wins.</description>
+    </item>
+    <item>
+      <title>The four clocks inside a PCBA lead time</title>
+      <link>https://tenmaypcba.com/insights/four-clocks-in-a-pcba-lead-time.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/four-clocks-in-a-pcba-lead-time.html</guid>
+      <pubDate>Mon, 16 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A three-day build is not a three-day delivery. Four separate clocks run in a PCBA order, and only one of them belongs to the assembly floor.</description>
+    </item>
+    <item>
+      <title>What a DFM review catches before the stencil is cut</title>
+      <link>https://tenmaypcba.com/insights/dfm-review-before-the-stencil.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/dfm-review-before-the-stencil.html</guid>
+      <pubDate>Sun, 15 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Ten checks a fabricator makes on your Gerber and BOM before quoting, which of them change the price, and which are cheaper to answer than to discover at setup.</description>
+    </item>
+    <item>
+      <title>Why the second run costs less than the first — and where that stops</title>
+      <link>https://tenmaypcba.com/insights/why-the-second-run-costs-less.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/why-the-second-run-costs-less.html</guid>
+      <pubDate>Sat, 14 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Setup, programming, stencil and first-article approval are paid once. What carries over to a reorder, what is charged again, and what cancels the saving.</description>
     </item>
     <item>
       <title>01005 vs 0201: which package should your design use?</title>

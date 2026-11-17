@@ -153,6 +153,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://tenmaypcba.com/insights/pcba-quote-what-it-should-contain.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://tenmaypcba.com/insights/power-station-three-board-supplier.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>yearly</changefreq>
@@ -185,6 +191,24 @@
   <url>
     <loc>https://tenmaypcba.com/insights/consigned-vs-turnkey-pcba.html</loc>
     <lastmod>2026-11-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tenmaypcba.com/insights/four-clocks-in-a-pcba-lead-time.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tenmaypcba.com/insights/dfm-review-before-the-stencil.html</loc>
+    <lastmod>2026-11-15</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tenmaypcba.com/insights/why-the-second-run-costs-less.html</loc>
+    <lastmod>2026-11-14</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
