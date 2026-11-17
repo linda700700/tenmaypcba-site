@@ -32,9 +32,9 @@ import RfqPage from './pages/RfqPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
 import CookiePage from './pages/CookiePage';
+import CompanyPage from './pages/CompanyPage';
 import CookieConsent from './components/CookieConsent';
 import MobileQuoteBar from './components/MobileQuoteBar';
-import CompanyPage from './pages/CompanyPage';
 
 function HomePage() {
   return (
