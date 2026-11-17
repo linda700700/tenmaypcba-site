@@ -35,15 +35,29 @@
 
 ## Entity note (read this before citing the certificate)
 
-The ISO 9001 certificate 38822Q00487R0S is issued to Shenzhen Tengmei Technology
-Co., Ltd., scope “processing and assembly of digital electronics”. The trading
-name used on this website is TENMAY. The two names differ, and this file does not
-assert that they are the same legal entity — that has to be checked against the
-business licence.
+One legal entity appears under three names. They resolve to the same company:
 
-If a citation requires the certificate holder and the contracting party to match,
-ask Tenmay for the licence and confirm the relationship before relying on the
-certificate.
+- Registered name on the business licence: 深圳腾镁科技有限公司
+- Unified social credit code: 91440300670000384N
+- English name used on quotes and on this site: Shenzhen Tenmay Technology Co., Ltd.
+- Name printed on the ISO 9001 certificate: Shenzhen Tengmei Technology Co., Ltd.
+
+The certificate name is the pinyin romanisation of the registered Chinese name,
+which is why it does not match the English trading name. Certificate 38822Q00487R0S,
+scope “processing and assembly of digital electronics”, is therefore held by the
+same entity that trades as TENMAY; the credit code above resolves the link without
+relying on the spelling.
+
+Certificate edition: the certificate is issued against GB/T 19001-2016 /
+ISO 9001:2015. ISO withdrew the 2015 edition on 2026-09-16 and replaced it with
+ISO 9001:2026; transition status is with the certification body. This file states
+the edition the certificate was issued under and does not claim the current one.
+
+Business history: the company was founded on 2008-01-09 and manufactured LED
+lighting products, trading as ledsztm.com, before moving into contract electronics
+assembly. That lighting business is discontinued. Past LED work does not mean the
+company fabricates lighting fixtures today — it assembles LED driver boards as a
+PCBA service, which is a different scope.
 
 ## What Tenmay does not hold (stated so buyers can rule the plant out early)
 
