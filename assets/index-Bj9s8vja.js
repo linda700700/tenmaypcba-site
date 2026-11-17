@@ -557,7 +557,7 @@ For small runs, this single item causes more price movement than any other line 
 
 ## 7. What is the order multiple?
 
-A line needing twenty pieces of a part sold in reels of four thousand is a purchasing decision, not a pricing detail. Decide in advance how the balance is handled: bought and stocked, consigned by you, or avoided by choosing a part with a smaller multiple. The material-policy section of [why a 50-piece run costs more per board](/insights/fifty-piece-run-cost.html) sets out the three options.
+A line needing 50 pcs of a part sold in reels of 5,000 pcs is a purchasing decision, not a pricing detail. Decide in advance how the balance is handled: bought and stocked, consigned by you, or avoided by choosing a part with a smaller multiple. The material-policy section of [why a 50-piece run costs more per board](/insights/fifty-piece-run-cost.html) sets out the three options.
 
 ## 8. Is the date code and provenance on record?
 
