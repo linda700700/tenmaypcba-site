@@ -268,6 +268,44 @@ try {
 
   await page.screenshot({ path: 'rfq-success.png', fullPage: false });
   console.log(`reference=${reference || 'none'}`);
+
+  /*
+   * The host serves every file with max-age=600, so a returning visitor
+   * revalidates all 59 assets. The service worker is the fix; this measures
+   * whether it actually took control instead of trusting the registration call.
+   *
+   * Two reloads: the first lets the worker claim this client, the second is the
+   * visit being measured. Counting network requests to /assets/ is the only
+   * honest signal — a cache hit leaves no request at all.
+   */
+  const swState = await page.evaluate(async () => {
+    if (!('serviceWorker' in navigator)) return 'unsupported';
+    const regs = await navigator.serviceWorker.getRegistrations();
+    return regs.length ? 'registered' : 'none';
+  });
+
+  await page.reload({ waitUntil: 'load' });
+  await new Promise((r) => setTimeout(r, 1200));
+
+  let assetRequests = 0;
+  const countAsset = (r) => {
+    if (r.url().includes('/assets/')) assetRequests += 1;
+  };
+  page.on('request', countAsset);
+  await page.reload({ waitUntil: 'load' });
+  await new Promise((r) => setTimeout(r, 2500));
+  page.off('request', countAsset);
+
+  const controlled = await page.evaluate(
+    () => !!(navigator.serviceWorker && navigator.serviceWorker.controller)
+  );
+  check(swState !== 'none', 'service worker registered', `state: ${swState}`);
+  check(controlled, 'service worker controls the page on a repeat visit');
+  check(
+    assetRequests === 0,
+    'repeat visit downloads no asset from the network',
+    assetRequests === 0 ? 'served from cache' : `${assetRequests} asset requests`
+  );
 } finally {
   await browser.close();
 }

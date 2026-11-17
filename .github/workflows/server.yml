@@ -23,6 +23,13 @@ name: server
 on:
   push:
     branches: [ops-run]
+    # Only a change that actually asks for work, or a change to the scripts
+    # themselves. Without this every push to ops-run re-ran the default script.
+    paths:
+      - 'ops/.trigger'
+      - 'ops/*.sh'
+      - 'ops/run.sh'
+      - '.github/workflows/server.yml'
 
 concurrency:
   group: server-ops-run
@@ -41,11 +48,20 @@ jobs:
       - name: read ops/.trigger
         id: t
         run: |
-          SCRIPT="ops/provision.sh"; DRY="0"
+          SCRIPT=""; DRY="0"
           if [ -f ops/.trigger ]; then
             S="$(awk -F': *' '/^script:/{print $2}' ops/.trigger | tr -d ' \r')"
             D="$(awk -F': *' '/^dry:/{print $2}' ops/.trigger | tr -d ' \r')"
             [ -n "$S" ] && SCRIPT="$S"
+          # No default script on purpose. A push that does not edit
+          # ops/.trigger must never run provisioning: an unrelated commit
+          # once re-ran the whole setup because the default fell through.
+          if [ -z "$SCRIPT" ]; then
+            echo "::notice::no script: entry in ops/.trigger — nothing to run"
+            echo "script=" >> "$GITHUB_OUTPUT"
+            echo "dry=0" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
             [ -n "$D" ] && DRY="$D"
           fi
           case "$SCRIPT" in
@@ -96,6 +112,7 @@ jobs:
           exit 1
 
       - name: run script
+        if: steps.t.outputs.script != ''
         env:
           SCRIPT: ${{ steps.t.outputs.script }}
           DRY: ${{ steps.t.outputs.dry }}
