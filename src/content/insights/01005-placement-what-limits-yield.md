@@ -86,3 +86,5 @@ Three things decide whether the quote is realistic:
 Send the Gerber, the BOM and the centroid, and ask for a DFM note specifically on the 01005 areas. The [capabilities page](/capabilities.html) lists the placement window we hold today — 01005 passives, 0.3 mm minimum IC pitch, boards up to 800 × 480 mm — and the [assembly page](/assembly.html) shows where in-line SPI, AOI and X-ray sit in the flow. A supplier who answers a DFM note in writing tells you more than any capability table.
 
 If the package choice is still open, [01005 vs 0201](/insights/01005-vs-0201.html) sets out when the smaller part is actually necessary, and [what AOI and X-ray can and cannot catch](/insights/what-aoi-xray-cannot-catch.html) explains the inspection gap in more detail.
+
+*Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: [WhatsApp](https://wa.me/8617361058693)*

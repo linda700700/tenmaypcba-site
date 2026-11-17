@@ -1,7 +1,7 @@
 ---
 title: "Why does a 50-piece PCBA run cost more per board than 5,000?"
 seoTitle: "Why a 50-Piece PCBA Run Costs More Per Board Than 5,000"
-description: "Setup, stencil, programming and first-article work do not change with batch size. Here is where the money goes on a small run, and which parts of the gap are not real."
+description: "Setup, stencil, programming and first-article work do not change with batch size. Where the money goes on a small run, and which parts of the gap are not real."
 date: 2026-11-06
 tags: Costing, HMLV, Quoting
 summary: "Fixed cost divided by quantity is most of the answer. The rest is changeover, kitting and material minimums — and knowing which one you are actually paying for."
@@ -33,9 +33,9 @@ A worked example, with round numbers, because the mechanic matters more than the
 
 | Batch | Setup time per board | What it looks like on a quote |
 | --- | --- | --- |
-| 50 boards | 4.8 minutes per board | A visible line item, or a unit price that jumps |
-| 500 boards | 29 seconds per board | Noticeable but tolerable |
-| 5,000 boards | 2.9 seconds per board | Effectively invisible |
+| 50 pcs | 4.8 minutes per board | A visible line item, or a unit price that jumps |
+| 500 pcs | 29 seconds per board | Noticeable but tolerable |
+| 5,000 pcs | 2.9 seconds per board | Effectively invisible |
 
 That is the entire mechanic. The percentage uplift depends on how much assembly time each board needs: a dense board with two hundred placements dilutes setup faster than a simple one. Which is why a per-board price quoted without knowing the batch size is guesswork.
 
@@ -91,3 +91,5 @@ Four things move the number, in order of effect:
 For the wider picture — when a mixed-production model costs more than volume, and when it does not — read [what HMLV means in PCBA](/insights/what-is-hmlv-pcba.html). The [capabilities page](/capabilities.html) states the volume and timing window this floor runs today, including the fifty-piece minimum and three-day standard lead time.
 
 A fifty-piece run is normal business on a high-mix line. It should be priced as arithmetic, not as a favour.
+
+*Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: [WhatsApp](https://wa.me/8617361058693)*

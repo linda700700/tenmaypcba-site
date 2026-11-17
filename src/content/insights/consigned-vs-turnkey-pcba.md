@@ -78,3 +78,5 @@ Only through the kit. Tenmay's standard lead time is three days once the kit is 
 ---
 
 *Written by the Tenmay assembly engineering team. No customer names and no yield percentages are published: we do not have permission to publish them, and an invented number would be worse than none. Batch sizes in the table are the ranges the plant is scheduled around; component pricing is not published because it moves with allocation and market conditions.*
+
+*Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: [WhatsApp](https://wa.me/8617361058693)*

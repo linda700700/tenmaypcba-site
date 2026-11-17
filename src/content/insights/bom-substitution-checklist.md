@@ -14,7 +14,7 @@ Eight checks cover almost every substitution that stops a job: lifecycle status,
 
 ## What is a re-quote, and why does it cost time?
 
-A re-quote is what happens when procurement cannot buy the BOM as written. The part number exists, the quantity is right, the reference designators all match — and then the exact part turns out to be on a fourteen-week lead, sold only in reels of five thousand, or marked obsolete.
+A re-quote is what happens when procurement cannot buy the BOM as written. The part number exists, the quantity is right, the reference designators all match — and then the exact part turns out to be on a lead that runs to 90 days, sold only in reels of 5,000 pcs, or marked obsolete.
 
 At that point the job stops. Someone proposes an alternative, someone else approves it, and the price may move. Nearly all of it is avoidable with a pass through the BOM before the enquiry is sent.
 
@@ -28,7 +28,7 @@ At that point the job stops. Someone proposes an alternative, someone else appro
 | 4 | Package, land and polarity | Same footprint, different pin function — or a part placed the wrong way round |
 | 5 | Moisture sensitivity level | A higher MSL adds baking and a floor-life clock nobody planned for |
 | 6 | Packaging format | Cut tape that cannot be fed turns machine placement into hand placement |
-| 7 | Order multiple | A part sold in reels of four thousand for a build that consumes twenty |
+| 7 | Order multiple | A part sold in reels of 5,000 pcs for a build that consumes 50 pcs |
 | 8 | Date code and provenance | Old material or open-market stock goes into a product with a warranty |
 
 ## 1. Is the part still active?
@@ -111,3 +111,5 @@ Small work at design time, and it removes an entire class of delay at build time
 - No claim that an alternate is fully equivalent without the two or three critical parameters being named.
 
 For a first enquiry we need the Gerber, the BOM and the centroid. If the BOM carries alternates and substitution rules, the DFM note comes back faster because there is less to ask about. The [capabilities page](/capabilities.html) covers the component sourcing and CoC side — what we buy, what we verify on incoming material, and what we do not hold in-house.
+
+*Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: [WhatsApp](https://wa.me/8617361058693)*

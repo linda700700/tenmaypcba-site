@@ -45,11 +45,11 @@ Three things that are not inspection:
 2. **Functional test** — proves the assembly does what it is for, under power.
 3. **Boundary scan** — reaches nets that probing cannot touch.
 
-A program that claims "full inspection" and stops at AOI has covered placement, not function. A program that claims "100% tested" needs to say which of the three above it means.
+A program that claims "full inspection" and stops at AOI has covered placement, not function. A program that claims "100% tested" needs to say which of the three above it means. On a dense board with 0.3 mm pitch, the difference between the three is the difference between a joint check and a function check.
 
 ## What a supplier should be able to tell you
 
-- Which stations run in line, and on which products — not which machines are owned.
+- Which stations run in line, and on which products — not which machines are owned. A line that inspects a 5,000 pcs batch is not necessarily inspecting every board in it.
 - What the first-article process is, and who signs it off.
 - What happens to a board that fails AOI: rework, re-inspect, or scrap — and whether rework is re-inspected at the same station.
 - Whether functional test exists for your product, and who writes the fixture.
@@ -61,3 +61,5 @@ If the answer to the last one is "the customer tests it", then the inspection cl
 Inspection claims are easy to inflate and hard to audit. A manufacturer that says "we have AOI and X-ray" has told you about equipment. One that says "we catch placement defects optically, hidden joints by X-ray, and connectivity by flying probe — but not component value drift over temperature" has told you where your risk is.
 
 Shenzhen Tenmay Technology runs SPI, AOI and X-ray in line on its Yamaha YSM20/YSM10 lines; the [assembly page](/assembly.html) describes where each station sits in the flow, and [capabilities](/capabilities.html) lists the equipment. Electrical test is quoted per project rather than claimed as standard, because the fixture is product-specific.
+
+*Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: [WhatsApp](https://wa.me/8617361058693)*

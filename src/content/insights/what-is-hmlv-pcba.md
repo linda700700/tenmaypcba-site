@@ -33,7 +33,7 @@ Add changeover — unloading the previous product's feeders and loading the next
 
 ## So how much more does a small batch cost per board?
 
-The arithmetic is simple once the fixed part is known. Suppose a setup consumes four hours of line time before the first board is placed. Spread over fifty boards, that is 4.8 minutes of setup per board. Over five thousand boards, it is 2.9 seconds.
+The arithmetic is simple once the fixed part is known. Suppose a setup consumes 4 hours of line time before the first board is placed. Spread over 50 pcs, that is 4.8 minutes of setup per board. Over 5,000 pcs, it is 2.9 seconds.
 
 That is the entire mechanic. The percentage uplift depends on how much assembly time each board needs — a dense board with two hundred placements dilutes setup faster than a simple one — which is why a per-board price quoted without knowing the batch size is guesswork.
 
@@ -55,6 +55,8 @@ That last question separates a genuine HMLV operation from one that simply toler
 
 ## What this looks like on a real line
 
-At the Shenzhen facility of Shenzhen Tenmay Technology, high-mix work is the normal case: eight Yamaha YSM20/YSM10 lines, batches from fifty pieces, and feeder carts loaded per order. The visible cost of HMLV is the kitting bench — the reels being loaded in the photograph above — because that is where changeover becomes labour.
+At the Shenzhen facility of Shenzhen Tenmay Technology, high-mix work is the normal case: eight Yamaha YSM20/YSM10 lines, batches from 50 pcs, and feeder carts loaded per order. The visible cost of HMLV is the kitting bench — the reels being loaded in the photograph above — because that is where changeover becomes labour.
 
 If you want the process side of this rather than the commercial side, the [assembly](/assembly.html) page covers what runs in line, and [capabilities](/capabilities.html) lists the placement limits that decide whether your design fits a small-batch line at all.
+
+*Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: [WhatsApp](https://wa.me/8617361058693)*
