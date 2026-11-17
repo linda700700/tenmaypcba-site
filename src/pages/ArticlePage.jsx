@@ -111,9 +111,12 @@ export default function ArticlePage({ article }) {
             answer engine can lift whole, so it should not sit below an image. */}
         {article.summary ? (
           <div className="mb-8 border-l-[3px] border-[#126B3F] bg-brand-50/70 px-5 py-4">
-            <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#126B3F]">
+            {/* An <h2> rather than a styled div: an outline reader, human or
+                machine, should see this heading and take the paragraph under it
+                as the article's answer. */}
+            <h2 className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#126B3F]">
               In short
-            </div>
+            </h2>
             <p className="mt-2 text-[15.5px] font-medium leading-relaxed text-[#0A2A1C]">
               {article.summary}
             </p>

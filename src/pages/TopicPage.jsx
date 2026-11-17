@@ -58,10 +58,13 @@ function NoteLink({ slug, why }) {
   return (
     <li className="border-t border-slate-200 py-4 first:border-t-0 first:pt-0">
       <a href={a.href} className="group block">
-        <span className="text-[16.5px] font-semibold leading-snug text-slate-900 group-hover:text-[#126B3F]">
+        {/* h4 keeps the hub outline readable: h1 hub, h2 section, h3 group,
+            h4 note. It also stops the title and the reason from being read as
+            one run-on string by a text extractor. */}
+        <h4 className="text-[16.5px] font-semibold leading-snug text-slate-900 group-hover:text-[#126B3F]">
           {a.title}
-        </span>
-        <span className="mt-1 block text-[14px] leading-relaxed text-slate-600">{why}</span>
+        </h4>
+        <p className="mt-1 text-[14px] leading-relaxed text-slate-600">{why}</p>
       </a>
     </li>
   );
