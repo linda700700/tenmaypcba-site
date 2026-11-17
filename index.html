@@ -78,6 +78,33 @@
         window.dataLayer = window.dataLayer || [];
         window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
 
+        /* Consent Mode v2. The default is denial and it is pushed before the
+           gtag script is created, so analytics cannot set a cookie on a first
+           visit: with analytics_storage denied, GA4 sends cookieless pings with
+           no identifier. The banner (or the cookie page) calls tmSetConsent,
+           which flips the state and persists the answer. Advertising signals are
+           denied outright — this site runs no ads and no remarketing. */
+        var CONSENT_KEY = 'tm-consent';
+        function readConsent() {
+          try { return window.localStorage.getItem(CONSENT_KEY); } catch (e) { return null; }
+        }
+        var storedConsent = readConsent();
+        window.gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: storedConsent === 'granted' ? 'granted' : 'denied',
+          functionality_storage: 'granted',
+          security_storage: 'granted',
+          wait_for_update: 500
+        });
+
+        window.tmSetConsent = function (granted) {
+          var state = granted ? 'granted' : 'denied';
+          try { window.localStorage.setItem(CONSENT_KEY, state); } catch (e) {}
+          window.gtag('consent', 'update', { analytics_storage: state });
+        };
+
         if (configured) {
           var s = document.createElement('script');
           s.async = true;

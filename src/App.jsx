@@ -29,6 +29,10 @@ import ApplicationFamilyPage from './pages/ApplicationFamilyPage';
 import InsightsPage from './pages/InsightsPage';
 import ArticlePage from './pages/ArticlePage';
 import RfqPage from './pages/RfqPage';
+import PrivacyPage from './pages/PrivacyPage';
+import TermsPage from './pages/TermsPage';
+import CookiePage from './pages/CookiePage';
+import CookieConsent from './components/CookieConsent';
 
 function HomePage() {
   return (
@@ -67,6 +71,9 @@ export default function App({ path: pathProp }) {
   const isApplications = path === '/applications';
   const isInsights = path === '/insights';
   const isRfq = path === '/rfq';
+  const isPrivacy = path === '/privacy';
+  const isTerms = path === '/terms';
+  const isCookies = path === '/cookies';
   const articleSlug = path.startsWith('/insights/') ? path.slice('/insights/'.length) : null;
   const article = articleSlug ? articleBySlug(articleSlug) : null;
   // /applications/<family> — the three in-depth family pages. The index stays at
@@ -118,6 +125,12 @@ export default function App({ path: pathProp }) {
           <CapabilitiesPage />
         ) : isRfq ? (
           <RfqPage />
+        ) : isPrivacy ? (
+          <PrivacyPage />
+        ) : isTerms ? (
+          <TermsPage />
+        ) : isCookies ? (
+          <CookiePage />
         ) : familySlug ? (
           <ApplicationFamilyPage slug={familySlug} />
         ) : isApplications ? (
@@ -127,6 +140,7 @@ export default function App({ path: pathProp }) {
         )}
       </main>
       <Footer />
+      <CookieConsent />
     </div>
   );
 }

@@ -7,12 +7,18 @@ export default function Footer() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  // Reopens the consent banner rather than repeating its two buttons here: one
+  // place writes the choice, so the two can never disagree.
+  const openCookieSettings = () => {
+    window.dispatchEvent(new Event('tm:open-consent'));
+  };
+
   return (
     <footer className="bg-[#06291A] text-slate-300 border-t border-brand-800 pt-16 pb-12 text-xs" data-component="footer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top 4-Column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-700/60">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-10 border-b border-slate-700/60">
           
           {/* Col 1: Brand Info */}
           <div className="space-y-4">
@@ -107,6 +113,25 @@ export default function Footer() {
             </ul>
           </div>
 
+        </div>
+
+        {/* Legal links. Kept under the columns rather than inside them: these are
+            compliance pages, not a reason to visit, and a buyer scanning the
+            footer for a phone number should still find it first. */}
+        <div className="flex flex-wrap items-center gap-x-5 gap-y-2.5 text-[12px] text-slate-400 pb-8">
+          <a href="/privacy.html" className="hover:text-white transition-colors">Privacy Policy</a>
+          <span className="text-slate-700">·</span>
+          <a href="/terms.html" className="hover:text-white transition-colors">Terms of Use</a>
+          <span className="text-slate-700">·</span>
+          <a href="/cookies.html" className="hover:text-white transition-colors">Cookie Policy</a>
+          <span className="text-slate-700">·</span>
+          <button
+            type="button"
+            onClick={openCookieSettings}
+            className="hover:text-white transition-colors underline decoration-slate-600 underline-offset-2"
+          >
+            Cookie settings
+          </button>
         </div>
 
         {/* Bottom Sub-Strip */}

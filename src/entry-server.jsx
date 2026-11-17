@@ -19,7 +19,16 @@ export const routes = [
     head: ROUTE_HEADS[path],
     url: canonicalFor(path),
     lastmod: null,
-    priority: path === '/' ? '1.0' : path === '/insights' ? '0.7' : '0.9',
+    // Legal pages sit at the bottom of the sitemap: they should be reachable and
+    // indexable, but they are not a landing page for a buyer.
+    priority:
+      path === '/'
+        ? '1.0'
+        : path === '/insights'
+        ? '0.7'
+        : ['/privacy', '/terms', '/cookies'].includes(path)
+        ? '0.3'
+        : '0.9',
   })),
   ...ARTICLES.map((a) => ({
     path: a.path,
