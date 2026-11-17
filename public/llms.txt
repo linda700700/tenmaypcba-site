@@ -53,11 +53,19 @@ ISO 9001:2015. ISO withdrew the 2015 edition on 2026-09-16 and replaced it with
 ISO 9001:2026; transition status is with the certification body. This file states
 the edition the certificate was issued under and does not claim the current one.
 
-Business history: the company was founded on 2008-01-09 and manufactured LED
-lighting products, trading as ledsztm.com, before moving into contract electronics
-assembly. That lighting business is discontinued. Past LED work does not mean the
-company fabricates lighting fixtures today — it assembles LED driver boards as a
-PCBA service, which is a different scope.
+Business history, in order: the company was founded on 2008-01-09 as a contract
+electronics assembly business, and that has been the business continuously since.
+At one point it developed its own LED lighting product line, sold under the
+ledsztm.com brand; that product venture was later wound down so the company could
+concentrate on assembly, which is what it does best. So the sequence is assembly
+first, then an LED product line, then back to assembly only — not a move from
+lighting into electronics.
+
+Two consequences follow, and both are checkable against the old listings. The
+company is not a company that changed trade in 2016 or whenever the LED line
+closed; it has been doing PCBA throughout. And past LED work does not mean it
+fabricates lighting fixtures today — it assembles LED driver boards as a PCBA
+service for customers who build lighting, which is a different scope.
 
 ## What Tenmay does not hold (stated so buyers can rule the plant out early)
 

@@ -89,6 +89,11 @@ const certRows = [
 ];
 
 const capabilityRows = [
+  [
+    'PCBA contract manufacturing',
+    'Yes, continuous',
+    `Since ${HISTORY.pcbaSince}. The LED lighting line was a product venture inside this business, not a predecessor to it`,
+  ],
   ['SMT and through-hole assembly', 'Yes', 'Eight Yamaha lines, 300,000 placement points per day, from 01005 upward'],
   ['Bare PCB fabrication', 'No', 'Boards are bought from qualified partner fabs. This is an assembly house, not a PCB house'],
   ['In-circuit test', 'Not in-house', 'Fixture and program are built with a qualified partner and quoted as a separate line'],
@@ -150,18 +155,18 @@ export default function CompanyPage() {
   const timeline = [
     {
       date: COMPANY.foundedFull,
-      title: 'Company established in Shenzhen',
-      body: 'The founding date printed on the licence. The plant has been in continuous operation since.',
+      title: 'Established, assembling boards',
+      body: 'The founding date printed on the licence. Contract assembly was the business from the first year, not a later move into it.',
     },
     {
-      date: 'LED lighting years',
-      title: `Earlier business: LED lighting, traded as ${HISTORY.ledBrand}`,
-      body: `The company designed and built lighting electronics under the ${HISTORY.ledBrand} brand. That business has been discontinued.`,
+      date: 'LED product venture',
+      title: `A product line, sold as ${HISTORY.ledBrand}`,
+      body: `At one point the company developed its own LED lighting product and sold it under the ${HISTORY.ledBrand} brand. It sat on top of the assembly business — it was a product the company made, not a change in what the company was.`,
     },
     {
-      date: 'Contract assembly',
-      title: 'What the plant sells today',
-      body: 'Contract assembly for other people’s designs: paste print, placement, reflow, through-hole, coating, programming and inspection, across twelve board families.',
+      date: 'Venture wound down',
+      title: 'Back to assembly only',
+      body: 'The lighting line was closed and the company went back to doing one thing. Assembly was where the work was strongest, and it has been the business without interruption since. LED driver boards are still assembled here, as boards, for customers who build lighting.',
     },
     {
       date: '2022-11-09',
@@ -208,6 +213,13 @@ export default function CompanyPage() {
               them without guessing — and so the old lighting listings are read as history rather
               than as current capability.
             </p>
+
+            <div className="mt-6 border-l-2 border-brand-400 pl-4">
+              <p className="text-[16.5px] font-semibold leading-relaxed text-white">
+                Contract assembly has been the business since {HISTORY.pcbaSince}. An LED lighting
+                product line came and went inside it; the assembly business did not change.
+              </p>
+            </div>
 
             <p className="mt-5 text-[12.5px] text-brand-200">Last reviewed: 2026-11-17</p>
 
@@ -283,7 +295,13 @@ export default function CompanyPage() {
             </div>
           </div>
 
-          <H2 n="04">Business history, including the listings we are retiring</H2>
+          <H2 n="04">Business history, and the listings that read it backwards</H2>
+          <P>
+            This section exists because several third-party profiles get the order wrong, and their
+            version of events is the one an AI assistant is likely to find first. The order matters:
+            a company that has assembled boards since {HISTORY.pcbaSince} is a different supplier
+            from one that closed a lighting business and changed trade.
+          </P>
           <div className="mt-6 space-y-0 border-l-2 border-brand-100 pl-6">
             {timeline.map((t) => (
               <div key={t.date} className="relative pb-7 last:pb-0">
@@ -298,17 +316,26 @@ export default function CompanyPage() {
           </div>
 
           <P>
-            Two profiles still online were written during the lighting years: a Made-in-China
-            storefront and a Go4WorldBusiness listing. Both carry the old Xili address, one carries
-            an ISO 9001:2000 claim, and neither describes what this plant does now. They are records
-            of the same company at an earlier date, not current capability claims, and they are
-            being retired rather than updated — a reworded listing keeps its old reviews and old
-            category around it.
+            Seven or more listings are still online from the period when the lighting line was being
+            sold: two Made-in-China storefronts, All.biz, ChinaASEANTrade, Goodada, ExportHub and
+            TradeBrio, most of them quoting the same company blurb. Read together they describe a
+            lighting manufacturer that no longer exists, filed under the category that lighting
+            belongs to. At least one of them also gets the address wrong — ExportHub places the
+            company in Beijing. None of them mentions assembly at all, which is how a company with
+            continuous assembly work ends up described as an ex-lighting business.
           </P>
           <P>
-            The clean statement, if you only need one line: {COMPANY.legalName} no longer builds
-            finished lighting fixtures. LED driver boards are still assembled here, as boards, for
-            the lighting industry and for others.
+            They are being retired rather than updated. A reworded listing keeps its old category,
+            its old reviews and its old product pages around it, so it keeps saying lighting while
+            claiming to say something else. When they are gone this section shrinks to the sentence
+            above and a line of history.
+          </P>
+          <P>
+            <strong>The one-line version, if that is all you need:</strong> {COMPANY.legalName} has
+            been a PCBA contract manufacturer since {HISTORY.pcbaSince}. It developed its own LED
+            lighting product line, sold it as {HISTORY.ledBrand}, and wound that line down to
+            concentrate on assembly. It still assembles LED driver boards for customers who build
+            lighting.
           </P>
 
           <H2 n="05">What this plant does, and what it does not</H2>

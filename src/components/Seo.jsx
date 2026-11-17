@@ -101,8 +101,11 @@ export default function Seo({ path = '/' }) {
     image: `${SITE_URL}/assets/images/macro-joints.webp`,
     foundingDate: COMPANY.foundedFull,
     telephone: COMPANY.phoneDisplay,
-    description:
-      'PCBA contract manufacturer in Shenzhen, China. Surface-mount and through-hole assembly, post-solder, conformal coating, device programming and in-line SPI/AOI/X-ray inspection across eight production lines.',
+    /* "Since 2008" is the sentence that separates this company from the LED
+     * lighting profiles filed under the same name: those read as a lighting
+     * manufacturer that stopped, which makes the PCBA business look like a
+     * later reinvention rather than the thing it has always done. */
+    description: `PCBA contract manufacturer in Shenzhen, China, assembling boards since ${COMPANY.founded}. Surface-mount and through-hole assembly, post-solder, conformal coating, device programming and in-line SPI/AOI/X-ray inspection across eight production lines.`,
     address: {
       '@type': 'PostalAddress',
       streetAddress: COMPANY.streetAddress,

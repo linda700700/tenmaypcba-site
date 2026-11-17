@@ -96,13 +96,30 @@ export const ISO_CERT = {
 };
 
 /*
- * Business history. Only years that have been confirmed are filled in; the
- * company record page renders an entry without a year rather than inventing one.
+ * Business history — and the order it happened in.
+ *
+ * The order is load-bearing. Contract assembly has been the business since the
+ * company was founded on 2008-01-09; the LED lighting line was a product
+ * venture developed on top of that business and later wound down. Reading it
+ * the other way round — "LED first, then a move into assembly", which is how
+ * several old B2B directory profiles present it — turns a contract manufacturer
+ * with eighteen continuous years into a company that changed trade. The second
+ * reading is both false and the weaker claim.
+ *
+ * Source for the sequence: the owner's own account, 2026-11-17. Source for the
+ * founding date: the business licence. No document has been produced for when
+ * the LED venture started or ended, so both years stay blank and the company
+ * page renders it without a date rather than inferring one from "about ten
+ * years ago".
  */
 export const HISTORY = {
   ledBrand: 'ledsztm.com',
-  ledTo: '',      // year the LED lighting business ended
-  pcbaFrom: '',   // year contract assembly began
+  /* Same year as founding, and deliberately derived from it: "PCBA since 2008"
+   * is the claim a buyer checks, so it must not be able to drift away from the
+   * licence date it rests on. */
+  pcbaSince: COMPANY.founded,
+  ledFrom: '', // year the LED product venture started — not documented
+  ledTo: '',   // year it was wound down — not documented
 };
 
 /*
