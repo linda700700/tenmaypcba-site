@@ -136,23 +136,23 @@ export default function ApplicationsPage({ initialHash = '' }) {
         </div>
       </section>
 
-      {/* the three families that carry their own page — linked here so they are
-          one click from the index rather than only reachable from a card footer */}
+      {/* every family carries its own page — linked here so each one is a single
+          click from the index rather than only reachable from a card footer */}
       <section className="border-b border-brand-200/50 bg-slate-50/70 py-8">
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-2">
             <h2 className="text-[15px] font-bold uppercase tracking-[0.13em] text-slate-900">
-              Three of these have a page of their own
+              All twelve have a page of their own
             </h2>
             <p className="text-[12.5px] text-slate-500">
-              Deeper process detail, inspection call and batch economics for the families we build most.
+              Process detail, inspection call, batch economics and the cases where we are the wrong shop.
             </p>
           </div>
-          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {Object.values(FAMILIES).map((f) => (
               <a
                 key={f.slug}
-                href={`/applications/${f.slug}`}
+                href={`/applications/${f.slug}.html`}
                 className="group flex items-center gap-3 rounded-lg border border-brand-200/60 bg-white p-3 transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
               >
                 <span className="h-14 w-20 shrink-0 overflow-hidden rounded bg-slate-100">
@@ -269,7 +269,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
                     <div className="mt-1 flex flex-col items-start gap-1">
                       {FAMILIES[c.id] && (
                         <a
-                          href={`/applications/${c.id}`}
+                          href={`/applications/${c.id}.html`}
                           className="inline-flex items-center gap-1 text-[14.5px] font-bold text-slate-900 hover:underline"
                         >
                           Read the full page

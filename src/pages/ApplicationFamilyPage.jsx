@@ -1,65 +1,8 @@
 import React from 'react';
-import { ArrowRight, ChevronRight, MessageCircle, AlertTriangle, CheckCircle2, ArrowLeftRight, BookOpen } from 'lucide-react';
+import { ArrowRight, ChevronRight, MessageCircle, AlertTriangle, CheckCircle2, ArrowLeftRight } from 'lucide-react';
 import { FAMILIES, FAMILY_SLUGS, familyBySlug } from '../data/applicationFamilies';
 import { waLink, DEFAULT_WA_TEXT } from '../data/company';
 import { imgAttrs } from '../lib/imageSize';
-
-/*
- * One decision-layer article per family: the sourcing question a buyer asks
- * before this family is quoted, rather than the process question. Linked from
- * here so the family page and its guide point at each other instead of one
- * sitting as an orphan. A family with no slug simply renders no block.
- */
-const GUIDES = {
-  vfd: {
-    slug: 'vfd-three-boards-one-quote',
-    title: 'Quote the three boards, or the whole set?',
-  },
-  'jump-starter': {
-    slug: 'jump-starter-safety-liability',
-    title: 'Where liability sits before a battery is connected',
-  },
-  treadmill: {
-    slug: 'treadmill-large-board-mechanics',
-    title: 'The 800 mm board is not the hard part',
-  },
-  ebike: {
-    slug: 'ebike-controller-display-split-sourcing',
-    title: 'One assembler for the controller and the display?',
-  },
-  'power-station': {
-    slug: 'power-station-three-board-supplier',
-    title: 'One assembler for all three boards?',
-  },
-  'robot-vacuum': {
-    slug: 'robot-vacuum-ict-decision',
-    title: 'Do you actually need in-circuit test?',
-  },
-  servo: {
-    slug: 'servo-drive-shared-stack-with-vfd',
-    title: 'One build stack for servo and VFD, or two?',
-  },
-  hmi: {
-    slug: 'hmi-module-or-bare-board',
-    title: 'Buy the certified module or assemble the board?',
-  },
-  'led-driver': {
-    slug: 'led-driver-quote-reality-check',
-    title: 'How to tell whether a driver quote is real',
-  },
-  dashcam: {
-    slug: 'dashcam-optics-not-an-assembly-step',
-    title: 'Who owns the optics and the alignment?',
-  },
-  'parking-sensor': {
-    slug: 'parking-sensor-potting-before-test',
-    title: 'Potting before test turns a defect into scrap',
-  },
-  evse: {
-    slug: 'evse-audit-record-set',
-    title: 'What an EVSE audit actually asks for',
-  },
-};
 
 /*
  * One board family, one URL. The index at /applications keeps the twelve cards;
@@ -90,17 +33,7 @@ export default function ApplicationFamilyPage({ slug }) {
   const family = familyBySlug(slug);
   if (!family) return null;
 
-  /* Three cross-links, chosen by the family data rather than by "everything
-   * else". With twelve families an unfiltered list would put eleven cards on
-   * every page: eleven outbound links of near-equal weight, which tells a
-   * crawler nothing about which related page actually matters. The fallback
-   * only runs if a family ships without `related`. */
-  const siblings = (family.related && family.related.length
-    ? family.related
-    : FAMILY_SLUGS.filter((s) => s !== family.slug)
-  )
-    .map((s) => FAMILIES[s])
-    .filter(Boolean);
+  const siblings = FAMILY_SLUGS.filter((s) => s !== family.slug).map((s) => FAMILIES[s]);
 
   return (
     <div data-component="application-family-page" data-family={family.slug}>
@@ -258,26 +191,6 @@ export default function ApplicationFamilyPage({ slug }) {
       {/* cross-links */}
       <section className="bg-white py-12">
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
-          {GUIDES[family.slug] ? (
-            <a
-              href={`/insights/${GUIDES[family.slug].slug}.html`}
-              className="mb-10 flex items-start gap-4 rounded-xl border border-brand-200/60 bg-brand-50/40 p-5 transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
-            >
-              <BookOpen className="mt-0.5 h-5 w-5 shrink-0 text-brand-600" />
-              <span className="min-w-0">
-                <span className="block text-[11.5px] font-bold uppercase tracking-[0.16em] text-brand-700">
-                  Decision guide
-                </span>
-                <span className="mt-1.5 block text-[15.5px] font-bold leading-snug text-slate-900">
-                  {GUIDES[family.slug].title}
-                </span>
-                <span className="mt-1 block text-[13.5px] leading-snug text-slate-600">
-                  What to check before this family is quoted, and what disqualifies a supplier.
-                </span>
-              </span>
-              <ArrowRight className="ml-auto mt-1 h-4 w-4 shrink-0 text-brand-600" />
-            </a>
-          ) : null}
           <div className="flex items-center gap-2 text-[11.5px] font-bold uppercase tracking-[0.16em] text-brand-700">
             <ArrowLeftRight className="h-4 w-4" />
             Other families we build in depth
@@ -286,7 +199,7 @@ export default function ApplicationFamilyPage({ slug }) {
             {siblings.map((s) => (
               <a
                 key={s.slug}
-                href={`/applications/${s.slug}`}
+                href={`/applications/${s.slug}.html`}
                 className="group flex items-center gap-4 rounded-xl border border-brand-200/60 bg-white p-4 transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
               >
                 <span className="h-16 w-24 shrink-0 overflow-hidden rounded bg-slate-100">

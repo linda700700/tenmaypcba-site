@@ -1,5 +1,12 @@
 /*
- * Detail pages for the three tier-A board families.
+ * Detail pages for the twelve board families.
+ *
+ * The three tier-A families (VFD, jump starter, treadmill) lead; the other nine
+ * exist because each one has its own search intent and its own process story,
+ * and a buyer who searches for a servo drive is not helped by an e-bike page.
+ *
+ * Every page states where this floor is the wrong shop. That is deliberate: a
+ * mismatched enquiry costs a week of quotation work on both sides.
  *
  * /applications stays the index. These three get their own URL because each one
  * has its own buyer, its own search intent and enough process detail to fill a
@@ -80,7 +87,6 @@ export const FAMILIES = {
         a: 'Three working days from kitted parts once the Gerber and BOM revision is unchanged, because the stencil, programme and first-article approval are already in place. Component lead time is quoted separately and is usually what sets the real date.',
       },
     ],
-    related: ['servo', 'treadmill', 'power-station'],
   },
 
   'jump-starter': {
@@ -151,7 +157,6 @@ export const FAMILIES = {
         a: 'One hundred to one thousand units. Setup, stencil, programming and first-article work are fixed costs, so the first batch carries them and a repeat at the same Gerber and BOM revision does not.',
       },
     ],
-    related: ['ebike', 'power-station', 'dashcam'],
   },
 
   treadmill: {
@@ -223,78 +228,78 @@ export const FAMILIES = {
         a: 'Yes. Placement runs down to 01005 and 0.3 mm IC pitch on Yamaha YSM20/YSM10 lines, with SPI before reflow and AOI after it. The practical limit is usually the connector footprint, not the smallest passive.',
       },
     ],
-    related: ['ebike', 'parking-sensor', 'led-driver'],
   },
   ebike: {
     slug: 'ebike',
     name: 'E-bike & E-scooter Controller / Display',
-    cardName: 'E-bike & E-scooter Controllers',
+    cardName: 'E-bike & E-scooter Controller',
     keyword: 'e-bike controller PCBA',
     image: '/assets/images/case-ebike.webp',
-    imageAlt:
-      'E-bike controller in a finned aluminium enclosure with the lid off, showing the MOSFET bank clamped under a busbar and the motor phase cables entering through cable glands',
-    h1: 'E-bike and e-scooter controller boards, motor drive and display',
+    imageAlt: 'E-bike controller with its housing open, showing the MOSFET power bridge on the assembled board',
+    h1: 'E-bike controller and display board assembly, built for export batches',
     lede:
-      'An e-bike controller is a 6S–13S battery management stage, a MOSFET bridge and an MCU board in one sealed enclosure, plus a display board on the handlebar. The controller is where the current and the heat live; the display is where the harness, the water and the static live. They ship on one date but they are two different builds.',
+      'An e-bike controller is two boards that fail in completely different ways: a power board in the frame that has to survive heat, vibration and a rider standing on the pedals, and a display board on the handlebar that has to survive rain. Both go through the same line here, quoted separately, because the display revision almost always arrives first.',
     facts: [
       ['Boards per unit', '2 (controller, display)'],
       ['Typical batch', '200 – 2,000 sets'],
-      ['Pack range served', '6S – 13S'],
-      ['Coating', 'Conformal or potting, in-house'],
+      ['Power stage', 'THT MOSFETs and terminals, double-sided SMT'],
+      ['Standard build', '3 working days from kitted parts'],
     ],
     sections: [
       {
-        heading: 'What actually sits on the controller board',
+        heading: 'The controller board is a power board wearing a small footprint',
         paras: [
-          'The controller carries the battery management front end — cell-voltage sensing across the whole 6S to 13S range, the balancing resistors, and the protection comparators that decide when to cut the pack off. Beside it is the motor drive: a MOSFET bridge switching three phase outputs, with the shunt or the hall inputs telling the MCU what the motor is doing at that instant.',
-          'That combination is why one board behaves like two. The BMS side is a fine-pitch, low-current layout with a stacked sense harness to get right; the drive side is heavy copper with thermal vias under the FETs and phase terminals that have to be soldered through the barrel. A layout that is good at one is usually mediocre at the other, and that is what makes the assembly profile awkward rather than the placement.',
+          'A 6S to 13S controller carries the battery input, a MOSFET bridge, shunt or hall current sensing, and an MCU that reads the throttle, the brake cut-off and the pedal sensor. The board is compact but the copper is not: phase traces and the battery input need enough copper to carry 15 to 30 A without heating, and that copper changes how the board reflows.',
+          'The through-hole content is what decides whether a shop can build it. Phase wires, battery leads and the motor connector are usually soldered terminals rather than SMT pads, and the MOSFETs themselves may be leaded parts bolted to an aluminium spreader. That combination — heavy copper, big thermal mass, hand-soldered terminals — is exactly the work a pure placement house has to subcontract.',
+          'We build this in-house on the same floor as the SMT lines, which means a controller never leaves the building between reflow and terminal soldering. It is the single largest reason this family fits here.',
         ],
       },
       {
-        heading: 'The potting mask and the sense harness decide field failures',
+        heading: 'The display board is where revisions land',
         paras: [
-          'Most controllers are potted, or at least fully coated, because the enclosure sits under the downtube or on a rear rack and sees spray, road salt and continuous vibration. Encapsulation and coating both run here, but the mask has to be settled before the first batch: the phase terminals, the hall connector and the programming pads are exactly the places where a coating bridge turns a good board into a scrap board.',
-          'The sense harness is the second trap. A 13S pack means fourteen wires landing on one connector, and a single transposed tap reads as a cell fault at the BMS — or, worse, as nothing at all until a cell drifts. Wire order is checked against the drawing at first article rather than assumed from the connector keying.',
+          'The handlebar display is a small double-sided board: an LCD or segment driver, a keypad or touch interface, a backlight driver and a comms line back to the controller. It is cheap per unit and it is the part of the product that marketing changes — a new screen, a Bluetooth module, a different button layout, a different enclosure.',
+          'That is why it is quoted as its own line. A display change should not disturb the controller approval, and the two rarely share a batch size. Keeping them separate is what lets a 500-set controller run sit beside a 200-set display run without either one being repriced.',
+          'Fine-pitch work on the display is routine: 01005 passives and 0.3 mm IC pitch are inside the window, with SPI before reflow and AOI after it. The practical limit is usually the connector footprint and the flex tail, not the smallest passive.',
         ],
       },
       {
-        heading: 'Controller and display are separate businesses',
+        heading: 'Coating, potting and what stays with you',
         paras: [
-          'Buyers routinely split these two boards between suppliers, and the split is usually about pace rather than price: the display changes when the brand wants a new look, and the controller changes when the motor or the battery does. Keeping them on separate quote lines is what lets a display revision ship without reopening the controller approval.',
-          'The display board is a thin double-sided board with a segment or dot-matrix driver, a few buttons and a long harness. Its process risk is not density, it is mechanical — a connector that lifts when the handlebar clamp is tightened shows up as an intermittent fault that no AOI will ever find, and it will be blamed on the board.',
+          'Conformal coating is common on both boards because a bike lives outdoors. Coating is applied here after inspection, with connectors, test pads and the programming header masked by hand — that masking is real labour and it is quoted rather than absorbed.',
+          'Potting or full encapsulation is a different process and is not done in-house; if the design calls for a filled housing, that step sits with whoever does the mechanical assembly.',
+          'In-circuit and functional test under load — motor, brake, throttle, battery emulation — are not run here. That test belongs with the brand owner or the final assembly house, because the pass criteria depend on the firmware, the motor and the battery pack, not on the assembler.',
         ],
       },
       {
-        heading: 'Batch band and what a first order really costs',
+        heading: 'Batch band and where the cost sits',
         paras: [
-          'Two hundred to two thousand sets is the band this product lives in. Below that the stencil, the programme and the potting mask dominate the price. Above it, the buyers tend to be brands that already have a bonded assembler in Shenzhen and are comparing on unit price alone.',
-          'Where this floor fits is the exporter whose volumes are real but not enormous, and who needs a controller and a display turned around in a three-day window when a container date moves. That is a different thing from the cheapest quote, and it is worth being explicit about which one you are buying before the tooling is cut.',
+          'Two hundred to two thousand sets is the normal band. Below that, stencil, programme and first-article work dominate the unit price; above it, the buyer is usually a brand with its own contract manufacturer and the conversation moves to price per placement point, which is not where a high-mix floor wins.',
+          'The recurring cost driver on this family is the terminal soldering and the coating masking, not the placement. A design that moves phase connections onto SMT pads, or that leaves a clean coating keep-out, gets cheaper on every order without renegotiating anything.',
         ],
       },
     ],
     limits: {
-      heading: 'What is not done here',
+      heading: 'Where this floor is the wrong fit for an e-bike controller',
       items: [
-        'Cell testing, pack assembly and UN 38.3 transport documentation — the boards are built and coated here, the pack is not.',
-        'EN 15194 or destination-market certification of the finished e-bike, which belongs to the brand owner.',
-        'Motor and load testing against the firmware — that step belongs with the controller vendor or the bike maker.',
+        'Potting, encapsulation or full housing assembly — mechanical work sits outside this building.',
+        'Functional test under motor load with a battery emulator — normally the brand owner’s end-of-line station.',
+        'Battery pack assembly or BMS validation at pack level — this is board-level work only.',
       ],
     },
     faq: [
       {
-        q: 'Can you build e-bike controller boards in 200-set batches?',
-        a: 'Yes. Two hundred to two thousand sets is the normal band, with double-sided SMT, through-hole terminals, and conformal coating or full potting all done in-house on eight Yamaha YSM20/YSM10 lines in Shenzhen.',
+        q: 'Can you assemble 6S to 13S e-bike controllers in 200-set batches?',
+        a: 'Yes. Two hundred to two thousand sets is the normal band, with through-hole terminals soldered on the same floor as SMT and a three-day standard build once parts are kitted.',
       },
       {
-        q: 'Do you assemble the handlebar display board as well?',
-        a: 'Yes, and it is normally quoted on a separate line. The display changes with the model year while the controller changes with the motor or the battery, so separating them lets one revision ship without reopening the other approval.',
+        q: 'Do you solder the phase wires and battery terminals?',
+        a: 'Yes, terminal and wire soldering is done in-house after reflow rather than subcontracted. It is quoted as its own line because the labour depends on wire gauge and connector type.',
       },
       {
-        q: 'Who handles EN 15194 certification?',
-        a: 'The brand owner. Tenmay builds and inspects the boards to IPC-A-610; certifying the finished e-bike is a vehicle-level file and sits with the company whose name is on the bike.',
+        q: 'Can the display board be coated for outdoor use?',
+        a: 'Conformal coating is available in-house, applied after AOI and X-ray with connectors and test points masked by hand. Potting or full encapsulation is not done here.',
       },
     ],
-    related: ['power-station', 'jump-starter', 'treadmill'],
   },
 
   'power-station': {
@@ -303,429 +308,430 @@ export const FAMILIES = {
     cardName: 'Portable Power Station',
     keyword: 'portable power station PCBA',
     image: '/assets/images/case-power-station.webp',
-    imageAlt:
-      'Portable power station with the side panel removed, showing the inverter board, the bus capacitors and the copper busbars behind the AC outlets',
-    h1: 'Portable power station boards: BMS, pure-sine inverter, display',
+    imageAlt: 'Portable power station with the front panel open, showing the inverter control board inside',
+    h1: 'Portable power station boards, three assemblies per unit',
     lede:
-      'A portable power station is three assemblies that fail for three different reasons: a BMS board that has to be right about the pack, a pure-sine inverter control board that has to be right about timing, and a display board that is mostly a mechanical problem. The inverter board is the one a new programme usually gets wrong first.',
+      'A power station is three boards that have to agree with each other: a BMS that decides whether the pack is safe, an inverter control board that turns DC into a sine wave, and a display board that tells the user how much is left. The inverter board is the one that decides whether the unit is quiet on a sensitive load, and it is the one most sensitive to assembly quality.',
     facts: [
-      ['Boards per unit', '3 (BMS, inverter, display)'],
+      ['Boards per unit', '3 (BMS, inverter control, display)'],
       ['Typical batch', '100 – 500 sets'],
-      ['Inverter', 'Pure-sine control board'],
-      ['Coating', 'Conformal, in-house'],
+      ['Largest board', 'up to 800 x 480 mm'],
+      ['Standard build', '3 working days from kitted parts'],
     ],
     sections: [
       {
-        heading: 'Three boards, three different failure modes',
+        heading: 'What the three boards do, and which one is hard',
         paras: [
-          'The BMS board measures and protects. It carries the cell-sense front end, the balancing network, the protection comparators and the main disconnect path, and it is the board a certification body asks about first, because it is the one whose failure mode is a fire rather than a dead unit.',
-          'The inverter control board generates the sine wave. Pure sine means a switching pattern whose dead time stays correct across load and temperature, and a gate drive that can survive the shoot-through a firmware bug produces in a microsecond. It sits beside the DC bus capacitance and the output filter, so it is a mixed-signal board with a heavy-current half.',
-          'The display and input board carries the LCD, the buttons and the USB output. It is the cheapest board and the one most often quoted carelessly, because it looks trivial right up to the point where a connector and a metal bezel have to line up on an assembly line.',
+          'The BMS board sits between the cell stack and everything else. It carries the protection FETs, the cell-monitoring front end and the current path, and on units above roughly 1 kWh it is a heavy-copper board with substantial through-hole content.',
+          'The inverter control board generates the drive signals for the H-bridge, senses output voltage and current, and runs the control loop that keeps the waveform clean. It is dense, it mixes fine-pitch control with power-stage copper, and it is where a marginal solder joint turns into a unit that buzzes on a laptop charger.',
+          'The display board is small: an MCU, a screen, buttons, a USB or wireless module. Same story as every display board — cheap, revised often, and quoted on its own line so a cosmetic change does not touch the power approval.',
         ],
       },
       {
-        heading: 'Where the inverter board actually hurts',
+        heading: 'Where assembly quality actually shows up',
         paras: [
-          'The output stage is why this family is not a simple build. The bus capacitors are large through-hole parts with a thermal mass that changes the reflow profile, and the output magnetics sit close enough to the gate drive that a layout which looked fine on the schematic becomes a noise problem in assembly and test.',
-          'The board is also usually the largest in the unit, which matters here less for placement accuracy than for handling. A large board with heavy parts on one edge behaves differently through the oven than a small one, so the support pins are set for that specific panel instead of being reused from the previous job.',
+          'On the inverter board, voiding under the power devices is the failure that does not appear until the customer runs a motor or a heater. Surface inspection cannot see it, which is why X-ray is used on those joints rather than reserved for BGA.',
+          'Heavy copper also changes the reflow profile. A board with thick power layers and large thermal pads heats unevenly, so the profile is developed per board instead of reused. That is a real engineering cost on a first run and it is why a second order at the same revision is noticeably cheaper.',
+          'Conformal coating is usually specified for the inverter and BMS boards because these units live outdoors and near water. It is applied here with connectors and test points masked by hand.',
         ],
       },
       {
-        heading: 'Coating, because the product lives outdoors',
+        heading: 'What is not done here',
         paras: [
-          'A power station is sold for camping, storm outages and job sites, so conformal coating is specified on the BMS and inverter boards as a default rather than an option. Coating runs in-house with the connectors, fuse holders and programming pads masked by hand, and the mask drawing is agreed before the first batch rather than during it.',
-          'What coating does not fix is a design that lets a bus capacitor run hot. Coating and encapsulation change the thermal path, and a component that was marginal on a bench gets worse under a layer of acrylic. If the thermal margin is thin, that is a layout problem, not a coating problem.',
+          'No in-circuit or functional test under load. A power station is tested with a battery pack, a load bank and a scope on the output — that belongs to the brand owner or the pack assembler, and the pass criteria depend on the firmware’s protection thresholds.',
+          'No UN38.3, UL 2743 or CE work. Those certifications apply to the finished unit and are the brand owner’s obligation. What this floor provides is the assembly record and the inspection data those submissions need.',
+          'No cell sourcing or pack assembly. Bare boards come from partner fabs, components from franchised distributors, and the pack is not built here.',
         ],
       },
       {
-        heading: 'Batch band, and why the entry work is second-source',
+        heading: 'Batch band and the honest caveat',
         paras: [
-          'One hundred to five hundred units is the realistic band. The category leaders build in tens of thousands and test in-house, so the work that reaches a high-mix floor is second-source production, accessory boards and the model revisions a large line will not stop for.',
-          'That shapes the quote more than anything else. A second-source order carries the full setup on the first batch — stencil, programme, first article, coating mask and a panel that fits this specific board — and the value only appears on the second order at the same revision. Buyers who understand that plan the changeover; buyers who do not compare the first batch to a high-volume price and draw the wrong conclusion.',
+          'One hundred to five hundred sets is the band this fits. It is a deliberately narrow one: the category leaders test in-house and buy in tens of thousands, so the realistic entry is the second-tier brand, the new brand launching its first unit, or the established brand adding a model without rebuilding its line.',
+          'That is a judgement about where the work is, not a market forecast, and it is offered as judgement. If you are planning five thousand units a month from day one, a dedicated line will beat this floor on price and you should say so early rather than after a sample run.',
         ],
       },
     ],
     limits: {
       heading: 'What a power station buyer should not expect here',
       items: [
-        'Pack assembly, cell testing and UN 38.3 transport documentation — the boards are built here, the battery is not.',
-        'Full-load and burn-in testing of the finished unit; there is no in-house in-circuit or functional test station.',
-        'Safety and EMC certification of the finished station, which sits with the brand owner.',
+        'Functional test with a battery pack and load bank — that sits with the pack assembler or brand owner.',
+        'UN38.3, UL 2743, CE or any finished-unit certification.',
+        'Cell sourcing, pack assembly or busbar welding.',
       ],
     },
     faq: [
       {
-        q: 'Can you build portable power station boards in 100-unit batches?',
-        a: 'Yes. One hundred to five hundred units is the realistic band, with the BMS, inverter control and display boards quoted as separate lines and conformal coating applied in-house.',
+        q: 'Can you build all three power station boards as one set?',
+        a: 'Yes. BMS, inverter control and display boards are quoted as three lines and built to one ship date, in batches of 100 to 500 sets with a three-day standard build from kitted parts.',
       },
       {
-        q: 'Do you test the inverter under load?',
-        a: 'No. There is no in-house load bank or functional test station; SPI, AOI and X-ray cover the solder joints. Load and burn-in testing belongs with the brand owner, whose firmware and BMS define what passes.',
+        q: 'Do you X-ray the power devices?',
+        a: 'Yes. X-ray is used on the inverter and BMS power joints where voiding under a device is invisible from the surface, alongside SPI before reflow and AOI after it on every board.',
       },
       {
-        q: 'Why is a large inverter board harder to assemble than a small one?',
-        a: 'Not because of placement accuracy. A large board with heavy through-hole parts along one edge needs its own support-pin layout and its own reflow profile, and it is less forgiving to handle. That appears in the quote as setup time rather than a higher per-point rate.',
+        q: 'Can you test the finished unit?',
+        a: 'No. Load-bank and battery-emulation test are not run in-house. The boards are inspected and electrically bare-board tested as far as the assembly requires; unit-level test stays with the brand owner.',
       },
     ],
-    related: ['ebike', 'jump-starter', 'vfd'],
   },
 
   'robot-vacuum': {
     slug: 'robot-vacuum',
     name: 'Robot Vacuum & Pool Cleaner Mainboards',
-    cardName: 'Robot Vacuum & Pool Cleaner',
+    cardName: 'Robot Vacuum Mainboards',
     keyword: 'robot vacuum mainboard assembly',
     image: '/assets/images/case-robot-vacuum.webp',
-    imageAlt:
-      'Robot vacuum upside down beside its round main control board, showing the brush bar, the drive wheels and the dismantled PCB',
-    h1: 'Robot vacuum mainboards, and the test question that decides the order',
+    imageAlt: 'Robot vacuum with its cover removed, showing the main control board and sensor board',
+    h1: 'Robot vacuum mainboards, dense boards at compressed prices',
     lede:
-      'A robot vacuum mainboard is the densest board in the consumer set: double-sided, 01005 passives, a fine-pitch SoC and a motor drive sharing one panel. It is also the family where the buying decision usually turns on in-circuit test, which this floor does not run. That is worth saying before a quote rather than after a batch.',
+      'A robot vacuum is three or four boards in a plastic shell: a main control board, a brush and pump motor drive, and sensor and charging boards. Technically this is the most demanding work in the consumer group — dense double-sided boards, fine pitch, tight clearance to the enclosure — and commercially the least forgiving, because the buyer is usually negotiating against a cents-per-board number.',
     facts: [
-      ['Boards per unit', '3 – 4 (main, drive, sensor, charge)'],
+      ['Boards per unit', '3 – 4 (main, motor drive, sensor, charging)'],
       ['Typical batch', '500 – 5,000 sets'],
-      ['Densest build', '01005, 0.3 mm pitch, double-sided'],
-      ['Test coverage', 'ICT not in-house'],
+      ['Smallest parts', '01005, 0.3 mm IC pitch'],
+      ['Standard build', '3 working days from kitted parts'],
     ],
     sections: [
       {
-        heading: 'The board set, and which one is actually hard',
+        heading: 'Why this is a genuinely hard board',
         paras: [
-          'A robot vacuum carries a main control board with the SoC, the memory, the wireless module and the sensor interfaces; a motor-drive section or board for the brush, the fan and the wheels; and small sensor and charging boards. Pool cleaners are the same stack in a harsher enclosure, with the added problem that everything is wet.',
-          'The main board is the difficult one. Double-sided placement with 01005 passives and 0.3 mm pitch means both sides go through reflow, and the second pass has to hold the first side on without dropping the heavy parts. That is ordinary work here, but it is precisely where a cheap quote from a shop without double-sided experience falls apart, usually on the second side.',
+          'The main board packs an application processor, DDR, flash, wireless, motor drivers, sensor interfaces and power conversion into a footprint that has to fit under a 90 mm cover. That means fine pitch, dense double-sided placement, and vias and clearance that leave little room for assembly error.',
+          'The motor drive section is electrically noisy and thermally loaded at the same time. Brush motors draw current spikes, and the driver is usually a small DFN or QFN with a thermal pad — the exact package where an unseen void becomes a unit that stops after twenty minutes of runtime.',
+          'Sensor and charging boards are small and mechanically constrained: spring contacts, IR receivers, bumper switches. These are the boards most likely to come back with a footprint or contact-height problem, because the mechanical tolerance matters as much as the electrical one.',
         ],
       },
       {
-        heading: 'The small boards are not the easy ones',
+        heading: 'What inspection can and cannot cover here',
         paras: [
-          'The charging contacts are the part most exposed to the environment. They sit on the underside of the unit, they carry current, and they corrode. Coating helps, but the contact pads themselves have to stay clean, so the mask has to be exact and the surface finish is a real decision rather than a default inherited from the last job.',
-          'The sensor boards — bump, cliff, wall — are small, panelised heavily and mechanically constrained. Their risk is not the placement, it is the connector and the stack height: a board a fraction of a millimetre too high stops the bumper from travelling, and that is a mechanical tolerance discovered at assembly rather than at AOI.',
+          'SPI before reflow, AOI after it, X-ray on the QFN and DFN thermal pads. On this family X-ray is not optional — the motor driver and the charging contacts both sit on pads that look perfect from above and are hollow underneath.',
+          'What none of that tells you is whether the unit navigates, docks and cleans. In-circuit and functional test are not run in-house, and on this product they are substantial: a fixture with a simulated dock, a motor load and a sensor rig. Buyers in this category normally own that fixture, and the honest advice is to keep it that way.',
         ],
       },
       {
-        heading: 'The test question, stated plainly',
+        heading: 'The commercial reality, stated plainly',
         paras: [
-          'Volume buyers in this category specify in-circuit test, sometimes with a functional check on the motor and the charging path. This floor does not run ICT in-house. Bed-of-nails and functional fixtures are made by a partner and can be wired back in, but a programme that needs full test coverage under one roof is not a fit here.',
-          'This is the one family on the site where the mismatch is commercial rather than technical. The assembly is comfortably within capability; the test coverage is not. Saying so at the quote stage costs a lead and saves a failed first batch, which is the honest trade.',
+          'This is the most-searched consumer board family and the least profitable per unit. Volume buyers judge on cents, already have a supplier, and switch when someone quotes three cents lower. Published search interest is not the same as winnable work.',
+          'It stays on this site because the process fit is real — dense SMT, double-sided, fine pitch is what eight Yamaha lines do well — and because a first order in the hundreds is normal business here rather than an exception. It is ranked tier C in our own list for a reason: expect enquiries, do not expect them to convert on price alone.',
         ],
       },
       {
-        heading: 'Batch band and the price reality',
+        heading: 'Batch band and where an order turns cheap',
         paras: [
-          'Five hundred to five thousand sets is the band, and unit price is compressed because the category is crowded and the boards are small. Buyers switch on cents and on test coverage rather than on process capability, so the conversation is rarely about how well the board is built.',
-          'The orders that make sense here are the ones where a design change or a shipment date matters more than the last few percent of unit cost: a new sensor layout, a revised charging board, a model refresh that has to land before a season. Those are the jobs a high-mix floor is genuinely cheaper at, once the cost of waiting is counted.',
+          'Five hundred to five thousand sets is the band. Below five hundred, the fixture and programme work dominates; above five thousand the buyer is comparing against a dedicated high-volume line with cheaper labour, and the argument for a high-mix floor disappears.',
+          'Within the band, cost falls sharply at the second order at an unchanged revision, because the stencil, programme and first-article approval are already paid for. Consolidating board revisions so they land together with a scheduled reorder is worth more than any single price negotiation.',
         ],
       },
     ],
     limits: {
-      heading: 'Where this family does not fit',
+      heading: 'Where this floor loses on a robot vacuum',
       items: [
-        'In-house in-circuit test — fixtures are outsourced and coordinated, and the coverage some buyers require is not available here.',
-        'Water-ingress and drop testing of the finished unit, which the brand owner runs.',
-        'Tens of thousands of units a month, where a dedicated high-volume line wins on unit price.',
+        'Volume above roughly 5,000 sets a month, where a dedicated line beats a high-mix floor on unit price.',
+        'Functional test with a simulated dock, motor load and sensor rig — normally the brand owner’s own fixture.',
+        'Mechanical sub-assembly, wheel or brush module assembly — board level only here.',
       ],
     },
     faq: [
       {
-        q: 'Can you assemble robot vacuum mainboards with 01005 parts?',
-        a: 'Yes — double-sided placement down to 01005 and 0.3 mm pitch, with SPI before reflow and AOI after it on eight Yamaha YSM20/YSM10 lines.',
+        q: 'Can you place 01005 parts and 0.3 mm pitch ICs on a robot vacuum mainboard?',
+        a: 'Yes. That is the confirmed window on eight Yamaha YSM20/YSM10 lines, with SPI before reflow and AOI after it, and X-ray on the QFN and DFN thermal pads.',
       },
       {
-        q: 'Do you run in-circuit test on these boards?',
-        a: 'Not in-house. Bed-of-nails and functional fixtures are made by a partner and can be wired back in, but if your programme requires ICT coverage from the assembler, that requirement is better met elsewhere and it is fairer to say so now.',
+        q: 'What batch size makes sense?',
+        a: 'Five hundred to five thousand sets. Below that the fixture and programme work dominates the unit price; above it, a dedicated high-volume line will usually underquote a high-mix floor.',
       },
       {
-        q: 'What batch size suits a first order?',
-        a: 'Five hundred to five thousand sets. Below five hundred the setup and first article dominate the price; above five thousand the price expectation usually belongs to a dedicated high-volume line.',
+        q: 'Do you test the finished robot?',
+        a: 'No. Mainboard assembly and inspection are done here; navigation, docking and cleaning test need the brand owner’s fixture with a simulated dock and motor load.',
       },
     ],
-    related: ['dashcam', 'led-driver', 'power-station'],
   },
+
   servo: {
     slug: 'servo',
     name: 'Servo Drives & Soft Starters',
     cardName: 'Servo Drives & Soft Starters',
     keyword: 'servo drive board assembly',
     image: '/assets/images/case-servo.webp',
-    imageAlt:
-      'Servo drive in an extruded aluminium case with the lid off, showing the control board, the pluggable terminal blocks and a D-sub connector on the front panel',
-    h1: 'Servo drive and soft starter board assembly',
+    imageAlt: 'Servo drive with the cover removed, showing the gate-drive and power board assembly',
+    h1: 'Servo drive and soft starter boards, the same stack as an inverter',
     lede:
-      'A servo drive shares its board stack with a VFD — a gate-drive stage, current sensing, an MCU and an encoder interface — but the encoder interface is the part that decides whether the assembly is any good. A soft starter looks similar and is not: it switches at line frequency with SCRs, and its problem is thermal rather than timing.',
+      'A servo drive carries the same three-way split as an inverter — a control board with gate drive and current sensing, a power board with the output stage, and often an encoder or fieldbus interface — but at a smaller frame size and with tighter timing requirements. If you already build inverters, this is the neighbouring job; if you build consumer boards, it is a different discipline.',
     facts: [
-      ['Boards per unit', '2 (power, encoder interface)'],
+      ['Boards per unit', '2 – 3 (control, power, encoder interface)'],
       ['Typical batch', '50 – 500 sets'],
-      ['Shared stack with', 'VFD / inverter family'],
-      ['Coating', 'Conformal, in-house'],
+      ['Power stage', 'THT terminals, heavy copper, double-sided SMT'],
+      ['Standard build', '3 working days from kitted parts'],
     ],
     sections: [
       {
-        heading: 'Two products that look alike and are not',
+        heading: 'What separates a servo board from an inverter board',
         paras: [
-          'The servo drive is a switching power stage with a control loop closed around it, and its feedback arrives from an encoder over a cable that can be metres long. The soft starter is a phase-angle controller: large SCRs or thyristors, a heatsink, and a thermal model that has to survive a locked rotor on a conveyor. Assembling both on the same line is reasonable; quoting both with the same process assumption is not.',
-          'What they share is the gate-drive side — isolated supplies, short low-inductance loops, and a current-sense front end that has to stay quiet. What separates them is that the servo drive cares about nanoseconds while the soft starter cares about thermal mass and creepage.',
+          'The control board is denser and faster. Gate-drive timing, current-loop bandwidth and encoder feedback all push toward shorter traces, tighter impedance control and more careful grounding than an inverter control board of the same power rating. From an assembly standpoint that means more fine-pitch packages on the same panel, not a different process.',
+          'The power board is smaller but electrically hotter per square centimetre. Servo drives are usually overdriven for their frame size because the load is intermittent, so the thermal pad under the output devices carries more current density than an inverter of similar dimensions.',
+          'Encoders add a third element: a differential receiver stage, sometimes on the control board and sometimes on its own small board near the connector. It is the part of the assembly most sensitive to a marginal joint, because a single intermittent line produces a position error rather than a dead unit.',
         ],
       },
       {
-        heading: 'The encoder interface is the real test',
+        heading: 'Soft starters are the easier half of this family',
         paras: [
-          'An encoder input carries differential pairs from a cable that leaves the enclosure, runs alongside motor power, and picks up whatever the shop floor is emitting. The interface has to reject that, which makes the assembly matter: a marginal joint on a differential pair, or a coating bridge across a termination, becomes a following error that only appears at speed.',
-          'That gives the inspection stations a specific job here. AOI catches placement and fillet problems, and X-ray matters on the gate-drive and power joints where a void is invisible from the surface. Neither catches a marginal termination — that is what a functional check at the drive builder is for, and it is the right place for it.',
+          'A soft starter is a controlled ramp on a contactor: SCR or bypass contactor drive, current sensing, a small MCU and a lot of through-hole terminals. There is very little fine-pitch work and a great deal of high-current soldering.',
+          'That makes soft starters a genuinely comfortable fit here — the work is dominated by THT terminals and heavy copper rather than by placement density, and the soldering stays in-house instead of being subcontracted.',
+          'It also makes them a good entry point if you are moving from consumer boards to industrial: the process risk is in the solder joints, which are inspectable, rather than in the firmware, which is not.',
         ],
       },
       {
-        heading: 'Power stage, heatsink and the thermal interface',
+        heading: 'Inspection and the limits of what it proves',
         paras: [
-          'The power devices mount to a heatsink through a thermal interface, and the joint under the thermal pad has to be sound rather than merely present. Voiding there produces a drive that derates after twenty minutes, which passes a bench test and fails on a machine in front of the customer.',
-          'Through-hole content is heavy: terminal blocks, the DC bus connections, and relays on the soft starter. Hand and selective soldering both run in-house, which is why this family is comfortable rather than a stretch — the step a placement-only shop has to subcontract is exactly the step that decides whether the unit survives.',
+          'SPI, AOI and X-ray run as they do on any power board. On servo drives X-ray is used on the output devices and on the current-sense shunts, where a voided joint reads as a thermal problem before it reads as an electrical one.',
+          'Conformal coating is common on both the control and power boards for cabinet-mounted drives. Coating is done here with masking on connectors, test points and any optical or encoder interface that must stay clean.',
+          'What is not done here: motor-coupled test with a real load, encoder alignment, or firmware validation. A servo drive that has not been run against a motor has not been proven, and that proof belongs where the motor and the firmware are.',
         ],
       },
       {
-        heading: 'Batch band and the follow-on effect',
+        heading: 'Batch band',
         paras: [
-          'Fifty to five hundred sets is the band, the same as the VFD family and for the same structural reason: the buyers are small drive builders and MRO channels who reorder in tens and hundreds rather than thousands.',
-          'The practical benefit is that quoting effort does not restart. The board stack, the inspection plan and the coating mask carry over from an inverter job, so a servo drive from the same customer is a variation rather than a new programme. Over a year that is worth more than a lower point rate, and it is why these two families sit next to each other here.',
+          'Fifty to five hundred sets. This family rarely arrives in thousands, because servo drives are sold into machine builders rather than into retail, and machine builders order to a build schedule.',
+          'The practical consequence is that setup cost matters more than unit price, and a repeat order at an unchanged revision is where this family becomes genuinely cheap. It is also why the DFM conversation is worth having before the first run rather than after it.',
         ],
       },
     ],
     limits: {
-      heading: 'What a drive builder should not expect here',
+      heading: 'Where this floor is the wrong fit for a servo drive',
       items: [
-        'Motor and load-bank testing, which belongs with the drive builder, not the assembler.',
-        'Functional-safety assessment (SIL or PL) — the safety case for a drive is built by the machine builder.',
-        'IATF 16949 — this floor holds ISO 9001 only.',
+        'Motor-coupled functional test, encoder alignment and firmware validation — these sit with the drive builder.',
+        'IATF 16949 or automotive-grade process control — this floor holds ISO 9001 only.',
+        'Volumes above roughly 5,000 sets a month, where a dedicated line wins on unit price.',
       ],
     },
     faq: [
       {
-        q: 'Do you build servo drive boards in 50-set batches?',
-        a: 'Yes. Fifty to five hundred sets is the normal band, and the board stack overlaps the VFD family, so a first order from an existing inverter customer is a variation on a known build rather than a new programme.',
+        q: 'Do you build servo drive boards in 50-set lots?',
+        a: 'Yes. Fifty to five hundred sets is the normal band, with through-hole terminals and conformal coating done in-house and a three-day standard build from kitted parts.',
       },
       {
         q: 'Can you assemble an encoder interface board?',
-        a: 'Yes — it is a fine-pitch double-sided board, placed down to 01005 and 0.3 mm pitch, with AOI after reflow and X-ray where the package needs it. The differential pair terminations are the part worth checking functionally at your end.',
+        a: 'Yes, as a separate line on the same quote. Fine-pitch placement and differential receiver parts are inside the confirmed window; encoder alignment and calibration are not assembly steps and stay with the drive builder.',
       },
       {
-        q: 'Do you test the drive under load?',
-        a: 'No. There is no in-house motor or load-bank test, because the pass criteria depend on the motor and the firmware. That step belongs with the drive builder, and stating it early avoids a misunderstanding at the first batch.',
+        q: 'Do you test a finished servo drive under load?',
+        a: 'No. Motor-coupled test, encoder alignment and firmware validation are not run in-house. SPI, AOI and X-ray cover the joints; the load test belongs where the motor and firmware are.',
       },
     ],
-    related: ['vfd', 'hmi', 'treadmill'],
   },
 
   hmi: {
     slug: 'hmi',
     name: 'Industrial HMI, Gateways & PLC I/O Modules',
-    cardName: 'HMI, Gateways & PLC I/O',
+    cardName: 'Industrial HMI & PLC I/O',
     keyword: 'PLC I/O module PCBA',
     image: '/assets/images/case-hmi.webp',
-    imageAlt:
-      'Industrial HMI panel showing a trend curve beside its carrier board, with the processor, a flex connector and the Ethernet and USB ports exposed',
-    h1: 'Industrial HMI, gateway and PLC I/O module assembly',
+    imageAlt: 'Industrial HMI panel with the rear cover off, showing the carrier and I/O board',
+    h1: 'HMI, gateway and PLC I/O boards, where isolation sets the layout',
     lede:
-      'An I/O module is not a dense board, it is a spacing board. The isolation between the field side and the logic side is what the design is built around, and assembly is where that isolation gets quietly broken — by a solder ball, a flux residue, or a coating that bridges a gap the layout was careful to leave.',
+      'These are the boards that sit between a machine and a network: a system-on-module carrier, isolated digital and analogue I/O, and a fieldbus interface. Search volume for this family is low and board value is not, which makes it the quietest and most comfortable industrial work on this floor.',
     facts: [
       ['Boards per unit', '1 – 2 (carrier, I/O)'],
-      ['Typical batch', '100 – 1,000'],
-      ['Design constraint', 'Isolation spacing, not density'],
-      ['Smallest part', '01005'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Isolation spacing, fine pitch, low volume'],
+      ['Standard build', '3 working days from kitted parts'],
     ],
     sections: [
       {
-        heading: 'Isolation is the design, not a feature of it',
+        heading: 'Isolation is the design constraint, and it changes assembly',
         paras: [
-          'A PLC I/O module, a gateway and an HMI carrier board all do the same structural thing: they sit between a field signal that can be 24 V, 110 V or a 4–20 mA loop, and logic that runs at a few volts. The creepage and clearance between those two worlds is chosen for the working voltage and the pollution degree, and it is the first constraint the layout has to satisfy.',
-          'That makes assembly a compliance question rather than an accuracy question. A solder ball sitting in an isolation slot, a flux track bridging a gap, or a conformal coating that fills a slot and shortens the effective distance all compromise something that was designed correctly. The inspection call here is about cleanliness and coating control.',
+          'Every channel on a PLC I/O module has to survive a dielectric test between field side and logic side. That pushes creepage and clearance onto the layout, which in turn spreads parts out and often forces slots or cut-outs in the board.',
+          'From an assembly standpoint the consequence is unusual: the board is not dense in the way a phone board is dense, but it has long isolated spans, mixed through-hole terminals on the field side, and often a second reflow pass for parts on the bottom.',
+          'Those isolation spans are also where coating matters most. Coating over a properly spaced gap adds margin; coating badly applied around a connector can bridge nothing and hide everything. On this family the masking drawing is part of the job, not an afterthought.',
         ],
       },
       {
-        heading: 'The module-on-carrier pattern',
+        heading: 'SoM carriers are mostly a connector problem',
         paras: [
-          'Many of these products are a carrier board with a system-on-module or compute module soldered onto it. A module with castellated edges is its own process: the pads are on the edge, the joint is visible from the side, and the module has to sit flat enough that the far-side pads wet at all.',
-          'Castellated joints are where AOI and X-ray disagree in usefulness. AOI sees the outside fillet; X-ray sees whether the barrel actually filled. On a module carrying the processor, a joint that is only cosmetically correct is the failure that appears as a thermal intermittent six months later, usually in a cabinet nobody wants to open.',
+          'A system-on-module carrier is a large board with a dense connector in the middle and very little else of difficulty. The connector — a board-to-board array with hundreds of pads at fine pitch — is where the yield lives, because a single bridged or lifted pad produces a module that does not boot and gives no clue why.',
+          'That makes first-article inspection and X-ray coverage on the connector worth more than any other check on the board. It is also the reason the footprint and the paste aperture should be reviewed at DFM rather than discovered at AOI.',
         ],
       },
       {
-        heading: 'Fieldbus, terminals and the mechanical side',
+        heading: 'Where the buyers are, and why volume is low',
         paras: [
-          'The fieldbus side — RS-485, CAN, Ethernet — brings its own requirements: magnetics or isolation at the connector, and a termination that has to survive being wired by an electrician with a screwdriver. The terminal blocks are through-hole parts taking mechanical load, so their joints are soldered for strength as well as continuity.',
-          'DIN-rail mounting adds a constraint that has nothing to do with electronics. The board has to sit square in a housing that clips to a rail, and a connector a millimetre out of place becomes a warranty return from a panel builder. Coating thickness matters here too, because it changes how the board seats in a tight enclosure.',
+          'Buyers here are engineers rather than purchasers: machine builders, system integrators, and industrial OEMs with a product they have already defined. They read a capability table, they ask what the placement window is, and they ask what happens when a part is unavailable. Price sensitivity is low because the board is a small fraction of the machine.',
+          'That is why search traffic for this family is thin and why it is still worth a page: the enquiries are few, but they arrive with a specification and a schedule instead of a price target.',
         ],
       },
       {
-        heading: 'A quiet, high-value family',
+        heading: 'Batch band',
         paras: [
-          'One hundred to one thousand units is the band. Search volume for these terms is low, but board value is high and price sensitivity is low, because the buyer is an engineer specifying a module for a machine rather than a category manager comparing cents.',
-          'That changes what wins the order. It is not the cheapest quote; it is a DFM note that engages with the isolation and the coating, a first article that photographs the castellated joints, and a supplier who can answer a question about pollution degree without guessing. In this family the written answer is the sales pitch.',
+          'One hundred to one thousand sets. Industrial products ship to a build schedule, so orders repeat at a stable size rather than ramping. Repeat business at an unchanged revision is the norm, and a revision change is usually a genuine design change rather than a cosmetic one.',
         ],
       },
     ],
     limits: {
-      heading: 'What is outside scope for an I/O module',
+      heading: 'What an industrial buyer should not expect here',
       items: [
-        'Functional test against a field simulator — there is no in-house in-circuit or functional test station.',
-        'Safety certification to the relevant standard for the module, which is declared by the brand owner.',
-        'Consumer-level pricing at high volume: this is a high-mix, low-volume family by design.',
+        'Dielectric, EMC or safety certification testing — the declaration is the brand owner’s, and the test house is not in this building.',
+        'Conformal coating to a specified standard with a certificate per lot — coating is applied here, but qualification of the coated assembly is the buyer’s.',
+        'Full functional test of a gateway or HMI under protocol load — that belongs with the firmware owner.',
       ],
     },
     faq: [
       {
-        q: 'Can you keep the isolation spacing intact through assembly?',
-        a: 'Yes, and it is treated as a process control rather than an assumption: isolation slots are kept clear of solder balls and flux, the coating mask is agreed against the drawing, and the coating material and thickness are recorded so the creepage still holds after finishing.',
+        q: 'Can you assemble isolated PLC I/O modules in 100-set batches?',
+        a: 'Yes. One hundred to one thousand sets is the normal band, with field-side terminals soldered in-house and coating done with a masking drawing agreed before the first run.',
       },
       {
-        q: 'Do you assemble carrier boards with a soldered module?',
-        a: 'Yes. Castellated module joints are placed and reflowed on the same lines, checked by AOI on the outside fillet and by X-ray where barrel fill matters. The module sitting flat enough for the far-side pads to wet is a first-article check.',
+        q: 'Do you place system-on-module connectors?',
+        a: 'Yes. Fine-pitch board-to-board arrays are placed on the same lines, with first-article inspection and X-ray on the connector, because a single bridged pad there produces a dead module with no diagnostic clue.',
       },
       {
-        q: 'What batch size is normal for PLC I/O modules?',
-        a: 'One hundred to one thousand units. These are low-volume, high-value boards, so setup is a larger share of the price and the engineering answer matters more than the point rate.',
+        q: 'Can you do EMC pre-compliance or a dielectric test?',
+        a: 'No. Those tests and the resulting declaration belong to the brand owner and a certified test house. This floor provides assembly and the inspection records that support the submission.',
       },
     ],
-    related: ['servo', 'vfd', 'evse'],
   },
 
   'led-driver': {
     slug: 'led-driver',
     name: 'LED Drivers & PD Fast Chargers',
-    cardName: 'LED Drivers & PD Fast Chargers',
+    cardName: 'LED Drivers & Fast Chargers',
     keyword: 'LED driver PCBA',
     image: '/assets/images/case-led-driver.webp',
-    imageAlt:
-      'PD fast charger with the shell opened, showing the AC-DC board, the transformer, the bus capacitors and the USB-C output ports',
-    h1: 'LED driver and PD fast charger board assembly',
+    imageAlt: 'LED driver module on a bench beside its assembled AC-DC board',
+    h1: 'LED driver and PD charger boards, high volume and thin margin',
     lede:
-      'An LED driver and a USB-C fast charger are the same board in different clothes: an AC-DC front end, a power-factor stage and a regulated output, inside an enclosure nobody opens. The assembly problem is mains isolation. The commercial problem is that this is the most price-compressed family on the site.',
+      'An LED driver or a PD fast charger is one small board carrying an AC-DC stage, power-factor correction and secondary-side regulation. It is the highest-volume family on this site and the least forgiving commercially: buyers switch over fractions of a cent, and the process that wins is the one that removes labour rather than the one that quotes lowest.',
     facts: [
       ['Boards per unit', '1'],
-      ['Typical batch', '1,000 – 10,000'],
-      ['Barrier control', 'Creepage and clearance'],
-      ['Coating', 'Conformal or potting, in-house'],
+      ['Typical batch', '1,000 – 10,000 sets'],
+      ['Characteristic', 'Double-sided SMT, THT transformer, coating'],
+      ['Standard build', '3 working days from kitted parts'],
     ],
     sections: [
       {
-        heading: 'Mains isolation is the whole design',
+        heading: 'What the board has to survive',
         paras: [
-          'The board carries mains on one side and a low-voltage output on the other, and the distance between them is set by the creepage and clearance for the working voltage and pollution degree. The isolation slot in the PCB is milled for that reason, and the optocoupler, the Y-capacitor and the transformer are the components that hold the barrier up.',
-          'Assembly can compromise all of it. Solder balls in the slot, flux that was never washed, a coating sprayed across the barrier — each one reduces a distance that was calculated. That is why the process controls in this family are about cleanliness and coating discipline rather than placement accuracy.',
+          'The AC-DC stage sees mains transients, the PFC stage runs hot, and the secondary side has to hold isolation across a gap that is often only a few millimetres on a crowded board. Everything about the assembly has to respect that gap: no coating bridging, no solder splash, no flux residue tracking across it.',
+          'The transformer or inductor is usually a through-hole part with heavy leads. Hand or selective soldering that joint without overheating the winding is a skill, and it is one of the reasons this family stays in-house rather than moving to a pure placement house.',
+          'Thermal management is done through copper and potting rather than through a heatsink, so the board itself is the heatsink. That makes copper weight and via stitching part of the electrical design, and it makes reflow profiling per board again rather than per product family.',
         ],
       },
       {
-        heading: 'Thermal, inside a sealed box',
+        heading: 'The commercial truth about this family',
         paras: [
-          'A driver runs inside a sealed enclosure with no fan, so the thermal path is the design. The switching devices and the transformer dissipate into the board and the potting compound, and the potting is what decides whether the case temperature is acceptable. Fill depth and voiding become functional parameters, not cosmetic ones.',
-          'Encapsulation and coating both run here, and both change the thermal behaviour of the board. A unit that was fine on a bench in still air can be marginal once potted, if the compound was chosen for cost rather than conductivity. That decision belongs to the buyer, but it is worth raising before the batch rather than after.',
+          'Volume is enormous and margin is thin. The buyer is often a lighting brand or a charger brand that has quoted the finished product to a retailer at a fixed price, so the board price is a residual rather than a negotiation.',
+          'That means this family is won on yield and on labour content, not on placement rate. A design that eliminates a hand-soldered wire, or that lets the transformer go through selective solder in the same pass, changes the unit cost more than any rate discussion.',
+          'It is included here because the process fit is real and because high volume does arrive — but a buyer whose only question is price per board will usually find a larger plant that beats this floor. Saying that early is cheaper for both sides than a sample run.',
         ],
       },
       {
-        heading: 'Through-hole magnetics and the hand steps',
+        heading: 'Inspection and coating',
         paras: [
-          'Transformers, inductors and the input fuse are through-hole parts with real mass, and they are why this family is not a pure placement job. Selective or wave soldering handles most of it, with hand work on the parts that sit too close to an SMT component for a nozzle to reach.',
-          'A transformer pin carries current and mechanical load at the same time. A pin wetted on one side only passes continuity and heats in service, which is the classic field failure of a cheap driver. It is also the step a quote can hide, so it is worth asking which soldering process is used rather than only what the price is.',
+          'SPI, AOI and X-ray, with X-ray used on the transformer leads and on any QFN in the PFC section. Coating is common for outdoor and industrial drivers, applied here with the isolation slot and connector areas masked.',
+          'What is not done here: safety testing, hipot, EMC, or energy-efficiency measurement. Those produce the CE or UL file, and they belong to the brand owner and a certified laboratory.',
         ],
       },
       {
-        heading: 'The honest commercial read',
+        heading: 'Batch band',
         paras: [
-          'One thousand to ten thousand pieces is the band. The volume is enormous, the margin is thin, and the board is simple enough that a dozen shops can quote it. Buyers switch over fractions of a cent. This is capacity filler for a high-mix floor, not a route to a durable customer relationship.',
-          'It is on the site because buyers ask for it and the process is genuinely within capability, not because it is a good place to compete. If the decision is purely unit price at ten thousand pieces a month, a dedicated high-volume plant will beat this floor, and it is fairer to say so up front.',
+          'One thousand to ten thousand sets. Below a thousand the setup dominates and the buyer is usually prototyping; above ten thousand the order belongs on a dedicated line with automated test.',
+          'Because the price is so tight, the repeat order at an unchanged revision is the only place this family is comfortable. That makes revision discipline — agreeing the BOM and freezing it — worth more here than anywhere else on this site.',
         ],
       },
     ],
     limits: {
-      heading: 'What is not part of an LED driver build here',
+      heading: 'Where this floor loses on a driver or charger',
       items: [
-        'Magnetic design and transformer specification, which belong to the buyer or the magnetics supplier.',
-        'Safety certification of the finished driver to the applicable standard, which the brand owner holds.',
-        'Price-led tenders above ten thousand pieces a month, where a dedicated line wins on unit cost.',
+        'Volumes above roughly 10,000 sets a month, where automated lines and in-line test beat a high-mix floor.',
+        'Hipot, EMC, energy-efficiency or safety certification testing.',
+        'Fully automated test with per-unit data logging as part of the assembly price.',
       ],
     },
     faq: [
       {
-        q: 'Can you assemble LED drivers and PD chargers in 1,000-piece batches?',
-        a: 'Yes. One thousand to ten thousand pieces is the band, with the AC-DC front end, PFC stage and secondary regulation built on one board, and conformal coating or potting done in-house.',
+        q: 'Can you build LED drivers in 1,000-piece batches?',
+        a: 'Yes. One thousand to ten thousand sets is the normal band, with the transformer leads soldered in-house and conformal coating applied after inspection.',
       },
       {
-        q: 'How is the mains isolation protected during assembly?',
-        a: 'By process control: isolation slots are kept clear of solder balls and flux, the board is cleaned before coating, and the coating mask leaves the barrier untouched. The creepage the layout specifies is checked at first article and on the coating drawing.',
+        q: 'Do you do hipot or EMC testing?',
+        a: 'No. Safety, hipot and EMC testing produce the CE or UL file and are the brand owner’s responsibility with a certified laboratory. This floor provides assembly and inspection records.',
       },
       {
-        q: 'Is this the cheapest place to build a high-volume driver?',
-        a: 'No. At ten thousand pieces a month and above, a dedicated high-volume plant beats a high-mix floor on unit price. This family is built here because the process fits and buyers ask for it, not because the price will be the lowest.',
+        q: 'How do you keep the isolation gap clean?',
+        a: 'The gap is masked before coating, checked at AOI, and treated as a keep-out in the coating drawing. Flux residue and solder splash across the gap are the failure modes that matter most on this family.',
       },
     ],
-    related: ['dashcam', 'power-station', 'parking-sensor'],
   },
+
   dashcam: {
     slug: 'dashcam',
     name: 'Dashcam & Mirror Display Boards',
-    cardName: 'Dashcam & Mirror Display Boards',
+    cardName: 'Dashcam & Mirror Display',
     keyword: 'dashcam PCBA assembly',
     image: '/assets/images/case-dashcam.webp',
-    imageAlt:
-      'Dashcam opened beside its windscreen mount, showing the image-sensor board with its lens, the SoC mainboard and the display flex in the rear housing',
-    h1: 'Dashcam and mirror display board assembly',
+    imageAlt: 'Dashcam with its housing open, showing the image-sensor board and encoder mainboard',
+    h1: 'Dashcam and mirror display boards, two boards and a heat problem',
     lede:
-      'A dashcam is three boards: an image-sensor carrier, an encoder mainboard carrying the SoC and the storage, and a display or touch board. The mainboard is the densest build on this site after the robot vacuum board, and the sensor carrier is the one where alignment, not soldering, decides the picture.',
+      'A dashcam is an image-sensor carrier, an encoder mainboard and a display board in a housing that sits in direct sun behind glass. Technically it is dense double-sided work; commercially it is a mature category where the buyer is usually a Shenzhen solution house that already knows exactly what it wants.',
     facts: [
-      ['Boards per unit', '3 (sensor, mainboard, display)'],
-      ['Typical batch', '500 – 5,000'],
-      ['Densest build', '01005, 0.3 mm pitch'],
-      ['X-ray', 'On the SoC and memory joints'],
+      ['Boards per unit', '2 (main, display)'],
+      ['Typical batch', '500 – 5,000 sets'],
+      ['Smallest parts', '01005, 0.3 mm IC pitch'],
+      ['Standard build', '3 working days from kitted parts'],
     ],
     sections: [
       {
-        heading: 'The three boards and what each one does',
+        heading: 'The image-sensor carrier is the precision part',
         paras: [
-          'The sensor carrier holds the image sensor and the lens mount. It is small, often rigid or rigid-flex, and its whole job is to keep the sensor exactly where the optics expect it. The mainboard carries the SoC, the DRAM, the flash, the wireless module and the video encoder. The display board carries the panel connector and the touch controller.',
-          'Mirror displays invert the mechanical problem: the board is long and narrow, the panel is large, and the assembly has to sit flat behind a mirror. The electronics are simpler and the mechanics are harder, which is why a mirror product quoted as if it were a dashcam tends to come back.',
+          'The sensor sits on its own small board or on a rigid-flex tail, positioned to a fraction of a millimetre relative to the lens mount. Assembly tolerance here is optical, not just electrical: a sensor that is 0.1 mm off centre produces focus falloff at the corners that no firmware can correct.',
+          'That makes this board the one to agree at DFM rather than after the first batch. Panelisation, carrier design, and how the board is supported during reflow all affect how flat the sensor lands.',
+          'The mainboard itself is conventional dense SMT: the encoder SoC, DDR, flash, power rails and the connectors for the sensor, the display and the GPS module. Fine pitch and double-sided, well inside the window, but with a lot of small passives and a real risk of tombstoning on 01005 parts if the paste print is not controlled.',
         ],
       },
       {
-        heading: 'Dense placement, and where X-ray earns its place',
+        heading: 'Heat is the design constraint nobody quotes for',
         paras: [
-          'The mainboard is a double-sided, 01005-capable build with a fine-pitch SoC and a memory package that needs a proper ground plane beneath it. Placement is ordinary work here; what matters is that both sides go through reflow without the second pass disturbing the first.',
-          'The SoC and memory joints are where X-ray stops being optional. A thermal or ground pad under a BGA that did not wet produces a device that runs and then throttles, or behaves cold and fails warm — a fault no amount of visual inspection finds, and one a burn-in at the brand owner will find for you.',
+          'A dashcam in a parked car in summer sees ambient well above 70 °C at the board. The encoder runs hot, the supercapacitor or battery runs hot, and the housing is sealed. Thermal design is done in copper, thermal vias and sometimes a graphite sheet, not with a fan.',
+          'For assembly that means the copper distribution matters more than usual: a board with heavy thermal relief on the ground plane reflows differently from one without, and the profile has to be developed for the actual stackup rather than copied from a similar product.',
+          'It also means conformal coating is often specified not for water but for condensation and dust. Coating is applied here with the lens mount, connectors and any test pads masked.',
         ],
       },
       {
-        heading: 'Sensor alignment is not an assembly step',
+        heading: 'What stays with the buyer',
         paras: [
-          'The sensor has to sit relative to the lens to a tolerance far tighter than board placement can hold. That alignment is active — the sensor is powered and the image read out during adjustment — and it belongs to the camera module maker. If the sensor and the lens are separate parts in the design, that step is yours, not the assembler’s.',
-          'What the assembler controls is everything alignment depends on: the flatness of the carrier, the joint under the sensor, and the absence of residue on the sensor window. Those are worth specifying explicitly, because a reflow that warps the carrier by a few tens of microns makes a perfectly good lens look like a bad one.',
+          'Image tuning, lens focusing and IQ calibration. Those need the lens, the sensor and the tuning environment, and they are not assembly steps.',
+          'Functional test with a live sensor and display. In-circuit and functional test are not run in-house; on this product the buyer almost always owns a fixture that boots the board and checks the image path, because the pass criteria are in the firmware.',
+          'Any automotive qualification. A dashcam sold as an accessory is a consumer product; if the buyer is supplying a vehicle OEM, that programme needs IATF 16949 and this floor holds ISO 9001 only.',
         ],
       },
       {
-        heading: 'Batch band and who the buyers are',
+        heading: 'Batch band',
         paras: [
-          'Five hundred to five thousand pieces is the band. The category is mature and most buyers are Shenzhen solution houses that already have a bonded assembler, so displacing an incumbent is harder here than in a family where that incumbent is a generalist.',
-          'That means entry is usually a design change rather than a price cut: a new sensor, a mirror product, a board the current supplier cannot do double-sided or cannot X-ray. Those conversations are decided on the process note, not on the unit price, and they are the ones worth having.',
+          'Five hundred to five thousand sets. The category is stable and well understood, buyers repeat at consistent sizes, and model changes are driven by sensor availability rather than by fashion.',
+          'Cost falls at the second order at an unchanged revision. Since sensor generations change every year or two, planning the next model so that its first run lands with a scheduled reorder of the current one is worth real money.',
         ],
       },
     ],
     limits: {
-      heading: 'What a dashcam buyer should not expect here',
+      heading: 'Where this floor is the wrong fit for a dashcam',
       items: [
-        'Active alignment of sensor and lens, which is camera-module work and sits with the module maker.',
-        'In-house in-circuit and functional test of the finished camera.',
-        'IATF 16949 for OEM or Tier-1 supply — aftermarket dashcams are consumer products, OEM programmes are not.',
+        'Lens focusing, image-quality tuning and calibration — these need the lens and the tuning rig.',
+        'Functional test with a live sensor and display, which is normally the buyer’s own fixture.',
+        'IATF 16949 for a vehicle-OEM programme — ISO 9001 only here.',
       ],
     },
     faq: [
       {
-        q: 'Can you assemble dashcam mainboards with a fine-pitch SoC?',
-        a: 'Yes — double-sided placement down to 01005 and 0.3 mm pitch, with SPI before reflow, AOI after it, and X-ray on the SoC and memory joints where the pads sit under the package.',
+        q: 'Can you assemble dashcam mainboards in 500-piece batches?',
+        a: 'Yes. Five hundred to five thousand sets is the normal band, with 01005 and 0.3 mm pitch placement, SPI before reflow and AOI after it.',
       },
       {
-        q: 'Do you align the lens to the sensor?',
-        a: 'No. Active alignment is camera-module work; it needs the sensor powered and the image read out. What is controlled here is carrier flatness, the joint under the sensor and the cleanliness of the window, which are what alignment depends on.',
+        q: 'Do you assemble the image-sensor board too?',
+        a: 'Yes, as a separate line. The sensor carrier is the precision part of the job, so panelisation and support during reflow are agreed at DFM rather than discovered when the first batch is focused.',
       },
       {
-        q: 'What batch size is realistic for a dashcam board?',
-        a: 'Five hundred to five thousand pieces. The category is mature and most buyers already have a bonded assembler, so a new supplier usually enters on a design change or on a board the incumbent cannot build.',
+        q: 'Can you do the lens alignment?',
+        a: 'No. Lens focusing and image-quality tuning need the lens, the sensor and the tuning environment, and they stay with the buyer. Assembly covers the board and its connectors.',
       },
     ],
-    related: ['robot-vacuum', 'led-driver', 'parking-sensor'],
   },
 
   'parking-sensor': {
@@ -734,142 +740,144 @@ export const FAMILIES = {
     cardName: 'Parking Sensors & Headlight Drivers',
     keyword: 'parking sensor PCBA',
     image: '/assets/images/case-parking-sensor.webp',
-    imageAlt:
-      'Parking sensor kit: LED distance display with a buzzer, its control board, and four ultrasonic sensors on flying leads',
-    h1: 'Parking sensor and LED headlight driver board assembly',
+    imageAlt: 'Ultrasonic parking sensor beside its small round driver board',
+    h1: 'Parking sensor and headlight driver boards, small boards in volume',
     lede:
-      'This is the long-tail family: small boards, many buyers, frequent model changes. A parking sensor board lives on a bumper and a headlight driver lives behind a lamp, so both are potting and thermal problems rather than placement problems — and both get bought in batches too small for a big plant to want.',
+      'Two aftermarket products that share a shape: a small round or narrow board, potted or coated, made in thousands of variants for different vehicles. The board is simple. The difficulty is that every model change is a new small order, and the coating has to survive a bumper.',
     facts: [
-      ['Boards per unit', '1 – 2'],
-      ['Typical batch', '500 – 5,000'],
-      ['Board size', 'Small, heavily panelised'],
-      ['Coating', 'Conformal or potting, in-house'],
+      ['Boards per unit', '1 per sensor or lamp'],
+      ['Typical batch', '500 – 5,000 sets'],
+      ['Characteristic', 'Small boards, coating, frequent model changes'],
+      ['Standard build', '3 working days from kitted parts'],
     ],
     sections: [
       {
-        heading: 'Two products with one shape of problem',
+        heading: 'The ultrasonic board is mostly analogue',
         paras: [
-          'The parking sensor front end drives an ultrasonic transducer and listens for the return echo. The board is small and mostly analogue, and its performance depends on matching the transducer and on the stability of the components around it. The headlight driver is a constant-current supply with thermal derating, driving an LED array that must not overheat inside a sealed lamp.',
-          'What they share is the environment. Both sit somewhere that gets wet, salted and vibrated, and both are potted or heavily coated for that reason. The electronics are modest; the encapsulation and the thermal path are what decide whether the part survives its third winter.',
+          'A parking sensor board drives a piezo transducer with a burst of pulses and then listens for the return. That means a drive stage, a high-gain receive chain, a comparator and a small MCU, all on a board the size of a coin.',
+          'The analogue front end is where yield is decided: a marginal joint on the receive path does not stop the board working, it reduces range. That is the failure mode that reaches the customer as “the sensor is slow” rather than as a dead unit, which makes AOI and a first-article functional check more valuable than any incoming inspection.',
+          'Coating is not optional. The board lives behind a bumper in rain, salt and road grit, usually potted into the housing. We coat in-house; potting into the housing is mechanical work and sits outside this building.',
         ],
       },
       {
-        heading: 'Potting is a process, not a pour',
+        heading: 'The LED headlight driver is a thermal board',
         paras: [
-          'Encapsulation runs in-house and is quoted as a real step because it is one: compound, fill depth, cure schedule and connector masking all have to be agreed, and a void in the wrong place becomes a thermal or a moisture path. A potted board cannot be reworked, which makes the inspection before potting the last chance.',
-          'That changes the sequence. Boards are inspected, programmed and tested as far as the process allows before encapsulation, because after it a fault means scrap rather than rework. On this family the pre-pot test coverage matters more than anywhere else on the site, and it is the step worth specifying in writing.',
+          'A constant-current LED driver for a headlight or a work lamp is a small board running a buck or boost converter at high current, with thermal derating that has to hold at the top of the temperature range. The copper is the heatsink and the housing is often the only thing between the board and the outside world.',
+          'The recurring assembly issue is solder voiding under the switching device and under the current-sense resistor, because both are thermal paths. That is X-ray work, and on this family it is done on samples per lot rather than per board.',
+          'Coating again, with the connector and any thermal pad masked. On a driver that is potted, the coating is belt-and-braces; on one that is only gasketed, it is the primary protection.',
         ],
       },
       {
-        heading: 'Small boards mean panelisation dominates',
+        heading: 'Why this family is a long tail rather than a headline',
         paras: [
-          'A parking sensor board is small enough that panelisation drives the economics. Many boards per panel makes the placement rate look excellent and turns depaneling into the constraint, and a V-score or router choice that suits one board size will not suit the next model.',
-          'Frequent model changes make that worse, because the panel is redesigned for each variant. A supplier who treats panelisation as a formality adds a tooling delay to every revision, so it is worth asking what the panel looks like before the first batch rather than discovering it at the stencil stage.',
+          'There are many small buyers, each with many vehicle variants, each ordering in the hundreds. That produces a high volume of small orders rather than a few large ones, which suits a high-mix floor and does not suit a plant built around one customer.',
+          'The commercial consequence is that setup cost matters: every variant needs its own stencil and programme, so a family of twenty variants ordered together is far cheaper per unit than twenty separate orders spread over a year. Consolidating variants into scheduled runs is the single biggest lever here.',
         ],
       },
       {
-        heading: 'The long tail is the point',
+        heading: 'What stays with the buyer',
         paras: [
-          'Five hundred to five thousand pieces is the band, and the defining feature is that it arrives as many small orders rather than one large account. That suits a high-mix floor: the setup is real, but nobody is comparing against a high-volume price, because no high-volume buyer exists for a specific bumper sensor.',
-          'The commercial risk is the mirror image of the LED driver family. There is no price war here, but there is also no large customer — the relationship is a portfolio of small ones. It rewards a supplier who can keep twenty part numbers straight and still turn a batch in three days, which is a records capability more than a pricing one.',
+          'Potting into the housing, ultrasonic welding, and any mechanical sealing — outside this building.',
+          'Vehicle-level compatibility, E-mark or ECE regulation testing, and any OEM approval. Those are the brand owner’s obligations.',
+          'Range calibration for parking sensors, which depends on the housing, the bumper cut-out and the transducer, not on the board alone.',
         ],
       },
     ],
     limits: {
-      heading: 'What is outside scope in this family',
+      heading: 'What these buyers should not expect here',
       items: [
-        'Transducer matching and acoustic tuning, which belong to the sensor design.',
-        'Optical and lamp integration for headlight products, which is not board-level work.',
-        'IATF 16949 — these are aftermarket and accessory products; OEM lighting programmes are outside scope.',
+        'Potting, housing assembly, ultrasonic welding or sealing.',
+        'E-mark, ECE or vehicle-OEM approval and the associated testing.',
+        'Range calibration of a finished sensor, which depends on housing and bumper geometry.',
       ],
     },
     faq: [
       {
-        q: 'Do you pot parking sensor boards?',
-        a: 'Yes. Encapsulation runs in-house alongside conformal coating, with the compound, fill depth, cure schedule and connector masking agreed before the first batch. A potted board cannot be reworked, so inspection and programming happen before potting.',
+        q: 'Can you coat parking sensor boards for outdoor use?',
+        a: 'Yes. Conformal coating is applied in-house after inspection, with the transducer pads and connector masked. Potting into the housing is mechanical work and is not done here.',
       },
       {
-        q: 'Can you handle many small part numbers?',
-        a: 'That is what this family is: five hundred to five thousand pieces per order across many model variants. The constraint is panelisation and record-keeping rather than placement, and each variant needs its own panel and first article.',
+        q: 'How do you handle many vehicle variants?',
+        a: 'Each variant needs its own stencil and programme, so grouping variants into one scheduled run is much cheaper per unit than separate orders spread across a year.',
       },
       {
-        q: 'Are headlight drivers built to IATF 16949?',
-        a: 'No. Tenmay holds ISO 9001. Aftermarket and accessory lighting boards are consumer products; supply to a vehicle manufacturer as a Tier supplier would require IATF 16949 and is outside current scope.',
+        q: 'Do you X-ray LED driver boards?',
+        a: 'Yes, on samples per lot. Voiding under the switching device and the current-sense resistor matters because both are thermal paths, and neither can be judged from the surface.',
       },
     ],
-    related: ['dashcam', 'led-driver', 'robot-vacuum'],
   },
 
   evse: {
     slug: 'evse',
     name: 'AC Charging Pile (EVSE) Control Boards',
-    cardName: 'AC Charging Pile (EVSE)',
+    cardName: 'EV Charging (EVSE) Boards',
     keyword: 'EV charger control board PCBA',
     image: '/assets/images/case-evse.webp',
-    imageAlt:
-      'Wall-mounted AC charging point with the front cover removed, showing the mains terminal block, the contactors, the current transformer and the control board',
-    h1: 'EV charging point (EVSE) control board assembly',
+    imageAlt: 'AC charging pile with the front cover removed, showing the control board and contactors',
+    h1: 'EV charging control boards, where the assembly buys you paperwork',
     lede:
-      'An AC charging point is a control board doing three safety jobs at once: generating the pilot signal, detecting residual current, and driving the contactor that connects mains to the vehicle. Certification sits with the brand owner, but the board is where the evidence is generated, so the process record matters as much as the price.',
+      'An AC charging pile control board generates the pilot signal, detects residual current, drives the contactor, meters energy and talks over a comms module. The board itself is not difficult. What makes this family slow is that the finished product has to be certified, and that certification needs assembly records you can hand to a test house.',
     facts: [
-      ['Boards per unit', '1 – 2 (control, metering)'],
-      ['Typical batch', '100 – 1,000'],
-      ['Design constraint', 'Isolation and residual-current sensing'],
-      ['Coating', 'Conformal, in-house'],
+      ['Boards per unit', '1 – 2 (control, metering / comms)'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Isolation spacing, relays, coating'],
+      ['Standard build', '3 working days from kitted parts'],
     ],
     sections: [
       {
-        heading: 'What the control board is responsible for',
+        heading: 'What the control board actually does',
         paras: [
-          'The board generates the control pilot signal that tells the vehicle how much current it may draw, measures the current actually drawn, and opens the contactor when the two do not add up. It also detects residual current — including the smooth DC component a vehicle charger can inject, which a conventional AC residual-current device does not see.',
-          'Around that sit the metering, the communications module for back-office or app control, the RFID reader on public units, and the surge and EMI protection at the mains entry. It is not a dense board. It is a board where the distance between mains and everything else is the design.',
+          'The pilot-signal circuit is the part that makes it an EVSE rather than a socket: a ±12 V square wave whose duty cycle tells the vehicle how much current it may draw. Getting that waveform right is a firmware and analogue question, and it is the first thing a certifier tests.',
+          'Residual-current detection — particularly DC leakage detection for mode 2 and mode 3 charging — adds a sensing stage with its own isolation requirements. On the layout that means generous spacing on the sense side and a clear separation from the relay drive.',
+          'The contactor or relay drive, the energy meter and the comms module complete the board. Relays and terminal blocks are through-hole, the meter may be a module on a header, and the comms section is often fine pitch.',
         ],
       },
       {
-        heading: 'Isolation, and why the layout is the argument',
+        heading: 'Why certification changes the assembly requirement',
         paras: [
-          'Mains, the pilot signal and the low-voltage control side have to stay separated by the distances the standard requires, while the contactor carries both the current and the heat. That combination sets the board outline more than the component count does, which is why EVSE boards often look sparse and still cost more than their area suggests.',
-          'Assembly has to preserve it. Coating must not bridge the barrier, the contactor joints are through-hole and carry load, and the current-sense path has to stay clean enough that the measurement is honest. These are process controls, and on this family they are the first thing an audit looks at.',
+          'CE, UKCA, UL and EN 61851 / IEC 61851 approval applies to the finished charging equipment, not to the board. The brand owner holds the certificate. But the test house will ask for evidence about the assembly: coating process, isolation distances as built, and lot traceability.',
+          'That is the real value of a documented assembler on this family. It is not that the board is hard to place — it is that a certificate submission needs an assembly record that survives scrutiny, and a shop that cannot produce one turns a two-month certification into a six-month one.',
+          'Practically: first-article records, coating drawings with masking defined, and per-lot inspection data are the deliverables here, alongside the boards themselves.',
         ],
       },
       {
-        heading: 'The audit arrives before the order',
+        heading: 'What is not done here',
         paras: [
-          'Buyers in this category usually audit process records before placing a first order, because the product is safety-related and the certification depends on the build being repeatable. The useful conversation therefore is not about unit price but about the record set: reflow profiles archived per shift, AOI and X-ray results by lot, programming checksums, coating material and thickness, and a serial-to-lot mapping.',
-          'A floor that cannot produce those records is not a candidate, however good the quote looks. This is worth stating plainly, because a supplier who says yes to everything and then hands over a thin file costs the buyer a certification cycle rather than a batch.',
+          'No dielectric, hipot, EMC, surge or functional test under load. Those run at a certified laboratory and produce the file the brand owner submits.',
+          'No firmware or protocol conformance testing — OCPP conformance in particular needs the backend and the test harness, neither of which is in this building.',
+          'No enclosure assembly, cable harnesses or final integration. This is a board-level supplier.',
         ],
       },
       {
-        heading: 'Batch band and the shape of demand',
+        heading: 'Batch band and the rhythm of this family',
         paras: [
-          'One hundred to one thousand units is the band. The market is regulated, so it moves more slowly than consumer categories: a model is certified once and then built for years, and revisions come from a standards change or a new communications module rather than from fashion.',
-          'That is a good shape for a high-mix floor. Batches are small, part numbers are stable, and the buyer values a repeatable build with a usable record set over the last fraction of a cent. This is one of the families here where process discipline is the entire sales argument.',
+          'One hundred to one thousand sets. The rhythm is set by certification cycles rather than by consumer demand: a new model arrives, gets certified, then orders repeat at a stable size for years.',
+          'That makes the second and third orders the valuable ones, and it makes revision discipline unusually important. A change to the isolation layout after certification invalidates work, so the DFM review before the first run is where a certification-friendly build gets locked in.',
         ],
       },
     ],
     limits: {
-      heading: 'What is not issued from this plant',
+      heading: 'Where this floor cannot carry an EVSE project',
       items: [
-        'Certification of the charging point and the type-test file, which belong to the brand owner.',
-        'Calibration certificates for the metering and residual-current measurement — the board is built and inspected, not calibrated.',
-        'Installation, commissioning and the electrical sign-off of the installed unit.',
+        'Dielectric, EMC, surge and functional testing for certification — those run at a certified laboratory.',
+        'OCPP or protocol conformance testing, which needs the backend and harness.',
+        'Enclosure assembly, cable harnesses, contactor wiring and final integration.',
       ],
     },
     faq: [
       {
-        q: 'Do you build EV charging control boards in 100-unit batches?',
-        a: 'Yes. One hundred to one thousand units is the band, and the process fits a high-mix floor: small batches, stable part numbers, and a buyer who audits the build record before ordering.',
+        q: 'Can you build AC charging control boards in 100-set batches?',
+        a: 'Yes. One hundred to one thousand sets is the normal band, with relays and terminals soldered in-house, coating applied after inspection, and a three-day standard build from kitted parts.',
       },
       {
-        q: 'Can you supply the process records an audit needs?',
-        a: 'The build generates them: reflow profiles archived per shift, AOI and X-ray results by lot, programming checksums, coating material and thickness, and serial-to-lot mapping. Calibration certificates for metering are not issued here.',
+        q: 'Can you provide records for a CE or UL submission?',
+        a: 'Yes. First-article records, a coating drawing with masking defined, and per-lot inspection data are produced as part of the build. The certificate itself is the brand owner’s, obtained through a certified laboratory.',
       },
       {
-        q: 'Who handles certification of the charging point?',
-        a: 'The brand owner. Tenmay builds and inspects the boards; the type test and the declaration for the charging point are a product-level file and sit with the company whose name is on the unit.',
+        q: 'Do you test the pilot signal or run OCPP conformance?',
+        a: 'No. Pilot-signal validation, load test and OCPP conformance need the vehicle simulator, the backend and a certified test house. Assembly and inspection records are what this floor provides.',
       },
     ],
-    related: ['hmi', 'servo', 'power-station'],
   },
 
 };

@@ -60,76 +60,76 @@ export const ROUTE_HEADS = {
       'A large through-hole power board in the base, a dense console board in the mast, quoted separately so a console change does not touch the power approval.',
   },
   '/applications/ebike': {
-    title: 'E-bike Controller PCBA — BMS, Motor Drive, Display | TENMAY',
+    title: 'E-bike Controller & Display PCBA — 200–2,000 Sets | TENMAY',
     description:
-      'Controller and display boards for e-bikes and e-scooters: 6S to 13S BMS, MOSFET bridge, through-hole terminals, coating or potting, 200 to 2,000 sets.',
-    ogTitle: 'E-bike and E-scooter Controller PCBA — TENMAY',
+      'E-bike and e-scooter controller PCBA: THT phase and battery terminals soldered in-house, conformal coating, 200 to 2,000 sets, three-day build.',
+    ogTitle: 'E-bike Controller & Display PCBA — TENMAY',
     ogDescription:
-      'A 6S to 13S BMS and a MOSFET bridge on one board, a display on the other. Where the potting mask and the sense harness decide field failures.',
+      'A heavy-copper controller board in the frame and a dense display board on the handlebar, quoted separately so a display change never touches the power approval.',
   },
   '/applications/power-station': {
-    title: 'Portable Power Station PCBA — BMS and Inverter | TENMAY',
+    title: 'Portable Power Station Boards — BMS, Inverter, Display',
     description:
-      'BMS, pure-sine inverter control and display boards for portable power stations: boards to 800 x 480 mm, coating in-house, 100 to 500 units.',
-    ogTitle: 'Portable Power Station Board Assembly — TENMAY',
+      'BMS, inverter control and display boards for portable power stations: X-ray on power joints, conformal coating in-house, 100 to 500 sets, three-day build.',
+    ogTitle: 'Portable Power Station PCBA — TENMAY',
     ogDescription:
-      'Three assemblies with three failure modes. Where the inverter board actually hurts, and why the realistic entry work is second-source production.',
+      'Three assemblies per unit, built to one ship date. X-ray on the inverter power joints, because voiding there is invisible from the surface.',
   },
   '/applications/robot-vacuum': {
-    title: 'Robot Vacuum Mainboard Assembly — Dense SMT | TENMAY',
+    title: 'Robot Vacuum Mainboard Assembly — 01005, 0.3 mm | TENMAY',
     description:
-      'Main control, motor drive, sensor and charging boards for robot vacuums and pool cleaners: 01005, double-sided, 500 to 5,000 sets. ICT not in-house.',
-    ogTitle: 'Robot Vacuum and Pool Cleaner PCBA — TENMAY',
+      'Robot vacuum and pool cleaner mainboards: dense double-sided SMT to 01005 and 0.3 mm pitch, X-ray on QFN thermal pads, 500 to 5,000 sets.',
+    ogTitle: 'Robot Vacuum Mainboard Assembly — TENMAY',
     ogDescription:
-      'The densest consumer board on this floor, and the family where the buying decision turns on test coverage rather than on placement capability.',
+      'The most demanding consumer board we build and the least forgiving commercially. Stated plainly, including when a larger plant will beat us on price.',
   },
   '/applications/servo': {
-    title: 'Servo Drive Board Assembly — Gate Drive, Encoder | TENMAY',
+    title: 'Servo Drive & Soft Starter PCBA — 50 to 500 Sets | TENMAY',
     description:
-      'Gate-drive, current-sense, MCU and encoder interface boards for servo drives and soft starters: 50 to 500 sets, X-ray on power joints, coating in-house.',
-    ogTitle: 'Servo Drive and Soft Starter PCBA — TENMAY',
+      'Servo drive and soft starter boards: gate drive, current sensing, THT terminals soldered in-house, conformal coating, 50 to 500 sets, three-day build.',
+    ogTitle: 'Servo Drive & Soft Starter PCBA — TENMAY',
     ogDescription:
-      'A servo drive shares its stack with a VFD, but the encoder interface decides whether the assembly is any good. Where it fails, and only at speed.',
+      'The same board stack as an inverter at a smaller frame size, with X-ray on the output devices and shunts where voiding becomes a thermal fault.',
   },
   '/applications/hmi': {
-    title: 'PLC I/O Module and HMI Board Assembly | TENMAY',
+    title: 'PLC I/O, HMI & Gateway PCBA — Isolation Layout | TENMAY',
     description:
-      'Industrial HMI, gateway and PLC I/O module boards: isolation spacing held through assembly, castellated module joints, 01005, 100 to 1,000 units.',
-    ogTitle: 'Industrial HMI and PLC I/O Module PCBA — TENMAY',
+      'HMI, gateway and PLC I/O module PCBA: isolation spacing, system-on-module connectors, field-side terminals and coating, 100 to 1,000 sets.',
+    ogTitle: 'PLC I/O, HMI & Gateway PCBA — TENMAY',
     ogDescription:
-      'Not a dense board, a spacing board. How isolation survives assembly, and why the written DFM answer is what wins this family.',
+      'Low search volume, high board value. Isolation spacing and the SoM connector are where the yield lives, so both are agreed at DFM.',
   },
   '/applications/led-driver': {
-    title: 'LED Drivers and PD Fast Chargers PCBA | TENMAY',
+    title: 'LED Driver & PD Charger PCBA — 1,000 to 10,000 Sets | TENMAY',
     description:
-      'AC-DC front end, PFC and secondary regulation for LED drivers and USB-C chargers: mains isolation, potting in-house, 1,000 to 10,000 pieces.',
-    ogTitle: 'LED Driver and PD Charger Board Assembly — TENMAY',
+      'LED driver and PD fast charger boards: AC-DC and PFC assembly, transformer leads soldered in-house, isolation gap masked at coating, 1,000 to 10,000 sets.',
+    ogTitle: 'LED Driver & PD Charger PCBA — TENMAY',
     ogDescription:
-      'Mains isolation is the design and potting is the thermal path. Also the most price-compressed family here, which is stated rather than avoided.',
+      'High volume, thin margin, won on yield and labour content rather than placement rate. The isolation gap is the failure mode that matters.',
   },
   '/applications/dashcam': {
-    title: 'Dashcam PCBA — Sensor Carrier, Mainboard, Display | TENMAY',
+    title: 'Dashcam & Mirror Display Board Assembly | TENMAY',
     description:
-      'Image-sensor carrier, encoder mainboard and display boards for dashcams and mirror displays: double-sided 01005, X-ray on the SoC, 500 to 5,000 pieces.',
-    ogTitle: 'Dashcam and Mirror Display Board Assembly — TENMAY',
+      'Dashcam and mirror display PCBA: image-sensor carrier, dense double-sided mainboard, 01005 and 0.3 mm pitch, coating, 500 to 5,000 sets.',
+    ogTitle: 'Dashcam & Mirror Display Board Assembly — TENMAY',
     ogDescription:
-      'A dense double-sided build with a fine-pitch SoC, plus the one step that is not assembly at all: active alignment of sensor and lens.',
+      'The sensor carrier is a precision part, not an electrical one. Panelisation and support during reflow are agreed before the first batch.',
   },
   '/applications/parking-sensor': {
-    title: 'Parking Sensor and LED Headlight Driver PCBA | TENMAY',
+    title: 'Parking Sensor & LED Headlight Driver PCBA | TENMAY',
     description:
-      'Ultrasonic front ends and constant-current LED drivers: small boards, heavy panelisation, potting in-house, 500 to 5,000 pieces per order.',
-    ogTitle: 'Parking Sensor and Headlight Driver PCBA — TENMAY',
+      'Ultrasonic parking sensor and LED headlight driver boards: small coated assemblies, many vehicle variants grouped into runs, 500 to 5,000 sets.',
+    ogTitle: 'Parking Sensor & LED Headlight Driver PCBA — TENMAY',
     ogDescription:
-      'The long-tail family: many buyers, small boards, frequent model changes. Why the potting sequence and the panel decide the outcome.',
+      'Small boards, coating, and a long tail of vehicle variants. Grouping variants into one scheduled run is the biggest cost lever here.',
   },
   '/applications/evse': {
-    title: 'EV Charging Point Control Board Assembly | TENMAY',
+    title: 'EV Charging (EVSE) Control Board PCBA — CE Records | TENMAY',
     description:
-      'EVSE control boards for AC charging points: pilot signal, residual-current detection, contactor drive and metering, with the records an audit asks for.',
-    ogTitle: 'EV Charging Point (EVSE) Control Board PCBA — TENMAY',
+      'AC charging pile control boards: pilot signal, residual-current detection, relay drive and metering, with first-article and coating records for a CE submission.',
+    ogTitle: 'EV Charging (EVSE) Control Board PCBA — TENMAY',
     ogDescription:
-      'Three safety jobs on one board, and a buyer who audits the build record before ordering. What that record set has to contain.',
+      'The board is not the hard part. The assembly record a certification body will ask for is, and that is what this floor produces.',
   },
   '/insights': {
     title: 'PCBA Process Notes and Engineering Insights | TENMAY',
@@ -146,14 +146,6 @@ export const ROUTE_HEADS = {
     ogTitle: 'Request a PCBA Quote — TENMAY',
     ogDescription:
       'One form to an assembly engineer: DFM note plus itemised price, with component lead time stated rather than hidden.',
-  },
-  '/company': {
-    title: 'Company Record — Registration and Certificates | TENMAY',
-    description:
-      'Who TENMAY is in law: the registered Chinese name, unified social credit code, ISO 9001 certificate holder, founding date and what this plant does not do.',
-    ogTitle: 'Company Record — TENMAY',
-    ogDescription:
-      'Licence fields, the three name forms of one entity, the certificate edition status and the listings we are retiring.',
   },
   '/privacy': {
     title: 'Privacy Policy — What We Collect and Why | TENMAY',
