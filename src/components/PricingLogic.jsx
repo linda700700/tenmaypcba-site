@@ -7,13 +7,13 @@ export default function PricingLogic() {
       title: '1. Bare PCB Fabrication',
       costType: 'Raw Material',
       logic: 'Based purely on layer count, substrate material (FR-4/Rogers), copper weight, board size, and surface finish (ENIG/OSP).',
-      transparency: 'Direct panel utilization calculation with zero markups on raw copper laminates.'
+      transparency: 'Fabrication is priced from panel utilisation and shown as its own line, so the charge can be checked against board size, layer count and surface finish.'
     },
     {
       title: '2. Component BOM Pass-Through',
       costType: 'Active & Passive Parts',
-      logic: 'Real-time pricing verified directly through authorized franchised channels (Digi-Key, Mouser, Arrow, Avnet).',
-      transparency: 'Itemized bill-of-materials with original distributor invoices provided upon audit.'
+      logic: 'Parts are bought from authorised franchised channels (Digi-Key, Mouser, Arrow, Avnet) or from the manufacturer on allocation where the part requires it.',
+      transparency: 'Every BOM line names the distributor and the unit price used on the quoting date, so the parts total can be re-checked line by line.'
     },
     {
       title: '3. SMT Placement Rate',
@@ -31,7 +31,7 @@ export default function PricingLogic() {
       title: '5. Inspection & Testing',
       costType: 'Quality Assurance',
       logic: '100% 3D AOI optical inspection is standard. Custom In-Circuit Testing (ICT), X-Ray, and firmware programming billed by cycle time.',
-      transparency: 'Transparent hourly engineering rates without arbitrary testing overhead markups.'
+      transparency: 'Hourly engineering rates for test and programming are stated as their own lines rather than spread across the board price.'
     }
   ];
 
@@ -48,7 +48,7 @@ export default function PricingLogic() {
             How We Price Your Turnkey PCBA Projects
           </h2>
           <p className="text-sm text-slate-600 mt-2 leading-relaxed">
-            Eliminating black-box manufacturing margins. Every quotation is delivered with an itemized breakdown matching our open-book formula.
+            No unexplained lines. Every quotation is itemised against the same five-part formula, so each number traces back to a quantity, a rate or a supplier price.
           </p>
         </div>
 
@@ -94,11 +94,11 @@ export default function PricingLogic() {
           <div className="bg-[#126B3F] text-white rounded-xl p-6 flex flex-col justify-between shadow-md">
             <div>
               <div className="text-xs font-bold uppercase tracking-wider text-sky-200 pb-2 border-b border-white/20">
-                ZERO COMPONENT MARKUPS
+                COMPONENT COST, LINE BY LINE
               </div>
-              <h3 className="text-lg font-bold text-white mt-3">Direct OEM Distribution Access</h3>
+              <h3 className="text-lg font-bold text-white mt-3">Parts pricing you can re-check</h3>
               <p className="text-xs text-sky-100 mt-2 leading-relaxed">
-                Unlike secondary brokers who markup passives by 40%–80%, we pass direct manufacturer contract rates directly to you, verified by CoC certificates.
+                Every BOM line names the distributor, the manufacturer part number and the price used on the day of quoting, with the distributor's part certificate behind it. If a part can be bought cheaper on the same terms and date, the quote is reworked before the order is placed.
               </p>
             </div>
             <a

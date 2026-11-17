@@ -35,6 +35,30 @@ export const ROUTE_HEADS = {
     ogDescription:
       'Twelve board families we build repeatedly, with the process fit, batch band and inspection call for each one.',
   },
+  '/applications/vfd': {
+    title: 'VFD Control Board PCBA — Three Boards per Drive | TENMAY',
+    description:
+      'Control, IGBT power and keypad boards for VFDs and inverters: 50 to 500 sets, conformal coating in-house, three-day build, X-ray on the power joints.',
+    ogTitle: 'VFD and Inverter Board Assembly — TENMAY',
+    ogDescription:
+      'Three boards per drive, three different process profiles, one ship date. Where a VFD build strains an assembly line, and what inspection proves.',
+  },
+  '/applications/jump-starter': {
+    title: 'Jump Starter PCBA with Air Compressor Board | TENMAY',
+    description:
+      'Main board and compressor drive for 12 V jump starters: heavy copper, X-ray on the clamp terminals, conformal coating, 100 to 1,000 units.',
+    ogTitle: 'Jump Starter and Air Compressor PCBA — TENMAY',
+    ogDescription:
+      'Battery management, clamp switching and boost on one board, motor drive on the other. Where the solder joint decides field survival.',
+  },
+  '/applications/treadmill': {
+    title: 'Treadmill Control Board Assembly — PCBA | TENMAY',
+    description:
+      'Motor-drive and console boards for treadmills and fitness equipment: boards to 800 x 480 mm, conformal coating, 200 to 2,000 sets, three-day build.',
+    ogTitle: 'Treadmill Control Board Assembly — TENMAY',
+    ogDescription:
+      'A large through-hole power board in the base, a dense console board in the mast, quoted separately so a console change does not touch the power approval.',
+  },
   '/insights': {
     title: 'PCBA Process Notes and Engineering Insights | TENMAY',
     description:

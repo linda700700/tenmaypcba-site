@@ -4,6 +4,7 @@ import {
   AlertTriangle, Quote, CheckCircle2,
 } from 'lucide-react';
 import { SECTORS } from '../data/useCases';
+import { FAMILIES } from '../data/applicationFamilies';
 import { waLink, DEFAULT_WA_TEXT } from '../data/company';
 import FlipMedia from '../components/FlipMedia';
 import DragRail from '../components/DragRail';
@@ -74,7 +75,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
 
           <div className="mt-7 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap sm:items-center">
             <a
-              href="/#rfq"
+              href="/rfq"
               className="inline-flex items-center justify-center gap-2 rounded bg-brand-500 px-6 py-3.5 text-[15.5px] font-bold text-white transition-colors hover:bg-brand-400"
             >
               Send files for a quote
@@ -132,6 +133,45 @@ export default function ApplicationsPage({ initialHash = '' }) {
               </a>
             ))}
           </DragRail>
+        </div>
+      </section>
+
+      {/* the three families that carry their own page — linked here so they are
+          one click from the index rather than only reachable from a card footer */}
+      <section className="border-b border-brand-200/50 bg-slate-50/70 py-8">
+        <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap items-end justify-between gap-2">
+            <h2 className="text-[15px] font-bold uppercase tracking-[0.13em] text-slate-900">
+              Three of these have a page of their own
+            </h2>
+            <p className="text-[12.5px] text-slate-500">
+              Deeper process detail, inspection call and batch economics for the families we build most.
+            </p>
+          </div>
+          <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-3">
+            {Object.values(FAMILIES).map((f) => (
+              <a
+                key={f.slug}
+                href={`/applications/${f.slug}`}
+                className="group flex items-center gap-3 rounded-lg border border-brand-200/60 bg-white p-3 transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
+              >
+                <span className="h-14 w-20 shrink-0 overflow-hidden rounded bg-slate-100">
+                  <img
+                    src={f.image}
+                    {...imgAttrs(f.image, '80px')}
+                    alt={f.imageAlt}
+                    loading="lazy"
+                    className="h-full w-full object-cover"
+                  />
+                </span>
+                <span className="min-w-0">
+                  <span className="block text-[14px] font-bold leading-snug text-slate-900">{f.cardName}</span>
+                  <span className="mt-0.5 block text-[12.5px] text-slate-500">{f.facts[1][1]}</span>
+                </span>
+                <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-brand-600 transition-transform group-hover:translate-x-0.5" />
+              </a>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -226,13 +266,24 @@ export default function ApplicationsPage({ initialHash = '' }) {
                     <div className="text-[11.5px] font-bold uppercase tracking-[0.14em] text-slate-400">
                       Next step
                     </div>
-                    <a
-                      href="/#rfq"
-                      className="mt-1 inline-flex items-center gap-1 text-[14.5px] font-bold text-brand-700 hover:underline"
-                    >
-                      Quote this board
-                      <ArrowRight className="h-3.5 w-3.5" />
-                    </a>
+                    <div className="mt-1 flex flex-col items-start gap-1">
+                      {FAMILIES[c.id] && (
+                        <a
+                          href={`/applications/${c.id}`}
+                          className="inline-flex items-center gap-1 text-[14.5px] font-bold text-slate-900 hover:underline"
+                        >
+                          Read the full page
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </a>
+                      )}
+                      <a
+                        href="/rfq"
+                        className="inline-flex items-center gap-1 text-[14.5px] font-bold text-brand-700 hover:underline"
+                      >
+                        Quote this board
+                        <ArrowRight className="h-3.5 w-3.5" />
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -284,7 +335,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
                   ))}
                 </ul>
                 <a
-                  href="/#rfq"
+                  href="/rfq"
                   className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded bg-brand-500 px-4 py-3 text-[15px] font-bold text-white transition-colors hover:bg-brand-400"
                 >
                   Send the pack

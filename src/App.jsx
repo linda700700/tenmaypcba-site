@@ -25,6 +25,7 @@ import ScrollProgress from './components/ScrollProgress';
 import CapabilitiesPage from './pages/CapabilitiesPage';
 import AssemblyPage from './pages/AssemblyPage';
 import ApplicationsPage from './pages/ApplicationsPage';
+import ApplicationFamilyPage from './pages/ApplicationFamilyPage';
 import InsightsPage from './pages/InsightsPage';
 import ArticlePage from './pages/ArticlePage';
 import RfqPage from './pages/RfqPage';
@@ -68,6 +69,10 @@ export default function App({ path: pathProp }) {
   const isRfq = path === '/rfq';
   const articleSlug = path.startsWith('/insights/') ? path.slice('/insights/'.length) : null;
   const article = articleSlug ? articleBySlug(articleSlug) : null;
+  // /applications/<family> — the three in-depth family pages. The index stays at
+  // /applications, so the prefix match must not swallow it.
+  const familyMatch = /^\/applications\/([^/]+)$/.exec(path);
+  const familySlug = familyMatch ? familyMatch[1] : null;
 
   // Anchor links from the mega menu land under the sticky header otherwise.
   useEffect(() => {
@@ -113,6 +118,8 @@ export default function App({ path: pathProp }) {
           <CapabilitiesPage />
         ) : isRfq ? (
           <RfqPage />
+        ) : familySlug ? (
+          <ApplicationFamilyPage slug={familySlug} />
         ) : isApplications ? (
           <ApplicationsPage initialHash={hash} />
         ) : (

@@ -1,6 +1,7 @@
 import React from 'react';
 import { COMPANY, SITE_URL } from '../data/company';
 import { USE_CASE_FAQ } from '../data/useCases';
+import { FAMILIES } from '../data/applicationFamilies';
 import { FAQS } from '../data/faq';
 import { canonicalFor } from '../seo/routes';
 import { articleBySlug } from '../lib/insights';
@@ -34,11 +35,22 @@ function JsonLd({ id, data }) {
 /* Visible trails, one per route. A BreadcrumbList that does not match a trail a
  * visitor can actually follow is treated as spam, so this mirrors the URL
  * hierarchy rather than inventing a shorter one. */
+/* Family pages live under /applications, so the trail is three levels deep and
+ * the middle step is a real link a visitor can follow back. */
+function familyFor(path) {
+  const m = /^\/applications\/([^/]+)$/.exec(path || '');
+  return m && FAMILIES[m[1]] ? FAMILIES[m[1]] : null;
+}
+
 function breadcrumbsFor(path) {
   if (!path || path === '/') return null;
   const trail = [{ name: 'Home', path: '/' }];
+  const family = familyFor(path);
 
-  if (path.startsWith('/insights/')) {
+  if (family) {
+    trail.push({ name: 'Applications', path: '/applications' });
+    trail.push({ name: family.cardName, path });
+  } else if (path.startsWith('/insights/')) {
     trail.push({ name: 'Insights', path: '/insights' });
     const article = articleBySlug(path.slice('/insights/'.length));
     if (article) trail.push({ name: article.title, path });
@@ -60,6 +72,8 @@ function breadcrumbsFor(path) {
 }
 
 export default function Seo({ path = '/' }) {
+  const family = familyFor(path);
+
   const org = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -142,6 +156,23 @@ export default function Seo({ path = '/' }) {
     },
   };
 
+  /* A family page gets its own Service node. The generic PCBA service is still
+   * true on that URL, but a page about VFD boards should answer "what is being
+   * sold here" without the reader having to infer it from an eight-item list. */
+  const familyService = family
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'Service',
+        '@id': `${canonicalFor(`/applications/${family.slug}`)}#service`,
+        name: family.h1,
+        serviceType: `${family.cardName} assembly`,
+        category: 'PCBA contract manufacturing',
+        provider: { '@id': `${SITE_URL}/#organization` },
+        areaServed: { '@type': 'Place', name: 'Worldwide' },
+        description: family.lede,
+      }
+    : null;
+
   const trail = breadcrumbsFor(path);
   const breadcrumb = trail
     ? {
@@ -157,13 +188,16 @@ export default function Seo({ path = '/' }) {
       }
     : null;
 
-  const showFaq = path === '/';
-  const faq = showFaq
+  /* FAQPage follows the visible block exactly: the eight homepage questions on
+   * "/", each family's own three on its family page, and nothing anywhere else.
+   * Marking up questions a visitor cannot see on that URL is a penalty risk. */
+  const faqSource = path === '/' ? [...FAQS, ...USE_CASE_FAQ] : family ? family.faq : null;
+  const faq = faqSource
     ? {
         '@context': 'https://schema.org',
         '@type': 'FAQPage',
-        '@id': `${SITE_URL}/#faq`,
-        mainEntity: [...FAQS, ...USE_CASE_FAQ].map((f) => ({
+        '@id': `${path === '/' ? SITE_URL : canonicalFor(path)}#faq`,
+        mainEntity: faqSource.map((f) => ({
           '@type': 'Question',
           name: f.q,
           acceptedAnswer: { '@type': 'Answer', text: f.a },
@@ -176,6 +210,7 @@ export default function Seo({ path = '/' }) {
       <JsonLd id="ld-organization" data={org} />
       <JsonLd id="ld-website" data={website} />
       <JsonLd id="ld-service" data={service} />
+      {familyService ? <JsonLd id="ld-family-service" data={familyService} /> : null}
       {breadcrumb ? <JsonLd id="ld-breadcrumb" data={breadcrumb} /> : null}
       {faq ? <JsonLd id="ld-faq" data={faq} /> : null}
     </>
