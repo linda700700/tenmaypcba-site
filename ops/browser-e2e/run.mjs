@@ -325,12 +325,45 @@ try {
   const controlled = await page.evaluate(
     () => !!(navigator.serviceWorker && navigator.serviceWorker.controller)
   );
+
+  // Puppeteer's request event also fires for fetches the worker makes on a miss,
+  // so counting it cannot tell a hit from a miss. Resource timing can: a
+  // response served from the worker or the HTTP cache reports transferSize 0,
+  // anything that crossed the network reports bytes.
+  const perf = await page.evaluate(() => {
+    const rows = performance.getEntriesByType('resource')
+      .filter((e) => new URL(e.name).pathname.startsWith('/assets/'))
+      .map((e) => ({ path: new URL(e.name).pathname, transfer: e.transferSize }));
+    return {
+      total: rows.length,
+      networked: rows.filter((r) => r.transfer > 0).map((r) => r.path),
+      cacheNames: 'caches' in window ? 'present' : 'absent',
+    };
+  });
+  console.log(
+    `    resource timing: ${perf.total} asset entries, ${perf.networked.length} crossed the network`
+  );
+  if (perf.networked.length) console.log('    networked: ' + perf.networked.slice(0, 8).join(', '));
+
+  const cacheDump = await page.evaluate(async () => {
+    if (!('caches' in window)) return ['no caches api'];
+    const names = await caches.keys();
+    const out = [];
+    for (const n of names) {
+      const c = await caches.open(n);
+      out.push(n + ' -> ' + (await c.keys()).length + ' entries');
+    }
+    return out;
+  });
+  console.log('    caches: ' + JSON.stringify(cacheDump));
   check(swState !== 'none', 'service worker registered', `state: ${swState}`);
   check(controlled, 'service worker controls the page on a repeat visit');
   check(
-    assetRequests === 0,
+    perf.networked.length === 0,
     'repeat visit downloads no asset from the network',
-    assetRequests === 0 ? 'served from cache' : `${assetRequests} asset requests`
+    perf.networked.length
+      ? `${perf.networked.length} of ${perf.total} assets crossed the network`
+      : `${perf.total} assets, all from cache (page-level requests: ${assetRequests})`
   );
 } finally {
   await browser.close();
