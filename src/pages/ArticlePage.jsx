@@ -4,19 +4,37 @@ import { ArrowLeft, ArrowRight, Clock } from 'lucide-react';
 import { Markdown } from '../lib/markdown.jsx';
 import { ARTICLES, formatDate } from '../lib/insights';
 import { COMPANY, SITE_URL } from '../data/company';
+import { canonicalFor } from '../seo/routes';
+import { topicForArticle } from '../data/topics';
 
 /*
  * One article. The body arrives as Markdown and is rendered to React nodes, so
  * the same code path produces the prerendered HTML and the client version.
  */
-function ArticleJsonLd({ article }) {
+function ArticleJsonLd({ article, topic }) {
   const data = {
     '@context': 'https://schema.org',
     '@type': 'Article',
+    '@id': `${canonicalFor(article.path)}#article`,
+    url: canonicalFor(article.path),
     headline: article.title,
     description: article.description,
+    inLanguage: 'en',
     datePublished: article.date,
     dateModified: article.date,
+    /* The cluster this note belongs to. Without it an answer engine can quote a
+     * paragraph but cannot tell which question the paragraph answers, so it
+     * treats every note as an isolated statement. */
+    articleSection: topic ? topic.navLabel : undefined,
+    isPartOf: topic
+      ? {
+          '@type': 'CollectionPage',
+          '@id': `${canonicalFor(topic.path)}#collection`,
+          name: topic.h1,
+          url: canonicalFor(topic.path),
+        }
+      : { '@id': `${SITE_URL}/#website` },
+    keywords: article.tags.length ? article.tags.join(', ') : undefined,
     author: { '@type': 'Organization', name: COMPANY.legalName, url: SITE_URL },
     publisher: {
       '@type': 'Organization',
@@ -39,6 +57,7 @@ function ArticleJsonLd({ article }) {
 }
 
 export default function ArticlePage({ article }) {
+  const topic = topicForArticle(article.slug);
   /* Two neighbours, chosen by shared tag first and recency second. "More notes"
    * that always shows the newest two is a feed, not a recommendation: a reader
    * on the costing piece gets more from another costing piece than from whatever
@@ -49,7 +68,7 @@ export default function ArticlePage({ article }) {
 
   return (
     <article data-component="insight-article">
-      <ArticleJsonLd article={article} />
+      <ArticleJsonLd article={article} topic={topic} />
 
       <header className="border-b border-brand-200/50 bg-brand-50">
         <div className="mx-auto max-w-[820px] px-4 pb-10 pt-12 sm:px-6 lg:pb-12 lg:pt-16">
@@ -75,10 +94,31 @@ export default function ArticlePage({ article }) {
               </span>
             ))}
           </div>
+          {topic ? (
+            <div className="mt-4 text-[13px] text-slate-600">
+              Part of{' '}
+              <a href={topic.href} className="font-semibold text-[#126B3F] hover:underline">
+                {topic.navLabel}
+              </a>{' '}
+              — {topic.blurb}.
+            </div>
+          ) : null}
         </div>
       </header>
 
       <div className="mx-auto max-w-[820px] px-4 py-10 sm:px-6 lg:py-14">
+        {/* The conclusion comes before the photograph. It is the one paragraph an
+            answer engine can lift whole, so it should not sit below an image. */}
+        {article.summary ? (
+          <div className="mb-8 border-l-[3px] border-[#126B3F] bg-brand-50/70 px-5 py-4">
+            <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-[#126B3F]">
+              In short
+            </div>
+            <p className="mt-2 text-[15.5px] font-medium leading-relaxed text-[#0A2A1C]">
+              {article.summary}
+            </p>
+          </div>
+        ) : null}
         {article.cover ? (
           <figure className="mb-9">
             <img

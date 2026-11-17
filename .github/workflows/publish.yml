@@ -31,6 +31,13 @@ jobs:
       - name: Build
         run: npx vite build
 
+      # Push the built URLs at Bing/Yandex instead of waiting for a recrawl.
+      # Google does not use IndexNow; Search Console stays the channel there.
+      # Non-blocking on purpose: publish already succeeded by this point.
+      - name: Ping IndexNow
+        continue-on-error: true
+        run: python3 .github/indexnow.py
+
       - name: Publish dist to main
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}

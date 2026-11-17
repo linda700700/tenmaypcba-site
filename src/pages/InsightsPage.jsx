@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Clock } from 'lucide-react';
 import { ARTICLES, formatDate } from '../lib/insights';
+import { TOPICS, topicSlugs } from '../data/topics';
 import { imgAttrs } from '../lib/imageSize';
 
 /*
@@ -30,7 +31,48 @@ export default function InsightsPage() {
         </div>
       </section>
 
+      {/* Three routes in. The list below is an archive; these are the entry
+          points, each answering a question the archive cannot. */}
+      <section className="mx-auto max-w-[1100px] px-4 pt-12 sm:px-6 lg:px-8">
+        <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-slate-200 pb-3">
+          <h2 className="text-[13px] font-bold uppercase tracking-[0.14em] text-[#126B3F]">
+            Start with a question
+          </h2>
+          <span className="text-[12.5px] text-slate-500">
+            {ARTICLES.length} notes, grouped three ways
+          </span>
+        </div>
+        <div className="mt-5 grid gap-5 md:grid-cols-3">
+          {TOPICS.map((t) => (
+            <a
+              key={t.slug}
+              href={t.href}
+              className="group flex flex-col border border-slate-200 p-5 transition-colors hover:border-[#126B3F]/50 hover:bg-brand-50/40"
+            >
+              <div className="text-[11px] font-bold uppercase tracking-[0.14em] text-slate-500">
+                {topicSlugs(t).length} notes
+              </div>
+              <h3 className="mt-2 text-[17px] font-bold leading-snug text-slate-900 group-hover:text-[#126B3F]">
+                {t.h1}
+              </h3>
+              <p className="mt-2 flex-1 text-[13.5px] leading-relaxed text-slate-600">
+                {(t.tables && t.tables[0] ? t.tables[0].caption : t.lede).split('.')[0] + '.'}
+              </p>
+              <span className="mt-4 inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#126B3F]">
+                Open the topic
+                <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+              </span>
+            </a>
+          ))}
+        </div>
+      </section>
+
       <section className="mx-auto max-w-[1100px] px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
+        <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3 border-b border-slate-200 pb-3">
+          <h2 className="text-[13px] font-bold uppercase tracking-[0.14em] text-slate-500">
+            Everything, newest first
+          </h2>
+        </div>
         {ARTICLES.length === 0 ? (
           <p className="text-[15px] text-slate-600">No articles published yet.</p>
         ) : (

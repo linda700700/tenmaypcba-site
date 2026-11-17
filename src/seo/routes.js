@@ -8,6 +8,8 @@
  * Keep titles 45-60 chars and descriptions 120-160 chars.
  */
 
+import { TOPICS } from '../data/topics';
+
 export const SITE_URL = 'https://tenmaypcba.com';
 
 export const ROUTE_HEADS = {
@@ -187,6 +189,21 @@ export const ROUTE_HEADS = {
     ogDescription:
       'Placement, inspection, coating and board limits stated as they are, including what we do not do in-house.',
   },
+
+  /* The three topic hubs. Their heads live in data/topics.js so the page copy
+   * and the <title> cannot drift apart; spreading them here keeps one map for
+   * every route that is not generated from Markdown. */
+  ...Object.fromEntries(
+    TOPICS.map((t) => [
+      t.path,
+      {
+        title: t.title,
+        description: t.description,
+        ogTitle: t.ogTitle,
+        ogDescription: t.ogDescription,
+      },
+    ])
+  ),
 };
 
 export function headFor(path) {

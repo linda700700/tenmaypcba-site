@@ -28,6 +28,7 @@ import ApplicationsPage from './pages/ApplicationsPage';
 import ApplicationFamilyPage from './pages/ApplicationFamilyPage';
 import InsightsPage from './pages/InsightsPage';
 import ArticlePage from './pages/ArticlePage';
+import TopicPage from './pages/TopicPage';
 import RfqPage from './pages/RfqPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
@@ -35,6 +36,7 @@ import CookiePage from './pages/CookiePage';
 import CompanyPage from './pages/CompanyPage';
 import CookieConsent from './components/CookieConsent';
 import MobileQuoteBar from './components/MobileQuoteBar';
+import { TOPIC_BY_PATH } from './data/topics';
 
 function HomePage() {
   return (
@@ -83,6 +85,9 @@ export default function App({ path: pathProp }) {
   // /applications, so the prefix match must not swallow it.
   const familyMatch = /^\/applications\/([^/]+)$/.exec(path);
   const familySlug = familyMatch ? familyMatch[1] : null;
+  // Three curated hubs over the article set. Root-level paths, like the other
+  // single-segment pages, so the static host serves them without a rewrite.
+  const topic = TOPIC_BY_PATH[path] || null;
 
   // Anchor links from the mega menu land under the sticky header otherwise.
   useEffect(() => {
@@ -118,7 +123,9 @@ export default function App({ path: pathProp }) {
       <ScrollProgress />
       <Navbar currentPath={path} />
       <main className="flex-1">
-        {article ? (
+        {topic ? (
+          <TopicPage topic={topic} />
+        ) : article ? (
           <ArticlePage article={article} />
         ) : isInsights ? (
           <InsightsPage />

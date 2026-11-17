@@ -2,6 +2,7 @@ import React from 'react';
 import { COMPANY, SITE_URL, ISO_CERT, SAME_AS } from '../data/company';
 import { USE_CASE_FAQ } from '../data/useCases';
 import { FAMILIES } from '../data/applicationFamilies';
+import { TOPIC_BY_PATH } from '../data/topics';
 import { FAQS } from '../data/faq';
 import { canonicalFor } from '../seo/routes';
 import { articleBySlug } from '../lib/insights';
@@ -58,6 +59,11 @@ function breadcrumbsFor(path) {
     if (article) trail.push({ name: article.title, path });
   } else if (path === '/insights') {
     trail.push({ name: 'Insights', path });
+  } else if (TOPIC_BY_PATH[path]) {
+    /* The hubs read as a level under Insights, and they link back there, so the
+     * trail follows the real navigation rather than the URL depth. */
+    trail.push({ name: 'Insights', path: '/insights' });
+    trail.push({ name: TOPIC_BY_PATH[path].navLabel, path });
   } else if (path === '/assembly') {
     trail.push({ name: 'Assembly', path });
   } else if (path === '/capabilities') {
