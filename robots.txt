@@ -1,6 +1,86 @@
+# ============================================================
+# tenmaypcba.com  robots.txt
+# 更新：2026-11-16
+# 变更点：在不改现有抓取策略的前提下，为 AI 搜索/抓取爬虫显式表态
+# 注意：robots 的分组是相互独立的。User-agent 分组一旦指定，
+#       User-agent:* 里的 Disallow 不再自动适用于它，
+#       所以下面每个 AI 段都重复写了一次 Disallow: /*?*
+# ============================================================
+
 User-agent: *
 Allow: /
-
 Disallow: /*?*
 
+# ------------------------------------------------------------
+# AI 搜索与抓取爬虫：显式放行（保留参数页屏蔽）
+# ------------------------------------------------------------
+
+# OpenAI
+User-agent: GPTBot
+Allow: /
+Disallow: /*?*
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /*?*
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /*?*
+
+# Anthropic
+User-agent: ClaudeBot
+Allow: /
+Disallow: /*?*
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /*?*
+
+User-agent: Claude-User
+Allow: /
+Disallow: /*?*
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /*?*
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /*?*
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /*?*
+
+# Google / Apple / Meta / Amazon 的 AI 用途爬虫
+User-agent: Google-Extended
+Allow: /
+Disallow: /*?*
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /*?*
+
+User-agent: meta-externalagent
+Allow: /
+Disallow: /*?*
+
+User-agent: Amazonbot
+Allow: /
+Disallow: /*?*
+
+# ------------------------------------------------------------
+# 传统搜索引擎（保持不变）
+# ------------------------------------------------------------
+User-agent: Googlebot
+Allow: /
+Disallow: /*?*
+
+User-agent: Bingbot
+Allow: /
+Disallow: /*?*
+
+# ------------------------------------------------------------
 Sitemap: https://tenmaypcba.com/sitemap.xml
