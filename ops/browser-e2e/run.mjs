@@ -284,8 +284,28 @@ try {
     return regs.length ? 'registered' : 'none';
   });
 
-  await page.reload({ waitUntil: 'load' });
-  await new Promise((r) => setTimeout(r, 1200));
+  // The host caches HTML for ten minutes, so the first load of this run can be
+  // the previous deploy. A worker cannot register from a document that never
+  // mentioned it, so take control first and only then measure.
+  const swFile = await page.evaluate(async () => {
+    try {
+      const r = await fetch('/sw.js', { cache: 'no-store' });
+      return r.status;
+    } catch (e) {
+      return 'error';
+    }
+  });
+  check(swFile === 200, '/sw.js is served', `status ${swFile}`);
+
+  let controlledNow = false;
+  for (let attempt = 1; attempt <= 4 && !controlledNow; attempt += 1) {
+    await page.reload({ waitUntil: 'load' });
+    await new Promise((r) => setTimeout(r, 2500));
+    controlledNow = await page.evaluate(
+      () => !!(navigator.serviceWorker && navigator.serviceWorker.controller)
+    );
+    console.log(`    control attempt ${attempt}: ${controlledNow ? 'controlled' : 'not yet'}`);
+  }
 
   let assetRequests = 0;
   const countAsset = (r) => {
