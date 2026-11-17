@@ -3,6 +3,16 @@ import { renderToString } from 'react-dom/server';
 import App from './App';
 import { ROUTE_HEADS, canonicalFor } from './seo/routes';
 import { ARTICLES, articleHead } from './lib/insights';
+import { FAMILIES } from './data/applicationFamilies';
+
+/* A family page shares its hero photograph, not the generic factory card every
+ * other route uses: the image is what a buyer sees in a chat preview, and it is
+ * the one picture that says which board this page is about. */
+function shareImage(path) {
+  const m = /^\/applications\/([^/]+)$/.exec(path);
+  const family = m && FAMILIES[m[1]];
+  return family ? { image: family.image, width: 1400, height: 933 } : null;
+}
 
 export function render(path) {
   return renderToString(<App path={path} />);
@@ -18,6 +28,7 @@ export const routes = [
     path,
     head: ROUTE_HEADS[path],
     url: canonicalFor(path),
+    share: shareImage(path),
     lastmod: null,
     // Legal pages sit at the bottom of the sitemap: they should be reachable and
     // indexable, but they are not a landing page for a buyer.

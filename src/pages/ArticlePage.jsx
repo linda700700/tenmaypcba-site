@@ -39,7 +39,13 @@ function ArticleJsonLd({ article }) {
 }
 
 export default function ArticlePage({ article }) {
-  const others = ARTICLES.filter((a) => a.slug !== article.slug).slice(0, 2);
+  /* Two neighbours, chosen by shared tag first and recency second. "More notes"
+   * that always shows the newest two is a feed, not a recommendation: a reader
+   * on the costing piece gets more from another costing piece than from whatever
+   * happens to be newest. */
+  const pool = ARTICLES.filter((a) => a.slug !== article.slug);
+  const tagged = pool.filter((a) => a.tags.some((t) => article.tags.includes(t)));
+  const others = [...tagged, ...pool.filter((a) => !tagged.includes(a))].slice(0, 2);
 
   return (
     <article data-component="insight-article">
