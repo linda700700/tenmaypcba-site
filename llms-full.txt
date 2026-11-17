@@ -1,0 +1,1504 @@
+# TENMAY — full text of every published note
+
+> 23 notes, latest revision 2026-11-17. Generated from the same Markdown the
+> pages are built from, so this file and the site cannot disagree. Every note is reproduced
+> in full, in plain text, with its canonical URL. Index and collections: https://tenmaypcba.com/insights.html
+>
+> TENMAY is Shenzhen Tenmay Technology Co., Ltd. (深圳腾镁科技有限公司), a PCBA contract
+> manufacturer in Shenzhen since 2008. An assembly house, not a PCB fabricator.
+
+---
+
+## Who owns the optics on a dashcam build?
+
+Source: https://tenmaypcba.com/insights/dashcam-optics-not-an-assembly-step.html
+Published: 2026-11-17
+Summary: Lens alignment is not an assembly step. A build that treats the sensor board as the product will pass inspection and still miss focus in the field.
+
+A dashcam is three boards — a sensor carrier, a mainboard, and a display board — inside a housing that clips to a windscreen and gets hot in summer. Two of those boards are ordinary dense SMT work. The third carries an image sensor and a lens, and that is where the sourcing boundary usually gets drawn in the wrong place.
+
+### The sensor board is the product
+
+Everything the customer judges — sharpness, colour, low-light performance, whether the plate is readable at speed — comes from the sensor and the optics, not from the SoC. The mainboard processes what the sensor delivers. If the sensor module is compromised, no amount of processing recovers it.
+
+That has a sourcing consequence: the sensor carrier is the one board where "we assembled it and it passed inspection" is not an answer. A board can be perfectly assembled and still produce a soft image, because the lens was focused against a target that does not match the real scene, or because the holder was seated with a tilt that only appears after the housing is clipped shut.
+
+### What is and is not an assembly step
+
+Step: Whose process · Can an assembler do it?
+Place and reflow the sensor carrier: Assembler · Yes — fine pitch, 01005 passives, 0.3 mm pitch
+X-ray the SoC and memory joints: Assembler · Yes — hidden joints under the package
+Mount the lens holder: Depends on the design · Only if the drawing specifies the adhesive and cure
+Active alignment and focus: Optics house · No — needs a target, a chart and a lens fixture
+Final image validation: Brand or optics house · No — needs the firmware and the acceptance criteria
+Environmental and thermal soak: Brand · No — that is a product-level test
+
+The middle two rows are the boundary. Active lens alignment is not an assembly step; it is a metrology step that requires a collimator, a test chart and a decision about what "in focus" means for the product. An assembly house that says it will "fit the lens" and does not have that equipment is doing passive placement and calling it alignment.
+
+### The X-ray is the assembly-side control that matters
+
+On the mainboard, the SoC and the memory are the risk. Both sit under packages where a void or an incomplete joint is invisible from the surface, and both are the components whose failure presents as an intermittent camera rather than a dead one.
+
+X-ray on those joints is the control that an assembler genuinely owns. Ask for it explicitly, and ask whether it is every board or a sample — the answer changes the price and the assurance.
+
+The sensor carrier has its own version of the same problem: the sensor's own pads are fine pitch and the flex attach is a mechanical joint that gets pulled when the housing is assembled. A lifted flex trace passes inspection and fails when the unit is clipped to a windscreen.
+
+### The thermal decision belongs to the housing, not the board
+
+A dashcam sits in direct sun behind glass. The housing design and the thermal path decide whether the SoC throttles; the board's job is to conduct heat out of the package through thermal vias and pad geometry.
+
+Where this becomes a sourcing question is in the specification: if the thermal pad and via pattern were designed for a metal housing and you switch to plastic, the assembler cannot fix it. Worth raising at DFM rather than at the third batch.
+
+### When to split the sensor from the rest
+
+Split when you have an optics partner who already does alignment and validation, because they own the acceptance criteria and you want one party answering for image quality. Keep the boards together when the volumes are small and the sensor is a standard module with a factory-focused lens — no alignment step, no split needed.
+
+The rule is simple: split where the acceptance criteria live, not where the boards are.
+
+### What to put in the enquiry
+
+- Gerber, BOM and centroid for all three boards, plus the stack-up for the sensor carrier.
+- Whether the lens is pre-focused or aligned in your process. If it is aligned, say who does it and what target is used.
+- The X-ray requirement, stated per board: SoC, memory, or both, sample or full.
+- The housing material and the thermal path, at DFM stage rather than after the first batch.
+- The batch band. This family normally runs 500 sets to 5,000 sets; below that, the fixture and first-article work for a fine-pitch sensor carrier dominates.
+
+The dashcam board page (/applications/dashcam.html) says plainly that active lens alignment is not an assembly step here, which is the boundary worth testing any supplier against. The robot vacuum mainboard (/applications/robot-vacuum.html) carries the same density and the same under-package risk, and the parking sensor board (/applications/parking-sensor.html) is the other family where a small board is dominated by what happens after assembly. What AOI and X-ray cannot catch (/insights/what-aoi-xray-cannot-catch.html) explains the inspection gap this family lives with.
+
+A sharp image on the bench and a sharp image at 100 km/h are different tests. Decide who runs the second one before you place the order.
+
+Last reviewed: 2026-11-17 · Send a sensor board stack for review: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## Should you buy the e-bike controller and display from one assembler?
+
+Source: https://tenmaypcba.com/insights/ebike-controller-display-split-sourcing.html
+Published: 2026-11-17
+Summary: Two boards, one shipment date, two different revision rhythms. The split is usually the right call; the mistake is leaving the harness drawing with a supplier.
+
+An e-bike controller is a 6S to 13S battery management stage, a MOSFET bridge and an MCU in a sealed box; the display is a thin double-sided board on the handlebar. They leave the factory on the same date, which makes them look like one product. They are not. They change for different reasons at different times, and that is what decides whether one assembler should build both.
+
+### The two boards move on different clocks
+
+The controller changes when the battery or the motor changes. That is a hardware decision, taken once per platform, and it can sit still for two years. The display changes when the brand wants a new look, a new button layout, or a new model-year badge — a decision taken in marketing, sometimes annually.
+
+Put both boards on one approval cycle and the fast one waits for the slow one. That is the real argument for splitting them, and it has nothing to do with price.
+
+### What a split buys and what it costs
+
+Decision: One assembler for both · Two assemblers
+Approval cycle: Coupled — a display restyle reopens the controller file · Independent, one file each
+Quote lines: Usually bundled into one set price · Two unit prices, comparable across suppliers
+Harness ownership: Someone at the assembler already has the drawing · You own the drawing, or nobody does
+Minimum order: One setup shared across both boards · Each board carries its own setup cost
+Schedule coupling: Both boards slip together · A slip on one does not stop the other shipping
+Field-failure arbitration: One party answers for the complete unit · Two parties, and the harness in between
+
+The last row is the one buyers underestimate. When a unit fails in the field and the controller and display came from different shops, the first two months are usually spent establishing whose board it was. That cost is real and it does not appear on any quote.
+
+### The harness is the joint that cannot be split
+
+The controller end of an e-bike harness carries one wire per cell tap plus the motor phases and the hall signals. A single transposed tap reads to the BMS as a cell fault — or, worse, as nothing at all until a cell drifts months later. The connector keying will not save you, because the same crimp housing accepts the wrong order.
+
+Two rules follow. First, the harness drawing has a named owner before the first batch, and if the boards are split that owner is the buyer, not either assembler. Second, wire order is verified against the drawing at first article rather than assumed from the connector.
+
+An assembler who builds both boards can own that drawing and it stays coherent. Split the boards and you have taken on a document you may not have the resource to maintain — which is a perfectly good reason to keep them together.
+
+### When one assembler is the better answer
+
+Keep both boards in one place when most of these are true:
+
+- Both boards sit in the same batch band, for example the 200 sets to 2,000 sets this family is normally built in.
+- Both ship on the same container date and a slip on one would stop the other anyway.
+- The unit is potted or fully coated, and you want one coating specification and one mask drawing rather than two.
+- You do not want to hold the harness drawing, or you do not have an engineer who can own it.
+
+Split them when the display is cosmetic and versioned independently, when the two boards would naturally land in different batch bands, or when you already hold the interconnect documentation.
+
+### What to put in the enquiry
+
+Whether you split or not, the enquiry needs the same five things, and all five change the price:
+
+- Gerber, BOM and centroid for each board, as separate files even if they share a purchase order.
+- The pack series range the controller must support, from 6S to 13S. A 13S board has more sense channels and a different connector, so it is not the same quote as a 6S board.
+- Coating or full potting, and which connectors, terminals and programming pads must stay clear. This is a mask drawing, not a sentence in an email.
+- What the display must survive — clamp torque, handlebar water, the harness pull — because the field failures in this family are mechanical, not solder joints.
+- Whether the display is on the same purchase order. If it is, say so; a supplier quoting them together can price the shared setup, and one quoting separately cannot.
+
+The e-bike and e-scooter controller page (/applications/ebike.html) states this floor's batch band, pack range and in-house coating capability. Two families that share the same problem — a heavy-current board beside a light logic board — are the jump starter (/applications/jump-starter.html) and the treadmill control board (/applications/treadmill.html). If the split is being driven by small quantities rather than by revision speed, why a fifty-piece run costs more per board (/insights/fifty-piece-run-cost.html) shows which part of the gap is real and which is not.
+
+Send the files and ask for a separate line per board. Even if you intend to buy both from one shop, the two lines tell you what the split would cost — and that is the number the decision actually turns on.
+
+On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
+
+Last reviewed: 2026-11-17 · Questions on a specific board: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## What an EVSE control board audit actually asks for
+
+Source: https://tenmaypcba.com/insights/evse-audit-record-set.html
+Published: 2026-11-17
+Summary: Unit price is the wrong first question on a safety-related board. The right one is whether the assembler can produce a record set that ties one serial to one lot.
+
+An AC charging point is a control board doing three safety jobs at once: generating the pilot signal that tells the vehicle how much current it may draw, detecting residual current including the smooth DC component a vehicle charger can inject, and driving the contactor that connects mains to the vehicle. Certification sits with the brand owner. The board is where the evidence is generated.
+
+That inversion is the whole sourcing story for this family. On a consumer board, price leads and records follow. On an EVSE control board, the record set is the product, because without it the brand cannot produce the certification file.
+
+### Why the audit comes before the order
+
+Buyers in this category usually audit process records before placing a first order. The reason is structural: a charging point is type-tested once and then built for years, so the certificate is only as good as the assumption that every unit matches the tested sample. If the build drifts, the certificate does not automatically follow.
+
+An audit therefore asks a different question from a capability questionnaire. Not "can you place 01005" but "show me that this board, built last month, can be tied back to its lot, its profile and its coating".
+
+### The record set, item by item
+
+Record: What it proves · Who generates it
+Reflow profile, archived per shift: The thermal process that made the joints · Assembler
+AOI and X-ray results by lot: Inspection was performed and passed · Assembler
+Programming checksum: The firmware in the unit is the one tested · Assembler or brand, by agreement
+Coating material, batch and thickness: The barrier is as specified · Assembler
+Serial-to-lot mapping: This unit came from this build · Assembler
+Material traceability: Components match the approved BOM · Assembler with supplier CoCs
+Calibration certificates for metering: The meter is accurate to a stated tolerance · Not the assembler
+
+The last row is where buyers most often discover a gap mid-audit. Metering accuracy is a calibration function, and an assembly house that builds the metering board does not thereby calibrate the meter. If the product makes an accuracy claim, that evidence comes from a calibration process, not from an assembly record.
+
+The second-to-last row is the one that is cheap to provide and expensive to reconstruct. If the assembler does not capture serial-to-lot at build, there is no retrospective way to create it.
+
+### Isolation is held by process, not by layout
+
+The design constraint on this family is isolation and residual-current sensing. Mains, the pilot signal and the low-voltage control side must stay separated by the distances the standard requires, while the contactor carries both current and heat. EVSE boards often look sparse and cost more than their area suggests, because the distance is the design.
+
+Assembly can compromise all of it: coating bridging the barrier, solder balls in a slot, contactor joints that are through-hole and carry load, a current-sense path contaminated by flux. These are process controls, and on this family they are the first thing an audit looks at — which is exactly why the record set and the isolation argument are the same argument.
+
+### Where a high-mix floor fits
+
+This family is normally built in 100 sets to 1,000 sets. The market is regulated and moves slowly: a model is certified once and built for years, revisions come from a standards change or a new communications module rather than from fashion. Small batches, stable part numbers, and a buyer who values a repeatable build over the last fraction of a cent.
+
+That is a good shape for a mixed-production floor, and a poor shape for a plant optimized around a single high-volume product. The point worth being explicit about: on this family the sales argument is process discipline, not price. A supplier who competes on unit price here has probably not understood what is being bought.
+
+### What to put in the enquiry
+
+- Gerber, BOM and centroid, plus a drawing that marks the isolation barrier and the slot geometry.
+- The standard you are certifying to, so the assembler knows what the record set has to support.
+- The record list you will audit against — send it before the quote, not after the order.
+- Whether the metering calibration is yours or a third party's, because it changes where the board ships to next.
+- The batch band and the expected model life, since a stable multi-year build is what makes the documentation investment pay.
+
+The EV charging point control board page (/applications/evse.html) states the batch band, the isolation constraint and what this floor does and does not issue. The HMI and PLC I/O family (/applications/hmi.html) has the same isolation discipline without the safety file, and the portable power station (/applications/power-station.html) shows the same coupling between a board set and a single certificate. What AOI and X-ray cannot catch (/insights/what-aoi-xray-cannot-catch.html) sets out where the inspection record stops being useful as evidence.
+
+A supplier who says yes to everything and then hands over a thin file costs a certification cycle, not a batch. Ask for the file first.
+
+On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
+
+Last reviewed: 2026-11-17 · Request the record set for an EVSE build: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## Buy a certified HMI module, or assemble the board yourself?
+
+Source: https://tenmaypcba.com/insights/hmi-module-or-bare-board.html
+Published: 2026-11-17
+Summary: The board is cheaper and the liability moves to you. On a product whose selling point is isolation, that transfer is the whole decision.
+
+An industrial HMI, a protocol gateway and a PLC I/O module are all the same commercial question in different packaging: do you buy a module that arrives with its isolation already certified, or a board that arrives with the isolation designed and built but not certified? The answer decides who answers for a field fault.
+
+### The module and the board do not sell the same thing
+
+A module is a product. It comes with a datasheet, an isolation rating, a stated withstand voltage, a CE or UL file and a warranty. When a customer's cabinet fails a dielectric test, the module vendor answers.
+
+A board is a component. It comes with an inspection report and a conformance statement to an assembly standard. When the customer's cabinet fails a dielectric test, the answer depends on whether the failure was the design, the assembly or the customer's own wiring — and establishing which one is your problem, not your assembler's.
+
+That difference is worth more than the price gap on most of these products, which is why the module market exists at all. It is also why buyers who assemble their own boards generally do so for one of three reasons: the I/O count is unusual, the form factor must fit an existing enclosure, or the volume justifies the certification work.
+
+### Where the risk actually concentrates
+
+Sub-assembly: What can go wrong in assembly · Who owns it if you buy a module
+Isolated I/O channels: Coating bridges the barrier; flux never washed out of the gap · The module vendor
+Communications: Transformer or opto placement, magnetics orientation · The module vendor
+Display and touch: Connector lift, flex damage, pressure on the glass · The module vendor
+Carrier to I/O board joint: Castellated or board-to-board joint with a hidden fillet · The module vendor
+Everything on this list: — · You, if you assembled the board
+
+The first row is the one that matters most on this family. The design constraint for an HMI or PLC I/O board is isolation spacing, not density — the board looks sparse because the distances are the design. Assembly can quietly compromise all of it: a solder ball in an isolation slot, flux residue that was never washed, a coating sprayed across the barrier. Each reduces a distance that was calculated for a stated pollution degree.
+
+This is a process-control family, not a placement family. A dense board fails visibly; an isolation failure shows up as a dielectric test result or, worse, a field event.
+
+### The one place the board wins clearly
+
+If your product must fit an existing enclosure or carry a non-standard channel count, the module does not exist and the question is moot. Custom I/O is where assembling your own board is the only route, and where the certification work is a deliberate cost rather than an accident.
+
+The same is true when the board is a sub-assembly inside your own certified product. If your name is on the cabinet certificate anyway, the module's certificate does not save you a certification cycle — it only saves you the assembly.
+
+### What to demand from the assembler
+
+On a board where isolation is the selling point, process evidence is the product:
+
+- The keep-clear drawing. Which slots, which barrier zones, which connectors. A verbal "we coat everything except the connectors" is not a specification.
+- The cleaning process before coating. Coating over flux residue seals the residue in. Ask whether the board is washed before coating, and with what.
+- First-article isolation check. Whether the assembler measures creepage on the first article or only inspects it optically.
+- The castellated or board-to-board joint method, if the carrier and the I/O board are separate. Hidden fillets on a castellation are the classic failure on this family.
+- Coating material and thickness, and whether thickness is measured or assumed.
+
+Note that none of this is a certification. The assembler builds and inspects to an assembly standard; the isolation certificate on the finished product is issued against the product, by whoever's name is on it. Any supplier who implies otherwise is worth a second look.
+
+### What to put in the enquiry
+
+- Gerber, BOM and centroid, plus a marked-up drawing showing the barrier.
+- The isolation requirement stated as a number — working voltage and the pollution degree it must hold at.
+- Whether the boards ship as a carrier-plus-I/O pair or as one board.
+- The batch band. This family normally runs 100 sets to 1,000 sets; below that the first-article work dominates and the coating mask is a fixed cost.
+- Whether you intend to certify the end product yourself. It changes what evidence you need from the build.
+
+The HMI, gateway and PLC I/O page (/applications/hmi.html) states this floor's 01005 capability alongside the point that isolation spacing, not density, is the design constraint. The EVSE control board (/applications/evse.html) is the same decision at mains voltage with a harder audit, and the servo drive (/applications/servo.html) shares the isolation-through-assembly problem. Consigned versus turnkey PCBA (/insights/consigned-vs-turnkey-pcba.html) covers the material side, which on this family is usually a small share of the total.
+
+Buy the module when the certificate is what you are selling. Assemble the board when the form factor or the channel count leaves no choice — and then buy process evidence, not placement capability.
+
+On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
+
+Last reviewed: 2026-11-17 · Discuss an isolated I/O board: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## Where liability sits on a jump starter with an air compressor
+
+Source: https://tenmaypcba.com/insights/jump-starter-safety-liability.html
+Published: 2026-11-17
+Summary: A jump starter can destroy a vehicle's electronics if one switch fails. That risk has to be allocated in the paperwork, not assumed from a good build.
+
+A jump starter with an integrated air compressor is two boards: a main board carrying the high-current MOSFET switch and the battery management, and a compressor drive board. Assembly is not the hard part. The hard part is that this product connects a lithium pack to somebody's vehicle electronics through a switch you built.
+
+### The failure that matters is not a solder joint
+
+If the high-current switch fails closed, the vehicle sees the jump pack's voltage at full current with no control. That is not a warranty event on a small appliance; it is damage to an ECU. Every other risk in this product is smaller than that one.
+
+Which means the sourcing conversation is not primarily about placement capability. It is about the specification the board was built to, the evidence that the build matched it, and the written allocation of what happens if it does not.
+
+### The two boards are not equally risky
+
+Board: What it carries · Process risk · Commercial risk
+Main: MOSFET switch, BMS front end, protection comparators, reverse-polarity path · High-current joints, heat, through-hole terminals · The liability board
+Compressor drive: Motor drive, pressure sensing input · Moderate current, simpler layout · Lower — a failure stops the compressor
+
+Both are built in the 100 sets to 1,000 sets band, and both are usually conformally coated because the unit lives in a car boot and gets damp. The main board is where the through-hole terminals and the high-current path live, and those joints carry current and mechanical load at once.
+
+### What an assembler can and cannot certify
+
+This boundary needs to be explicit, because buyers frequently assume more than an assembly house can offer.
+
+Item: Who owns it
+Placement, reflow, coating, through-hole joints: Assembler
+Conformance to an assembly standard (IPC-A-610 class as specified): Assembler
+X-ray of the MOSFET and high-current joints: Assembler, if specified
+Cell-level safety of the battery pack: Cell supplier and pack assembler
+Reverse-polarity and over-current behaviour of the product: Brand's design, verified by the brand's test
+Product certification and market access: Brand owner
+Field liability: Whoever the contract says — so write it
+
+None of that is evasive. It is simply that an assembly house builds a board to a drawing; it does not certify a product's safety behaviour. A supplier who implies otherwise is the one to be careful with.
+
+### The high-current joints are the assembly-side control
+
+The switch and its terminals are where a build defect becomes a safety event. Two things are worth specifying:
+
+- X-ray on the MOSFET and the high-current terminals, not just AOI. A void under a power device is invisible from the surface, and it is what turns a marginal joint into a hot spot.
+- Through-hole fill criteria stated on the drawing. A terminal pin wetted on one side passes continuity and heats under load. Say what fill percentage and what hole fill is acceptable, and say whether it is inspected by cross-section or by X-ray.
+
+Coating comes after that, and the coating mask has to leave the terminals and the clamp contact area clear. On a damp-boot product, a coated terminal is a bad connection waiting to happen.
+
+### What the reverse-polarity path changes
+
+Most jump starters include protection against connecting the clamps backwards. That path involves either a relay, a MOSFET arrangement, or a fuse-and-diode scheme, and every version of it has a component that must fail safely.
+
+Ask for the DFM note on that specific path. Not because the assembler designed it, but because if the protection depends on a part that is hard to solder or a thermal pad that needs voiding control, that has to be known before the stencil is cut rather than after a batch is built.
+
+### What to put in the enquiry
+
+- Gerber, BOM and centroid for both boards, plus the stack-up for the main board.
+- The current rating and duration of the jump path, since that sets the copper and the joint criteria.
+- The X-ray requirement, named per component rather than as "standard inspection".
+- Through-hole fill criteria and the inspection method.
+- Coating mask zones — terminals and clamp contacts stay clear.
+- Whether the unit is shipped with the battery installed, because that changes packing, transport classification and the final inspection step.
+
+The jump starter page (/applications/jump-starter.html) states the two-board split, the high-current switch and terminal arrangement and the batch band. The e-bike controller (/applications/ebike.html) carries the same heavy-current-beside-logic problem with a potting mask on top, and the LED driver (/applications/led-driver.html) is the other family where a through-hole joint is the classic field failure. What AOI and X-ray cannot catch (/insights/what-aoi-xray-cannot-catch.html) explains why the high-current joints need the X-ray rather than the camera.
+
+The build is ordinary. The allocation of risk is not — write it down before the first batch, not after the first claim.
+
+On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
+
+Last reviewed: 2026-11-17 · Discuss a high-current board build: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## How to tell whether an LED driver PCBA quote is real
+
+Source: https://tenmaypcba.com/insights/led-driver-quote-reality-check.html
+Published: 2026-11-17
+Summary: On a simple board everyone can quote, the price is the only visible variable — which is exactly why the invisible process steps decide who is cheaper in year two.
+
+An LED driver and a USB-C fast charger are the same board in different clothes: an AC-DC front end, a power-factor stage and a regulated output, inside a sealed enclosure nobody opens. The board is simple enough that a dozen shops can quote it, the volume is enormous, and buyers switch over fractions of a cent. That makes it the family where quote quality matters most and is checked least.
+
+### Why the cheapest quote is usually comparing different products
+
+On a dense fine-pitch board, a low quote is suspicious because the capability is visible. On a driver board, capability is not the differentiator — anyone can place it. What differs is what is included around the placement, and that is where the cheap quote and the expensive quote stop describing the same thing.
+
+Five items account for most of the gap:
+
+Line item: What "not included" looks like · How it shows up later
+Through-hole magnetics: Quoted as a placement job; transformer pins flow-soldered on one side · Pin wetted on one side passes continuity, heats in service
+Cleaning before coating: Coating applied over unwashed flux · Isolation degrades; failures appear in humid installations only
+Coating mask and thickness: "Fully coated" with no keep-clear drawing · Barrier bridged at the optocoupler or the isolation slot
+Potting fill and voiding: Potting quoted by weight, not by fill depth · Case temperature marginal; units fail in a sealed enclosure
+Isolation test at first article: Optical inspection only · The creepage the layout specified was never verified
+
+None of these are exotic. They are simply the steps a supplier removes to reach a number, and they are exactly the steps that decide whether a driver survives five years in a streetlight.
+
+### The through-hole problem is the honest one
+
+Transformers, inductors and the input fuse are through-hole parts with real mass. A transformer pin carries current and mechanical load at the same time. Selective or wave soldering handles most of it; hand work fills in where a nozzle cannot reach.
+
+Ask which soldering process is used, not what the price is. A quote that assumes wave soldering on the whole board and a quote that assumes hand soldering of the magnetics are different products. On a driver at 1,000 sets to 10,000 sets, the difference is visible in the second batch, when a few percent come back for a hot transformer.
+
+### Thermal is a potting decision, not a layout decision
+
+A driver runs inside a sealed enclosure with no fan. The switching devices and the transformer dissipate into the board and into the potting compound. Fill depth and voiding are therefore functional parameters.
+
+The trap is that a unit which was fine on a bench in still air can be marginal once potted, if the compound was chosen for cost rather than conductivity. That choice belongs to the buyer, but it has to be raised before the batch rather than after — because once a unit is potted, the board inside it is not inspectable and not reworkable.
+
+### Where this family stops being a good idea
+
+Be clear about the commercial shape. A thousand to ten thousand pieces, enormous volume, thin margin, a board a dozen shops can build. Buyers switch on fractions of a cent. This is capacity filler for a high-mix floor, not a route to a durable relationship.
+
+If the decision is purely unit price at high monthly volume, a dedicated high-volume plant beats a mixed-production floor, and it is fairer to say so than to win the order and lose it at the next re-quote. The reason to build it on a high-mix floor is different: small batches of several SKUs, long-tail variants, or a driver that ships inside a bigger product and has to match its change cadence.
+
+### What to put in the enquiry
+
+- Gerber, BOM and centroid, plus the isolation slot geometry marked on the drawing.
+- The soldering method expected for the magnetics — this one question separates most of the field.
+- Coating material, thickness, and the keep-clear zones. A named material is better than "conformal coating".
+- Whether the unit is potted, and to what fill depth.
+- The workload shape, not just the annual volume: how many SKUs, how often they change. That is what a high-mix floor prices well and a volume plant prices badly.
+
+The LED driver and PD charger page (/applications/led-driver.html) states the batch band and says outright that a dedicated high-volume plant wins above ten thousand pieces a month. The parking sensor board (/applications/parking-sensor.html) is the other family here where potting happens before the board can be tested, and the power station inverter (/applications/power-station.html) shares the sealed-enclosure thermal argument. Consigned versus turnkey PCBA (/insights/consigned-vs-turnkey-pcba.html) matters on this family more than most, because magnetics and electrolytics are where material price moves.
+
+A driver quote is a process statement with a number attached. Read the process first.
+
+On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
+
+Last reviewed: 2026-11-17 · Ask for a driver quote with the process shown: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## Potting before test turns a defect into scrap
+
+Source: https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html
+Published: 2026-11-17
+Summary: The board is cheap and the potting is irreversible. Sequence the test before the encapsulation and a defect costs one board; sequence it after and it costs the unit.
+
+A parking sensor control board is small, heavily panelised, and almost always conformally coated or potted, because it lives behind a bumper and sees water, salt and stone chips. Nothing about the board is difficult. The decision that matters is the order of the last two operations.
+
+### The irreversible step
+
+Coating is reversible in principle — it can be stripped, with effort and some risk to the board. Potting is not. Once the compound cures, the board inside it is not inspectable, not reworkable and not repairable. A defect that would have been a two-minute rework becomes a scrapped unit with the compound, the housing and the labour already spent.
+
+That means the test coverage question is not "how much testing do we want". It is "what must be proven before the point of no return".
+
+Stage: What it catches · Before or after potting
+SPI: Paste print, before reflow · Before — in line
+AOI: Placement and visible fillet · Before — in line
+X-ray: Hidden joints under packages · Before — in line or sampled
+Electrical test: Continuity, shorts, values · Must be before
+Functional test: The board responds to a simulated sensor · Must be before
+Dielectric or insulation check: Isolation, if the design has a barrier · Must be before
+Visual after potting: Voids, incomplete fill, contamination · After — and it is a cosmetic check only
+
+Read that table as a deadline. Everything above the potting line has to be settled before the compound goes in, because after it you are not inspecting a board, you are inspecting a surface.
+
+### Where the small board creates the test problem
+
+The physical difficulty on this family is access. A board small enough to be heavily panelised has little room for test points, and if the design put the test pads under where the housing sits, they may be unreachable once assembled.
+
+Two practical consequences:
+
+- Test points are a DFM item, not a test item. If they are not on the Gerber in accessible locations, the fixture discussion is over before it starts. Raise it with the layout, not with the assembler after the first batch.
+- Panellisation decides whether test is cheap or expensive. Testing in panel form is generally faster; testing after depanelisation means handling a small board with a connector on it. Ask which one the fixture assumes.
+
+### Coating and potting are not the same decision
+
+Buyers often use the two words interchangeably, and they should not.
+
+Method: Protects against · Cost · Reversible · Where it fits
+Conformal coating: Humidity, condensation, some contamination · Lower; a mask drawing and a spray or dip step · With effort · Boards that may need rework, larger boards
+Full potting: Immersion, vibration, thermal cycling, mechanical shock · Higher; compound, mould or housing, cure time · No · Small boards in harsh locations — this family
+
+On a bumper-mounted board the case for potting is strong. The cost is that you have moved the entire quality burden earlier in the process, and you cannot inspect your way out of it afterwards.
+
+### What to agree before the first batch
+
+- The exact point of no return, written into the process: which tests run before encapsulation, and what the pass criteria are.
+- Who owns scrap after potting. A board that fails electrical test before potting is a board. A potted unit that fails at the brand's end-of-line is a disagreement. Agree the attribution before it happens.
+- Fill depth and voiding acceptance. "Potted" is not a specification. Fill depth, allowed void size and the visual criteria should be on the drawing.
+- Coating mask zones, if coating is used instead — which connectors, which pads, which test points stay clear.
+- Whether the compound is chosen for thermal conductivity or cost, because on a sealed board that choice is a thermal decision.
+
+### Where this floor's limits show
+
+Small, heavily panelised boards are ordinary work here, and coating and potting both run in-house. What is not in-house is in-circuit and functional test — the fixture is product-specific and belongs with whoever owns the design. So the sequence question has a specific answer on this family: the electrical and functional proof needs to happen at your end or at a fixture you control, and it needs to happen before the board is encapsulated.
+
+That is not a gap in the assembly. It is the natural consequence of a board that is cheap to build and expensive to scrap.
+
+The parking sensor and headlight driver page (/applications/parking-sensor.html) states the coating and potting capability and the 500 sets to 5,000 sets band. The LED driver (/applications/led-driver.html) has the same potting-before-test problem with a mains barrier on top, and the dashcam sensor carrier (/applications/dashcam.html) is another small board where a step after assembly decides the product. What AOI and X-ray cannot catch (/insights/what-aoi-xray-cannot-catch.html) is the general version of the coverage question.
+
+Decide the sequence before the compound. Afterwards, it is not a process decision, it is a scrap decision.
+
+On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
+
+Last reviewed: 2026-11-17 · Discuss a potted board build: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## What a PCBA quote should contain — and what a bare number leaves out
+
+Source: https://tenmaypcba.com/insights/pcba-quote-what-it-should-contain.html
+Published: 2026-11-17
+Summary: Two quotes for the same board are rarely the same offer. The difference is in what each one leaves unsaid: test, yield, material ownership, and what happens when a part is short.
+
+A unit price answers one question: what does one board cost. A buyer actually needs four answers — what is included, what is excluded, who carries the risk, and what makes the number move. A quote that gives only the first is not wrong; it is just not comparable to anything else.
+
+### The eleven lines
+
+Ask for these as separate lines, not folded into one number. A supplier who can produce them has quoted the job; one who cannot has given an estimate.
+
+Line: Why it changes the comparison
+Quantity and revision: A price without the Gerber and BOM revision it belongs to cannot be re-ordered at the same number
+Board specification: Layers, thickness, surface finish, copper weight. A quote that does not state it is quoting a default you have not seen
+Component cost and ownership: Turnkey (supplier buys), consigned (you ship in), or mixed. This is the largest single variable and the one most often hidden
+Component sourcing basis: Authorised distribution, or broker. Same part number, different traceability and different failure rate
+Assembly charge: Placement and soldering, split by side if the board is double-sided
+Setup and one-time charges: Stencil, programming, first-article. Whether they recur on a reorder matters more than the amount
+Test and inspection: Which of SPI, AOI, X-ray, ICT, FCT are included, and which are extra
+Yield and rework policy: Who pays for boards that fail inspection, and at what point a board becomes your loss
+Coating, potting, conformal: Masking labour is real labour; the quote should say whether it is in or out
+Packaging and documentation: Tray, ESD bag, desiccant, lot labels, first-article report
+Validity and lead time: Component prices move; a quote with no validity date is not a commitment
+
+### Where the two numbers usually diverge
+
+Material ownership. A turnkey price and a consigned price can differ by more than the parts, because turnkey carries sourcing risk, inventory and obsolescence. Comparing them without stating which is which is comparing two different products.
+
+Test scope. SPI, AOI and X-ray inspect solder joints. They do not power the board. If one quote includes functional test and another stops at AOI, the cheaper one has not covered the same ground — and the gap is real work, not margin.
+
+Yield. A quote that assumes 100% first-pass yield on a board that will not achieve it is a lower number with a hidden second invoice. Ask what happens to the boards that fail.
+
+Setup recurrence. On a fifty-piece run the setup is a meaningful share of the unit price. Whether it is charged again on the reorder, and under what conditions, decides the cost of the second year rather than the first order.
+
+### What to do with a quote you cannot compare
+
+Send the same file and the same question to every supplier, and ask each one to answer in the same structure. Two effects follow: the numbers become comparable line by line, and the supplier who does not answer the structure tells you something useful before you spend a week on samples.
+
+If a quote arrives as one number, the fastest useful reply is not a request for a discount — it is a request to break it into the lines above. On a real job that reply usually changes the number in both directions.
+
+### What we put in a quote
+
+We quote assembly, setup and inspection as separate lines, state whether the components are ours or yours, name the distributor when the part is critical, and say plainly when a test is not run here. On a family page, the panel headed where we are the wrong shop exists for the same reason: a quote that hides a mismatch costs both sides a month.
+
+---
+
+## Should one assembler build all three portable power station boards?
+
+Source: https://tenmaypcba.com/insights/power-station-three-board-supplier.html
+Published: 2026-11-17
+Summary: The inverter is the board that decides the product. Keeping it with the BMS removes an arbitration argument; splitting the display costs almost nothing.
+
+A portable power station is three boards: the battery management board, the inverter board that produces the AC output, and the display board that reports state of charge. They share one battery, one enclosure and one certification file. That shared context is what makes the sourcing decision different from the e-bike controller and display, where the two boards answer to different masters.
+
+### The inverter is the board that decides the product
+
+Everything a buyer notices about a power station comes from the inverter. Whether a resistive load starts, whether a motor load trips, whether the output is a clean sine or a modified square, whether the unit hums under a light load — all of it is the inverter control board.
+
+That makes the inverter the board where a build defect is diagnosed as a design problem. A cold joint on a switching device, a bus capacitor fitted with the wrong lead length, a gate resistor that drifted — each one presents to the end user as a product that is not very good, not as a board that was assembled badly. If you split the inverter away from the rest, understand that you have also split the diagnosis.
+
+### What the three boards need from an assembler
+
+Board: What actually decides its build · Cost of splitting it
+BMS: Cell sense channels, balancing resistors, protection thresholds; high layer count and fine pitch · Low — a self-contained board with a clear specification
+Inverter: Bus capacitance, heavy copper, thermal vias, and the timing of the pure-sine control stage · High — every field complaint about output quality lands here
+Display: Low density, a segment or dot-matrix driver, one harness connector · Low — cosmetic, versioned independently
+
+The BMS and the display are both reasonable to source elsewhere. The inverter is the one worth keeping where the rest of the power path is, because the questions you will ask about it are system questions.
+
+### The battery is the reason to couple the first two
+
+The BMS and the inverter meet at one place: the DC bus. Protection thresholds on the BMS decide when the inverter stops being fed; the inverter's inrush decides whether the BMS sees a fault or a load. Tuning that pair is a conversation between two boards.
+
+When both boards come from one assembler, that conversation happens inside one supplier and the buyer receives a tested set. When they do not, the buyer arbitrates, and the arbitration usually consists of forwarding emails between two suppliers who each have a correct explanation.
+
+### What the certification file changes
+
+There is a second coupling that has nothing to do with function: the product certificate. The certificate is issued to the brand owner for the finished unit, and the evidence behind it is generated at build. Which means the record set — reflow profiles, lot traceability, coating records, serial-to-lot mapping — matters here in a way it does not for a simple accessory.
+
+If the boards come from three shops, you need three record sets that agree with each other and a way to tie them to one serial number. That is doable, and some brands do it deliberately. It is simply one more thing the buyer owns, and it should be a decision rather than an accident.
+
+### When one assembler is the better answer
+
+- The batch is small. At 100 sets to 500 sets, three separate setups with three separate first-article approvals is a large share of the total. One set of files, one changeover, one approval is materially cheaper.
+- You are still tuning the product. A first or second revision moves between BMS limits and inverter behaviour. One supplier shortens that loop.
+- Nobody on your side owns the DC-bus interface. If the interface document only exists in two suppliers' heads, you are one resignation away from losing it.
+
+Split when the display is the only thing changing, when your volumes have outgrown one shop's capacity, or when you have an engineering team that already maintains the interface documentation.
+
+### What to put in the enquiry
+
+- Gerber, BOM and centroid for all three boards, as three sets.
+- The output specification: continuous and peak rating, and whether the output must be pure sine. The control stage is not the same board for both.
+- Battery chemistry and configuration, because cell count sets the BMS sense channel count and the connector.
+- Whether the set is potted or conformally coated, and which connectors stay clear.
+- Whether the three boards are one purchase order. A supplier who knows they ship as a set will test them as a set; one quoting three independent lines will not.
+
+The portable power station page (/applications/power-station.html) carries this floor's batch band and the three-board split. The EVSE control board (/applications/evse.html) is the other family on this site where the certification record, not the unit price, is the deciding factor, and the servo drive (/applications/servo.html) shares the same heavy-copper-beside-fine-pitch problem as the inverter. If you are comparing quotes that differ mainly on setup charges, why a fifty-piece run costs more per board (/insights/fifty-piece-run-cost.html) separates the fixed side from the variable side.
+
+On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
+
+Last reviewed: 2026-11-17 · Send a board stack for review: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## Do you actually need in-circuit test on a robot vacuum mainboard?
+
+Source: https://tenmaypcba.com/insights/robot-vacuum-ict-decision.html
+Published: 2026-11-17
+Summary: Specify ICT and most high-mix floors are out. That is a legitimate choice — but know what you are buying, because ICT proves connectivity, not that the robot works.
+
+Robot vacuum is the densest family on this site: 01005 passives, 0.3 mm IC pitch, double-sided assembly, three to four boards per unit. It is also the family where buyers most often arrive with a test requirement already written into their specification — in-circuit test, on every board. That single line decides which assemblers can quote at all.
+
+### What ICT actually measures
+
+An in-circuit test fixture lands probes on every net through a bed-of-nails interface. It measures connectivity, component presence, component value within tolerance, and orientation for polarised parts. It catches an open joint, a missing part, a wrong value, a reversed diode.
+
+What ICT does not do is prove the product works. It cannot see a firmware fault, a marginal sensor alignment, a motor driver that only fails under load, or a thermal problem. Those belong to functional test, which is a different fixture and a different specification.
+
+So the question is not "do we need ICT". It is "which of these failure modes is our real risk, and which test finds it".
+
+### Where a high-mix floor fits, and where it does not
+
+Test type: What it proves · Where the fixture belongs
+SPI: Paste print before reflow · At the assembler — in line
+AOI: Placement and visible fillet after reflow · At the assembler — in line
+X-ray: Hidden joints: SoC, BGA, thermal pads · At the assembler — in line or sampled
+ICT: Net connectivity and component values · Product-specific fixture; not universal to an assembly house
+FCT: The board behaves as intended · Product-specific fixture and firmware
+
+The first three are process controls and belong to whoever runs the line. The last two are product-specific: a fixture has to be designed, built and maintained for one design, and it stops being useful when the design changes. That is why many assembly houses — this one included — run SPI, AOI and X-ray in line and quote ICT and FCT per project rather than claiming them as standard.
+
+If your specification says ICT on every board, it is not a criticism of the assembler who declines. It is a statement that the fixture belongs in the build. Say so early and the right suppliers will answer.
+
+### The density problem is separate from the test problem
+
+It is worth keeping these two apart, because buyers often conflate them. A board can be at the limit of what the placement floor handles and still be perfectly testable, and a board can be easy to place and impossible to test without a fixture.
+
+On this family the density is real: 01005 passives and 0.3 mm pitch on both sides means the paste print and the reflow profile carry the yield, and hand rework on a 01005 is usually a scrap decision rather than a repair. That is a process argument for using an assembler who does fine pitch routinely, not an argument about test.
+
+The test argument is different. On a dense double-sided board, the risk you cannot see is under the packages: the SoC, the memory, the thermal pads on the driver side. X-ray covers those. Everything above the board is covered by AOI. What remains uncovered is the electrical behaviour of the assembled unit, and no amount of AOI substitutes for a powered test.
+
+### How to decide, in practice
+
+Ask these four questions in this order:
+
+- What are the field failures we have actually seen? If they are connector and mechanical, ICT will not help. If they are missing or wrong components on a dense board, it will.
+- Does the design have test points, and are they accessible on both sides? ICT on a double-sided 01005 board needs probe access designed in, not added later.
+- Who owns the fixture? If the assembler owns it, the fixture leaves when you leave. If you own it, you can move the build.
+- What is the sample plan? Full ICT on every board and ICT on a first-article plus sample basis are different costs and different assurances. Most buyers who say "ICT on everything" have not priced the fixture maintenance.
+
+A useful middle path on this family: X-ray on every SoC and memory joint, AOI on both sides, and a functional test at the brand's own end-of-line where the firmware already lives. That covers the joints optically and electrically where the pass criteria actually exist.
+
+### What to put in the enquiry
+
+- Gerber, BOM and centroid, plus the layer stack, because double-sided 01005 with a dense SoC is a different profile from a single-sided board.
+- Your test specification, verbatim. Not "standard testing" — the actual list. A supplier who receives it can tell you what they run and what they do not, which is the answer you need.
+- Annual volume and batch band. This family is normally built in 500 sets to 5,000 sets; below that, fixture cost per board dominates.
+- Which board in the stack carries the SoC, because that is where the X-ray and the ICT both concentrate.
+
+The robot vacuum mainboard page (/applications/robot-vacuum.html) states plainly that in-circuit test is not run in-house, which makes it the honest test of whether this floor fits your requirement. The dashcam board (/applications/dashcam.html) carries the same density and the same SoC-under-package risk. What AOI and X-ray cannot catch (/insights/what-aoi-xray-cannot-catch.html) goes through the inspection gap in more detail, and 01005 placement limits (/insights/01005-placement-what-limits-yield.html) covers the yield side.
+
+Ask for the test matrix in writing before the quote. A supplier who answers it precisely has told you where your risk is; one who says "we test everything" has told you nothing.
+
+Last reviewed: 2026-11-17 · Send a test specification for review: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## Sharing a build stack between servo drives and VFDs
+
+Source: https://tenmaypcba.com/insights/servo-drive-shared-stack-with-vfd.html
+Published: 2026-11-17
+Summary: One stack, two products, smaller batches. The saving is real; the risk is that a design nobody else can build becomes a supplier with pricing power.
+
+A servo drive and a variable frequency drive are not the same product sold twice. A VFD holds a motor at a speed; a servo holds a motor at a position, and does it thousands of times a second. What they share is a power stage, a gate drive, an isolation barrier and a set of through-hole terminals carrying real current. In sourcing terms, they share a build stack.
+
+### What is genuinely shared
+
+Element: VFD · Servo · Shared?
+Power stage: IGBT bridge, DC bus, electrolytics · Often IGBT or MOSFET bridge, DC bus · Yes — same solder and thermal problem
+Gate drive: Isolated, one per phase · Isolated, faster switching · Yes in structure, not in tuning
+Encoder interface: Usually none, or a simple pulse input · Differential pairs, high-rate, noise-critical · No — servo only
+Control: Speed loop · Position and velocity loop · Same silicon, different firmware
+Terminals: Mains, motor, braking · Mains, motor, encoder, STO · Yes, and both are through-hole
+
+Two of the four boards in a typical servo — the power board and the control board with the encoder front end — land in the same process window as a VFD. That is why the families are usually built by the same kind of shop: heavy copper, thermal mass, through-hole terminals, conformal coating, batches measured in tens to hundreds of sets rather than thousands.
+
+### The saving from one stack
+
+Consolidating at one assembler buys three concrete things:
+
+- One reflow profile development. A power board with a thick copper pour and a row of electrolytics heats unevenly; the profile is developed per board, not inherited. If the servo power board is a variant of the VFD power board, part of that work carries over.
+- One coating specification and one mask drawing. Both families are usually conformally coated. One supplier, one coating material, one set of keep-clear zones.
+- One conformance conversation. If both product lines sit under the same quality system and the same documentation, an audit covers both.
+
+At 50 sets to 500 sets per build, those three items are not a rounding error. They are frequently the difference between a quote that works and one that does not.
+
+### Where the consolidation turns against you
+
+The risk is not commercial, it is structural. If one assembler holds the stencil, the programme, the profile, the coating mask and the first-article history for both product lines, then moving the build means re-creating all of it somewhere else. That is a real barrier, and a supplier who understands it may price accordingly.
+
+Three symptoms worth watching for:
+
+- The quote stops moving. When a re-quote on a mature design comes back flat for two years while material moves, the setup has probably become rent.
+- The second source cannot be qualified in time. Qualify a second assembler on the simpler of the two boards while volumes are low. It is much easier than doing it during a capacity crisis.
+- Documentation lives only at the supplier. The stencil files, the profile and the mask drawing are your product's manufacturing definition. Ask for copies at every revision.
+
+### The encoder front end is the servo-specific decision
+
+Everything else in a servo drive is a VFD problem with tighter timing. The encoder interface is not. Differential pairs at high rate, a shield that has to be terminated at one end and not the other, and a connector that must survive a cable being pulled — that is a four-layer fine-pitch board with a specific routing requirement, and it is where a servo build fails first.
+
+Practical consequences for the enquiry: ask for the encoder board's differential pair routing rules and the stack-up, not just the Gerber. If an assembler treats it as a digital board and routes it like one, the drive will run and then lose position under noise. That failure appears in the field, not on the bench, and it is expensive to attribute.
+
+### When to split
+
+- Different batch bands. If the servo runs at tens of sets and the VFD at hundreds, the changeover economics diverge and the split becomes natural.
+- Different customer segments with different audit needs. A machine-tool buyer and a pump buyer do not ask for the same records.
+- You need a second source for supply security, and it will only take one of the two products.
+
+### What to put in the enquiry
+
+- Gerber, BOM, centroid and the stack-up for each board.
+- Whether the servo power board is a variant of an existing design — if it is, say what changed, because the profile development may be partially reusable.
+- Coating type and keep-clear zones, and whether the encoder connector is coated.
+- The differential pair specification for the encoder interface.
+- Both batch bands, stated separately. This family normally runs 50 to 500 sets; a quote that assumes 500 will look wrong at 50.
+
+The servo drive page (/applications/servo.html) states the shared stack with the VFD family and the 50 to 500 set band. The VFD page (/applications/vfd.html) covers the three-board set and the through-hole work, and the HMI and PLC I/O family (/applications/hmi.html) has the same isolation-discipline problem in a colder thermal environment. For the commercial side of small batches, why a fifty-piece run costs more per board (/insights/fifty-piece-run-cost.html) is the arithmetic.
+
+Two products on one stack is a good position. The mistake is discovering, three years in, that it is a good position for one party only.
+
+On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
+
+Last reviewed: 2026-11-17 · Review a drive board stack: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## The 800 mm board is not the hard part of a treadmill build
+
+Source: https://tenmaypcba.com/insights/treadmill-large-board-mechanics.html
+Published: 2026-11-17
+Summary: Buyers worry about board size and get caught by a console harness and a motor drive in a sealed plastic housing. Here is where to spend the attention instead.
+
+A treadmill is two boards — a motor drive board in the base and a console board on the handlebar — plus a harness that runs the length of the machine through a frame that flexes under a running load. Buyers arriving at this family usually ask about board size first. Size is the easy part.
+
+### What the size limit actually constrains
+
+The motor drive board can run to the largest panel this floor handles, which is a real capability boundary: it decides which line the job can be assigned to and whether it fits at all. That is worth confirming before anything else, because a design that does not fit has no other question.
+
+But once it fits, board size stops being the risk. A large power board is heavy copper and thermal mass; the profile is developed per board rather than inherited, and that is a one-time engineering task with a known cost.
+
+### Where the failures actually are
+
+Failure: Where it starts · Detectable at the assembler?
+Console goes dead or flickers: Ribbon harness or connector lift after the handlebar is tightened · Partly — a pull test on the connector, not AOI
+Motor drive overheats: Thermal path in a sealed plastic housing; electrolytic life · No — housing-level design, not board
+Speed reads wrong under load: Current sense path contamination or a marginal shunt joint · Partly — visible joints yes, drift no
+Incline or speed drifts: Connector contact resistance after vibration · No — appears in service
+Board works, safety key fails: Key switch is a harness and enclosure item · No — not a board function
+
+The pattern is consistent: the failures that generate service calls are mechanical and thermal, and the ones your inspection can see are the ones that rarely fail. That is worth knowing before you spend the quality budget in the wrong place.
+
+### The connector is the product
+
+On this family a connector that lifts when the console is bolted down reads as an intermittent fault that no AOI will ever find, and it will be attributed to the board. Two process items reduce that:
+
+- A stated insertion and pull requirement on the console connector, checked at first article.
+- Strain relief designed in, not added as a note. If the harness hangs off the connector with nothing taking the load, the joint takes it instead.
+
+Most treadmill boards that come back from the field are not badly soldered. They are mechanically over-stressed at one connector, and the solder did what it was told.
+
+### Thermal, inside a closed plastic base
+
+The drive board sits in a base with limited airflow, and the electrolytics on it have a life that is a function of temperature. The board's contribution is thermal vias and copper area under the switching devices; the housing's contribution is whether the heat has anywhere to go.
+
+This is a DFM conversation, not an assembly fix. If the design was thermally signed off on a bench in free air, the first summer is the real test. Worth raising at DFM: what the maximum expected ambient in the base is, and whether the capacitor choice assumed it.
+
+### The two boards are built in different worlds
+
+The motor drive is a power board: heavy copper, through-hole terminals, thermal vias, conformal coating because the base sees sweat and dust. The console is a light board with a display, buttons and a long harness, versioned for cosmetics.
+
+They also move at different speeds, like the e-bike pair: the console changes when the brand wants a new look, the drive changes when the motor or the deck does. Quoting them on separate lines is what keeps a console restyle from reopening the drive approval — and at 200 sets to 2,000 sets, sharing one setup across both is worth asking about if they ship together anyway.
+
+### What to put in the enquiry
+
+- Gerber, BOM and centroid for both boards, plus board dimensions stated explicitly so the panel fit can be confirmed.
+- The maximum board dimension if the drive board is near the size limit — this decides line assignment.
+- Coating requirement and keep-clear zones, including the terminal blocks.
+- The console connector specification: part number, insertion force, and how it is strain-relieved.
+- Expected ambient in the base, so the thermal question gets answered at DFM.
+- Whether both boards ship on one purchase order, since that changes setup allocation.
+
+The treadmill and fitness control board page (/applications/treadmill.html) states the two-board split, the largest panel size carried and the batch band. The VFD family (/applications/vfd.html) is the closest process relative — heavy copper beside a fine-pitch control board — and the e-bike controller (/applications/ebike.html) repeats the pattern of a power board and a cosmetic board on one shipment. Why a fifty-piece run costs more per board (/insights/fifty-piece-run-cost.html) explains the setup arithmetic that decides whether sharing one setup is worth it.
+
+Confirm the board fits, then spend the rest of the attention on the harness and the heat. Those are what come back.
+
+Last reviewed: 2026-11-17 · Send a board pair for review: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## Quoting a VFD as three boards or as one set
+
+Source: https://tenmaypcba.com/insights/vfd-three-boards-one-quote.html
+Published: 2026-11-17
+Summary: Line-by-line tells you where the money is; set pricing tells you what a drive actually costs to build. Ask for both, then decide which number you are managing.
+
+A variable frequency drive is three boards with three different process profiles: a control board with isolated gate drive, an IGBT power board carrying the DC bus and current sensors, and a keypad board. A drive missing one board is not shippable. That single fact drives the whole quoting decision.
+
+### Two ways to price the same build
+
+Approach: What it answers · Where it misleads
+Three separate lines: Where the cost sits: which board carries the through-hole work, which carries the coating, which is trivial · You cannot tell what a shippable drive costs
+One set price: What a drive costs to build and ship · It hides an expensive board inside a blended number
+Both, with the set as the commercial unit: Everything above · Nothing much — it just takes more paper
+
+Buyers usually ask for one or the other. The useful enquiry asks for both, because they support different decisions: the line breakdown is what you need to redesign cost out, and the set price is what you need to plan a purchase order.
+
+### Why the set is the real unit
+
+The keypad board is small and cheap until it is not. Membrane tails, a segment or dot-matrix driver and one harness connector: low value, high nuisance. A wrong footprint there turns into a hand-reworked batch and the drive still cannot ship.
+
+Compare that with the power board, which may run up to the largest panel this floor handles and carries the IGBT stage, the DC-bus electrolytics and the current sensors. It is heavy copper, large thermal mass, through-hole terminals and bus bars that must be soldered without cooking the devices beside them.
+
+Three boards, three very different cost drivers, one shipment. If a supplier quotes you a keypad price and a power board price but cannot state a set price, they have not priced the thing you are buying.
+
+### The reorder question is where set pricing pays
+
+On drives, the demand shape is not consumer growth. It is spare-board and maintenance orders arriving in tens and hundreds rather than thousands, and a build measured in days rather than weeks. The buyer's real question is "how fast can I restock a drive", not "what is the cheapest board".
+
+Which is why the first-order quote and the reorder quote should be separated in the paperwork. The band here is 50 sets to 500 sets. The first order pays for stencil, programme, profile development and first-article approval. The reorder, on an unchanged revision, does not. A supplier who keeps the programme and the approval on file can quote a reorder against that same revision, and the number drops for a reason that is visible rather than negotiated.
+
+### What the through-hole content does to the price
+
+Drives carry terminal blocks, relays and bus connections that have to be hand or selectively soldered. A pure placement house subcontracts exactly this step, which is why drives are a comfortable fit for a floor that runs it in-house and a poor fit for one that does not.
+
+Two questions expose this quickly:
+
+- Is the through-hole work done in-house, or subcontracted? If subcontracted, the schedule has a second party in it.
+- Is conformal coating done in-house? Drives usually specify it; masking connectors and test points by hand is real labour, not a rounding error.
+
+### What inspection proves here, and what it does not
+
+SPI runs before reflow on the fine-pitch side, AOI after reflow, and X-ray on the IGBT and thermal-pad joints where voiding under a power device is invisible from the surface and presents later as a hot drive.
+
+What none of it proves is that the drive works. In-circuit and functional test with a load bank are not assembly operations — the pass criteria belong to the firmware and the motor. If your process requires full functional test at the assembler, that is a different supplier category, and saying so early saves both sides a month.
+
+### What to put in the enquiry
+
+- Gerber, BOM and centroid for all three boards, plus the stack-up for the power board.
+- Which board runs to the largest panel size, so the line assignment can be confirmed against the size limit.
+- The coating requirement and which connectors and test points must stay clear.
+- First-order and reorder quantities separately, since they are priced differently and honestly so.
+- Whether a set price is available, in addition to the three lines.
+- Whether functional test is expected at the assembler. Ask it explicitly; do not let it be discovered at handover.
+
+The VFD and inverter page (/applications/vfd.html) states the three-board split, the batch band and the standard build time from kitted parts. The servo drive family (/applications/servo.html) shares the power stage and adds an encoder front end, and the treadmill control board (/applications/treadmill.html) is the other family where the largest board size is the deciding capability. Why a fifty-piece run costs more per board (/insights/fifty-piece-run-cost.html) is the arithmetic behind the first-order versus reorder gap.
+
+Ask for the set price. Then ask what the second order costs. The two numbers together tell you more about a supplier than either one alone.
+
+On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
+
+Last reviewed: 2026-11-17 · Send a drive board set for quoting: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## Consigned vs turnkey PCBA at 50, 500 and 5,000 pieces
+
+Source: https://tenmaypcba.com/insights/consigned-vs-turnkey-pcba.html
+Published: 2026-11-16
+Summary: Consigning is cheaper only when you already own the parts. The flip point is driven by purchasing labour and shortage risk, not by the assembly unit price.
+
+The short answer: consigning is cheaper when you already own the parts or can buy them at a genuine contract price; turnkey is cheaper when your own purchasing time costs more than the margin the factory adds. The flip point usually sits somewhere between 500 and a few thousand pieces, and it is driven by three costs, not by the unit price of the assembly.
+
+Below is where each cost sits, what it does at 50, 500 and 5,000 pieces, and the four questions that decide it for a specific build.
+
+### The three costs that actually move
+
+Cost: Who carries it · At 50 pcs · At 500 pcs · At 5,000 pcs
+Component price: Whoever buys · Small order quantities rarely reach a contract price; reel minimums and cut-tape premiums bite hardest here · Distributor break quantities start to work in your favour · Only a genuine contract price or an OEM allocation beats the factory's franchised channel
+Purchasing labour: Your team, if consigning · A BOM of a few hundred lines takes real hours to quote, buy, receive and kit — at 50 pcs this labour is spread over very few boards · Labour is the same, spread over more boards · Labour per board becomes negligible either way
+Shortage and line-stop risk: Whoever buys · One missing line stops a small build completely; a factory carrying the kit usually has an approved alternate · Moderate — a shortage list still costs a week · Highest absolute exposure: a stopped line at this volume is expensive
+
+Two more costs sit underneath those three and are easy to forget:
+
+- Incoming inspection. Consigned parts still have to be counted, checked for date code and provenance, and dried if moisture-sensitive. If your factory does not log this, you find out at reflow, not at goods-in.
+- Cash and storage. Consigning moves inventory onto your balance sheet and into your warehouse. At 5,000 pcs that is a real carrying cost, not a footnote.
+
+### Three decision rules
+
+Rule 1 — If you already hold the parts, consign them.
+Stock on your shelf has already been paid for. Sending it to be assembled converts dead inventory into finished boards; buying it again through a factory is buying the same part twice.
+
+Rule 2 — If the BOM has more than roughly a hundred lines and the batch is under 500, take turnkey.
+The purchasing labour per board is the dominant term at that size. A shortage list from the factory within 24 hours is cheaper than your buyer spending three days chasing three lines.
+
+Rule 3 — If a single part is on allocation, split the model.
+Consign the allocated part, let the factory buy the rest. This is the case partial turnkey exists for, and it keeps the shortage risk with the party that already owns the constraint.
+
+### What each model asks you to send
+
+Model: You send · You keep · What changes in the quote
+Full turnkey: Gerber, BOM, centroid · Nothing but the approval · Quote includes BOM pass-through and alternates approval
+Partial turnkey: Gerber, BOM, centroid, plus the long-lead parts · The constrained lines · Quote splits: your consigned lines excluded, rest pass-through
+Consigned kit: Gerber, BOM, centroid and the full kit · Everything · Quote is assembly plus tooling only; incoming check is against your BOM line by line
+
+At Tenmay all three run on the same lines at the same minimum — fifty pieces — so the model is a commercial choice, not a scheduling one.
+
+### Four questions that settle it for a specific build
+
+- Do we already own the parts, or are we about to buy them? If ownership is already there, the comparison is not "our price vs factory price", it is "assembly cost vs doing nothing with the stock".
+- How many BOM lines, and how many of them are single-source? Line count drives your labour; single-source lines drive the shortage risk.
+- What is one week of delay worth on this product? This is the number most buyers never write down, and it is usually larger than the component margin being argued over.
+- Who is checking provenance? Franchised vs broker is a quality decision before it is a price decision. If the parts are consigned, that decision is yours and it should be documented.
+
+### The mistake that costs the most
+
+Comparing the two models on unit price only. Turnkey's margin and consigning's labour cost are both visible; the shortage risk, the incoming inspection and the carrying cost are not. A build quoted a few percent cheaper on consigned parts can lose that advantage in the first line stop.
+
+If the two quotes are within a few percent, choose the model that puts the shortage risk with the party that can see the stock position daily.
+
+### FAQ
+
+### Is consigning always cheaper for small batches?
+
+No. It is cheaper when you already own the parts. If you have to buy them anyway, the purchasing labour at 50 pcs usually outweighs the component margin a factory would add.
+
+### Can we switch model between the first run and the re-order?
+
+Yes, and it is common: consign the first build from existing stock, then move to turnkey once volumes justify a purchasing cycle. The Gerber and BOM revision stay the same, so no new NRE applies at Tenmay on an unchanged revision.
+
+### Who pays for parts damaged in assembly?
+
+It depends on the cause, and this must be written into the PO: incoming material faults belong to the consigning party, process faults to the assembler. This is one of the four terms buyers most often leave out.
+
+### Does the model change the lead time?
+
+Only through the kit. Tenmay's standard lead time is three days once the kit is complete — a consigned kit that arrives short simply moves the start date, it does not move the build duration.
+
+---
+
+Written by the Tenmay assembly engineering team. No customer names and no yield percentages are published: we do not have permission to publish them, and an invented number would be worse than none. Batch sizes in the table are the ranges the plant is scheduled around; component pricing is not published because it moves with allocation and market conditions.
+
+Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## The four clocks inside a PCBA lead time
+
+Source: https://tenmaypcba.com/insights/four-clocks-in-a-pcba-lead-time.html
+Published: 2026-11-16
+Summary: Build time, material time, engineering time and transit time are four different waits. Quoting one number for the four is how delivery promises break.
+
+"The build is three days" and "you will have boards in three days" are different statements, and treating them as the same one is the most common reason a first order arrives late. Four clocks run at once. Only one of them is the assembly floor's to shorten.
+
+### Clock one — the build
+
+This is the short one. Once the parts are kitted, the stencil is cut, the programme is loaded and the first article has been approved, a standard run on this floor is three working days. Panel count, not board count, sets the shape of that: a small board that panels up well is quick, a board near the 800 × 480 mm limit is fewer per pass and slower per unit.
+
+The build clock is the one a supplier can control, and the one buyers tend to quote to their own customers. That is the mistake.
+
+### Clock two — the material
+
+Component lead time is usually the real date. Two boards with identical process difficulty can be six weeks apart because of one part: a connector on allocation, an MCU in a specific package, a capacitor with a long-life specification that only one series meets.
+
+Practical rules:
+
+- Long-lead parts decide the schedule, not the average part. Ask which line on the BOM is the critical path before the order is placed, not after.
+- A broker part shortens the clock and lengthens the risk. Same part number, unknown storage history. It is a legitimate choice for a prototype and a bad one for a production run.
+- Consigned material moves the clock to you. The floor cannot start until the box arrives and has been counted and checked against the BOM. Shipping a partial kit does not start a partial build.
+
+### Clock three — the engineering
+
+Engineering is not a queue you wait in; it is a set of questions that must be answered before the line starts. Paste apertures on a fine-pitch part, panelisation and breakaway, fiducial position, polarity, coating mask. Each one is small. Each one, unanswered, stops the run.
+
+This clock is the most compressible, and the only way to compress it is to answer early. A DFM review returned before the parts are ordered costs a day. The same question discovered at setup costs a week and a stencil.
+
+### Clock four — transit
+
+Ex-works is not delivered. Air freight from Shenzhen to Europe or North America is days; sea is weeks; and the customs end has its own variability that no factory can quote. If a delivery date matters, it should be stated as a door date with the transit assumption written next to it, so the day the assumption changes is visible to both sides.
+
+### Putting the four together
+
+Clock: Who controls it · What shortens it
+Build: The assembly floor · Kitted parts, approved first article, unchanged revision
+Material: Distributor and allocation · Earlier BOM freeze, approved alternatives, avoiding broker stock
+Engineering: Both sides · DFM answered before the parts order
+Transit: Carrier and customs · Correct paperwork; mode chosen deliberately, not by default
+
+A realistic date is the longest of the first three plus the fourth. When someone quotes a single number, the useful question is which clock they are quoting — and whether the answer includes the material.
+
+### Why the reorder is faster
+
+On a reorder with the same revision, clock two and clock three are already paid: parts are known, the stencil and programme exist, the first article is approved. What remains is material availability and the build. That is why the second order behaves differently from the first, and why a supplier who keeps your setup files is worth more than a supplier who is slightly cheaper on the first run.
+
+---
+
+## What a DFM review catches before the stencil is cut
+
+Source: https://tenmaypcba.com/insights/dfm-review-before-the-stencil.html
+Published: 2026-11-15
+Summary: A DFM review is not a courtesy. It is the last point where a change costs a file edit rather than a stencil, a scrap batch or a hand-rework line.
+
+Design for manufacture is usually described as a set of rules. In practice it is a set of decisions with deadlines. Every check below is cheap while the design is a file, expensive once a stencil exists, and unrecoverable once a batch has been built.
+
+### The ten checks, in the order they bite
+
+1. Aperture and pad geometry against the smallest part. A 01005 chip and a 0.3 mm-pitch IC do not share a paste strategy. Apertures that suit one starve or bridge the other. This is the check that most often produces a design change, because it is a drawing edit rather than a component change.
+
+2. Panelisation and breakaway. How the board is arrayed decides how many fit through the line per pass, whether the assembly can be depanelised without stressing joints, and where the fiducials go. A board can be perfectly designed and panel badly: mouse-bites in the wrong place, no rail to clamp, tooling holes absent.
+
+3. Fiducials and local references. Global fiducials for the panel, local ones for fine-pitch parts. Missing references mean the machine places by board outline and the accuracy you paid for is not used.
+
+4. Component orientation and polarity. Diode and electrolytic polarity marked unambiguously on the silkscreen, pin 1 marked on every multi-pin package. A board with ambiguous orientation will eventually be built wrong, and the rework is a hand operation.
+
+5. Courtyard and spacing. Parts placed so the nozzle can reach them and the reflow air can move around them. Two tall components side by side shadow each other; a part against a tall connector cannot be placed after it.
+
+6. Thermal balance. Large copper pours and thick ground planes pull heat out of a joint. A board with a heavy plane on one side and fine-pitch parts on the other needs a profile developed for it, not a default one. This shows up as a yield problem rather than a design error, which is why it is worth naming early.
+
+7. Through-hole and mixed technology. Which side the through-hole parts sit on decides whether the process is pin-in-paste, selective solder or hand. Each is a different line and a different price, and the choice is usually fixable in the layout.
+
+8. Coating and masking. If conformal coating is specified, connectors, test points, optical surfaces and any press-fit area need to be maskable. Masking is hand labour; a design that scatters unmaskable features across the board turns a cheap step into an expensive one.
+
+9. Test access. Test points large enough and reachable, with the plane under them clear. If functional test happens at your end, the fixture needs access that the layout must provide.
+
+10. BOM reality. Manufacturer part numbers that exist, packages that match the footprint, and alternatives named where a part is single-source. A BOM with a package mismatch is found at kitting, which is the most expensive possible moment.
+
+### Which of these change the price
+
+Three do, directly: panelisation (units per pass), through-hole method (line and labour), and coating masking (hand labour). The rest change the risk rather than the price, which is harder to see on a quote and easier to see on the third delivery.
+
+### What a review cannot do
+
+It cannot make a design good. It can make it buildable. A DFM review that returns "no issues" is not a statement that the product works — only that the file can be manufactured as drawn.
+
+It also cannot replace the first article. The first board off the line is checked against the drawing, and that check is the point where a DFM assumption meets a real stencil and a real paste deposit.
+
+### How to get a useful review
+
+Send the Gerber with the drill file, the BOM with manufacturer part numbers, the centroid file, and the quantity. State the coating and the test plan. Then ask one question: what in this design will cost me money at setup? The answer is a shorter list than a full DFM report, and it is the list that decides the quote.
+
+We review every file before quoting, in-house, and we return the findings as questions rather than as a verdict. Where the answer is that a process is not run here — full functional test with a load bank, for example — that is stated before the order rather than after the first batch.
+
+---
+
+## Why the second run costs less than the first — and where that stops
+
+Source: https://tenmaypcba.com/insights/why-the-second-run-costs-less.html
+Published: 2026-11-14
+Summary: A reorder is cheaper because the fixed work is already done, not because the supplier likes you. Four things must stay unchanged for that to hold.
+
+On a fifty-piece run, the one-time work is a large share of the unit price. On the same job a second time, most of it has already been paid. That is the whole mechanism — and it has conditions. When one of the conditions breaks, the saving disappears and buyers are usually surprised by how completely.
+
+### What carries over
+
+Item: Carried over · What can cancel it
+Stencil: Yes, while the apertures are unchanged · Any change to pad geometry, or a worn stencil past its usable life
+SMT programme: Yes, while the placement data is unchanged · Moving a part, changing a package, or a rotated footprint
+Reflow profile: Yes, while the board construction is unchanged · Layer count, copper weight, or a large change in thermal mass
+First-article approval: Yes, for the same revision · Any revision change, or a long gap that triggers a re-qualification
+Kitting knowledge: Partly · A BOM change, or a part that was sourced from a specific distributor
+Setup and changeover: No · Charged again on every run, because the line is reconfigured either way
+
+The last row is the one buyers misread. Setup is not a one-time charge that disappears on a reorder; changeover happens every time the line starts your job. What disappears is the engineering — the stencil, the programme, the profile development, the first article.
+
+### The four things that must stay unchanged
+
+Same revision. One resistor value change is enough to require a new stencil check, a re-verification of the programme and a fresh first article. It may be a ten-minute change at your desk and a re-qualification at the factory.
+
+Same process. Switching a board from a single-sided to a double-sided build, or adding conformal coating, changes the routing, not just the price.
+
+Same supplier. This is the honest one. Your stencil, programme and profile live with the factory that built the job. Moving to a cheaper supplier resets the engineering clock to zero, which is why a supplier switch on a mature product often costs more in the first order than it saves in the second.
+
+Same or equivalent material. If a component goes on allocation, the reorder can be blocked at kitting even though nothing about the board changed. Naming an approved alternative on the BOM is the cheapest insurance available.
+
+### Where the saving stops
+
+Two limits are worth stating before a buyer plans around them.
+
+Volume. Below roughly fifty pieces the setup and first-article work dominates, and the reorder saving is proportionally large. Above a few thousand pieces a month, a dedicated high-volume line with cheaper hourly rates starts to win on unit price, and the reorder advantage of a high-mix floor stops being the deciding factor.
+
+Product life. A board that is revised twice a year never reaches the cheap state. The reorder saving assumes a design that has settled, and part of the value of a DFM review is getting a design to that state before the first order rather than after the third.
+
+### What to ask for on a reorder quote
+
+Ask for three things in writing: whether the stencil is still in usable condition, whether the programme and profile are the current revision, and whether any line on the BOM has moved to allocation since the last run. Those three answers determine whether the second price is a real reduction or an optimism.
+
+We keep tooling and setup files against the customer's revision, and we quote the reorder against the same revision that was built. When a revision changes, the reorder is quoted as a first run, because that is what it is.
+
+---
+
+## 01005 vs 0201: which package should your design use?
+
+Source: https://tenmaypcba.com/insights/01005-vs-0201.html
+Published: 2026-11-07
+Summary: The gap is 0.2 mm in each direction and a measurable defect rate. Use the largest package the layout allows, and go smaller only when the board forces it.
+
+01005 measures 0.4 x 0.2 mm and 0201 measures 0.6 x 0.3 mm. The difference is 0.2 mm in each direction — and in production it is the difference between a routine part and one that eats yield. Use the largest package the layout allows; specify 01005 only when board area or signal integrity forces it.
+
+### First, a naming trap worth clearing up
+
+Package codes are imperial, in hundredths of an inch. That means "0201" is 0.02 x 0.01 inch, which converts to 0.6 x 0.3 mm. The metric name for the same part is 0603 — which collides with the imperial 0603 (1.6 x 0.8 mm).
+
+So a BOM that says "0603" is ambiguous unless the standard is stated. Ask which one you are getting before the stencil is cut. This single confusion causes more re-quotes than any other line on a BOM.
+
+### How the common sizes compare
+
+Imperial: Metric · Size (mm) · Placement · Stencil aperture · Typical use
+0402: 1005 · 1.0 x 0.5 · Routine · Comfortable · Default for most boards
+0201: 0603 · 0.6 x 0.3 · Standard, needs good paste · Tight · Dense consumer, modules
+01005: 0402 · 0.4 x 0.2 · Demanding · Near area-ratio limit · Wearables, implantable, space-critical
+
+### What actually gets harder at 01005
+
+The placement machine is rarely the limit. Four other things are:
+
+- Paste volume. The stencil aperture becomes small enough that the aperture's area-to-wall-area ratio decides whether paste releases at all. This pushes toward thinner stencils and finer paste classification.
+- Tombstoning and skew. Less solder, less self-alignment force during reflow. The part has to land right rather than being pulled right.
+- Handling. Parts this size are difficult to rework by hand, so a single defect is often a scrap decision rather than a repair.
+- Inspection. Optical inspection needs enough contrast and resolution to judge a fillet measured in tens of microns.
+
+None of these are reasons to avoid 01005. They are reasons to pay for them only when the design earns it.
+
+### When is 0201 the better answer?
+
+Almost always, unless one of these is true:
+
+- The board is area-constrained — a module, a wearable, an implant, where the enclosure is the requirement.
+- Loop inductance matters — decoupling placed closer to the pin, which is a real electrical reason, not a cosmetic one.
+- The assembly is already dense — if you are at 0.3 mm IC pitch, the passives are no longer the hardest thing on the board.
+
+If none apply, moving from 0201 to 0402 usually lowers cost and defect rate without changing function. That is a design decision worth making explicitly rather than inheriting from a reference design.
+
+### What to confirm with the manufacturer before you commit
+
+- Can they place it, and on which line? A capability claim without a line assignment is not a commitment.
+- What paste and stencil combination do they use for it?
+- What is their first-article process for a package this size — is it inspected optically, by X-ray, or both?
+
+At Shenzhen Tenmay Technology the placement floor runs down to 01005 on Yamaha YSM20/YSM10 lines with in-line SPI, AOI and X-ray, and the capabilities page (/capabilities.html) states the 0.3 mm pitch and 800 x 480 mm board limits that decide whether a design fits. If your question is about yield at that size rather than package choice, this note on 01005 yield limits (/insights/01005-placement-what-limits-yield.html) goes through the stencil and paste side in more detail.
+
+Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## What SPI, AOI and X-ray can catch — and what they cannot
+
+Source: https://tenmaypcba.com/insights/what-aoi-xray-cannot-catch.html
+Published: 2026-11-07
+Summary: SPI checks paste, AOI checks what is visible, X-ray checks what is hidden. None of them checks whether the board works — and knowing the gap is what makes an inspection claim meaningful.
+
+SPI verifies solder paste before placement. AOI verifies visible features after reflow — presence, polarity, offset, fillet shape. X-ray verifies joints hidden under packages, especially BGA and QFN. None of the three verifies electrical function, and none replaces a functional test.
+
+### What each station is actually proving
+
+Station: When it inspects · What it proves · What it cannot see
+SPI: After paste print, before placement · Paste volume, height, area, offset per pad · Anything about the component or the joint
+AOI: After reflow · Presence, polarity, rotation, offset, fillet shape, bridging · Anything under a package or in shadow
+X-ray: After reflow · Voids, bridging, head-in-pillow, ball collapse under BGA/QFN · Component presence, value, or function
+
+The useful reading of that table: the three stations cover three different moments, not three levels of the same check.
+
+### Where defects actually get through
+
+Optical inspection is a contrast problem before it is an algorithm problem. These are the recurring blind spots:
+
+- Black component on black solder mask. Low contrast means a marginal offset can pass.
+- Anything under a package. AOI is line-of-sight; a BGA joint is not in the line of sight. This is precisely why X-ray exists.
+- Shadowed joints on a dense board. Tall components cast occlusion; an inspector or an algorithm sees the top of the shadow, not the joint.
+- Solder voids below the reporting threshold. X-ray will show a void; whether it matters is a specification question, not a detection question.
+- Wrong value, right package. A 10 kΩ resistor substituted for a 1 kΩ one looks identical. No optical or X-ray station catches this — only electrical test or incoming verification does.
+- Weak or cold joints that are still shaped correctly. A joint can be visually acceptable and electrically intermittent.
+
+That last row is the one that costs money in the field, because it passes every inspection station and fails in the customer's hands.
+
+### So what closes the gap?
+
+Three things that are not inspection:
+
+- In-circuit test or flying probe — proves connectivity and component values.
+- Functional test — proves the assembly does what it is for, under power.
+- Boundary scan — reaches nets that probing cannot touch.
+
+A program that claims "full inspection" and stops at AOI has covered placement, not function. A program that claims "100% tested" needs to say which of the three above it means. On a dense board with 0.3 mm pitch, the difference between the three is the difference between a joint check and a function check.
+
+### What a supplier should be able to tell you
+
+- Which stations run in line, and on which products — not which machines are owned. A line that inspects a 5,000 pcs batch is not necessarily inspecting every board in it.
+- What the first-article process is, and who signs it off.
+- What happens to a board that fails AOI: rework, re-inspect, or scrap — and whether rework is re-inspected at the same station.
+- Whether functional test exists for your product, and who writes the fixture.
+
+If the answer to the last one is "the customer tests it", then the inspection claim covers assembly only. That is a legitimate arrangement — it just needs to be stated, because the buyer's risk sits after the point where the supplier stopped looking.
+
+### Why this matters commercially
+
+Inspection claims are easy to inflate and hard to audit. A manufacturer that says "we have AOI and X-ray" has told you about equipment. One that says "we catch placement defects optically, hidden joints by X-ray, and connectivity by flying probe — but not component value drift over temperature" has told you where your risk is.
+
+Shenzhen Tenmay Technology runs SPI, AOI and X-ray in line on its Yamaha YSM20/YSM10 lines; the assembly page (/assembly.html) describes where each station sits in the flow, and capabilities (/capabilities.html) lists the equipment. Electrical test is quoted per project rather than claimed as standard, because the fixture is product-specific.
+
+Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## What is HMLV in PCBA — and when does it cost more than high volume?
+
+Source: https://tenmaypcba.com/insights/what-is-hmlv-pcba.html
+Published: 2026-11-07
+Summary: HMLV is a production model, not a batch size. The cost difference comes from setup amortisation and changeover time, and both can be measured.
+
+HMLV stands for high-mix, low-volume. It describes a production model where a factory runs many different products in small batches, rather than one product in large batches. The cost of HMLV comes from setup and changeover being repeated far more often; the benefit is that a small order can be built at all.
+
+### Is HMLV a quantity, or a model?
+
+It is a model, and quantity is only one signal of it. The defining feature is how often the line stops and reconfigures. A factory building eighty different assemblies a month in batches of fifty is HMLV. A factory building one assembly in batches of fifty thousand is not, even though some of its individual orders are small.
+
+The practical consequence: HMLV work is priced on reconfiguration, not on board area. If you ask for a quote and the reply is built from square centimetres and component count, it is a high-volume quote wearing a small-batch hat.
+
+### Where the extra cost actually sits
+
+Four activities repeat once per order rather than once per batch of ten thousand:
+
+Activity: When it happens · Scales with quantity?
+Stencil fabrication: Once per assembly revision · No
+Machine programming and feeder setup: Once per assembly · No
+First-article inspection and sign-off: Once per assembly · No
+Component kitting and verification: Once per order · Partly
+
+Add changeover — unloading the previous product's feeders and loading the next — and you have the whole difference. Solder, components and placement time per board are close to identical between a fifty-piece run and a fifty-thousand-piece run.
+
+### So how much more does a small batch cost per board?
+
+The arithmetic is simple once the fixed part is known. Suppose a setup consumes 4 hours of line time before the first board is placed. Spread over 50 pcs, that is 4.8 minutes of setup per board. Over 5,000 pcs, it is 2.9 seconds.
+
+That is the entire mechanic. The percentage uplift depends on how much assembly time each board needs — a dense board with two hundred placements dilutes setup faster than a simple one — which is why a per-board price quoted without knowing the batch size is guesswork.
+
+### When does HMLV not cost more?
+
+Three cases:
+
+- When the product never changes. If the same assembly repeats every month, the stencil and programme are already on file, and only the kitting repeats. The fixed cost has effectively been paid.
+- When volume would create inventory you cannot sell. A ten-thousand-piece run halves the unit price and doubles the capital tied up in finished goods. For a product with uncertain demand, the cheaper unit price is the more expensive decision.
+- When the design is still moving. Re-running a large batch after an engineering change is the most expensive outcome in this business. Small batches absorb revisions.
+
+### What to ask a supplier to find out which one you are buying
+
+- Which of the setup steps are charged separately, and which are absorbed?
+- Is there a price break, and at what quantity does it start?
+- If the same assembly is reordered next quarter, what does the second run cost compared with the first?
+
+That last question separates a genuine HMLV operation from one that simply tolerates small orders at a penalty. A factory set up for mixed production keeps the programme and the stencil, so a repeat order should not pay the full setup again.
+
+### What this looks like on a real line
+
+At the Shenzhen facility of Shenzhen Tenmay Technology, high-mix work is the normal case: eight Yamaha YSM20/YSM10 lines, batches from 50 pcs, and feeder carts loaded per order. The visible cost of HMLV is the kitting bench — the reels being loaded in the photograph above — because that is where changeover becomes labour.
+
+If you want the process side of this rather than the commercial side, the assembly (/assembly.html) page covers what runs in line, and capabilities (/capabilities.html) lists the placement limits that decide whether your design fits a small-batch line at all.
+
+Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## What actually limits 01005 placement yield?
+
+Source: https://tenmaypcba.com/insights/01005-placement-what-limits-yield.html
+Published: 2026-11-06
+Summary: The placer is rarely the constraint. Stencil, paste, pad geometry and inspection each cap what a 01005 design can do on a real line.
+
+The placement head is almost never the limit. A 01005 part is about 0.4 × 0.2 mm, and every current placer can position it. What caps yield is how much solder the stencil releases, which paste carries it, whether the pads hold it centred, and whether inspection can see the joint at all.
+
+### Is the placement machine the limit?
+
+No, and treating it as the limit leads to the wrong fixes. A board that places cleanly and still fails at reflow or at AOI is showing a paste-volume problem, not a positioning problem. Turning up placement accuracy cannot deposit more solder.
+
+At this size the process stops being about positioning and starts being about deposit — how much solder lands on the pad, and how much of it stays where it was put.
+
+### What does the stencil set?
+
+Paste release is the first ceiling. For a 01005 land the aperture is small enough that the area ratio — aperture opening area against the area of its walls — decides whether paste leaves the stencil at all.
+
+When that ratio falls too low, paste stays in the aperture and releases unevenly. It looks like a placement defect: parts tombstone, pull to one pad, or end up with too little solder on one side. Changing placer settings will not fix any of those.
+
+Lever: What it buys · What it costs
+Thinner stencil foil: Better area ratio at the same aperture · Less paste volume for the larger parts sharing the panel
+Laser-cut or electroformed apertures: Cleaner wall finish, more consistent release · Higher stencil cost per revision
+Aperture geometry adjusted to the land, not copied from it: A centred deposit · Time at the DFM stage
+Nano-coating on the foil: Release when a thin foil is not an option · Consumable cost per stencil
+
+### Which paste type does 01005 need?
+
+Type 3 paste in a 01005 aperture is a volume problem before it is a printing problem. Type 4 is the usual answer, and Type 5 appears where apertures are smaller still.
+
+Paste type: Where it fits · Trade-off
+Type 3: 0402 and larger · Will not reliably fill a 01005 aperture
+Type 4: 01005 alongside 0402 and above · The normal compromise on mixed panels
+Type 5: Apertures below the 01005 window · Finer powder oxidises faster and shortens stencil life
+
+The compromise is worth stating plainly: a Type 5 paste left on the stencil across a long run behaves worse than a Type 4 paste refreshed on schedule. On a mixed panel the paste choice is made for the whole board, not for the smallest part alone.
+
+### Which pad and mask choices cause 01005 defects?
+
+Two layout decisions cause most of the avoidable defects, and a third is quieter:
+
+Layout choice: What happens at 01005 · What to do instead
+Solder-mask-defined land: Effective copper area shrinks and the deposit becomes unpredictable · Copper-defined land with a mask dam
+Via-in-pad without fill: Paste wicks into the via; the part sits low or drifts · Fill and cap the via at fabrication, or move it out of the land
+Asymmetric copper around the two pads: Uneven thermal mass pulls the part toward the hotter side · Balance copper on both pads
+
+The third one is survivable at 0402 and a tombstone at 01005. It is a layout fix, and it is decided before the files ever reach an assembly floor.
+
+### Where does the placer still matter?
+
+Placement force and nozzle choice are where the machine earns its place. Too much force embeds the part in the paste and squeezes it sideways; too little leaves it sitting on top, and reflow pulls it off-centre. Vacuum nozzles sized to the part, with force set low, are the normal configuration.
+
+Vision also needs clean contrast between part and background. Black parts on dark tape, or parts with a mirror finish, occasionally need a different lighting recipe. That is a per-part setup item, not a per-board one — which is exactly why high-mix work carries setup cost a single-product line never sees.
+
+### What can inspection actually verify at 01005?
+
+This is the part most capability tables skip. A line can place 01005 and still not be able to verify it.
+
+Optical inspection at this scale depends on resolution and on how much shadow the neighbouring components cast. A board with tall electrolytics beside 01005 passives has blind angles. X-ray helps with joints under area-array parts, but it is not a substitute for optical inspection of passives — the solder volume is small and the contrast is poor.
+
+So the accurate claim is narrower than "we place 01005". It is: we place 01005, we inspect it optically where the neighbouring geometry allows, and we tell you which areas of your board fall outside that.
+
+### What we will not claim
+
+- No pass-yield percentage for 01005 on your design before the stencil and pad geometry have been reviewed.
+- No blanket "100% inspected" statement: optical coverage depends on component height around the part.
+- No quoting a 01005 build from a BOM alone. The stencil drawing and the land pattern decide whether the job is routine or engineering-reviewed.
+
+### What to send with a 01005 enquiry
+
+Three things decide whether the quote is realistic:
+
+- The paste type the design assumes, or the smallest aperture on the stencil drawing.
+- Whether any 01005 land has via-in-pad beneath it.
+- How many 01005 parts sit next to tall components, since that decides inspectability.
+
+Send the Gerber, the BOM and the centroid, and ask for a DFM note specifically on the 01005 areas. The capabilities page (/capabilities.html) lists the placement window we hold today — 01005 passives, 0.3 mm minimum IC pitch, boards up to 800 × 480 mm — and the assembly page (/assembly.html) shows where in-line SPI, AOI and X-ray sit in the flow. A supplier who answers a DFM note in writing tells you more than any capability table.
+
+If the package choice is still open, 01005 vs 0201 (/insights/01005-vs-0201.html) sets out when the smaller part is actually necessary, and what AOI and X-ray can and cannot catch (/insights/what-aoi-xray-cannot-catch.html) explains the inspection gap in more detail.
+
+Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## Which BOM problems force a re-quote — and how do you catch them first?
+
+Source: https://tenmaypcba.com/insights/bom-substitution-checklist.html
+Published: 2026-11-06
+Summary: A BOM that reads correctly can still be unbuyable. These eight checks decide whether the parts arrive as listed or the job stops for approval.
+
+Eight checks cover almost every substitution that stops a job: lifecycle status, a real second source, electrical margins, package and polarity, moisture sensitivity, packaging format, order multiple, and date-code provenance. A BOM that passes all eight can be bought as written, which means no approval loop and no price movement before assembly starts.
+
+### What is a re-quote, and why does it cost time?
+
+A re-quote is what happens when procurement cannot buy the BOM as written. The part number exists, the quantity is right, the reference designators all match — and then the exact part turns out to be on a lead that runs to 90 days, sold only in reels of 5,000 pcs, or marked obsolete.
+
+At that point the job stops. Someone proposes an alternative, someone else approves it, and the price may move. Nearly all of it is avoidable with a pass through the BOM before the enquiry is sent.
+
+### The eight checks, on one page
+
+#: Check · What goes wrong when it fails
+1: Lifecycle status · An end-of-life part is available this build and gone the next; the replacement was never qualified
+2: Real second source · "Or equivalent" moves the decision to whoever is buying, which is the wrong place for it
+3: Electrical margins · The substitute matches the headline value and fails two lines down on tolerance, rating or thermal drift
+4: Package, land and polarity · Same footprint, different pin function — or a part placed the wrong way round
+5: Moisture sensitivity level · A higher MSL adds baking and a floor-life clock nobody planned for
+6: Packaging format · Cut tape that cannot be fed turns machine placement into hand placement
+7: Order multiple · A part sold in reels of 5,000 pcs for a build that consumes 50 pcs
+8: Date code and provenance · Old material or open-market stock goes into a product with a warranty
+
+### 1. Is the part still active?
+
+Lifecycle status is the first check and the cheapest. A part marked end-of-life or not-recommended-for-new-designs will stop being available eventually, and the version on the next build may not be the one you qualified.
+
+Distributor product pages usually carry status. Checking the twenty highest-value lines catches most of the problem, because that is where the cost and the risk sit.
+
+### 2. Is there a real second source?
+
+Two different things get called a second source, and only one helps:
+
+- An alternate manufacturer's part number, listed with its own MPN. Useful — it can be bought directly.
+- The phrase "or equivalent". Not useful on its own. It hands the decision to the buyer at the factory, who has no visibility of why the part was chosen.
+
+If a line must not be substituted — a specific regulator, a matched pair, an MCU with calibrated internals — say so explicitly. Silence reads as permission.
+
+### 3. Do the electrical parameters actually match?
+
+The common failure is a substitution that is right on the headline spec and wrong in the detail. Before approving an alternate, check:
+
+Parameter: What to compare, not just copy
+Tolerance and temperature coefficient: Nominal value, then drift over the operating range
+Voltage rating: Include the derating margin the design assumes
+Package and pinout: Same footprint does not always mean same pin function
+Timing or frequency: Anything with a crystal or oscillator
+Operating temperature range: An industrial part swapped for a commercial one is a field failure waiting to ship
+
+### 4. Does the land pattern and polarity carry over?
+
+A 0402 part is not always the same 0402 land. Check the alternate manufacturer's recommended land pattern instead of assuming the footprint transfers. For anything with polarity — diodes, tantalum capacitors, electrolytics, LEDs — check that the marking orientation matches the assembly drawing.
+
+This is where a substitution becomes a silent defect: the board builds, passes basic inspection, and fails in the field because the part went on the wrong way round.
+
+### 5. Did the moisture sensitivity level change?
+
+An alternate with a higher MSL changes the handling requirement. It may need baking before use, and it has a floor-life limit once the seal is broken.
+
+If the original was MSL 1 and the alternate is MSL 3, the process has changed even though the part-number swap looked trivial. Tell the assembler, or they find out at reflow.
+
+### 6. Is the packaging feedable?
+
+Quantity is not packaging. A part quoted as cut tape may arrive as loose pieces that cannot be fed automatically, which turns machine placement into hand placement and moves the price.
+
+Packaging: Effect on a small build
+Full reel: Feedable, but may carry an order multiple far above usage
+Partial reel or feedable cut length: The practical option for small runs; ask for it explicitly
+Loose cut tape: Usually hand placement, and a price change
+Tray or tube: Fine for the parts designed for it; not interchangeable with reel
+
+For small runs, this single item causes more price movement than any other line in the BOM.
+
+### 7. What is the order multiple?
+
+A line needing 50 pcs of a part sold in reels of 5,000 pcs is a purchasing decision, not a pricing detail. Decide in advance how the balance is handled: bought and stocked, consigned by you, or avoided by choosing a part with a smaller multiple. The material-policy section of why a 50-piece run costs more per board (/insights/fifty-piece-run-cost.html) sets out the three options.
+
+### 8. Is the date code and provenance on record?
+
+For anything going into a product with a warranty, the age of the material matters. Ask what date-code policy applies and whether parts come from authorised distribution or the open market.
+
+Open-market sourcing is legitimate, and sometimes the only option for an obsolete part. It is not the same as authorised stock, and the difference belongs on the record rather than discovered later.
+
+### What four columns make a BOM survive procurement?
+
+Add these to a normal BOM and most of the back-and-forth disappears:
+
+- Approved alternates, each with a real manufacturer part number.
+- Substitution rule per line: exact where nothing may change, equivalent where a matching spec is acceptable.
+- Critical parameters for lines marked equivalent — the two or three numbers that must match.
+- Notes for anything with a handling constraint, a polarity quirk or a matched pair.
+
+Small work at design time, and it removes an entire class of delay at build time.
+
+### What we will not do
+
+- No silent substitution. Where a line cannot be bought as written, we say which line, what the options are, and the price effect of each.
+- No approval after the fact. If a substitution needs sign-off, the run waits for it rather than shipping and explaining.
+- No claim that an alternate is fully equivalent without the two or three critical parameters being named.
+
+For a first enquiry we need the Gerber, the BOM and the centroid. If the BOM carries alternates and substitution rules, the DFM note comes back faster because there is less to ask about. The capabilities page (/capabilities.html) covers the component sourcing and CoC side — what we buy, what we verify on incoming material, and what we do not hold in-house.
+
+Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## Why does a 50-piece PCBA run cost more per board than 5,000?
+
+Source: https://tenmaypcba.com/insights/fifty-piece-run-cost.html
+Published: 2026-11-06
+Summary: Fixed cost divided by quantity is most of the answer. The rest is changeover, kitting and material minimums — and knowing which one you are actually paying for.
+
+The gap is arithmetic, not a small-order penalty. Every job carries work that happens once regardless of batch size — stencil, programming, first-article inspection, changeover, kitting. Spread that over fifty boards instead of five thousand and the per-board number rises sharply even when nothing about the process changed.
+
+### Which costs are fixed per job?
+
+These are incurred once, whether the run is fifty panels or five thousand:
+
+Fixed cost: What it is · Scales with quantity?
+Stencil: A laser-cut stencil made for the job's apertures · No
+SMT programming: Feeders loaded, positions taught, part libraries checked, vision recipes tuned per part · No
+First-article inspection: The first boards checked against drawing and BOM before the run continues · No
+Line changeover: Previous product off, new one on: cleaning, setup verification, paste and feeder changes · No
+Kitting and material verification: Reels counted against the BOM, part markings checked, wrong reel caught before it runs · Partly
+Process documentation: The setup record — paste type, reflow profile, nozzle choice — that lets the job repeat · No
+
+Divide that list by fifty and the number looks alarming next to a five-thousand-piece unit price. Divide it by the same list over five thousand and it nearly disappears. On a high-mix floor, programming and changeover dominate the fixed side; on a single-product line they effectively vanish because they are paid once and amortised for years.
+
+### How much of the gap is just division?
+
+A worked example, with round numbers, because the mechanic matters more than the figure. Suppose setup consumes four hours of line time before the first good board appears. Those four hours do not shrink because the order is small.
+
+Batch: Setup time per board · What it looks like on a quote
+50 pcs: 4.8 minutes per board · A visible line item, or a unit price that jumps
+500 pcs: 29 seconds per board · Noticeable but tolerable
+5,000 pcs: 2.9 seconds per board · Effectively invisible
+
+That is the entire mechanic. The percentage uplift depends on how much assembly time each board needs: a dense board with two hundred placements dilutes setup faster than a simple one. Which is why a per-board price quoted without knowing the batch size is guesswork.
+
+### What does not explain the gap?
+
+Three things get blamed for small-batch pricing that usually are not the cause:
+
+Suspect: Reality · What to ask instead
+Machine time: Fifty boards may take under an hour on the line; placement time is small at both quantities · What is the actual line time, in hours?
+Component cost: Roughly equal per unit at fifty and at five thousand, unless a reel minimum forces over-buying · Is the material priced at unit cost or at purchased reel quantity?
+Handling: Real work, but linear — it does not produce a multiple · How many handling hours are in the quote?
+
+If a supplier cannot separate fixed cost from variable cost, the small-batch number is not verifiable. Ask for the split.
+
+### How do reel minimums change the number?
+
+This is the item that catches buyers out. A part may only exist in a reel of five thousand. A build of fifty boards using twenty of them consumes one thousand pieces; you buy five thousand, and the balance sits in stock with someone paying for it.
+
+Material policy: Who owns the balance · Best for
+Consigned material: You supply the parts and keep the excess · Expensive or long-lead parts
+Turnkey with a stocking charge: The assembler buys; excess is billed or held for your next run · Repeat builds of the same design
+Partial-reel sourcing: Cut quantities from a distributor or broker · Prototypes, with a provenance question attached
+
+Agree which of these applies, in writing, before the run starts. On a small order the material policy can move the total more than the assembly price does.
+
+### When is a fifty-piece run the cheaper decision?
+
+The comparison is not one-sided. A five-thousand-piece run carries costs a small run avoids:
+
+- Inventory risk. Five thousand boards are five thousand boards. If the design changes or demand does not arrive, the money is already spent.
+- Design lock-in. A small run can be built, tested in the field and revised. The second revision is cheaper than one expensive mistake repeated at volume.
+- Cash cycle. Fifty boards ship and invoice quickly; five thousand tie up working capital for months.
+
+For a product still finding its market, paying more per board to avoid a large commitment is usually the better trade. The mistake is treating a small-batch unit price as directly comparable to a volume price — they answer different questions.
+
+### What we will not put in a quote
+
+- No per-board price for a run size that has not been stated, because the fixed side cannot be allocated without it.
+- No yield or defect-rate percentage attached to a small-batch quote. The variables are the design, the BOM and the stencil — not the batch size.
+- No material price presented as fixed when a reel minimum is what set it. If a reel minimum is driving the number, that line is shown separately.
+
+### How do you make a fifty-piece quote land lower?
+
+Four things move the number, in order of effect:
+
+- Send complete data the first time. Gerber, BOM and centroid in the formats the assembler asked for. A re-quote after a data gap costs a second setup review.
+- Use approved alternates in the BOM. Every proposed substitution needs a check; an approved-alternates column removes most of that work. The BOM substitution checklist (/insights/bom-substitution-checklist.html) lists what actually forces a re-quote.
+- Consolidate part numbers. Two values that could be one reduces feeder positions, which is the dominant setup cost on a high-mix line.
+- Say whether a repeat is coming. A supplier who knows a second build is likely may set up once and keep the programme on file, so the next run does not pay full setup again.
+
+For the wider picture — when a mixed-production model costs more than volume, and when it does not — read what HMLV means in PCBA (/insights/what-is-hmlv-pcba.html). The capabilities page (/capabilities.html) states the volume and timing window this floor runs today, including the fifty-piece minimum and three-day standard lead time.
+
+A fifty-piece run is normal business on a high-mix line. It should be priced as arithmetic, not as a favour.
+
+Last reviewed: 2026-11-17 · Send the BOM and Gerber for a DFM read: WhatsApp (https://wa.me/8617361058693)
+
+---
