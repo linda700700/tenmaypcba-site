@@ -22,9 +22,9 @@ export default function IndustryUseCases() {
             Twelve product families we have built, and why each one fits
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
-            Almost any board fits an 800 × 480 mm panel and a 01005 window, so the real question is which
-            orders suit eight lines, a three-day turnaround and no in-house in-circuit test. Below is the
-            honest ranking, not a list of everything we could technically accept.
+            Almost any board fits an 800 × 480 mm panel and a 01005 window, so the useful question is which
+            orders suit eight lines, a three-day turnaround and a shop without in-circuit test. The three
+            groups below answer that.
           </p>
         </div>
 

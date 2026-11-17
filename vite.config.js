@@ -110,13 +110,14 @@ function routePrerender() {
       // <lastmod> is optional. Stamping every static page with the build date
       // claims the page changed when only the build ran, so pages without a
       // real content date leave it out instead of guessing.
+      // <changefreq> and <priority> are ignored by Google and Bing; they only add
+      // noise to a file a crawler has to parse. <lastmod> stays because it is the
+      // one signal a crawler acts on, and only where a real content date exists.
       const urls = routes
         .map((r) => {
           const lastmod = r.lastmod ? `\n    <lastmod>${r.lastmod}</lastmod>` : '';
           return `  <url>
     <loc>${r.url}</loc>${lastmod}
-    <changefreq>${r.lastmod ? 'yearly' : 'monthly'}</changefreq>
-    <priority>${r.priority}</priority>
   </url>`;
         })
         .join('\n');
