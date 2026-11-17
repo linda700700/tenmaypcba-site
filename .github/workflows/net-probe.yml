@@ -1,0 +1,78 @@
+name: net probe
+
+# Read-only. Answers what the site actually serves and over which edge, from a
+# runner with real internet — the workstation this repo is edited from resolves
+# the domain to a proxy IP, so local checks for this domain are meaningless.
+#
+# Nothing here writes anything. It exists to decide how to fix cache headers.
+on:
+  push:
+    branches: [ops-run]
+    paths:
+      - '.github/workflows/net-probe.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: DNS
+        run: |
+          echo "== apex A =="
+          dig +short A tenmaypcba.com @8.8.8.8 | sort
+          echo "== apex AAAA =="
+          dig +short AAAA tenmaypcba.com @8.8.8.8 | sort
+          echo "== NS =="
+          dig +short NS tenmaypcba.com @8.8.8.8
+          echo "== www =="
+          dig +short CNAME www.tenmaypcba.com @8.8.8.8
+          dig +short A www.tenmaypcba.com @8.8.8.8 | sort
+          echo "== TXT (who verifies the domain) =="
+          dig +short TXT tenmaypcba.com @8.8.8.8 | head -10
+          echo "== CAA =="
+          dig +short CAA tenmaypcba.com @8.8.8.8
+
+      - name: Headers on the real entry document
+        run: |
+          echo "== GET / (headers) =="
+          curl -sS -D - -o /dev/null -m 20 https://tenmaypcba.com/ \
+            -H 'accept-encoding: gzip, br'
+          echo
+          echo "== which asset does / reference =="
+          curl -sS -m 20 https://tenmaypcba.com/ | grep -oE 'assets/index-[A-Za-z0-9_-]+\.(js|css)' | sort -u
+
+      - name: Headers on a hashed asset, a case image, and sitemap
+        run: |
+          JS=$(curl -sS -m 20 https://tenmaypcba.com/ | grep -oE 'assets/index-[A-Za-z0-9_-]+\.js' | head -1)
+          echo "js=$JS"
+          for p in "/$JS" "/assets/index-wzGjPqVp.css" "/assets/images/case-vfd.webp" "/sitemap.xml" "/robots.txt"; do
+            echo "===== $p"
+            curl -sS -D - -o /dev/null -m 20 "https://tenmaypcba.com$p" -H 'accept-encoding: gzip, br' \
+              | grep -iE '^(HTTP/|server:|cache-control:|age:|via:|x-cache|cf-|x-served-by|x-timer|expires:|etag:|content-length:|content-encoding:|vary:)' || true
+            echo
+          done
+
+      - name: Revalidation behaviour (does a 2nd request return 304?)
+        run: |
+          JS=$(curl -sS -m 20 https://tenmaypcba.com/ | grep -oE 'assets/index-[A-Za-z0-9_-]+\.js' | head -1)
+          ET=$(curl -sS -D - -o /dev/null -m 20 "https://tenmaypcba.com/$JS" | awk -F': ' 'tolower($1)=="etag"{print $2}' | tr -d '\r')
+          echo "etag=$ET"
+          curl -sS -o /dev/null -m 20 -w 'conditional GET -> %{http_code}\n' \
+            -H "if-none-match: $ET" "https://tenmaypcba.com/$JS"
+
+      - name: Redirects and TLS
+        run: |
+          echo "== http -> https =="
+          curl -sS -o /dev/null -m 15 -w '%{http_code} -> %{redirect_url}\n' http://tenmaypcba.com/
+          curl -sS -o /dev/null -m 15 -w '%{http_code} -> %{redirect_url}\n' http://www.tenmaypcba.com/
+          echo "== www over https =="
+          curl -sS -o /dev/null -m 20 -w '%{http_code} -> %{redirect_url}\n' https://www.tenmaypcba.com/
+          echo "== certificate =="
+          echo | openssl s_client -servername tenmaypcba.com -connect tenmaypcba.com:443 2>/dev/null \
+            | openssl x509 -noout -issuer -subject -dates 2>/dev/null
