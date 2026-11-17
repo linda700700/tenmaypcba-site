@@ -1,6 +1,6 @@
 # TENMAY — full text of every published note
 
-> 23 notes, latest revision 2026-11-17. Generated from the same Markdown the
+> 31 notes, latest revision 2026-11-17. Generated from the same Markdown the
 > pages are built from, so this file and the site cannot disagree. Every note is reproduced
 > in full, in plain text, with its canonical URL. Index and collections: https://tenmaypcba.com/insights.html
 >
@@ -197,6 +197,69 @@ Last reviewed: 2026-11-17 · Request the record set for an EVSE build: WhatsApp 
 
 ---
 
+## Ordering 50 pieces of PCBA — what is normal, what is not, and how to keep it cheap
+
+Source: https://tenmaypcba.com/insights/fifty-piece-pcba-order.html
+Published: 2026-11-17
+Summary: Below 50 the setup work dominates; above a few thousand a volume plant wins on rate. Inside that band a small-batch specialist makes sense — and the three order models all carry the same minimum.
+
+Fifty pieces is a normal order here, not a favour: the same 50-piece minimum applies to full turnkey, partial turnkey and consigned kit, and there is no tooling charge when the Gerber and BOM revision are unchanged. What makes 50 expensive is not the assembly — it is the stencil, the first article and the reel minimums behind the parts.
+
+### Why 50 is the number
+
+Below 50, setup work dominates: stencil, machine program, feeder kitting, first-article inspection. Each is charged once, so at 20 pieces the setup cost per board is more than double what it is at 50, and no supplier can absorb that.
+
+Above a few thousand, the arithmetic flips the other way: a larger plant with cheaper hourly rates and longer runs starts to win on unit price.
+
+Fifty to a few thousand is the band where a small-batch specialist makes sense. That is why our minimum is 50 and not 5 — and also why we do not pretend to be cheapest at 20,000.
+
+### Three order models, one minimum
+
+: Full turnkey · Partial turnkey · Consigned kit
+You send: Gerber, BOM, centroid · Gerber, BOM, plus the long-lead parts · Gerber, BOM, and the entire kit
+We buy: Bare board, all components · Everything except what you consign · Nothing — assembly only
+Minimum: 50 pcs · 50 pcs · 50 pcs
+Lead time: 3 working days, parts in stock · 3 working days once the kit is complete · 3 working days once the kit is complete
+Best for: A first build, or a team without a purchasing desk · Buyers already holding allocation · Teams with their own component contract
+
+Most factories push you into full turnkey because it is simpler for them. The choice matters because which model is cheaper changes with what you already hold — if you already hold 300 of a long-lead IC on the shelf, consigning it is obviously cheaper; if you have nothing, turnkey is.
+
+If you are unsure, send the BOM. The reply should state which model is cheaper for that specific build, rather than quoting all three and leaving the comparison to you.
+
+### Five things that keep a 50-piece order cheap
+
+- Freeze the revision. No repeat NRE on an unchanged Gerber and BOM revision. A mid-run change re-opens the stencil, the program and the first article.
+- Let the BOM be reviewed before it is priced. Missing manufacturer part numbers, obsolete parts without an approved alternate, and package ambiguity (imperial vs metric "0603") are the three most common causes of a re-quote.
+- Consolidate part numbers where an approved equivalent exists. Every extra part number is another distributor line, and many distributors price a line as well as a part.
+- Ask what the reel minimums are. A part sold only in reels of 3,000 when you need 47 is a real cost, and it is better to see it on the quote than to discover it in the total.
+- Accept the standard lead time if you can. Expediting a 50-piece run usually means paying for someone else's job to be moved, and it is rarely worth it for a pilot build.
+
+### What to send, and in what order
+
+Send in this order — it gets you a faster, more accurate answer:
+
+- BOM with manufacturer part numbers (xlsx or csv) — this is where the delay lives
+- Gerber (RS-274X or ODB++) — or the centroid first if you want panelisation feedback early
+- Centroid / pick-and-place (csv)
+- Quantity, target date, and which order model you are leaning toward
+- Anything unusual: controlled impedance, press-fit, potting, retail packaging, serialisation
+
+A DFM answer and an itemised price should come back within one working day. If it does not, that is information about how the programme will run.
+
+### What a 50-piece order does not get you
+
+Be clear with yourself about the trade:
+
+- Not the lowest unit price. A volume plant will quote lower per board. At 50 pieces you are buying setup attention, not rate.
+- Not full in-house electrical test. We do not run ICT or FCT in the building; fixtures go through a qualified partner and are quoted separately. If your product needs same-day electrical feedback, choose a plant that owns a tester.
+- Not automotive or medical certification. No IATF 16949, no ISO 13485, no third-party IPC Class 3. Workmanship follows IPC-A-610 at the class agreed on the order.
+
+Saying this before you send files costs us enquiries. It saves the ones where 50 pieces, three days and no ICT is exactly right.
+
+The cost mechanics behind these five points are set out in what is inside a PCBA price (/insights/pcba-cost-per-board.html). If your worry is the parts rather than the assembly, the BOM substitution checklist (/insights/bom-substitution-checklist.html) covers what an approved alternate has to record.
+
+---
+
 ## Buy a certified HMI module, or assemble the board yourself?
 
 Source: https://tenmaypcba.com/insights/hmi-module-or-bare-board.html
@@ -259,6 +322,67 @@ Buy the module when the certificate is what you are selling. Assemble the board 
 On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
 
 Last reviewed: 2026-11-17 · Discuss an isolated I/O board: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## What to do when your PCBA supplier does not run in-circuit test
+
+Source: https://tenmaypcba.com/insights/in-circuit-test-outsourcing.html
+Published: 2026-11-17
+Summary: Outsourcing the test step is workable if the fixture, the program and the per-serial record are all specified in writing. What you lose is same-day feedback; what you must never accept is a visual check standing in for electrical proof.
+
+If your assembler does not run in-circuit test, the fixture still has to exist somewhere. The workable arrangement is a test partner who builds the fixture, runs the program and reports per serial number, managed by the assembler as one line on the quote. What you lose is same-day feedback. What you keep is a documented electrical record. What you must not accept is "we check it visually" standing in for electrical proof.
+
+### Why ICT decides which assemblers can even quote
+
+Two plants with identical placement equipment are not interchangeable the moment your BOM requires electrical test. In-circuit test needs a bed-of-nails fixture, a program derived from your netlist, and a tester — capital and engineering that a placement-focused plant often does not carry.
+
+So the honest first question is not "how good are your lines" but "who owns my test step". If the answer is "nobody, we just don't do it", you are not buying an assembly service, you are buying half of one.
+
+### Three arrangements, and what each one actually costs you
+
+Arrangement: What it looks like · You gain · You lose
+In-house ICT at the assembler: Fixture and program built and run on the same site · Same-day feedback, one PO, one schedule · Higher unit price; smaller plants rarely offer it
+Partner test, managed by the assembler: Fixture built by a qualified test house, run there, results returned per serial, quoted as its own line · One commercial contact; test record still documented; assembly keeps its 50-piece minimum · Boards travel once more; feedback is hours-to-a-day, not immediate
+Test at your own plant or your ODM: Boards ship untested electrically · Full control of test coverage and data · You carry freight, re-test logistics and the cost of catching defects late
+
+There is no fourth option. A visual-only release is not a test arrangement; it is an absence.
+
+### How to specify the partner arrangement in a purchase order
+
+When the test step is outsourced, the risk moves into the wording. Four clauses make the difference:
+
+- Fixture ownership. State who owns the fixture and where it is stored. Owning it yourself is what makes a second source possible later.
+- Program source. The test program derives from your netlist. Require it delivered to you, with the revision it was built against.
+- Record format. Results per serial, not a pass/fail count. Ask for the columns before the first lot, not after.
+- Failure handling. What happens to a board that fails — reworked how, logged where, re-tested by whom. A batch-level "reworked" note is not a record.
+
+### What records to demand
+
+For each lot, four documents. If any is missing, the test did not happen in any auditable sense:
+
+- First-article result with the fixture ID and program revision
+- Per-serial results file for the full lot
+- Failure log with the disposition of every failed board
+- The calibration status of the tester used, dated inside the lot window
+
+### When ICT is genuinely unnecessary
+
+ICT is not a virtue in itself. It is worth its cost when a fault is expensive to find later and cheap to find now.
+
+- Skip it when the board is simple, the batch is small, and a functional check at your own bench catches what matters. A 50-piece run of a keypad board rarely justifies a fixture.
+- Skip it when your product's real pass criteria live in firmware and mechanics, not in net continuity. A VFD is the clearest case: the drive's load test belongs with the drive builder, whose firmware defines pass and fail.
+- Never skip it when the board is dense, double-sided, 01005 with 0.3 mm pitch, and the failure mode is an intermittent that only shows up in the field. On a robot vacuum mainboard, ICT is usually the requirement that decides which assemblers can quote at all.
+
+That last point is why our own capability page states plainly that in-circuit and functional test are not run in-house. It costs us enquiries from buyers who need one roof. It saves the ones who would have found out at the tooling stage.
+
+### What we do instead, here
+
+Solder joints are covered inside the building: in-line 3D SPI before placement, AOI after reflow on every board, X-ray on BGA, QFN and power-device joints read by an operator rather than a green light, with images filed against the lot. Thickness, warpage and finish are checked on incoming bare boards. Every first article is photographed and filed.
+
+What is not covered inside the building is electrical proof of function. That runs through a qualified test partner, coordinated by us, quoted as a separate line. We say so at quotation, not at shipment.
+
+Table 03 on capabilities.html (/capabilities.html) lists what each inspection step proves and where it stops. For the general shape of the problem, what AOI and X-ray still cannot catch (/insights/what-aoi-xray-cannot-catch.html) is the companion note.
 
 ---
 
@@ -392,6 +516,81 @@ Last reviewed: 2026-11-17 · Ask for a driver quote with the process shown: What
 
 ---
 
+## Do you need IATF 16949 for an automotive aftermarket part?
+
+Source: https://tenmaypcba.com/insights/no-iatf-16949.html
+Published: 2026-11-17
+Summary: A 12 V retail accessory is a consumer product and does not need IATF 16949. A replacement part sold into the vehicle service chain increasingly does. The difference decides whether the certificate is a requirement or paperwork.
+
+IATF 16949 applies to sites that manufacture production, service or accessory parts for vehicle manufacturers. A 12 V accessory sold at retail — a jump starter, a dashcam, a parking sensor — is a consumer product and does not require it. We do not hold IATF 16949, and for aftermarket 12 V work that is not a gap. It becomes a gap the moment your board carries a PPAP obligation inside a vehicle programme.
+
+### What IATF 16949 actually covers
+
+IATF 16949 is a quality management system standard for automotive production and relevant service parts. It is written for sites — a plant, an address, a scope — not for a company in the abstract. The certificate names the site and the scope, and work outside that scope is not certified even if the same company performs it.
+
+Two consequences that matter at quotation stage:
+
+- A certificate whose holder name differs from the company you are paying does not automatically certify your supplier. Check the holder, the address and the scope, in that order.
+- A certificate for bare-board fabrication does not cover assembly. If your supplier fabricates and does not assemble, the certificate says nothing about the step you are buying.
+
+### Where a 12 V retail accessory sits
+
+The dividing line is not "car-related" or "not car-related". It is whether the part is built to a vehicle manufacturer's specification and enters their production or service chain.
+
+Product: Built to OEM spec? · Enters OEM chain? · IATF 16949 expected?
+Control board inside a new vehicle: Yes · Yes · Yes — supplier is inside the chain
+Replacement module sold for vehicle repair: Often yes · Yes, as a service part · Increasingly yes — see the note below
+12 V jump starter sold in retail: No · No · No
+Dashcam, parking sensor, LED headlight driver sold as accessories: No · No · No
+EVSE control board for a charging point: Depends on the buyer · Depends · Check with the buyer, not with us
+
+A note on aftermarket replacement parts. The scheme rules moved. IATF's Rules 6th Edition, published in December 2024, confirmed that organisations producing parts that replace original parts on a vehicle are eligible for IATF 16949 certification, and certification-body guidance since then states that those aftermarket processes must be fully inside the certification scope by 1 January 2028. If your product is a replacement part for vehicle repair rather than a retail accessory that never gets installed on a vehicle, treat this as a live question and confirm the current position with your customer and your certification body. This page explains scope; it is not legal advice and it is not a substitute for the standard itself.
+
+### Three questions that tell you which side you are on
+
+- Does your customer name IATF 16949 in the purchase order? If yes, the decision is already made — you need a supplier who holds it, whatever the technical merit.
+- Is your board's failure mode a vehicle safety event, or a disappointed end user? A jump starter that fails is a return. A brake controller that fails is a recall. The paperwork follows the consequence.
+- Will a vehicle manufacturer or a Tier 1 ever audit the plant that builds your board? If nobody upstream will ever ask for PPAP, the certification is buying you a document nobody requests.
+
+Answer all three "no" and you are outside the scope that matters, whatever the product category suggests.
+
+### What we hold, and what we do not
+
+Item: Status · What it means in practice
+ISO 9001: Held — certificate 38822Q00487R0S (38822Q00487R0S), scope: processing and assembly of digital electronics · Quality system audited at the plant
+IATF 16949: Not held · We are not a Tier supplier inside a vehicle programme
+ISO 13485: Not held · Medical device validation is not supported
+Third-party IPC Class 3: Not held · Workmanship follows IPC-A-610 at the class agreed on the order
+In-house ICT / FCT: Not available · Fixtures and programs run through a qualified test partner
+Bare-board fabrication: Not available · Boards come from partner fabs, inspected on arrival
+
+The ISO certificate is issued to Shenzhen Tengmei Technology Co., Ltd., which is the pinyin romanisation of the registered Chinese name of the entity trading as TENMAY. The unified social credit code 91440300670000384N resolves the link without relying on the spelling of the English name.
+
+### What to ask a supplier who claims IATF 16949
+
+Four questions, in this order, and ask for documents rather than assurances:
+
+- Who is the certificate holder, exactly? Compare it with the entity on your proforma invoice. Different names are the single most common finding.
+- What is the scope wording? "Manufacture of printed circuit boards" and "assembly of electronic assemblies" are different scopes.
+- Which site does it cover? A group certificate and a plant address are not the same thing.
+- Is it current, and who accredited the body? Ask for the certificate PDF and check the expiry and the accreditation mark.
+
+A supplier who answers all four in writing within a day is either certified or well organised. A supplier who sends a photo of a framed certificate has told you nothing.
+
+### When to walk away from us
+
+Say it plainly, because it saves both sides a month:
+
+- Your programme requires PPAP submission and a supplier registered to IATF 16949 → we are the wrong plant, and we will say so at quotation rather than after tooling.
+- Your device needs ISO 13485 validation → same answer.
+- Your board needs in-circuit and functional test at the assembler, with same-day feedback → we coordinate test through a partner; if you need it under one roof, choose a plant that runs it in-house.
+
+What we do have is an assembly floor sized for 50 to 5,000 pieces: eight Yamaha YSM20/YSM10 lines, 01005 to 0.30 mm pitch, 800 × 480 mm boards, in-line SPI, AOI and X-ray, conformal coating, through-hole and box build in one building, three working days from kitted parts.
+
+The same boundary list, written as a table you can check, is on company.html (/company.html). The process limits behind those numbers are on capabilities.html (/capabilities.html).
+
+---
+
 ## Potting before test turns a defect into scrap
 
 Source: https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html
@@ -460,6 +659,72 @@ Last reviewed: 2026-11-17 · Discuss a potted board build: WhatsApp (https://wa.
 
 ---
 
+## What is inside a PCBA price — the five lines, and which ones move with quantity
+
+Source: https://tenmaypcba.com/insights/pcba-cost-per-board.html
+Published: 2026-11-17
+Summary: Bare board, component pass-through, placement points, tooling and testing. Four of the five behave completely differently when you negotiate, which is why a collapsed total cannot be audited.
+
+A PCBA price has five parts: bare-board fabrication, component pass-through, placement points × rate, tooling and NRE, and testing. Only two of the five genuinely scale with quantity, and one of them is not the assembly. That is why a 50-piece run costs more per board than a 5,000-piece run without anyone overcharging you.
+
+### The five lines
+
+#: Line · Driven by · Scales with quantity?
+1: Bare-board fabrication · Layer count, material, copper weight, board size, surface finish · Partly — panel utilisation improves, but fab has its own minimums
+2: Component pass-through · Your BOM, at distributor prices on the quoting date · Weakly — reel and order-multiple minimums dominate small batches
+3: Placement points × rate · Number of placements, fine-pitch content, through-hole content · Yes — rate steps down as batch volume rises
+4: Tooling and NRE · Stencil, machine program, fixture, panelisation · No — fixed per job, per revision
+5: Testing and QA · Inspection coverage, programming cycles, fixture-based test · Partly — test time per board is roughly constant
+
+A quote that collapses these into one number cannot be audited. You cannot tell whether a difference came from the board, the parts, the placement rate or the setup — and those four have completely different negotiating dynamics.
+
+### Which costs are fixed per job, and why that matters at small volume
+
+Four things are charged once, whatever the batch size:
+
+- Stencil — laser-cut, per revision. Changes when the paste layer changes.
+- Machine program and feeder setup — per product, per revision.
+- First-article inspection — a real cost in engineering time, not a formality.
+- Panelisation and tooling — agreed at DFM, fixed for the revision.
+
+Divide four fixed costs by 50 and each board carries a hundred times the setup of a 5,000-piece run. Divide them by 5,000 and they almost disappear. Nothing about the assembly itself changed.
+
+This is the honest explanation of why small batches cost more per board — and it is also why no repeat NRE on an unchanged Gerber and BOM revision is worth more than a few percent off the unit rate. On a reorder, line 4 goes to zero. On a first order, it does not.
+
+### Where reel minimums break the arithmetic
+
+The most under-estimated line is components. Two mechanisms:
+
+- Reel and order multiples. A part may only be sold in a reel of 3,000. You need 47. You buy 3,000, or you buy the reel minimum the distributor offers. The unused remainder is either stocked for you or lost.
+- Line-item minimums per part number. Many distributors price a line, not just a part. A BOM with 180 part numbers has 180 chances to hit a minimum.
+
+Which is why a BOM review matters before the quote, not after: consolidating to approved equivalents, and flagging long-lead or end-of-life parts early, changes the numbers more than negotiating the placement rate usually does.
+
+### What a quote should show to be checkable
+
+Six things. If a quote is missing more than two, treat the total as an estimate rather than a price:
+
+- Bare board broken out with layer count, material and finish
+- BOM line by line, with the distributor and the price used on the quoting date
+- Placement points counted, not estimated, with fine-pitch and through-hole content shown
+- Tooling and NRE as its own line, with what it covers and whether it recurs
+- Test scope named — what is inspected, what is electrically tested, and by whom
+- Assumptions written down — quantity, revision, lead time basis, what is excluded
+
+The last one is the one buyers skip, and it is the one that causes the argument later. "Lead time three days" means nothing until it says from kitted parts, and separately states the component lead time.
+
+### How we quote, as a worked example of the structure
+
+Every quotation we send is itemised against those five lines, with the BOM showing the distributor and the unit price used on the day of quoting. Parts are bought through franchised channels or factory allocation where the part requires it. Shortage lists go out within 24 hours, and no substitution happens without written approval.
+
+Reorders with an unchanged Gerber and BOM revision carry no repeat NRE. Lead time is stated as three working days from kitted parts, with component lead time called out separately, because that is usually what sets the real shipping date.
+
+If a part can be bought cheaper on the same terms and date, the quote is reworked before the order is placed. That is a checkable promise: you can compare the BOM line against a distributor price yourself.
+
+This note explains price structure, not price levels — those move with quantity, parts and date, and a number printed here would be wrong by the time you read it. For why the fixed lines hurt most at small volume, see why a fifty-piece run costs what it does (/insights/fifty-piece-run-cost.html). For how to order at that size without paying for avoidable work, see ordering fifty pieces of PCBA (/insights/fifty-piece-pcba-order.html).
+
+---
+
 ## What a PCBA quote should contain — and what a bare number leaves out
 
 Source: https://tenmaypcba.com/insights/pcba-quote-what-it-should-contain.html
@@ -504,6 +769,78 @@ If a quote arrives as one number, the fastest useful reply is not a request for 
 ### What we put in a quote
 
 We quote assembly, setup and inspection as separate lines, state whether the components are ours or yours, name the distributor when the part is critical, and say plainly when a test is not run here. On a family page, the panel headed where we are the wrong shop exists for the same reason: a quote that hides a mismatch costs both sides a month.
+
+---
+
+## How to audit a PCBA supplier in China without visiting the factory
+
+Source: https://tenmaypcba.com/insights/pcba-supplier-audit-checklist.html
+Published: 2026-11-17
+Summary: If the ISO certificate holder and the bank beneficiary are different companies, you are talking to a trading company. That single mismatch settles more cases than any site visit.
+
+Audit five documents before you audit the building: the business licence, the ISO certificate holder name, the bank beneficiary on the proforma invoice, the facility address and the process limits stated as numbers. If the certificate holder and the bank beneficiary are different companies, you are talking to a trading company — that single mismatch settles more cases than any site visit.
+
+### Check 1 — The licence, then the beneficiary
+
+Two documents, one question: does the company you are paying own the plant you are buying from?
+
+Ask for the business licence (营业执照) and read the 统一社会信用代码 — the unified social credit code — along with the registered name and the registered address. Then look at the beneficiary on the proforma invoice. If the beneficiary is a Hong Kong or offshore entity nobody mentioned, stop before any payment and ask why. Payment to a personal account, to a different Chinese company, or to an offshore entity introduced at the last minute is the most common way buyers lose deposits.
+
+Legitimate structures exist: separate trading arms, HK collection entities, group invoicing. But a legitimate structure is explained before you ask, in writing, with the relationship documented.
+
+### Check 2 — The certificate holder, not the certificate
+
+A framed ISO 9001 on the factory wall proves nothing. Four things make a certificate checkable:
+
+- Who is the holder? Compare with the entity on your invoice.
+- What is the scope wording? "Manufacture of printed circuit boards" and "assembly of electronic assemblies" are different scopes.
+- Which site does it cover? A group certificate and a plant address are not the same thing.
+- Is it current, and who accredited the body? Ask for the PDF; check expiry and the accreditation mark.
+
+A worked example, from our own file. The ISO 9001 certificate 38822Q00487R0S is held by Shenzhen Tengmei Technology Co., Ltd. Our registered name is 深圳腾镁科技有限公司 and our English trading name is Shenzhen Tenmay Technology Co., Ltd. Three spellings, one entity — the certificate name is the pinyin romanisation of the registered Chinese name. The unified social credit code 91440300670000384N is what resolves it, not the spelling. Any auditor who cannot explain a name mismatch should be treated as a finding, not a detail.
+
+### Check 3 — Process limits stated as numbers
+
+A supplier who answers capability questions with adjectives is telling you they have not measured. Ask for the numbers, then check them against your design:
+
+Question: A number, not an adjective
+Finest passive you place: 01005 (0.4 × 0.2 mm)
+Finest IC pitch: 0.30 mm
+Largest board: 800 × 480 mm
+Daily placement capacity: 300,000 points per day across 8 lines
+Minimum order: 50 pcs, same for all three order models
+Standard lead time: 3 working days from kitted parts
+Workmanship reference: IPC-A-610, class agreed per order
+
+Then the second half of the audit — the numbers they do not have:
+
+Question: Our answer
+In-house in-circuit test: No — fixtures run through a qualified partner
+In-house bare-board fabrication: No — boards from partner fabs, inspected on arrival
+IATF 16949 / ISO 13485: No
+Third-party IPC Class 3: No
+
+A supplier who can answer the second table as precisely as the first is either honest or unusually well prepared. Both are good signs.
+
+### Check 4 — Questions that cannot be pre-prepared
+
+These four have no scripted answer, because the answer depends on your files:
+
+- "Open my Gerber and tell me what will not run on your line." A real process engineer names a specific aperture, clearance or panelisation issue within a day. A salesperson says "no problem".
+- "What is the first article process for a board at my pitch, and who signs it off?" Look for a role, a document and a photo, not a promise.
+- "Show me the last lot record you shipped." Redacted is fine. Nothing to show is not.
+- "What did you turn down last month, and why?" If the answer is "nothing", the supplier is either new or not paying attention.
+
+### Check 5 — The record set you should demand per lot
+
+Four documents. If any is missing, the process did not happen in an auditable sense:
+
+- First-article result, with the fixture or stencil ID and the revision it was built against
+- Per-serial or per-lot inspection result — AOI/X-ray images attached, not just pass/fail
+- Failure log with disposition of every failed board
+- Certificate of conformance, with the quantity, the revision and the shipment date
+
+The full boundary list this plant publishes — the four things we do not hold — is on company.html (/company.html), and the numbers in Check 3 are on capabilities.html (/capabilities.html). If you want the same checks done by camera instead of on paper, the companion note is a remote factory audit that proves something (/insights/virtual-factory-audit.html).
 
 ---
 
@@ -698,6 +1035,89 @@ Last reviewed: 2026-11-17 · Review a drive board stack: WhatsApp (https://wa.me
 
 ---
 
+## Finding a real PCBA factory in Shenzhen, when half of them are trading offices
+
+Source: https://tenmaypcba.com/insights/shenzhen-pcba-factory-guide.html
+Published: 2026-11-17
+Summary: A trading company is not automatically a problem. Quoting as a factory when you are not one is. Three checks separate the two, and none of them needs a flight.
+
+Shenzhen assembles a large share of the world's electronics, and a meaningful share of the companies presenting themselves as factories are trading offices with a shop floor they visit. Three checks settle it in under an hour: does the ISO certificate name match the company you are paying, can they state a process limit as a number, and will they show you the line on a live call without a day's notice.
+
+### Why the trading company exists at all
+
+It is worth saying first: a trading company is not automatically a problem. A good one consolidates suppliers, handles documentation and saves you a factory relationship you do not have the volume for. Plenty of buyers are better served by one.
+
+The problem is not knowing which one you are talking to, because the two carry different risks:
+
+: Real factory · Trading office
+Process changes: Decided on their floor; you can see the limit · Negotiated with a third party you never meet
+Quality escapes: Traceable to a lot record they own · Traceable to a supplier who may deny it
+Price movement: Component and rate mechanics visible · Margin absorbs the movement, opacity increases
+Capacity claim: "8 lines, of which 2 are free next week" · "We have partner factories"
+
+Neither column is dishonest by itself. The failure mode is a trading office quoting as a factory: you buy on the assumption of control that does not exist.
+
+### Check 1 — Certificate name vs company you pay
+
+This is the fastest test and the one most often skipped.
+
+Take the ISO certificate and the proforma invoice, and read the holder name and the beneficiary name side by side. Same name, same entity — good. Different names, ask why in writing, before payment.
+
+Legitimate reasons exist: a Hong Kong collection entity, a group structure, a name romanised differently on the certificate. We are an example of the last one: our certificate is issued to Shenzhen Tengmei Technology Co., Ltd., our registered name is 深圳腾镁科技有限公司, and our English trading name is Shenzhen Tenmay Technology Co., Ltd. The unified social credit code 91440300670000384N is what links all three — and we publish the mapping so nobody has to take it on faith.
+
+The illegitimate version is a beneficiary that appears at the last minute, is offshore, or is a personal account. That is where deposits disappear.
+
+### Check 2 — Can they state a process limit as a number?
+
+Ask three questions and listen for numbers:
+
+- "What is your finest IC pitch?" → 0.30 mm is an answer; "fine pitch capable" is not.
+- "What is the largest board you place?" → 800 × 480 mm is an answer.
+- "What is your daily placement capacity?" → 300,000 points per day across eight lines is an answer, and it is checkable against the machine count.
+
+A trading office can repeat marketing numbers. What a trading office cannot do is assign the work to a line, a machine and a shift. So follow up: "Which line would this board run on, and what else is booked on it that week?" The answer either refers to their own schedule or it does not.
+
+### Check 3 — The unannounced live call
+
+Not a video they sent you. A call you schedule, where you choose the targets while the camera is walking.
+
+Ask to see:
+
+- The X-ray station, with someone reading an image on screen
+- The SPI screen showing the job currently on the line
+- The feeder cart for a live job, with a reel barcode visible
+- A lot record for the batch on the floor, opened in front of you
+- The coating booth, with masking prepared for a real board
+
+None of these can be improvised in five minutes in an office. All of them can be shown in a factory that is actually running.
+
+### What Shenzhen does not give you
+
+Say the limits out loud, because geography is not a capability:
+
+- Certification is not implied by location. Shenzhen has plants at every level, from one manual bench to fully automated. The address tells you nothing about the certificate.
+- Not every board should be built here. If your programme needs IATF 16949 inside a vehicle chain, ISO 13485 for a medical device, or in-circuit test under the assembly roof, choose a plant that holds those — including if that plant is not us.
+- Cheap quotes at high volume are a different business. Above a few thousand pieces a month, a larger plant's hourly rate usually beats a small-batch specialist. That is arithmetic, not loyalty.
+
+### What we publish, so you can check it against the list above
+
+Check: Our published answer
+Legal identity: 深圳腾镁科技有限公司 · USCC 91440300670000384N · trading as TENMAY
+Certificate: ISO 9001, 38822Q00487R0S, holder name Shenzhen Tengmei Technology Co., Ltd.
+Finest pitch: 0.30 mm · finest passive 01005 (0.4 × 0.2 mm)
+Largest board: 800 × 480 mm, double-sided
+Capacity: 8 × Yamaha YSM20/YSM10, 300,000 points per day
+Minimum order: 50 pcs, same for turnkey, partial turnkey and consigned kit
+Lead time: 3 working days from kitted parts
+Not held: IATF 16949 · ISO 13485 · third-party IPC Class 3 · in-house ICT/FCT · bare-board fabrication
+Live audit: Available on request, unscripted, targets chosen by you
+
+If any line here does not match what you see on a call, treat that as the most important data point in the whole exercise.
+
+The document checks in this note are compressed into a checklist on the supplier audit page (/insights/pcba-supplier-audit-checklist.html); the camera checks are expanded on a remote audit that proves something (/insights/virtual-factory-audit.html). The entity record itself sits on company.html (/company.html).
+
+---
+
 ## The 800 mm board is not the hard part of a treadmill build
 
 Source: https://tenmaypcba.com/insights/treadmill-large-board-mechanics.html
@@ -823,6 +1243,156 @@ Ask for the set price. Then ask what the second order costs. The two numbers tog
 On an unchanged revision the standard build here is 3 days from kitted parts, which is the number to plan a reorder against rather than a promise about component lead time.
 
 Last reviewed: 2026-11-17 · Send a drive board set for quoting: WhatsApp (https://wa.me/8617361058693)
+
+---
+
+## A remote factory audit that actually proves something
+
+Source: https://tenmaypcba.com/insights/virtual-factory-audit.html
+Published: 2026-11-17
+Summary: A prepared video tour cannot prove the lot on the line is yours. An unscripted live call can prove the equipment, the people and the records are real — which is most of what a site visit buys you.
+
+A remote audit works if it is unscripted: you schedule the call, you name the stations while the camera is walking, and nobody gets a day's notice about the route. What a prepared video tour cannot prove is that the lot on the line is yours — so ask for the job traveller and the first-article photo to be shown on camera, with the revision visible.
+
+### What a live call can prove, and what it cannot
+
+Can prove:
+
+- The equipment exists, is powered, and matches the capability claim (machine model readable on the frame)
+- People are where the process says they should be, and they are doing the work described
+- Materials, reels and boards are physically present in the stated condition
+- A record can be produced and opened live, rather than described
+
+Cannot prove:
+
+- That the lot on the line is your lot
+- That the process on that particular shift is the process on every shift
+- That the yield figure someone quotes you is real
+- That the plant will still be running your programme in eighteen months
+
+Be honest with yourself about the boundary: a remote audit reduces risk, it does not certify a supplier. It is far better than nothing and considerably weaker than standing on the floor.
+
+### The five things to ask the camera to show
+
+Choose them while on the call. In this order, because each one depends on the previous being real:
+
+#: Ask for · What a fake looks like
+1: Walk to the X-ray station — is someone reading an image on screen? · A machine visible, no operator, no screen lit, or a still image
+2: The SPI screen with the job currently on the line · A generic dashboard, or "we can't show that"
+3: The feeder cart for a live job, with a reel barcode visible · Reels present but no link to a program or a revision
+4: The lot record for the batch on the floor, opened live · A template, a blank form, or a photo of a printed sheet
+5: The coating booth, with masking prepared for a real board · A booth, no work in progress, no masking fixtures
+
+The pattern to watch for is not "no". It is "that station is not running today" repeated five times. Any single station can legitimately be idle. All five cannot.
+
+### Records to have emailed during the call
+
+Ask for these to be sent while you are still on the line — it tests responsiveness and keeps the audit from turning into a promise:
+
+- First-article report for a lot comparable to yours, with the revision it was built against
+- AOI or X-ray images from that lot, filed against the lot number
+- Incoming bare-board inspection record — thickness, warpage, finish, panel markings
+- Component incoming check — part number, quantity, date code, packaging integrity
+- Certificate of conformance as issued with a shipment
+
+If the answer is "we will send it after the call", note how many days it takes. That turnaround is a preview of how the programme will run.
+
+### Red flags on a prepared tour
+
+- A route that never leaves one aisle. Eight lines cannot all be visible from one walkway.
+- Nobody working at the machine being shown. Ask why, and listen for whether the answer names a real production condition.
+- A supervisor who answers every technical question and no operator who speaks. The line knows things the office does not.
+- Reels with no labels, or labels facing away. Reel-to-program binding is a real control; a tour that avoids it is avoiding the question.
+- Reluctance about the X-ray screen specifically. X-ray is where voiding and head-in-pillow are read. It is also where a plant without a real inspection habit gets exposed.
+- "Our engineer is not available." Then reschedule with the engineer. Do not proceed on a sales call.
+
+### What to do after the call
+
+Three things, same day, while it is fresh:
+
+- Write down what you saw as facts and what you inferred separately. The gap between them is your residual risk.
+- Send a short list of follow-up questions — the ones the call raised. Speed and specificity of the reply is a second data point about the supplier.
+- Ask for one photo of a finished lot, packing stage, with the label visible. It is a cheap test of whether photos actually get taken on that floor.
+
+### How we run this
+
+You pick the targets, we walk. No route is sent in advance and no station is pre-lit for the call. Typical things buyers ask for here: the X-ray screen with a BGA on it, the SPI result for the job running, the feeder cart with the reel barcode, the coating booth with masking in place, and the lot record for the batch on the floor.
+
+Also on camera if you ask: a first-article photo from a past lot, the incoming bare-board check, and the machine program bound to a revision.
+
+What we will say on the call, before you ask: in-circuit and functional test are not in the building, bare boards are bought rather than fabricated, and IATF 16949 / ISO 13485 / third-party IPC Class 3 are not held. If any of those is a requirement for your programme, the call has still been worth it — you found out in twenty minutes instead of at tooling.
+
+The document half of the audit is on the supplier audit checklist (/insights/pcba-supplier-audit-checklist.html); the question of whether the supplier is a factory at all is on finding a real PCBA factory in Shenzhen (/insights/shenzhen-pcba-factory-guide.html). The "not held" list we read out on these calls is published on company.html (/company.html).
+
+---
+
+## What is PCBA? PCB vs PCBA, and what the extra letter buys you
+
+Source: https://tenmaypcba.com/insights/what-is-pcba.html
+Published: 2026-11-17
+Summary: PCB is copper, mask and silkscreen with no parts. PCBA is the board plus components, soldered and inspected. The distinction decides who can quote you and which half of the job you are buying.
+
+PCBA means printed circuit board assembly: a bare PCB with the components soldered onto it, inspected, and ready to install. PCB is the bare board on its own — copper, mask and silkscreen with no parts. A PCBA supplier therefore buys or is given bare boards and adds the assembly step, which is exactly the split we work in: bare boards from partner fabs, everything after that in our Shenzhen plant.
+
+### The three-letter difference, stated plainly
+
+Term: What it is · Who makes it
+PCB: The bare board: substrate, copper traces, solder mask, surface finish. No components. · A PCB fabricator (a "board house")
+PCBA: That board plus components, soldered and inspected. A functional assembly. · A PCBA contract manufacturer (an "assembly house", an EMS provider)
+SMT: One of the processes used to make a PCBA — surface-mount technology, parts placed and reflowed on the surface. · The same assembly house
+
+The confusion is not cosmetic. It decides who can quote you: a board house cannot assemble, and an assembly house that does not fabricate must buy the bare board from someone. When a supplier says "we do PCB and PCBA", ask which of the two happens in their building.
+
+### What an actual PCBA order contains
+
+Assembly starts from three files. Everything else is a refinement:
+
+File: What it tells the factory
+Gerber (RS-274X or ODB++): The physical board — copper, mask, paste layers, panelisation
+BOM with manufacturer part numbers: What to buy, in what package, per reference designator
+Centroid / pick-and-place: Where each part goes, at what rotation, on which side
+
+Useful additions: stackup drawing for controlled impedance, test-point list, firmware binary, and any approved alternates. A quote built without a BOM is a guess about material cost, and material is usually the largest line on it.
+
+### Which processes count as part of PCBA
+
+A full-scope assembly house covers all of these in one building. Many cover only the first two:
+
+- Solder paste printing and 3D SPI (paste volume, height, area, offset)
+- SMT placement and reflow
+- AOI after reflow, and X-ray on BGA/QFN joints that optics cannot see
+- Through-hole insertion and wave or selective soldering
+- Hand and post soldering for connectors, shields and heavy terminals
+- Conformal coating, potting and underfill
+- Depanelling and device programming with checksum binding
+- Box build, harness, kitting and retail packing
+
+Ask which of the eight happen on site. "We do turnkey" is not an answer to that question.
+
+### What PCBA does not include
+
+Two things are routinely assumed and routinely wrong:
+
+- Bare-board fabrication. Many assembly houses, including ours, do not fabricate. Boards are purchased from qualified partner fabs and inspected on arrival. That is a supply choice, not a quality shortcut — but you should know which model you are buying.
+- Electrical test. SPI, AOI and X-ray prove that solder joints are formed correctly. They do not prove the board works. In-circuit test (ICT) and functional test (FCT) are a separate purchase, and a plant can legitimately be excellent at assembly and not own a tester.
+
+If a supplier's answer to "do you test it?" is "we inspect 100%", they have answered a different question.
+
+### How to tell an assembly house from a PCB house in one minute
+
+Three questions, in this order:
+
+- "Do you fabricate the bare board, or buy it?" Either answer can be fine. An unclear answer is not.
+- "What is your finest placement pitch, on which machine, on which line?" A capability claim without a machine and a line assignment is marketing.
+- "Which operations in your process are subcontracted?" Every plant subcontracts something. A plant that says "nothing" is not answering.
+
+### Where we sit in this split
+
+We are an assembly house, not a PCB fabricator, and we say so first. Eight Yamaha YSM20/YSM10 lines, 01005 to 0.30 mm pitch, boards to 800 × 480 mm double-sided, in-line 3D SPI, AOI and X-ray on every shift, with through-hole, selective solder, conformal coating, programming and box build in the same building. Minimum order 50 pieces, three working days from kitted parts.
+
+Bare boards come from qualified partner fabs. In-circuit and functional test are not in the building — they run through a qualified partner and are quoted as their own line. Both facts are on capabilities.html (/capabilities.html), because a buyer who finds out at tooling stage has been misled by omission.
+
+The step-by-step version of the process is on assembly.html (/assembly.html). If your next question is what the assembly step costs, what is inside a PCBA price (/insights/pcba-cost-per-board.html) breaks it into five lines.
 
 ---
 

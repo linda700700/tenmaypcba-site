@@ -147,7 +147,19 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://tenmaypcba.com/insights/fifty-piece-pcba-order.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://tenmaypcba.com/insights/hmi-module-or-bare-board.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tenmaypcba.com/insights/in-circuit-test-outsourcing.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
@@ -165,13 +177,31 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://tenmaypcba.com/insights/no-iatf-16949.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://tenmaypcba.com/insights/pcba-cost-per-board.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://tenmaypcba.com/insights/pcba-quote-what-it-should-contain.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tenmaypcba.com/insights/pcba-supplier-audit-checklist.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>
@@ -195,6 +225,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://tenmaypcba.com/insights/shenzhen-pcba-factory-guide.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://tenmaypcba.com/insights/treadmill-large-board-mechanics.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>yearly</changefreq>
@@ -202,6 +238,18 @@
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/vfd-three-boards-one-quote.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tenmaypcba.com/insights/virtual-factory-audit.html</loc>
+    <lastmod>2026-11-17</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://tenmaypcba.com/insights/what-is-pcba.html</loc>
     <lastmod>2026-11-17</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.6</priority>

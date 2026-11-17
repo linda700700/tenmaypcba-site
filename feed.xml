@@ -50,11 +50,25 @@
       <description>On a charging point the certification depends on the build being repeatable, so the audit asks for records rather than capability. Here is the file to demand.</description>
     </item>
     <item>
+      <title>Ordering 50 pieces of PCBA — what is normal, what is not, and how to keep it cheap</title>
+      <link>https://tenmaypcba.com/insights/fifty-piece-pcba-order.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/fifty-piece-pcba-order.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Fifty pieces is a normal order, not a favour. The same minimum applies to turnkey, partial turnkey and consigned kit. What makes 50 expensive is setup.</description>
+    </item>
+    <item>
       <title>Buy a certified HMI module, or assemble the board yourself?</title>
       <link>https://tenmaypcba.com/insights/hmi-module-or-bare-board.html</link>
       <guid isPermaLink="true">https://tenmaypcba.com/insights/hmi-module-or-bare-board.html</guid>
       <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
       <description>A module arrives with its isolation certified; a bare board leaves the barrier to you. The choice decides who answers for a field fault.</description>
+    </item>
+    <item>
+      <title>What to do when your PCBA supplier does not run in-circuit test</title>
+      <link>https://tenmaypcba.com/insights/in-circuit-test-outsourcing.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/in-circuit-test-outsourcing.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>If your assembler has no in-circuit test, the fixture still has to exist. Three arrangements, what each costs you, and four clauses that protect the order.</description>
     </item>
     <item>
       <title>Where liability sits on a jump starter with an air compressor</title>
@@ -71,6 +85,13 @@
       <description>This is the most price-compressed family there is. Five line items separate a quote that holds for a year from one that gets re-priced at the second batch.</description>
     </item>
     <item>
+      <title>Do you need IATF 16949 for an automotive aftermarket part?</title>
+      <link>https://tenmaypcba.com/insights/no-iatf-16949.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/no-iatf-16949.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>IATF 16949 applies to sites building parts for vehicle manufacturers. A 12 V accessory sold at retail does not need it — and here is where the line sits.</description>
+    </item>
+    <item>
       <title>Potting before test turns a defect into scrap</title>
       <link>https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html</link>
       <guid isPermaLink="true">https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html</guid>
@@ -78,11 +99,25 @@
       <description>On a small potted board, the order of the last two steps decides the scrap rate. Once the compound cures, nothing inside is inspectable or reworkable.</description>
     </item>
     <item>
+      <title>What is inside a PCBA price — the five lines, and which ones move with quantity</title>
+      <link>https://tenmaypcba.com/insights/pcba-cost-per-board.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/pcba-cost-per-board.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A PCBA price has five parts. Only two scale with quantity, and one of them is not the assembly. Why 50 pieces cost more per board without overcharging.</description>
+    </item>
+    <item>
       <title>What a PCBA quote should contain — and what a bare number leaves out</title>
       <link>https://tenmaypcba.com/insights/pcba-quote-what-it-should-contain.html</link>
       <guid isPermaLink="true">https://tenmaypcba.com/insights/pcba-quote-what-it-should-contain.html</guid>
       <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
       <description>A single unit price hides the assumptions that decide the real cost. These eleven lines show whether a PCBA quote can be compared, or only admired.</description>
+    </item>
+    <item>
+      <title>How to audit a PCBA supplier in China without visiting the factory</title>
+      <link>https://tenmaypcba.com/insights/pcba-supplier-audit-checklist.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/pcba-supplier-audit-checklist.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Five documents settle most supplier audits before anyone visits: the licence, the certificate holder name, the bank beneficiary, the address and the numbers.</description>
     </item>
     <item>
       <title>Should one assembler build all three portable power station boards?</title>
@@ -106,6 +141,13 @@
       <description>Servo drives and VFDs share a power stage, not a market. Consolidating them at one assembler is leverage until it becomes a single point of failure.</description>
     </item>
     <item>
+      <title>Finding a real PCBA factory in Shenzhen, when half of them are trading offices</title>
+      <link>https://tenmaypcba.com/insights/shenzhen-pcba-factory-guide.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/shenzhen-pcba-factory-guide.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Three checks settle in under an hour whether a Shenzhen supplier is a factory or a trading office: certificate name, a real number, and a live call.</description>
+    </item>
+    <item>
       <title>The 800 mm board is not the hard part of a treadmill build</title>
       <link>https://tenmaypcba.com/insights/treadmill-large-board-mechanics.html</link>
       <guid isPermaLink="true">https://tenmaypcba.com/insights/treadmill-large-board-mechanics.html</guid>
@@ -118,6 +160,20 @@
       <guid isPermaLink="true">https://tenmaypcba.com/insights/vfd-three-boards-one-quote.html</guid>
       <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
       <description>A drive is a control board, a power board and a keypad. Quoting them as separate lines and as one set answer different questions, and buyers usually need both.</description>
+    </item>
+    <item>
+      <title>A remote factory audit that actually proves something</title>
+      <link>https://tenmaypcba.com/insights/virtual-factory-audit.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/virtual-factory-audit.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A remote audit works only if it is unscripted. What a live call can prove, what it cannot, and the five things to ask the camera to show while it is walking.</description>
+    </item>
+    <item>
+      <title>What is PCBA? PCB vs PCBA, and what the extra letter buys you</title>
+      <link>https://tenmaypcba.com/insights/what-is-pcba.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/what-is-pcba.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>PCB is the bare board. PCBA is that board with the parts soldered on, inspected and ready to install. What the assembly step includes — and what it does not.</description>
     </item>
     <item>
       <title>Consigned vs turnkey PCBA at 50, 500 and 5,000 pieces</title>
