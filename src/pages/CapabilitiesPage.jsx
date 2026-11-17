@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, ChevronRight, Download, FileText, CheckCircle2, Activity, Cpu, Zap, Radio, UploadCloud, ShieldCheck } from 'lucide-react';
 import { imgAttrs } from '../lib/imageSize';
+import { COMPANY } from '../data/company';
 
 const smtTable = [
   ['Minimum component size', '0201 (0.6 × 0.3 mm)', '01005 (0.4 × 0.2 mm)', 'Passive placement verified by 3D AOI'],
@@ -173,7 +174,7 @@ export default function CapabilitiesPage() {
             PCBA Capabilities
           </h1>
           <p className="text-sm sm:text-[15px] text-slate-600 mt-3 max-w-3xl leading-relaxed">
-            Shenzhen Tenmay Technology Co., Ltd. is a Shenzhen-based PCBA contract manufacturer. The tables below document the assembly window
+            {COMPANY.legalName} is a Shenzhen-based PCBA contract manufacturer. The tables below document the assembly window
             our factory holds today — surface-mount, through-hole, inspection and test, component sourcing, and the bare
             boards we supply into that process — so your engineering team can check a design against real limits before
             requesting a quote.

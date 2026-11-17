@@ -16,12 +16,28 @@ export const SITE_URL = 'https://tenmaypcba.com';
 export const HERO_VIDEO = '';
 
 export const COMPANY = {
+  /*
+   * Name as printed on the business licence, reissued 2022-11-09 by the
+   * Shenzhen market regulator. No 市 prefix, and 镁 not 美 — both differences are
+   * invisible in English and load-bearing for any registry lookup, so the Chinese
+   * name lives here rather than in copy.
+   */
+  registeredName: '深圳腾镁科技有限公司',
+  /* Unified social credit code, copied from the licence: 440300 is Shenzhen. */
+  creditCode: '91440300670000384N',
+  /* English name used on quotes, invoices and this site. The certification body
+   * romanised the Chinese name as "Tengmei" instead; see ISO_CERT.holder. */
   legalName: 'Shenzhen Tenmay Technology Co., Ltd.',
   shortName: 'TENMAY',
   founded: '2008',
+  foundedFull: '2008-01-09',
   city: 'Shenzhen',
   region: 'Guangdong',
   country: 'CN',
+  /* Registered address on the licence. The LED-era directory listings still
+   * carry the old Xili address, which is one reason they need retiring. */
+  streetAddress:
+    'Unit 501, Building 47, Seventh Industrial Zone, Tianliao Community, Yutang Subdistrict, Guangming District',
   phoneDisplay: '+86 139 2377 2594',
   phoneHref: 'tel:+8613923772594',
   whatsappDisplay: '+86 173 6105 8693',
@@ -57,15 +73,46 @@ export function yearsInBusiness() {
 export const ISO_CERT = {
   standard: 'GB/T 19001-2016 / ISO 9001:2015',
   number: '38822Q00487R0S',
-  // Printed on the certificate exactly as the issuing body wrote it. Kept as a
-  // separate field rather than folded into the site's legal name: a buyer who
-  // checks the number will see this spelling, and showing it here is more
-  // credible than having them discover a difference.
+  /*
+   * Printed on the certificate exactly as the issuing body wrote it. It is the
+   * pinyin romanisation of COMPANY.registeredName, so the certificate, the
+   * licence and the credit code all resolve to the same legal entity — a buyer
+   * who looks the number up sees this spelling and should be told it matches.
+   */
   holder: 'Shenzhen Tengmei Technology Co., Ltd.',
   scope: 'processing and assembly of digital electronics',
   body: '',        // issuing body — not printed on the page we hold
   validUntil: '',  // expiry date — taken from the certificate, never guessed
+  /*
+   * ISO 9001:2015 was withdrawn on 2026-09-16 and replaced by ISO 9001:2026
+   * (iso.org/standard/62085). ISO's own guidance is that certified
+   * organisations consult their certification body about transition. Until the
+   * body answers, the site states the edition the certificate was issued under
+   * and does not claim the current one.
+   */
+  editionWithdrawn: '2026-09-16',
+  editionReplacedBy: 'ISO 9001:2026',
+  transition: '',  // transition status — from the certification body, never guessed
 };
+
+/*
+ * Business history. Only years that have been confirmed are filled in; the
+ * company record page renders an entry without a year rather than inventing one.
+ */
+export const HISTORY = {
+  ledBrand: 'ledsztm.com',
+  ledTo: '',      // year the LED lighting business ended
+  pcbaFrom: '',   // year contract assembly began
+};
+
+/*
+ * External profiles that identify this same legal entity, for schema.org
+ * sameAs. Deliberately empty: the two directory profiles that carry the old
+ * LED product line and an obsolete ISO 9001:2000 claim must be corrected or
+ * retired first — pointing sameAs at them would feed the contradiction to
+ * answer engines instead of resolving it.
+ */
+export const SAME_AS = [];
 
 export const waLink = (text) =>
   `${COMPANY.whatsappHref}?text=${encodeURIComponent(text)}`;

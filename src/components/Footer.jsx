@@ -34,7 +34,7 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-slate-400 text-xs leading-relaxed">
-              Shenzhen Tenmay Technology Co., Ltd. — a PCBA contract manufacturer established in 2008, running eight production lines in Shenzhen, Guangdong. Price-competitive and quality-led, with flexible small-batch customisation.
+              {COMPANY.legalName} — a PCBA contract manufacturer established in {COMPANY.founded}, running eight production lines in {COMPANY.city}, {COMPANY.region}. Price-competitive and quality-led, with flexible small-batch customisation.
             </p>
             <div className="text-[12px] text-slate-300">
               <span className="text-emerald-400 font-semibold">● ISO 9001 certified</span>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, Check, MessageSquare, Clock3, Microscope, Sprout } from 'lucide-react';
 import IconTile from './IconTile';
-import { yearsInBusiness } from '../data/company';
+import { COMPANY, yearsInBusiness } from '../data/company';
 
 const FACTS = [
   { label: 'Established', value: '2008' },
@@ -51,7 +51,7 @@ export default function AboutCompany() {
             <div className="bg-white border border-brand-200/50 rounded-lg p-8 flex flex-col items-center">
               <img
                 src="/assets/images/logo-192.webp"
-                alt="Shenzhen Tenmay Technology Co., Ltd."
+                alt={COMPANY.legalName}
                 width="238"
                 height="192"
                 className="h-24 w-auto object-contain"
@@ -59,7 +59,7 @@ export default function AboutCompany() {
               <div className="mt-6 text-center">
                 <div className="text-[14px] font-bold tracking-[0.18em] text-slate-900">TENMAY</div>
                 <div className="mt-1.5 text-[11.5px] tracking-[0.08em] text-slate-500 uppercase leading-relaxed">
-                  Shenzhen Tenmay<br />Technology Co., Ltd.
+                  {COMPANY.legalName}
                 </div>
               </div>
             </div>
@@ -84,8 +84,8 @@ export default function AboutCompany() {
 
             <div className="mt-6 space-y-4 text-[15.5px] leading-relaxed text-slate-700 max-w-[680px]">
               <p>
-                Shenzhen Tenmay Technology Co., Ltd. was established in 2008 and is registered in
-                Shenzhen, Guangdong. We are a PCBA contract manufacturer: surface-mount and
+                {COMPANY.legalName} was established in {COMPANY.founded} and is registered in
+                {' '}{COMPANY.city}, {COMPANY.region}. We are a PCBA contract manufacturer: surface-mount and
                 through-hole assembly, post-solder, conformal coating, programming and inspection,
                 run across eight production lines of Yamaha YSM20 and YSM10 equipment.
               </p>

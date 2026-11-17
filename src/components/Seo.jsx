@@ -1,5 +1,5 @@
 import React from 'react';
-import { COMPANY, SITE_URL } from '../data/company';
+import { COMPANY, SITE_URL, ISO_CERT, SAME_AS } from '../data/company';
 import { USE_CASE_FAQ } from '../data/useCases';
 import { FAMILIES } from '../data/applicationFamilies';
 import { FAQS } from '../data/faq';
@@ -79,17 +79,29 @@ export default function Seo({ path = '/' }) {
     '@type': 'Organization',
     '@id': `${SITE_URL}/#organization`,
     name: COMPANY.shortName,
-    legalName: COMPANY.legalName,
-    alternateName: '深圳市腾美科技有限公司',
+    /* The name on the business licence, in Chinese. legalName is the field an
+     * answer engine checks against a registry, so it has to be the registered
+     * string, not the English trading name. */
+    legalName: COMPANY.registeredName,
+    /* Every romanisation a buyer might search, plus the one the certification
+     * body uses. All three resolve to the same entity and the same credit code. */
+    alternateName: [COMPANY.legalName, ISO_CERT.holder, COMPANY.shortName],
+    identifier: {
+      '@type': 'PropertyValue',
+      propertyID: 'Unified Social Credit Code',
+      value: COMPANY.creditCode,
+    },
+    sameAs: SAME_AS,
     url: SITE_URL,
     logo: `${SITE_URL}/assets/images/logo-192.webp`,
     image: `${SITE_URL}/assets/images/macro-joints.webp`,
-    foundingDate: COMPANY.founded,
+    foundingDate: COMPANY.foundedFull,
     telephone: COMPANY.phoneDisplay,
     description:
       'PCBA contract manufacturer in Shenzhen, China. Surface-mount and through-hole assembly, post-solder, conformal coating, device programming and in-line SPI/AOI/X-ray inspection across eight production lines.',
     address: {
       '@type': 'PostalAddress',
+      streetAddress: COMPANY.streetAddress,
       addressLocality: COMPANY.city,
       addressRegion: COMPANY.region,
       addressCountry: COMPANY.country,
