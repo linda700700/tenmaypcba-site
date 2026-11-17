@@ -5,6 +5,9 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { dirname, join } from 'node:path';
 
+// Absolute origin used for og:image and canonical URLs in the prerendered HTML.
+const SITE_URL = 'https://tenmaypcba.com';
+
 const root = dirname(fileURLToPath(import.meta.url));
 
 function esc(value) {
@@ -58,6 +61,18 @@ function routePrerender() {
         html = setMeta(html, 'property', 'og:type', head.type || 'website');
         html = setMeta(html, 'name', 'twitter:title', head.ogTitle);
         html = setMeta(html, 'name', 'twitter:description', head.ogDescription);
+
+        /* Per-route share image. Without this every URL advertised the same
+         * generic card, so a link to the servo page previewed as a photo of
+         * solder joints. The declared dimensions follow the file actually used,
+         * because a mismatch is what makes a preview render as a thumbnail. */
+        if (route.share) {
+          const absolute = `${SITE_URL}${route.share.image}`;
+          html = setMeta(html, 'property', 'og:image', absolute);
+          html = setMeta(html, 'property', 'og:image:width', String(route.share.width));
+          html = setMeta(html, 'property', 'og:image:height', String(route.share.height));
+          html = setMeta(html, 'name', 'twitter:image', absolute);
+        }
         html = html.replace(
           /(<link rel="canonical" href=")[^"]*(")/,
           `$1${esc(url)}$2`

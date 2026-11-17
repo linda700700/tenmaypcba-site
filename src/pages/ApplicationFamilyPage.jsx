@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, ChevronRight, MessageCircle, AlertTriangle, CheckCircle2, ArrowLeftRight } from 'lucide-react';
-import { FAMILIES, FAMILY_SLUGS, familyBySlug } from '../data/applicationFamilies';
+import { FAMILIES, FAMILY_SLUGS, RELATED, familyBySlug } from '../data/applicationFamilies';
 import { waLink, DEFAULT_WA_TEXT } from '../data/company';
 import { imgAttrs } from '../lib/imageSize';
 
@@ -33,7 +33,12 @@ export default function ApplicationFamilyPage({ slug }) {
   const family = familyBySlug(slug);
   if (!family) return null;
 
-  const siblings = FAMILY_SLUGS.filter((s) => s !== family.slug).map((s) => FAMILIES[s]);
+  // Three reasoned neighbours first, then the rest as plain chips: eleven equal
+  // cards help nobody and bury the link a reader would actually follow.
+  const reads = (RELATED[family.slug] || []).map(([slug, why]) => ({ ...FAMILIES[slug], why }));
+  const siblings = FAMILY_SLUGS.filter(
+    (s) => s !== family.slug && !(RELATED[family.slug] || []).some(([t]) => t === s)
+  ).map((s) => FAMILIES[s]);
 
   return (
     <div data-component="application-family-page" data-family={family.slug}>
@@ -193,31 +198,49 @@ export default function ApplicationFamilyPage({ slug }) {
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 text-[11.5px] font-bold uppercase tracking-[0.16em] text-brand-700">
             <ArrowLeftRight className="h-4 w-4" />
-            Other families we build in depth
+            Read next
           </div>
-          <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {siblings.map((s) => (
+          <div className="mt-5 grid grid-cols-1 gap-4 lg:grid-cols-3">
+            {reads.map((s) => (
               <a
                 key={s.slug}
                 href={`/applications/${s.slug}.html`}
-                className="group flex items-center gap-4 rounded-xl border border-brand-200/60 bg-white p-4 transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
+                className="group flex flex-col rounded-xl border border-brand-200/60 bg-white p-4 transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
               >
-                <span className="h-16 w-24 shrink-0 overflow-hidden rounded bg-slate-100">
+                <span className="h-28 w-full overflow-hidden rounded bg-slate-100">
                   <img
                     src={s.image}
-                    {...imgAttrs(s.image, '96px')}
+                    {...imgAttrs(s.image, '(max-width: 1024px) 100vw, 360px')}
                     alt={s.imageAlt}
                     loading="lazy"
                     className="h-full w-full object-cover"
                   />
                 </span>
-                <span className="min-w-0">
-                  <span className="block text-[15px] font-bold leading-snug text-slate-900">{s.cardName}</span>
-                  <span className="mt-1 block text-[13px] leading-snug text-slate-500">{s.keyword}</span>
+                <span className="mt-3 block text-[15px] font-bold leading-snug text-slate-900">
+                  {s.cardName}
                 </span>
-                <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-brand-600 transition-transform group-hover:translate-x-0.5" />
+                <span className="mt-1.5 block text-[13.5px] leading-snug text-slate-600">{s.why}</span>
+                <span className="mt-3 inline-flex items-center gap-1 text-[13px] font-bold text-brand-700">
+                  Read the page <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                </span>
               </a>
             ))}
+          </div>
+          <div className="mt-6 border-t border-brand-200/40 pt-5">
+            <div className="text-[11.5px] font-bold uppercase tracking-[0.16em] text-slate-500">
+              The other families
+            </div>
+            <div className="mt-3 flex flex-wrap gap-x-4 gap-y-2">
+              {siblings.map((s) => (
+                <a
+                  key={s.slug}
+                  href={`/applications/${s.slug}.html`}
+                  className="text-[13.5px] font-semibold text-brand-700 hover:underline"
+                >
+                  {s.cardName}
+                </a>
+              ))}
+            </div>
           </div>
           <div className="mt-6 flex flex-wrap items-center gap-3 text-[14.5px]">
             <a href="/applications" className="font-bold text-brand-700 hover:underline">

@@ -887,3 +887,74 @@ export const FAMILY_SLUGS = Object.keys(FAMILIES);
 export function familyBySlug(slug) {
   return FAMILIES[slug] || null;
 }
+
+/*
+ * Read-next map. The index grid lists all twelve, which is right for the index
+ * and wrong for a detail page: eleven equal links send a reader nowhere and
+ * dilute the one link that would actually help. Each family names three
+ * neighbours and says why the neighbour is the next thing to read — either the
+ * same stack at a different size, or the same process against a different
+ * quantity. The remaining families stay reachable from the chip row beneath.
+ */
+export const RELATED = {
+  vfd: [
+    ['servo', 'The same three-board stack, smaller frame and tighter gate-drive timing.'],
+    ['hmi', 'The display and keypad board that usually ships in the same cabinet as a drive.'],
+    ['evse', 'Another heavy-copper, through-hole power stage, but mains-facing and coated.'],
+  ],
+  'jump-starter': [
+    ['power-station', 'Same lithium pack and boost stage, in a bigger case with an AC output.'],
+    ['robot-vacuum', 'The other consumer build here that runs in thousands rather than hundreds.'],
+    ['evse', 'Where the high-current path stops being a consumer product and starts needing creepage.'],
+  ],
+  treadmill: [
+    ['ebike', 'Motor drive and current sense at the same quantity band, different duty cycle.'],
+    ['robot-vacuum', 'A second appliance family where the motor board sets the price.'],
+    ['servo', 'What the same motor-control stack looks like when it has to be serviceable for ten years.'],
+  ],
+  ebike: [
+    ['treadmill', 'The nearest neighbour: motor control, current sense, consumer volumes.'],
+    ['robot-vacuum', 'Battery management and motor drive in a product that is thrown down the stairs.'],
+    ['evse', 'The charging side of the same vehicle, with the safety case attached.'],
+  ],
+  'power-station': [
+    ['jump-starter', 'The same pack architecture at a fifth of the power and a tenth of the price.'],
+    ['evse', 'AC-DC conversion where the thermal design is inspected rather than assumed.'],
+    ['led-driver', 'High-volume mains conversion, if the volume matters more than the wattage.'],
+  ],
+  'robot-vacuum': [
+    ['treadmill', 'Motor drive at appliance volumes, with a heavier power stage.'],
+    ['dashcam', 'Camera, sensor and connector density without the motor.'],
+    ['led-driver', 'What a ten-thousand-unit build looks like when the board is simple.'],
+  ],
+  servo: [
+    ['vfd', 'The same stack one frame size up, where the power board gets large.'],
+    ['hmi', 'The operator panel the drive is wired to.'],
+    ['robot-vacuum', 'The same encoder-adjacent logic at consumer volumes instead of industrial ones.'],
+  ],
+  hmi: [
+    ['vfd', 'The drive this panel controls, including the keypad board inside it.'],
+    ['servo', 'The other drive family a panel is usually sold alongside.'],
+    ['dashcam', 'Display, camera and connector assembly at a much higher volume.'],
+  ],
+  'led-driver': [
+    ['evse', 'Mains-facing conversion with a real safety case instead of a cost target.'],
+    ['power-station', 'The same AC-DC problem where the buyer will open the case.'],
+    ['jump-starter', 'High-volume consumer assembly with a battery on the same board.'],
+  ],
+  dashcam: [
+    ['robot-vacuum', 'Camera and fine-pitch density with a motor added.'],
+    ['hmi', 'Display assembly where the panel is the product rather than a part of it.'],
+    ['parking-sensor', 'The other automotive aftermarket family, bought by the same distributors.'],
+  ],
+  'parking-sensor': [
+    ['dashcam', 'Automotive aftermarket at similar volumes, with camera modules instead of ultrasonics.'],
+    ['led-driver', 'High-volume boards that live in a vehicle and have to survive coating.'],
+    ['robot-vacuum', 'Another sensor-heavy consumer board, if the automotive paperwork is not needed.'],
+  ],
+  evse: [
+    ['vfd', 'The same through-hole power work without the certification burden.'],
+    ['power-station', 'Portable energy conversion, where the buyer judges the thermal design by touch.'],
+    ['led-driver', 'Mains conversion at a volume this floor rarely sees.'],
+  ],
+};
