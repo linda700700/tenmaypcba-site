@@ -307,6 +307,12 @@ try {
     console.log(`    control attempt ${attempt}: ${controlledNow ? 'controlled' : 'not yet'}`);
   }
 
+  // One warm load with the worker in control: its cache starts empty, so this
+  // is the visit that fills it. Measuring this one would fail on a worker that
+  // works perfectly — the visit after it is the one a returning buyer makes.
+  await page.reload({ waitUntil: 'load' });
+  await new Promise((r) => setTimeout(r, 2500));
+
   let assetRequests = 0;
   const countAsset = (r) => {
     if (r.url().includes('/assets/')) assetRequests += 1;
