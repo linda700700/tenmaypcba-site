@@ -77,6 +77,23 @@ certificate.
 - [Parking sensor and LED headlight driver boards](https://tenmaypcba.com/applications/parking-sensor.html): the long-tail family — small boards, heavy panelisation, potting before which nothing can be reworked, 500–5,000 pieces per order.
 - [EV charging point (EVSE) control boards](https://tenmaypcba.com/applications/evse.html): pilot signal, residual-current detection, contactor drive and metering, built with the process records an audit asks for, 100–1,000 units.
 
+## Decision guides by board family
+
+One article per family, written for the buyer who has to choose a supplier rather than a process setting.
+
+- [Quote the three VFD boards, or the whole set?](https://tenmaypcba.com/insights/vfd-three-boards-one-quote.html): why the set is the real unit, what the through-hole content does to price, and why first order and reorder are priced differently.
+- [One assembler for a jump starter's two boards?](https://tenmaypcba.com/insights/jump-starter-safety-liability.html): allocating risk on a product that connects a lithium pack to a vehicle, and who certifies what.
+- [Where treadmill control builds actually fail](https://tenmaypcba.com/insights/treadmill-large-board-mechanics.html): board size is the easy question; connectors, heat and a deck that moves are the expensive ones.
+- [E-bike controller and display — one supplier or two?](https://tenmaypcba.com/insights/ebike-controller-display-split-sourcing.html): the two boards change on different clocks, and the harness drawing is the joint that cannot be split.
+- [One assembler for all three power station boards?](https://tenmaypcba.com/insights/power-station-three-board-supplier.html): the inverter is where output quality is decided, so it is the board worth keeping next to the BMS.
+- [Do you actually need in-circuit test on a robot vacuum?](https://tenmaypcba.com/insights/robot-vacuum-ict-decision.html): ICT is the requirement that decides which assemblers can quote at all; what it proves and what it misses.
+- [One build stack for servo drives and VFDs?](https://tenmaypcba.com/insights/servo-drive-shared-stack-with-vfd.html): the sharing is real leverage until a design nobody else can build acquires a price of its own.
+- [Buy the certified HMI module or assemble the board?](https://tenmaypcba.com/insights/hmi-module-or-bare-board.html): the module arrives with its isolation certified, and the board transfers that responsibility to you.
+- [How to tell whether an LED driver quote is real](https://tenmaypcba.com/insights/led-driver-quote-reality-check.html): five line items separate a quote that holds for a year from one re-priced at the second batch.
+- [Who owns the optics on a dashcam build?](https://tenmaypcba.com/insights/dashcam-optics-not-an-assembly-step.html): active lens alignment is not an assembly step, and a build that assumes otherwise ships a soft image.
+- [Potting before test turns a defect into scrap](https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html): on a small potted board the order of the last two operations sets the scrap rate.
+- [What an EVSE control board audit asks for](https://tenmaypcba.com/insights/evse-audit-record-set.html): the record list to demand before the order, and the calibration evidence an assembler cannot issue.
+
 ## Process notes
 
 - [What actually limits 01005 placement yield?](https://tenmaypcba.com/insights/01005-placement-what-limits-yield.html): stencil area ratio, paste type, pad and mask choices, and what inspection can verify at that size.

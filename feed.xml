@@ -6,7 +6,91 @@
     <description>Process limits, quoting arithmetic and BOM problems, written from a high-mix PCBA floor in Shenzhen.</description>
     <language>en</language>
     <atom:link href="https://tenmaypcba.com/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Mon, 16 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Tue, 17 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Who owns the optics on a dashcam build?</title>
+      <link>https://tenmaypcba.com/insights/dashcam-optics-not-an-assembly-step.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/dashcam-optics-not-an-assembly-step.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>The sensor board is assembled and the lens focused by different suppliers. Get the boundary wrong and the camera is sharp on the bench only.</description>
+    </item>
+    <item>
+      <title>Should you buy the e-bike controller and display from one assembler?</title>
+      <link>https://tenmaypcba.com/insights/ebike-controller-display-split-sourcing.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/ebike-controller-display-split-sourcing.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Splitting the controller and the display across two assemblers is often right. What it costs is a harness nobody owns, unless you write the drawing yourself.</description>
+    </item>
+    <item>
+      <title>What an EVSE control board audit actually asks for</title>
+      <link>https://tenmaypcba.com/insights/evse-audit-record-set.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/evse-audit-record-set.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>On a charging point the certification depends on the build being repeatable, so the audit asks for records rather than capability. Here is the file to demand.</description>
+    </item>
+    <item>
+      <title>Buy a certified HMI module, or assemble the board yourself?</title>
+      <link>https://tenmaypcba.com/insights/hmi-module-or-bare-board.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/hmi-module-or-bare-board.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A module arrives with its isolation certified; a bare board leaves the barrier to you. The choice decides who answers for a field fault.</description>
+    </item>
+    <item>
+      <title>Where liability sits on a jump starter with an air compressor</title>
+      <link>https://tenmaypcba.com/insights/jump-starter-safety-liability.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/jump-starter-safety-liability.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Two boards, a high-current switch, a compressor motor. The assembly is simple; what needs agreeing is who certifies what before a battery is connected.</description>
+    </item>
+    <item>
+      <title>How to tell whether an LED driver PCBA quote is real</title>
+      <link>https://tenmaypcba.com/insights/led-driver-quote-reality-check.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/led-driver-quote-reality-check.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>This is the most price-compressed family there is. Five line items separate a quote that holds for a year from one that gets re-priced at the second batch.</description>
+    </item>
+    <item>
+      <title>Potting before test turns a defect into scrap</title>
+      <link>https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>On a small potted board, the order of the last two steps decides the scrap rate. Once the compound cures, nothing inside is inspectable or reworkable.</description>
+    </item>
+    <item>
+      <title>Should one assembler build all three portable power station boards?</title>
+      <link>https://tenmaypcba.com/insights/power-station-three-board-supplier.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/power-station-three-board-supplier.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>The BMS, the inverter and the display fail for different reasons but share one battery and one certificate file. What to keep together, what to split.</description>
+    </item>
+    <item>
+      <title>Do you actually need in-circuit test on a robot vacuum mainboard?</title>
+      <link>https://tenmaypcba.com/insights/robot-vacuum-ict-decision.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/robot-vacuum-ict-decision.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>ICT quietly decides which assemblers can quote a robot vacuum at all. Here is what it proves, what it misses, and how to specify it honestly.</description>
+    </item>
+    <item>
+      <title>Sharing a build stack between servo drives and VFDs</title>
+      <link>https://tenmaypcba.com/insights/servo-drive-shared-stack-with-vfd.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/servo-drive-shared-stack-with-vfd.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Servo drives and VFDs share a power stage, not a market. Consolidating them at one assembler is leverage until it becomes a single point of failure.</description>
+    </item>
+    <item>
+      <title>The 800 mm board is not the hard part of a treadmill build</title>
+      <link>https://tenmaypcba.com/insights/treadmill-large-board-mechanics.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/treadmill-large-board-mechanics.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Motor drive, console and a board at the largest panel size carried. The placement is routine; field failures come from connectors and heat, not solder.</description>
+    </item>
+    <item>
+      <title>Quoting a VFD as three boards or as one set</title>
+      <link>https://tenmaypcba.com/insights/vfd-three-boards-one-quote.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/vfd-three-boards-one-quote.html</guid>
+      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A drive is a control board, a power board and a keypad. Quoting them as separate lines and as one set answer different questions, and buyers usually need both.</description>
+    </item>
     <item>
       <title>Consigned vs turnkey PCBA at 50, 500 and 5,000 pieces</title>
       <link>https://tenmaypcba.com/insights/consigned-vs-turnkey-pcba.html</link>
