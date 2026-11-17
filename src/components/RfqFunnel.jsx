@@ -246,6 +246,24 @@ export default function RfqFunnel() {
                       This form only captures your requirement — files are not uploaded here.
                       Once you submit, we reply within one business day with a secure upload link.
                     </div>
+                    {/* What to have ready, and in what format. No size limit is
+                        quoted because the upload link sets its own; a number
+                        invented here would be the first thing to contradict it. */}
+                    <div className="mt-3 border-t border-brand-200/60 pt-3">
+                      <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-700">
+                        What to have ready
+                      </div>
+                      <ul className="mt-2 grid grid-cols-1 gap-1.5 text-[12px] leading-snug text-slate-600 sm:grid-cols-2">
+                        <li><span className="font-semibold text-slate-800">Gerber / ODB++:</span> RS-274X with the Excellon drill file, zipped</li>
+                        <li><span className="font-semibold text-slate-800">BOM:</span> XLSX or CSV with manufacturer part numbers</li>
+                        <li><span className="font-semibold text-slate-800">Placement:</span> centroid / pick-and-place, CSV or TXT</li>
+                        <li><span className="font-semibold text-slate-800">Optional:</span> assembly drawing, test spec, target date</li>
+                      </ul>
+                      <div className="mt-2 text-[11.5px] leading-snug text-slate-500">
+                        PDFs and screenshots of a BOM cannot be programmed from — send the source
+                        file. If the archive is too big to send, a download link is fine.
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

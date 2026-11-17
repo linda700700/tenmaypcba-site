@@ -9,6 +9,7 @@ import { waLink, DEFAULT_WA_TEXT } from '../data/company';
 import FlipMedia from '../components/FlipMedia';
 import DragRail from '../components/DragRail';
 import { imgAttrs } from '../lib/imageSize';
+import FamilyMatrix from '../components/FamilyMatrix';
 
 /*
  * Applications landing page. One page, twelve anchor targets — every product
@@ -174,6 +175,9 @@ export default function ApplicationsPage({ initialHash = '' }) {
           </div>
         </div>
       </section>
+
+      {/* process x batch, all twelve at once */}
+      <FamilyMatrix />
 
       {/* sector tabs */}
       <section className="sticky top-[57px] z-30 border-b border-brand-200/50 bg-white/95 backdrop-blur-sm">

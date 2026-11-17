@@ -101,7 +101,7 @@ export const FAMILIES = {
       'A 12 V jump starter with a built-in compressor is two boards in one enclosure: a main board doing battery management, clamp switching, boost and display, and a motor-drive board for the compressor. Both are heavy-copper work where the solder joint, not the placement, decides whether the product survives its first winter.',
     facts: [
       ['Boards per unit', '2 (main, compressor drive)'],
-      ['Typical batch', '100 – 1,000'],
+      ['Typical batch', '100 – 1,000 sets'],
       ['Current path', 'High-current MOSFET switch, THT terminals'],
       ['Coating', 'Conformal, in-house'],
     ],
