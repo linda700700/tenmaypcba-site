@@ -67,6 +67,15 @@ certificate.
 - [PCBA for VFD and inverter drives](https://tenmaypcba.com/applications/vfd.html): three boards per unit — control with isolated gate drive, IGBT power board, keypad — quoted as three lines and built as one set. 50–500 sets, in-house conformal coating, three-day build.
 - [Jump starter and air compressor boards](https://tenmaypcba.com/applications/jump-starter.html): two boards in one enclosure, heavy copper and high-current through-hole terminals on both, X-ray on the clamp joints. 100–1,000 units.
 - [Treadmill and fitness control boards](https://tenmaypcba.com/applications/treadmill.html): a large through-hole power board in the base and a dense console board in the mast, quoted separately so a console change does not reopen the power approval.
+- [E-bike and e-scooter controller boards](https://tenmaypcba.com/applications/ebike.html): a 6S–13S BMS and a MOSFET bridge on one sealed board, a handlebar display on the other. Coating or full potting in-house, 200–2,000 sets.
+- [Portable power station boards](https://tenmaypcba.com/applications/power-station.html): BMS, pure-sine inverter control and display — three assemblies per unit, boards to 800 × 480 mm, 100–500 sets.
+- [Robot vacuum and pool cleaner mainboards](https://tenmaypcba.com/applications/robot-vacuum.html): the densest consumer build — double-sided, 01005, 0.3 mm pitch — and the family where in-circuit test decides the order, which this floor does not run.
+- [Servo drive and soft starter boards](https://tenmaypcba.com/applications/servo.html): gate drive, current sensing, MCU and encoder interface; the same stack as the VFD family, 50–500 sets.
+- [HMI, gateway and PLC I/O module boards](https://tenmaypcba.com/applications/hmi.html): a spacing board rather than a dense one — isolation creepage held through assembly and coating, castellated module joints, 100–1,000 units.
+- [LED driver and PD fast charger boards](https://tenmaypcba.com/applications/led-driver.html): AC-DC front end, PFC and secondary regulation; mains isolation and potting decide the outcome. Also the most price-compressed family here, 1,000–10,000 pieces.
+- [Dashcam and mirror display boards](https://tenmaypcba.com/applications/dashcam.html): image-sensor carrier, encoder mainboard with the SoC, and display board. Active lens alignment is not an assembly step, 500–5,000 pieces.
+- [Parking sensor and LED headlight driver boards](https://tenmaypcba.com/applications/parking-sensor.html): the long-tail family — small boards, heavy panelisation, potting before which nothing can be reworked, 500–5,000 pieces per order.
+- [EV charging point (EVSE) control boards](https://tenmaypcba.com/applications/evse.html): pilot signal, residual-current detection, contactor drive and metering, built with the process records an audit asks for, 100–1,000 units.
 
 ## Process notes
 

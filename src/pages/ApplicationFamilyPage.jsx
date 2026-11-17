@@ -33,7 +33,17 @@ export default function ApplicationFamilyPage({ slug }) {
   const family = familyBySlug(slug);
   if (!family) return null;
 
-  const siblings = FAMILY_SLUGS.filter((s) => s !== family.slug).map((s) => FAMILIES[s]);
+  /* Three cross-links, chosen by the family data rather than by "everything
+   * else". With twelve families an unfiltered list would put eleven cards on
+   * every page: eleven outbound links of near-equal weight, which tells a
+   * crawler nothing about which related page actually matters. The fallback
+   * only runs if a family ships without `related`. */
+  const siblings = (family.related && family.related.length
+    ? family.related
+    : FAMILY_SLUGS.filter((s) => s !== family.slug)
+  )
+    .map((s) => FAMILIES[s])
+    .filter(Boolean);
 
   return (
     <div data-component="application-family-page" data-family={family.slug}>
