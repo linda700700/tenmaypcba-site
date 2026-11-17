@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TENMAY — Notes from the PCBA line</title>
+    <link>https://tenmaypcba.com/insights.html</link>
+    <description>Process limits, quoting arithmetic and BOM problems, written from a high-mix PCBA floor in Shenzhen.</description>
+    <language>en</language>
+    <atom:link href="https://tenmaypcba.com/feed.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 16 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <item>
+      <title>Consigned vs turnkey PCBA at 50, 500 and 5,000 pieces</title>
+      <link>https://tenmaypcba.com/insights/consigned-vs-turnkey-pcba.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/consigned-vs-turnkey-pcba.html</guid>
+      <pubDate>Mon, 16 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Where the three real costs sit when you consign components instead of buying turnkey, what changes at 50, 500 and 5,000 pieces, and which model wins.</description>
+    </item>
+    <item>
+      <title>01005 vs 0201: which package should your design use?</title>
+      <link>https://tenmaypcba.com/insights/01005-vs-0201.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/01005-vs-0201.html</guid>
+      <pubDate>Sat, 07 Nov 2026 00:00:00 GMT</pubDate>
+      <description>01005 is 0.4 x 0.2 mm and 0201 is 0.6 x 0.3 mm. The larger part is cheaper and yields better; here is when the smaller one is actually necessary.</description>
+    </item>
+    <item>
+      <title>What SPI, AOI and X-ray can catch — and what they cannot</title>
+      <link>https://tenmaypcba.com/insights/what-aoi-xray-cannot-catch.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/what-aoi-xray-cannot-catch.html</guid>
+      <pubDate>Sat, 07 Nov 2026 00:00:00 GMT</pubDate>
+      <description>In-line inspection catches placement and joint defects, not electrical ones. What each station proves, what passes through it, and what still needs a test.</description>
+    </item>
+    <item>
+      <title>What is HMLV in PCBA — and when does it cost more than high volume?</title>
+      <link>https://tenmaypcba.com/insights/what-is-hmlv-pcba.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/what-is-hmlv-pcba.html</guid>
+      <pubDate>Sat, 07 Nov 2026 00:00:00 GMT</pubDate>
+      <description>HMLV means high-mix, low-volume PCBA: many part numbers, small batches each. What it changes, when it costs more than volume builds, and when it does not.</description>
+    </item>
+    <item>
+      <title>What actually limits 01005 placement yield?</title>
+      <link>https://tenmaypcba.com/insights/01005-placement-what-limits-yield.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/01005-placement-what-limits-yield.html</guid>
+      <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+      <description>01005 passives fail for reasons that have nothing to do with the placement head. Stencil aperture, paste type, pad geometry and inspection each set a ceiling.</description>
+    </item>
+    <item>
+      <title>Which BOM problems force a re-quote — and how do you catch them first?</title>
+      <link>https://tenmaypcba.com/insights/bom-substitution-checklist.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/bom-substitution-checklist.html</guid>
+      <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A BOM can be complete and still unbuyable. Eight checks on lifecycle, alternates, ratings, MSL, packaging and MOQ decide whether parts arrive as listed.</description>
+    </item>
+    <item>
+      <title>Why does a 50-piece PCBA run cost more per board than 5,000?</title>
+      <link>https://tenmaypcba.com/insights/fifty-piece-run-cost.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/fifty-piece-run-cost.html</guid>
+      <pubDate>Fri, 06 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Setup, stencil, programming and first-article work do not change with batch size. Here is where the money goes on a small run, and which parts of the gap are not real.</description>
+    </item>
+  </channel>
+</rss>
