@@ -37,6 +37,10 @@ jobs:
           dig +short TXT tenmaypcba.com @8.8.8.8 | head -10
           echo "== CAA =="
           dig +short CAA tenmaypcba.com @8.8.8.8
+          echo "== api / rt (must stay on 47.82.97.141) =="
+          for h in api.tenmaypcba.com rt.tenmaypcba.com; do
+            echo "$h -> $(dig +short "$h" @8.8.8.8 | tr '\n' ' ')"
+          done
 
       - name: Headers on the real entry document
         run: |
@@ -65,6 +69,13 @@ jobs:
           echo "etag=$ET"
           curl -sS -o /dev/null -m 20 -w 'conditional GET -> %{http_code}\n' \
             -H "if-none-match: $ET" "https://tenmaypcba.com/$JS"
+
+      - name: Endpoints the site depends on
+        run: |
+          for h in api.tenmaypcba.com rt.tenmaypcba.com; do
+            code=$(curl -sS -o /tmp/h.txt -m 20 -w '%{http_code}' "https://$h/healthz" || true)
+            echo "https://$h/healthz -> ${code:-000} $(head -c 140 /tmp/h.txt 2>/dev/null)"
+          done
 
       - name: Redirects and TLS
         run: |
