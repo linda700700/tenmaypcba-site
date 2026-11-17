@@ -69,6 +69,13 @@ function routePrerender() {
         const body = render(routePath);
         html = html.replace('<div id="root"></div>', `<div id="root">${body}</div>`);
 
+        // React's server renderer emits `srcSet` with a capital S. Attribute
+        // names are case-insensitive in HTML so browsers read it correctly, but
+        // it fails an HTML validator and it reads as a bug in view-source. The
+        // client-side renderer sets the property properly either way, so only
+        // the serialised HTML needs normalising.
+        html = html.replace(/ srcSet=/g, ' srcset=');
+
         if (routePath === '/') {
           writeFileSync(join(root, 'dist/index.html'), html);
           continue;
@@ -103,6 +110,47 @@ function routePrerender() {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 ${urls}
 </urlset>
+`
+      );
+
+      // RSS for the insight notes. Without it the only way to notice a new
+      // article is to re-crawl /insights and diff the page, which is not a
+      // cadence anyone keeps. Items are the article routes: those are the only
+      // entries carrying a real content date, so the feed can never claim an
+      // update that did not happen.
+      const feedItems = routes
+        .filter((r) => r.lastmod)
+        .map((r) => {
+          const published = new Date(`${r.lastmod}T00:00:00Z`);
+          const pubDate = Number.isNaN(published.getTime())
+            ? ''
+            : `\n      <pubDate>${published.toUTCString()}</pubDate>`;
+          return `    <item>
+      <title>${esc(r.head.ogTitle || r.head.title)}</title>
+      <link>${r.url}</link>
+      <guid isPermaLink="true">${r.url}</guid>${pubDate}
+      <description>${esc(r.head.description || '')}</description>
+    </item>`;
+        })
+        .join('\n');
+      const newest = routes
+        .filter((r) => r.lastmod)
+        .map((r) => new Date(`${r.lastmod}T00:00:00Z`))
+        .filter((d) => !Number.isNaN(d.getTime()))
+        .sort((a, b) => b - a)[0];
+      writeFileSync(
+        join(root, 'dist/feed.xml'),
+        `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>TENMAY — Notes from the PCBA line</title>
+    <link>https://tenmaypcba.com/insights.html</link>
+    <description>Process limits, quoting arithmetic and BOM problems, written from a high-mix PCBA floor in Shenzhen.</description>
+    <language>en</language>
+    <atom:link href="https://tenmaypcba.com/feed.xml" rel="self" type="application/rss+xml" />${newest ? `\n    <lastBuildDate>${newest.toUTCString()}</lastBuildDate>` : ''}
+${feedItems}
+  </channel>
+</rss>
 `
       );
 
