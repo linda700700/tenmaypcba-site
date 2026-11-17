@@ -129,5 +129,20 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+      /*
+       * Registered late and quietly. The host's ten-minute cache header forces
+       * a revalidation round-trip per asset on every later visit; this is the
+       * only way to stop that without moving the site. A failure here must not
+       * affect anything a visitor can see, so every error is swallowed.
+       */
+      if ('serviceWorker' in navigator && location.protocol === 'https:') {
+        window.addEventListener('load', function () {
+          setTimeout(function () {
+            navigator.serviceWorker.register('/sw.js').catch(function () {});
+          }, 1500);
+        });
+      }
+    </script>
   </body>
 </html>

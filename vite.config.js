@@ -122,7 +122,18 @@ ${urls}
         );
       }
 
-      this.warn(`prerendered ${routes.length} routes, sitemap written`);
+      // The host serves every file with max-age=600, so the browser revalidates
+      // all of them ten minutes after a visit. The service worker caches
+      // /assets/ for good; its version comes from the hashed bundle name, so
+      // each deploy drops the old cache instead of serving last week's photo.
+      const entry = (template.match(/\/assets\/(index-[A-Za-z0-9_-]+\.js)/) || [])[1];
+      if (!entry) {
+        throw new Error('cannot version the service worker: no hashed entry bundle in the built HTML');
+      }
+      const swSource = readFileSync(join(root, 'sw-template.js'), 'utf8');
+      writeFileSync(join(root, 'dist/sw.js'), swSource.replace('__CACHE_VERSION__', entry));
+
+      this.warn(`prerendered ${routes.length} routes, sitemap written, service worker v${entry}`);
     },
   };
 }
