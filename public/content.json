@@ -9,7 +9,6 @@
   },
   "hero": {
     "eyebrow": "PCBA contract manufacturer · Shenzhen",
-    "h1": "Eighteen years",
     "h1Accent": "of building boards for other people.",
     "sub": "Eight production lines, 300,000 points a day, fifty pieces or five thousand. Same inspection on every batch, three-day standard turnaround."
   },
@@ -20,7 +19,7 @@
     },
     {
       "q": "How long have you been running, and what is the smallest batch you will take?",
-      "a": "The company was registered in Shenzhen in 2008, so 2026 is our eighteenth year. The smallest normal order is fifty pieces; smaller runs are reviewed case by case rather than refused by policy."
+      "a": "The company was registered in Shenzhen in 2008. The smallest normal order is fifty pieces; smaller runs are reviewed case by case rather than refused by policy."
     },
     {
       "q": "What is the standard lead time?",
