@@ -34,6 +34,7 @@ import TermsPage from './pages/TermsPage';
 import CookiePage from './pages/CookiePage';
 import CookieConsent from './components/CookieConsent';
 import MobileQuoteBar from './components/MobileQuoteBar';
+import CompanyPage from './pages/CompanyPage';
 
 function HomePage() {
   return (
@@ -75,6 +76,7 @@ export default function App({ path: pathProp }) {
   const isPrivacy = path === '/privacy';
   const isTerms = path === '/terms';
   const isCookies = path === '/cookies';
+  const isCompany = path === '/company';
   const articleSlug = path.startsWith('/insights/') ? path.slice('/insights/'.length) : null;
   const article = articleSlug ? articleBySlug(articleSlug) : null;
   // /applications/<family> — the three in-depth family pages. The index stays at
@@ -132,6 +134,8 @@ export default function App({ path: pathProp }) {
           <TermsPage />
         ) : isCookies ? (
           <CookiePage />
+        ) : isCompany ? (
+          <CompanyPage />
         ) : familySlug ? (
           <ApplicationFamilyPage slug={familySlug} />
         ) : isApplications ? (
