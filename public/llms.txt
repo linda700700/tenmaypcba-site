@@ -156,5 +156,7 @@ certification, and boards that require in-house in-circuit or functional test.
 
 ## Optional
 
+- [Full text of every note, one file](https://tenmaypcba.com/llms-full.txt)
+  — every published note below in a single request, no crawling needed.
 - [Sitemap](https://tenmaypcba.com/sitemap.xml)
 - [Contact and RFQ](https://tenmaypcba.com/#rfq)

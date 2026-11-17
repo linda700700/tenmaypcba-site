@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { renderLlmsFull } from './tools/gen-llms-full.mjs';
 import { dirname, join } from 'node:path';
 
 // Absolute origin used for og:image and canonical URLs in the prerendered HTML.
@@ -201,6 +202,23 @@ ${feedItems}
   };
 }
 
+/*
+ * One plain-text file holding every note, for answer engines that would rather
+ * fetch once than crawl twenty-five pages. Generated from the same Markdown the
+ * notes are built from, so it cannot describe a site that no longer exists.
+ */
+function llmsFullText() {
+  return {
+    name: 'llms-full-text',
+    apply: () => !process.env.PRERENDER_CHILD,
+    closeBundle() {
+      const { text, count } = renderLlmsFull();
+      writeFileSync(join(root, 'dist/llms-full.txt'), text);
+      this.warn(`llms-full.txt: ${count} notes, ${text.length} chars`);
+    },
+  };
+}
+
 function ssrBundle() {
   return {
     name: 'route-prerender-ssr-bundle',
@@ -217,7 +235,7 @@ function ssrBundle() {
 }
 
 export default defineConfig({
-  plugins: [react(), ssrBundle(), routePrerender()],
+  plugins: [react(), ssrBundle(), routePrerender(), llmsFullText()],
   server: {
     host: '127.0.0.1',
   },

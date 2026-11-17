@@ -1,7 +1,7 @@
 import React from 'react';
 import { ArrowRight, ChevronRight, Download, FileText, CheckCircle2, Activity, Cpu, Zap, Radio, UploadCloud, ShieldCheck } from 'lucide-react';
 import { imgAttrs } from '../lib/imageSize';
-import { COMPANY } from '../data/company';
+import { COMPANY, ISO_CERT } from '../data/company';
 
 const smtTable = [
   ['Minimum component size', '0201 (0.6 × 0.3 mm)', '01005 (0.4 × 0.2 mm)', 'Passive placement verified by 3D AOI'],
@@ -50,7 +50,7 @@ const testTable = [
   ['X-ray inspection', '2D, sampled by lot', '3D CT, 100% on BGA and QFN', 'Void percentage reported against IPC-7095'],
   ['BGA void acceptance', 'Reported against IPC-7095', 'Per ball, not averaged across the package', 'Out-of-spec lots are reworked or scrapped, not shipped'],
   ['In-circuit test', 'Not in-house', 'Fixture and program built with a qualified partner', 'Quoted as a separate line item when ICT is required'],
-  ['Functional test', 'Custom jig with manual sequence', 'Automated sequence with data logging', 'Test coverage signed off before production'],
+  ['Functional test', 'Not in-house', 'Jig and program built and run by a qualified test partner', 'Quoted as its own line item; coverage agreed before production'],
   ['Firmware programming', 'Manual or single-gang programmer', 'Gang programming with checksum verification', 'Version bound to serial number'],
   ['Boundary scan / JTAG', 'On request', 'Automated chain test', 'Requires customer BSDL files'],
   ['Burn-in / thermal cycling', 'Ambient soak', '−40 °C to +85 °C chamber, logged', 'Duration defined per product'],
@@ -97,17 +97,17 @@ const processSteps = [
   ['11', '3D X-ray inspection', 'BGA, CSP and QFN joints are radiographed in 3D. Void percentage and joint geometry are reported per ball against IPC-7095, rather than reduced to a pass or fail.', '/assets/images/aoi-inspection.webp'],
   ['12', 'THT insertion & selective soldering', 'Through-hole parts are inserted to an optical template, then soldered by dual-wave or programmable selective nozzle with nitrogen shielding on fine joints.', null],
   ['13', 'Flux cleaning & bake-out', 'Boards are cleaned where the flux chemistry requires it and baked where moisture uptake matters, with time and temperature recorded for the lot.', null],
-  ['14', 'In-circuit test', 'Flying probe covers prototypes and low volume; a custom bed-of-nails fixture takes over once the product goes to repeat production. Opens, shorts and value drift are all caught here.', null],
-  ['15', 'Functional test & programming', 'A custom jig flashes firmware and exercises the board through its full functional sequence, logging results per serial number. Coverage is agreed with your engineering team before release.', null],
+  ['14', 'In-circuit test', 'In-circuit and functional test are not run inside this plant. Flying-probe and bed-of-nails fixtures are built and run by a qualified test partner we manage, and quoted as their own line item. SPI, AOI and X-ray in our own building cover the solder joints; electrical proof of function is a separate scope.', null],
+  ['15', 'Programming & functional test', 'Devices are programmed on site and the checksum is bound to the lot and serial range, so a mixed-revision lot cannot ship silently. Functional test, where the order requires it, runs through the same qualified test partner as step 14 and is reported against the coverage agreed before production.', null],
   ['16', 'Coating, potting & box build', 'Conformal coating, encapsulation, harness assembly and enclosure integration happen on the same site, so the unit leaves as a finished assembly instead of a bare board.', '/assets/images/final-check-packing.webp'],
   ['17', 'Final QA & outgoing inspection', 'Workmanship, labelling, quantity and packaging are checked against the drawing. Any deviation found at this gate triggers a written 8D before shipment.', '/assets/images/xray-inspection.webp'],
   ['18', 'ESD packing & traceability', 'Boards ship in ESD packaging with desiccant and humidity indicator where required. The certificate of conformance and test log are linked to the production lot and serial range.', null],
 ];
 
 const customers = [
-  { icon: Activity, title: 'Medical & life sciences', tag: 'ISO 13485', text: 'Patient monitoring, diagnostic instruments and laboratory equipment where device history records and serial traceability are mandatory.' },
-  { icon: Cpu, title: 'Industrial automation', tag: 'IPC Class 3', text: 'PLC modules, motion controllers and edge gateways built for continuous duty, vibration and wide temperature ranges.' },
-  { icon: Zap, title: 'Automotive & EV', tag: 'IATF 16949', text: 'Battery management sensing, charging control and telematics boards supplied under PPAP Level 3 discipline.' },
+  { icon: Activity, title: 'Medical & life sciences', tag: 'No ISO 13485', text: 'Patient monitoring, diagnostic instruments and laboratory equipment where device history records and serial traceability are mandatory. Built to your drawings and records; we do not hold ISO 13485, so the device file stays with you.' },
+  { icon: Cpu, title: 'Industrial automation', tag: 'IPC-A-610 per order', text: 'PLC modules, motion controllers and edge gateways built for continuous duty, vibration and wide temperature ranges. The workmanship class is quoted per order; we do not hold a certified Class 3 process.' },
+  { icon: Zap, title: 'Automotive & EV', tag: 'No IATF 16949', text: 'Battery management sensing, charging control and telematics boards for the aftermarket — 12 V accessories sold as consumer products. Programme work requiring PPAP inside a vehicle supply chain is outside our scope.' },
   { icon: Radio, title: 'IoT & consumer devices', tag: 'Mixed volume', text: 'Connected sensors, metering nodes and smart hardware moving from pilot batch into repeat production.' },
 ];
 
@@ -184,9 +184,9 @@ export default function CapabilitiesPage() {
               <span>Request an Itemized PCBA Quote</span>
               <ArrowRight className="w-4 h-4" />
             </a>
-            <a href="/#contact" className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300/80 px-5 py-3 rounded text-sm font-semibold transition-colors">
+            <a href="/#rfq" className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300/80 px-5 py-3 rounded text-sm font-semibold transition-colors">
               <Download className="w-4 h-4 text-slate-500" />
-              <span>Download Capability Sheet (PDF)</span>
+              <span>Ask for the capability sheet</span>
             </a>
           </div>
         </div>
@@ -377,6 +377,13 @@ export default function CapabilitiesPage() {
             {/* Customers */}
             <div className="space-y-5">
               <SectionTitle id="industries" kicker="Where these capabilities are used">Industries we build for</SectionTitle>
+              <p className="text-[12.5px] text-slate-600 leading-relaxed">
+                Industries listed here describe boards we have built and can build again. They are <strong>not</strong>{' '}
+                certifications. The only quality-system certificate held is ISO 9001
+                ({ISO_CERT.number}, scope: {ISO_CERT.scope}). IATF 16949, ISO 13485 and third-party IPC Class 3
+                certification are <strong>not</strong> held — see{' '}
+                <a href="/company.html" className="underline decoration-brand-300 underline-offset-2">what we do not hold</a>.
+              </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {customers.map(({ icon: Icon, title, tag, text }) => (
                   <div key={title} className="border border-brand-200/50 rounded-sm p-4 bg-white hover:border-[#126B3F] transition-colors">
