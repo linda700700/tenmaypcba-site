@@ -27,6 +27,7 @@ import AssemblyPage from './pages/AssemblyPage';
 import ApplicationsPage from './pages/ApplicationsPage';
 import InsightsPage from './pages/InsightsPage';
 import ArticlePage from './pages/ArticlePage';
+import RfqPage from './pages/RfqPage';
 
 function HomePage() {
   return (
@@ -64,6 +65,7 @@ export default function App({ path: pathProp }) {
   const isAssembly = path === '/assembly';
   const isApplications = path === '/applications';
   const isInsights = path === '/insights';
+  const isRfq = path === '/rfq';
   const articleSlug = path.startsWith('/insights/') ? path.slice('/insights/'.length) : null;
   const article = articleSlug ? articleBySlug(articleSlug) : null;
 
@@ -97,7 +99,7 @@ export default function App({ path: pathProp }) {
   return (
     <div className="min-h-screen bg-white text-slate-900 flex flex-col font-sans selection:bg-brand-600 selection:text-white">
 
-      <Seo />
+      <Seo path={path} />
       <ScrollProgress />
       <Navbar currentPath={path} />
       <main className="flex-1">
@@ -109,6 +111,8 @@ export default function App({ path: pathProp }) {
           <AssemblyPage />
         ) : isCapabilities ? (
           <CapabilitiesPage />
+        ) : isRfq ? (
+          <RfqPage />
         ) : isApplications ? (
           <ApplicationsPage initialHash={hash} />
         ) : (

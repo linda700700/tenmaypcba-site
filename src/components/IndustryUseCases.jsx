@@ -79,7 +79,7 @@ export default function IndustryUseCases() {
           <article className="overflow-hidden rounded-xl border border-brand-200/50 lg:col-span-7">
             <div className="relative aspect-[16/11] overflow-hidden">
               <img src={s.image}
-              {...imgAttrs(s.image)} alt={s.imageAlt} loading="lazy" className="h-full w-full object-cover" />
+              {...imgAttrs(s.image, "(max-width: 1024px) 92vw, 58vw")} alt={s.imageAlt} loading="lazy" className="h-full w-full object-cover" />
               <span className="absolute left-4 top-4 rounded bg-brand-600 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white">
                 Lead product family
               </span>
@@ -123,7 +123,7 @@ export default function IndustryUseCases() {
                   <a href={`/applications.html#${c.id}`} className="group flex items-start gap-3 py-3.5">
                     <span className="zoom-parent mt-0.5 h-14 w-[68px] shrink-0 overflow-hidden rounded-md border border-brand-200/50 bg-slate-50">
                       <img src={c.image}
-                      {...imgAttrs(c.image)} alt={c.name} loading="lazy" className="h-full w-full object-cover" />
+                      {...imgAttrs(c.image, "68px")} alt={c.name} loading="lazy" className="h-full w-full object-cover" />
                     </span>
                     <span className="min-w-0 flex-1">
                       <span className="flex items-baseline justify-between gap-2">

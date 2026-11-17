@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Clock } from 'lucide-react';
 import { ARTICLES, formatDate } from '../lib/insights';
+import { imgAttrs } from '../lib/imageSize';
 
 /*
  * Article index. The list is generated from src/content/insights/, so adding a
@@ -41,9 +42,8 @@ export default function InsightsPage() {
               {lead.cover ? (
                 <img
                   src={lead.cover}
+                  {...imgAttrs(lead.cover, '(max-width: 1024px) 92vw, 780px')}
                   alt={lead.coverAlt || ''}
-                  width="1400"
-                  height="933"
                   className="mb-5 w-full rounded object-cover ring-1 ring-slate-200"
                 />
               ) : null}
@@ -81,9 +81,8 @@ export default function InsightsPage() {
                       {a.coverThumb || a.cover ? (
                         <img
                           src={a.coverThumb || a.cover}
+                          {...imgAttrs(a.coverThumb || a.cover, '120px')}
                           alt={a.coverAlt || ''}
-                          width="800"
-                          height="533"
                           loading="lazy"
                           decoding="async"
                           className="hidden h-[62px] w-[93px] shrink-0 rounded object-cover ring-1 ring-slate-200 sm:block"

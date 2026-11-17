@@ -6,6 +6,8 @@
  * Spread these attributes onto the tag; Tailwind classes still control the
  * rendered size, these only give the browser the aspect ratio up front.
  */
+import { variantSet } from './imageVariants';
+
 const SIZES = {
   "/assets/images/aoi-inspection-thumb.webp": [
     320,
@@ -133,8 +135,24 @@ const SIZES = {
   ]
 }
 
-export function imgAttrs(src) {
+/* A card on a phone is a full-width card; on a laptop it is one of three. This
+ * is the default, not a measurement, so a component that knows better passes
+ * its own `sizes` — an inaccurate one only costs bytes, never layout. */
+const DEFAULT_SIZES = '(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 33vw';
+
+/*
+ * `sizes` only matters when a srcset exists, so an image without generated
+ * variants returns exactly what it did before: plain width and height.
+ * The original is appended at its true width so a large screen still gets the
+ * full-resolution file rather than the largest thumbnail.
+ */
+export function imgAttrs(src, sizes = DEFAULT_SIZES) {
   const size = SIZES[src];
   if (!size) return {};
-  return { width: size[0], height: size[1] };
+  const attrs = { width: size[0], height: size[1] };
+  const set = variantSet(src);
+  if (!set) return attrs;
+  attrs.srcSet = `${set}, ${src} ${size[0]}w`;
+  attrs.sizes = sizes;
+  return attrs;
 }

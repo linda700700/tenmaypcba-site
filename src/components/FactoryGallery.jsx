@@ -132,7 +132,7 @@ export default function FactoryGallery() {
               <div className="group relative aspect-[16/9] overflow-hidden bg-slate-100">
                 <img
                   src={item.image}
-                  {...imgAttrs(item.image)}
+                  {...imgAttrs(item.image, "(max-width: 640px) 88vw, (max-width: 1024px) 46vw, 30vw")}
                   alt={item.alt}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"

@@ -253,7 +253,7 @@ export default function SolutionsSection() {
                 <div key={item.id} id={`process-${item.id}`} hidden={!on} className="absolute inset-0">
                   <img
                     src={item.image}
-                    {...imgAttrs(item.image)}
+                    {...imgAttrs(item.image, "(max-width: 1024px) 100vw, 62vw")}
                     alt={item.shot}
                     loading={on ? 'eager' : 'lazy'}
                     decoding="async"

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Check, MessageSquare, Clock3, Microscope, Sprout } from 'lucide-react';
 import IconTile from './IconTile';
+import { yearsInBusiness } from '../data/company';
 
 const FACTS = [
   { label: 'Established', value: '2008' },
@@ -28,7 +29,7 @@ const VALUES = [
   {
     icon: Sprout,
     title: 'The long view',
-    text: 'Eighteen years on one site in Shenzhen. We are not optimising for this quarter, which is why the same customers keep sending the next board.',
+    text: `${yearsInBusiness()} years on one site in Shenzhen. We are not optimising for this quarter, which is why the same customers keep sending the next board.`,
   },
 ];
 
@@ -77,7 +78,7 @@ export default function AboutCompany() {
           <div>
             <div className="text-[12px] font-bold tracking-[0.18em] text-[#126B3F] uppercase">About Tenmay</div>
             <h2 className="mt-3 text-2xl sm:text-3xl lg:text-[34px] font-bold tracking-tight text-slate-900 leading-[1.2]">
-              Eighteen years in Shenzhen,
+              {yearsInBusiness()} years in Shenzhen,
               <br className="hidden sm:block" /> building boards for other people&rsquo;s products.
             </h2>
 

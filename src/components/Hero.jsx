@@ -1,6 +1,6 @@
 import React from 'react';
 import { ArrowRight, MessageCircle, MapPin, CheckCircle2 } from 'lucide-react';
-import { COMPANY, waLink, DEFAULT_WA_TEXT, HERO_VIDEO } from '../data/company';
+import { COMPANY, waLink, DEFAULT_WA_TEXT, HERO_VIDEO, yearsInBusiness } from '../data/company';
 import { contentHero } from '../lib/content';
 
 /*
@@ -23,6 +23,7 @@ import { contentHero } from '../lib/content';
  */
 export default function Hero() {
   const hero = contentHero();
+  const years = yearsInBusiness();
   return (
     <section
       className="relative isolate overflow-hidden border-b border-brand-200/50 bg-brand-50"
@@ -44,6 +45,8 @@ export default function Hero() {
         ) : (
           <img
             src="/assets/images/hero-line-aisle.webp"
+            srcSet="/assets/images/hero-line-aisle-700w.webp 700w, /assets/images/hero-line-aisle-900w.webp 900w, /assets/images/hero-line-aisle.webp 1536w"
+            sizes="100vw"
             alt="Aisle between two rows of SMT placement machines, feeder carts loaded with component reels, an operator at the line console"
             className="hero-drift h-full w-full object-cover object-[64%_48%] contrast-[1.02] saturate-[1.04]"
             width="1536"
@@ -96,7 +99,7 @@ export default function Hero() {
           </div>
 
           <h1 className="mt-4 text-[36px] font-bold leading-[1.04] tracking-[-0.006em] text-[#0A2A1C] sm:text-[62px]">
-            {hero.h1 || 'Eighteen years'}
+            {hero.h1 || `${years} years`}{' '}
             <span className="block text-brand-600">{hero.h1Accent || 'of building boards for other people.'}</span>
           </h1>
 
@@ -126,7 +129,7 @@ export default function Hero() {
 
           <div className="mt-10 grid max-w-[520px] grid-cols-3 gap-4">
             {[
-              [18, 'years', 'since 2008'],
+              [years, 'years', 'since 2008'],
               [8, 'lines', 'YSM20 / YSM10'],
               [3, 'days', 'standard build'],
             ].map(([to, unit, sub], i) => (

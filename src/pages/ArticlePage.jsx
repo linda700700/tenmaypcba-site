@@ -1,4 +1,5 @@
 import React from 'react';
+import { imgAttrs } from '../lib/imageSize';
 import { ArrowLeft, ArrowRight, Clock } from 'lucide-react';
 import { Markdown } from '../lib/markdown.jsx';
 import { ARTICLES, formatDate } from '../lib/insights';
@@ -76,9 +77,8 @@ export default function ArticlePage({ article }) {
           <figure className="mb-9">
             <img
               src={article.cover}
+              {...imgAttrs(article.cover, '(max-width: 1024px) 92vw, 780px')}
               alt={article.coverAlt || ''}
-              width="1400"
-              height="933"
               fetchpriority="high"
               decoding="async"
               className="w-full rounded-lg object-cover ring-1 ring-slate-200"

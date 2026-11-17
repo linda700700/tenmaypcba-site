@@ -12,7 +12,7 @@ export const FAQS = [
   },
   {
     q: 'How long have you been running, and what is the smallest batch you will take?',
-    a: 'The company was registered in Shenzhen in 2008, so 2026 is our eighteenth year. The smallest normal order is fifty pieces; smaller runs are reviewed case by case rather than refused by policy.',
+    a: 'The company was registered in Shenzhen in 2008. The smallest normal order is fifty pieces; smaller runs are reviewed case by case rather than refused by policy.',
   },
   {
     q: 'What is the standard lead time?',

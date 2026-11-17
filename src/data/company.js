@@ -31,6 +31,24 @@ export const COMPANY = {
 };
 
 /*
+ * Years in business, derived from the founding year instead of typed.
+ *
+ * The homepage used to say "Eighteen years" in the hero, in the About heading
+ * and again in the About copy, plus a "2026 is our eighteenth year" line in the
+ * FAQ. Four strings that all go wrong on the same morning in January. Anything
+ * that needs the number imports this function instead.
+ *
+ * The prerendered HTML carries the build year; the client re-renders with the
+ * visitor's current year, so a site that is not rebuilt for a while still
+ * corrects itself on load.
+ */
+export function yearsInBusiness() {
+  const founded = Number(COMPANY.founded);
+  const now = new Date().getFullYear();
+  return founded && now >= founded ? now - founded : 0;
+}
+
+/*
  * ISO 9001 certificate. The number is displayed on the quality section and is
  * the first thing a procurement engineer checks, so it lives in data rather
  * than in copy: an empty value renders "issued on request" instead of a claim

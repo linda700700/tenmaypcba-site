@@ -2,12 +2,24 @@ import React from 'react';
 import { COMPANY, SITE_URL } from '../data/company';
 import { USE_CASE_FAQ } from '../data/useCases';
 import { FAQS } from '../data/faq';
+import { canonicalFor } from '../seo/routes';
+import { articleBySlug } from '../lib/insights';
 
 /*
  * Structured data. Two audiences: search engines reading JSON-LD, and answer
  * engines (ChatGPT, Perplexity, AI Overviews) that quote organisation facts and
  * question/answer pairs verbatim. Every field here must be true — a fabricated
  * certification or headcount in JSON-LD is worse than none at all.
+ *
+ * Two rules this file follows deliberately:
+ *
+ *  1. FAQPage is emitted on the homepage only. The FAQ block is rendered there
+ *     and nowhere else, and shipping the same eight questions under eleven URLs
+ *     is duplicate markup, not extra coverage.
+ *  2. No `sameAs` and no street address yet. Both are only worth adding with
+ *     real values — a wrong profile URL or an invented street number is a
+ *     penalty risk, not a signal. They go in when the accounts and the
+ *     registered address are confirmed.
  */
 function JsonLd({ id, data }) {
   return (
@@ -19,7 +31,35 @@ function JsonLd({ id, data }) {
   );
 }
 
-export default function Seo() {
+/* Visible trails, one per route. A BreadcrumbList that does not match a trail a
+ * visitor can actually follow is treated as spam, so this mirrors the URL
+ * hierarchy rather than inventing a shorter one. */
+function breadcrumbsFor(path) {
+  if (!path || path === '/') return null;
+  const trail = [{ name: 'Home', path: '/' }];
+
+  if (path.startsWith('/insights/')) {
+    trail.push({ name: 'Insights', path: '/insights' });
+    const article = articleBySlug(path.slice('/insights/'.length));
+    if (article) trail.push({ name: article.title, path });
+  } else if (path === '/insights') {
+    trail.push({ name: 'Insights', path });
+  } else if (path === '/assembly') {
+    trail.push({ name: 'Assembly', path });
+  } else if (path === '/capabilities') {
+    trail.push({ name: 'Capabilities', path });
+  } else if (path === '/applications') {
+    trail.push({ name: 'Applications', path });
+  } else if (path === '/rfq') {
+    trail.push({ name: 'Request a quote', path });
+  } else {
+    return null;
+  }
+
+  return trail;
+}
+
+export default function Seo({ path = '/' }) {
   const org = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -31,6 +71,7 @@ export default function Seo() {
     logo: `${SITE_URL}/assets/images/logo-192.webp`,
     image: `${SITE_URL}/assets/images/macro-joints.webp`,
     foundingDate: COMPANY.founded,
+    telephone: COMPANY.phoneDisplay,
     description:
       'PCBA contract manufacturer in Shenzhen, China. Surface-mount and through-hole assembly, post-solder, conformal coating, device programming and in-line SPI/AOI/X-ray inspection across eight production lines.',
     address: {
@@ -63,6 +104,16 @@ export default function Seo() {
     areaServed: ['Worldwide'],
   };
 
+  const website = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${SITE_URL}/#website`,
+    url: SITE_URL,
+    name: COMPANY.shortName,
+    inLanguage: 'en',
+    publisher: { '@id': `${SITE_URL}/#organization` },
+  };
+
   const service = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -91,22 +142,42 @@ export default function Seo() {
     },
   };
 
-  const faq = {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    '@id': `${SITE_URL}/#faq`,
-    mainEntity: [...FAQS, ...USE_CASE_FAQ].map((f) => ({
-      '@type': 'Question',
-      name: f.q,
-      acceptedAnswer: { '@type': 'Answer', text: f.a },
-    })),
-  };
+  const trail = breadcrumbsFor(path);
+  const breadcrumb = trail
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        '@id': `${canonicalFor(path)}#breadcrumb`,
+        itemListElement: trail.map((step, i) => ({
+          '@type': 'ListItem',
+          position: i + 1,
+          name: step.name,
+          item: canonicalFor(step.path),
+        })),
+      }
+    : null;
+
+  const showFaq = path === '/';
+  const faq = showFaq
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'FAQPage',
+        '@id': `${SITE_URL}/#faq`,
+        mainEntity: [...FAQS, ...USE_CASE_FAQ].map((f) => ({
+          '@type': 'Question',
+          name: f.q,
+          acceptedAnswer: { '@type': 'Answer', text: f.a },
+        })),
+      }
+    : null;
 
   return (
     <>
       <JsonLd id="ld-organization" data={org} />
+      <JsonLd id="ld-website" data={website} />
       <JsonLd id="ld-service" data={service} />
-      <JsonLd id="ld-faq" data={faq} />
+      {breadcrumb ? <JsonLd id="ld-breadcrumb" data={breadcrumb} /> : null}
+      {faq ? <JsonLd id="ld-faq" data={faq} /> : null}
     </>
   );
 }

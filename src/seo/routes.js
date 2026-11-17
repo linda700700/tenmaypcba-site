@@ -43,6 +43,14 @@ export const ROUTE_HEADS = {
     ogDescription:
       'Engineering notes on fine-pitch placement, small-batch economics and BOM substitution, from a high-mix PCBA floor in Shenzhen.',
   },
+  '/rfq': {
+    title: 'Request a PCBA Quote — Send Gerber and BOM | TENMAY',
+    description:
+      'Send Gerber, BOM and centroid for an itemised PCBA price. Fifty pieces upward, three working days once the kit is complete, DFM note included.',
+    ogTitle: 'Request a PCBA Quote — TENMAY',
+    ogDescription:
+      'One form to an assembly engineer: DFM note plus itemised price, with component lead time stated rather than hidden.',
+  },
   '/capabilities': {
     title: 'PCBA Manufacturing Capabilities & Equipment | TENMAY',
     description:
