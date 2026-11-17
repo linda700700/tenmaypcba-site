@@ -71,6 +71,40 @@ User-agent: Amazonbot
 Allow: /
 Disallow: /*?*
 
+# -------------------------------------------------------------
+# 训练语料与其它 AI 检索爬虫
+# -------------------------------------------------------------
+
+# Common Crawl — 多数开源模型的训练语料来源
+User-agent: CCBot
+Allow: /
+Disallow: /*?*
+
+# ByteDance / TikTok
+User-agent: Bytespider
+Allow: /
+Disallow: /*?*
+
+# DuckDuckGo AI 摘要
+User-agent: DuckAssistBot
+Allow: /
+Disallow: /*?*
+
+# You.com
+User-agent: YouBot
+Allow: /
+Disallow: /*?*
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+Disallow: /*?*
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+Disallow: /*?*
+
 # ------------------------------------------------------------
 # 传统搜索引擎（保持不变）
 # ------------------------------------------------------------
