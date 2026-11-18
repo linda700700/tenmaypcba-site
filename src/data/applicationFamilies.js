@@ -1247,7 +1247,7 @@ export const FAMILIES = {
       {
         heading: 'What is not done here, and where the volume actually goes',
         paras: [
-          'No burn-in, no automated test with an electronic load, no efficiency or power-factor measurement, and no safety certification. Those produce the numbers a data-centre buyer asks for, and they need a rack, a load bank and a certified laboratory. A shelf that has not been run at load has not been proven.',
+          'No burn-in under load, no automated test with an electronic load, no efficiency or power-factor measurement, and no safety certification. Those produce the numbers a data-centre buyer asks for, and they need a rack, a load bank and a certified laboratory. A shelf that has not been run at load has not been proven. What the floor does run is a chamber soak, quoted per product with its temperature and duration written on the order.',
           'Commercially, the module volume sits with plants that build in tens of thousands and test in line. The workable entry for a high-mix floor is the second-source run, the battery-backup control and monitoring board, the fan tray and shelf controller, and the pilot build before a brand commits a line.',
           'What is changing in the racks is worth one sentence, offered as a description of the products rather than as a market forecast: 48 V DC distribution with battery backup inside the rack has moved from a proposal to a shipping architecture, which turns a power-supply purchase into a board-level one. That is the reason this family is on the site at all.',
         ],
@@ -1256,7 +1256,7 @@ export const FAMILIES = {
     limits: {
       heading: 'Where this floor cannot carry a power-shelf project',
       items: [
-        'Burn-in and automated test with an electronic load, plus efficiency and power-factor measurement.',
+        'Burn-in at load with an electronic load, plus efficiency and power-factor measurement — a chamber soak does not substitute for either.',
         'Safety certification (UL / EN 62368) and any data-centre qualification of the finished shelf.',
         'Volumes above roughly five thousand modules a month, where in-line test and automated assembly decide the price.',
       ],
@@ -1268,7 +1268,7 @@ export const FAMILIES = {
       },
       {
         q: 'Do you test the module at load?',
-        a: 'No. Burn-in, electronic-load test, efficiency and power-factor measurement are not run in-house; they need a rack, a load bank and a laboratory. SPI, AOI and X-ray cover the joints, and that is what this floor certifies.',
+        a: 'Not at load. Electronic-load burn-in, efficiency and power-factor measurement are not run in-house; they need a rack, a load bank and a laboratory. A chamber soak is a different test and is quoted per product. SPI, AOI and X-ray cover the joints, and that is what this floor certifies.',
       },
       {
         q: 'What batch size makes sense for a power shelf?',

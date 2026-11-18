@@ -47,11 +47,14 @@ export default function Footer() {
               Manufacturing Services
             </div>
             <ul className="space-y-2.5">
-              <li><a href="#services" className="hover:text-white transition-colors">Full Turnkey PCBA Production</a></li>
-              <li><a href="#services" className="hover:text-white transition-colors">Surface Mount (SMT) Assembly</a></li>
-              <li><a href="#services" className="hover:text-white transition-colors">Box Build & Enclosure Fitting</a></li>
-              <li><a href="#services" className="hover:text-white transition-colors">NPI Rapid Prototyping (48h)</a></li>
-              <li><a href="#services" className="hover:text-white transition-colors">Testing, 3D X-Ray & Burn-In</a></li>
+              {/* Absolute paths, not bare #anchors: the footer sits on every page and a bare
+                  #services only resolves on the homepage. ICT and functional test are not
+                  in-house, so the test line names only what the floor actually runs. */}
+              <li><a href="/assembly.html" className="hover:text-white transition-colors">Full Turnkey PCBA Production</a></li>
+              <li><a href="/capabilities.html#smt" className="hover:text-white transition-colors">Surface Mount (SMT) Assembly</a></li>
+              <li><a href="/capabilities.html#tht" className="hover:text-white transition-colors">Box Build & Enclosure Fitting</a></li>
+              <li><a href="/assembly.html" className="hover:text-white transition-colors">NPI Rapid Prototyping (48h)</a></li>
+              <li><a href="/capabilities.html#test" className="hover:text-white transition-colors">SPI, AOI, X-Ray & Soak Burn-In</a></li>
             </ul>
           </div>
 
@@ -61,11 +64,11 @@ export default function Footer() {
               Industries Served
             </div>
             <ul className="space-y-2.5">
-              <li><a href="#industries" className="hover:text-white transition-colors">Medical & Healthcare Devices</a></li>
-              <li><a href="#industries" className="hover:text-white transition-colors">Industrial Automation & PLCs</a></li>
-              <li><a href="#industries" className="hover:text-white transition-colors">Automotive Electronics & EV</a></li>
-              <li><a href="#industries" className="hover:text-white transition-colors">Telecommunications & 5G Edge</a></li>
-              <li><a href="#cases" className="hover:text-white transition-colors">Engineering Case Histories</a></li>
+              <li><a href="/#industries" className="hover:text-white transition-colors">Medical & Healthcare Devices</a></li>
+              <li><a href="/#industries" className="hover:text-white transition-colors">Industrial Automation & PLCs</a></li>
+              <li><a href="/#industries" className="hover:text-white transition-colors">Automotive Electronics & EV</a></li>
+              <li><a href="/#industries" className="hover:text-white transition-colors">Telecommunications & 5G Edge</a></li>
+              <li><a href="/#cases" className="hover:text-white transition-colors">Engineering Case Histories</a></li>
             </ul>
           </div>
 

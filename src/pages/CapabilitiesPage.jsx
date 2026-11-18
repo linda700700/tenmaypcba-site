@@ -295,6 +295,11 @@ export default function CapabilitiesPage() {
             <div className="space-y-4">
               <SectionTitle id="test" kicker="Table 03">Inspection &amp; test</SectionTitle>
               <CapTable rows={testTable} />
+              <p className="text-[13px] text-slate-500">
+                Burn-in here means a chamber soak at a stated temperature and for a stated duration — not a run at
+                load, because there is no electronic load bank in this building. Efficiency, power-factor and
+                full-load figures therefore come from your own test house or lab, never from us.
+              </p>
             </div>
 
             {/* Table 4 */}
