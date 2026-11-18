@@ -6,6 +6,7 @@ import { TOPIC_BY_PATH } from '../data/topics';
 import { FAQS } from '../data/faq';
 import { canonicalFor } from '../seo/routes';
 import { articleBySlug } from '../lib/insights';
+import { ARTICLE_FAQ } from '../data/articleFaq';
 
 /*
  * Structured data. Two audiences: search engines reading JSON-LD, and answer
@@ -98,9 +99,18 @@ export default function Seo({ path = '/' }) {
      * answer engine checks against a registry, so it has to be the registered
      * string, not the English trading name. */
     legalName: COMPANY.registeredName,
-    /* Every romanisation a buyer might search, plus the one the certification
-     * body uses. All three resolve to the same entity and the same credit code. */
-    alternateName: [COMPANY.legalName, ISO_CERT.holder, COMPANY.shortName],
+    /* Every distinct romanisation a buyer might search, plus the one the
+     * certification body uses. All three resolve to the same entity and the same
+     * credit code. ISO_CERT.holder is deliberately not listed: it is the same
+     * string as legalName, and a duplicate in alternateName says nothing extra.
+     *
+     * holderAsPrinted has to be here. Google was rewriting the <title> of
+     * /capabilities and /applications to "TENGMEI" while the source said
+     * TENMAY — it read the certificate spelling somewhere on the site and
+     * settled on it as the entity name. Leaving it out of alternateName does not
+     * hide the spelling, it just leaves the engine free to pick it as primary.
+     * Listed here, both strings are declared to be the same entity. */
+    alternateName: [COMPANY.legalName, ISO_CERT.holderAsPrinted, COMPANY.shortName],
     identifier: {
       '@type': 'PropertyValue',
       propertyID: 'Unified Social Credit Code',
@@ -236,9 +246,20 @@ export default function Seo({ path = '/' }) {
     : null;
 
   /* FAQPage follows the visible block exactly: the eight homepage questions on
-   * "/", each family's own three on its family page, and nothing anywhere else.
-   * Marking up questions a visitor cannot see on that URL is a penalty risk. */
-  const faqSource = path === '/' ? [...FAQS, ...USE_CASE_FAQ] : family ? family.faq : null;
+   * "/", each family's own three on its family page, each note's own three on
+   * its article URL, and nothing anywhere else. Marking up questions a visitor
+   * cannot see on that URL is a penalty risk — every source below is printed on
+   * the page it describes. */
+  const articleFaq =
+    path && path.startsWith('/insights/') ? ARTICLE_FAQ[path.slice('/insights/'.length)] : null;
+  const faqSource =
+    path === '/'
+      ? [...FAQS, ...USE_CASE_FAQ]
+      : family
+        ? family.faq
+        : articleFaq && articleFaq.length
+          ? articleFaq
+          : null;
   const faq = faqSource
     ? {
         '@context': 'https://schema.org',

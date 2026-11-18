@@ -6,6 +6,7 @@ import { ARTICLES, formatDate, bodyOf } from '../lib/insights';
 import { COMPANY, SITE_URL } from '../data/company';
 import { canonicalFor } from '../seo/routes';
 import { topicForArticle } from '../data/topics';
+import { ARTICLE_FAQ } from '../data/articleFaq';
 
 /*
  * One article. The body arrives as Markdown and is rendered to React nodes, so
@@ -65,6 +66,13 @@ export default function ArticlePage({ article }) {
   const pool = ARTICLES.filter((a) => a.slug !== article.slug);
   const tagged = pool.filter((a) => a.tags.some((t) => article.tags.includes(t)));
   const others = [...tagged, ...pool.filter((a) => !tagged.includes(a))].slice(0, 2);
+  /*
+   * The pairs below are also emitted as FAQPage in Seo.jsx. They are printed
+   * here, not only marked up, because structured data has to describe something
+   * a visitor can actually read on this URL — markup for invisible questions is
+   * the kind of shortcut that gets a site treated as spam rather than quoted.
+   */
+  const faq = ARTICLE_FAQ[article.slug] || [];
 
   return (
     <article data-component="insight-article">
@@ -143,6 +151,25 @@ export default function ArticlePage({ article }) {
         <div className="max-w-[720px]">
           <Markdown source={bodyOf(article)} />
         </div>
+
+        {faq.length > 0 && (
+          <section className="mt-12 max-w-[720px]" aria-labelledby="article-faq">
+            <h2
+              id="article-faq"
+              className="text-[20px] font-bold tracking-tight text-[#0A2A1C]"
+            >
+              Questions this note answers
+            </h2>
+            <dl className="mt-5 divide-y divide-slate-200 border-y border-slate-200">
+              {faq.map((f) => (
+                <div key={f.q} className="py-5">
+                  <dt className="text-[15.5px] font-bold leading-snug text-[#0A2A1C]">{f.q}</dt>
+                  <dd className="mt-2 text-[15px] leading-relaxed text-slate-700">{f.a}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
 
         <div className="mt-12 border-t border-slate-200 pt-8">
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">

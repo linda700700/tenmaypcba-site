@@ -145,7 +145,7 @@ const SIZES = {
     1400,
     933
   ],
-  "/assets/images/og-tengmei.jpg": [
+  "/assets/images/og-tenmay.jpg": [
     1200,
     630
   ],
