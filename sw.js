@@ -18,7 +18,7 @@
  * /assets/images/*.webp — those names carry no hash, so the version is what
  * guarantees a replaced photo reaches the buyer.
  */
-const CACHE = 'tm-assets-index-Byw3to7k.js';
+const CACHE = 'tm-assets-index-Dxq9TcOn.js';
 
 self.addEventListener('install', () => {
   self.skipWaiting();
