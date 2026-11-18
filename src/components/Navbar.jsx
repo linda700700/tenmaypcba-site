@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
   ArrowRight, Menu, X, Globe, Phone, Search, ChevronDown,
-  Upload, MapPin, Clock, MessageCircle,
+  Upload, MapPin, Clock, MessageCircle, FileDown,
 } from 'lucide-react';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 import { imgAttrs } from '../lib/imageSize';
@@ -237,8 +237,7 @@ const NAV = [
         title: 'Talk to an engineer',
         items: [
           { label: 'Request a quote', href: '/#rfq', kw: 'quote rfq upload gerber' },
-          { label: 'WhatsApp', href: 'wa', kw: 'whatsapp chat message' },
-          { label: 'WhatsApp', href: 'wa', kw: 'whatsapp chat contact' },
+          { label: 'WhatsApp', href: 'wa', kw: 'whatsapp chat message chat contact' },
         ],
       },
     ],
@@ -279,7 +278,6 @@ export default function Navbar({ currentPath = '/' }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [openMobileGroup, setOpenMobileGroup] = useState(null);
   const headerRef = useRef(null);
-  const searchRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -424,7 +422,7 @@ export default function Navbar({ currentPath = '/' }) {
           </a>
 
           {/* Search */}
-          <form onSubmit={submitSearch} className="relative flex-1 max-w-[460px] hidden md:block" ref={searchRef}>
+          <form onSubmit={submitSearch} className="relative flex-1 max-w-[460px] hidden md:block">
             <div className="flex items-stretch border border-slate-300/80 rounded focus-within:border-[#126B3F] focus-within:ring-2 focus-within:ring-blue-100 transition-all bg-white">
               <input
                 type="search"
