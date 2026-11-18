@@ -801,7 +801,7 @@ The last one is the one buyers skip, and it is the one that causes the argument 
 
 ### How we quote, as a worked example of the structure
 
-Every quotation we send is itemised against those five lines, with the BOM showing the distributor and the unit price used on the day of quoting. Parts are bought through franchised channels or factory allocation where the part requires it. Shortage lists go out within 24 hours, and no substitution happens without written approval.
+Every quotation we send is itemised against those five lines, with the BOM showing the distributor and the unit price used on the day of quoting. Parts are bought through franchised channels or factory allocation where the part requires it. Shortage lists go out within one working day, and no substitution happens without written approval.
 
 Reorders with an unchanged Gerber and BOM revision carry no repeat NRE. Lead time is stated as three working days from kitted parts, with component lead time called out separately, because that is usually what sets the real shipping date.
 
@@ -1510,7 +1510,7 @@ Rule 1 — If you already hold the parts, consign them.
 Stock on your shelf has already been paid for. Sending it to be assembled converts dead inventory into finished boards; buying it again through a factory is buying the same part twice.
 
 Rule 2 — If the BOM has more than roughly a hundred lines and the batch is under 500, take turnkey.
-The purchasing labour per board is the dominant term at that size. A shortage list from the factory within 24 hours is cheaper than your buyer spending three days chasing three lines.
+The purchasing labour per board is the dominant term at that size. A shortage list from the factory within one working day is cheaper than your buyer spending three days chasing three lines.
 
 Rule 3 — If a single part is on allocation, split the model.
 Consign the allocated part, let the factory buy the rest. This is the case partial turnkey exists for, and it keeps the shortage risk with the party that already owns the constraint.

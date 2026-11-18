@@ -33,7 +33,7 @@ Two more costs sit underneath those three and are easy to forget:
 Stock on your shelf has already been paid for. Sending it to be assembled converts dead inventory into finished boards; buying it again through a factory is buying the same part twice.
 
 **Rule 2 — If the BOM has more than roughly a hundred lines and the batch is under 500, take turnkey.**
-The purchasing labour per board is the dominant term at that size. A shortage list from the factory within 24 hours is cheaper than your buyer spending three days chasing three lines.
+The purchasing labour per board is the dominant term at that size. A shortage list from the factory within one working day is cheaper than your buyer spending three days chasing three lines.
 
 **Rule 3 — If a single part is on allocation, split the model.**
 Consign the allocated part, let the factory buy the rest. This is the case partial turnkey exists for, and it keeps the shortage risk with the party that already owns the constraint.

@@ -62,7 +62,11 @@ question before the price question, which is the order a programme buyer asks.
 - Quality system: ISO 9001, certificate 38822Q00487R0S
 - Quotation: open-book, itemised as bare board + BOM pass-through + SMT points × rate + tooling / NRE + testing & QA
 - Re-orders: no repeat NRE when the Gerber and BOM revision are unchanged
-- Quote response: written DFM answer plus itemised quote within one working day
+- Quote response: written DFM answer plus itemised quote within one working day,
+  defined on this site as by the end of the next Shenzhen working day (GMT+8,
+  Monday to Friday). The same unit is used everywhere: reply promises are in
+  working days, build times are in working days, and "24 h" appears only in
+  the chamber soak tiers (8 h / 24 h / 48 h).
 - Files required for a quote: Gerber, BOM, centroid / pick-and-place
 - Contact: WhatsApp +86 173 6105 8693 · phone +86 139 2377 2594 · RFQ form
 

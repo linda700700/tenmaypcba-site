@@ -61,7 +61,7 @@ The last one is the one buyers skip, and it is the one that causes the argument 
 
 ## How we quote, as a worked example of the structure
 
-Every quotation we send is itemised against those five lines, with the BOM showing the distributor and the unit price used on the day of quoting. Parts are bought through franchised channels or factory allocation where the part requires it. Shortage lists go out within 24 hours, and no substitution happens without written approval.
+Every quotation we send is itemised against those five lines, with the BOM showing the distributor and the unit price used on the day of quoting. Parts are bought through franchised channels or factory allocation where the part requires it. Shortage lists go out within one working day, and no substitution happens without written approval.
 
 Reorders with an unchanged Gerber and BOM revision carry no repeat NRE. Lead time is stated as three working days from kitted parts, with component lead time called out separately, because that is usually what sets the real shipping date.
 
