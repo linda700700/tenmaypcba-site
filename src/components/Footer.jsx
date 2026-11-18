@@ -64,10 +64,10 @@ export default function Footer() {
               Industries Served
             </div>
             <ul className="space-y-2.5">
-              <li><a href="/#industries" className="hover:text-white transition-colors">Medical & Healthcare Devices</a></li>
-              <li><a href="/#industries" className="hover:text-white transition-colors">Industrial Automation & PLCs</a></li>
-              <li><a href="/#industries" className="hover:text-white transition-colors">Automotive Electronics & EV</a></li>
-              <li><a href="/#industries" className="hover:text-white transition-colors">Telecommunications & 5G Edge</a></li>
+              <li><a href="/capabilities.html#industries" className="hover:text-white transition-colors">Medical & Healthcare Devices</a></li>
+              <li><a href="/capabilities.html#industries" className="hover:text-white transition-colors">Industrial Automation & PLCs</a></li>
+              <li><a href="/capabilities.html#industries" className="hover:text-white transition-colors">Automotive Electronics & EV</a></li>
+              <li><a href="/capabilities.html#industries" className="hover:text-white transition-colors">Telecommunications & 5G Edge</a></li>
               <li><a href="/#cases" className="hover:text-white transition-colors">Engineering Case Histories</a></li>
             </ul>
           </div>
