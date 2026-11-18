@@ -393,7 +393,9 @@ export default function Navbar({ currentPath = '/' }) {
 
       <header
         ref={headerRef}
-        className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm transition-shadow duration-300 ${
+        className={`${
+          mobileOpen ? 'relative' : 'sticky top-0'
+        } z-50 bg-white/95 backdrop-blur-sm transition-shadow duration-300 ${
           scrolled ? 'shadow-[0_10px_30px_-18px_rgba(6,41,26,0.55)] border-b border-brand-200/55' : 'border-b border-transparent'
         }`}
         data-component="navbar"
