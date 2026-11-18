@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  ArrowRight, Menu, X, Globe, Phone, Search, ChevronDown,
+  ArrowRight, Menu, X, Phone, Search, ChevronDown,
   Upload, MapPin, Clock, MessageCircle, FileDown,
 } from 'lucide-react';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
@@ -380,11 +380,14 @@ export default function Navbar({ currentPath = '/' }) {
               WhatsApp
             </a>
             <span className="hidden sm:inline text-slate-600">|</span>
-            <button type="button" className="flex items-center gap-1.5 hover:text-white transition-colors">
-              <Globe className="w-3 h-3 text-sky-400" />
-              EN / Global (USD)
-              <ChevronDown className="w-3 h-3" />
-            </button>
+            {/* This slot used to hold a dead <button> with a globe icon, a chevron and
+                an "EN" region label. No handler, no panel: nothing happened on click.
+                The site is English-only, so a real switcher would be a promise we
+                cannot keep yet. Replaced by a plain, non-interactive trust line. */}
+            <span className="hidden md:flex items-center gap-1.5">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+              ISO 9001 certified
+            </span>
           </div>
         </div>
       </div>
