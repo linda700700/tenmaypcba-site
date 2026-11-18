@@ -61,6 +61,18 @@ const SIZES = {
     1400,
     934
   ],
+  "/assets/images/case-led-display.webp": [
+    1400,
+    934
+  ],
+  "/assets/images/case-off-highway.webp": [
+    1400,
+    934
+  ],
+  "/assets/images/case-car-audio.webp": [
+    1400,
+    934
+  ],
   "/assets/images/case-instruments.webp": [
     1400,
     934

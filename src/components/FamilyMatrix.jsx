@@ -69,6 +69,9 @@ const PROCESS_CLASS = {
   sensors: 'fine',
   wearables: 'fine',
   gnss: 'fine',
+  'led-display': 'fine',
+  'off-highway': 'power',
+  'car-audio': 'power',
 };
 
 function batchOf(family) {

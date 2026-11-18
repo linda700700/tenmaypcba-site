@@ -4,7 +4,7 @@ This file tracks all image assets for the PCBA Contract Manufacturing website pe
 
 ## Summary
 - Approved allocation limit: 8
-- Generated count: 7
+- Generated count: 10
 - User-provided count: 0
 - Placeholders: 0
 
@@ -12,8 +12,9 @@ This file tracks all image assets for the PCBA Contract Manufacturing website pe
 
 The `case-<slug>.webp` images on the application pages are library photography of
 the board type, generated the same way as the factory slots; they are not
-photographs of a customer build. Eight were added with the power-tool, AMR,
-medical, telecom, instrument, sensor, wearable and GNSS families:
+photographs of a customer build. Eleven were added with the power-tool, AMR,
+medical, telecom, instrument, sensor, wearable, GNSS, LED display, off-highway and
+car audio families:
 
 | Filename / Path | Source | Slot / Usage | Status | CDN / Original URL |
 |---|---|---|---|---|
@@ -25,6 +26,9 @@ medical, telecom, instrument, sensor, wearable and GNSS families:
 | `/assets/images/case-sensors.webp` | imageGenerate | Pressure transmitter opened, round sensing board, ceramic cell and two-wire terminal block | Ready | https://sc02.alicdn.com/kf/A473f4edb04524393b662f6c7ab6ee0c8G.png |
 | `/assets/images/case-wearables.webp` | imageGenerate | Round watch case opened on its rigid-flex board and cell, beside an opened earbud charging case | Ready | https://sc02.alicdn.com/kf/Ab9635db8cbce48b893be396f1eadf613r.png |
 | `/assets/images/case-gnss.webp` | imageGenerate | GNSS receiver in a die-cast housing, shield can, SMA coax pigtails, terminal block and magnetic antenna | Ready | https://sc02.alicdn.com/kf/A62cfa39059a44833bbf95e8fc62edffeC.png |
+| `/assets/images/case-led-display.webp` | imageGenerate | LED display receiver card with eight ribbon headers beside a sending card with DVI connector and coiled ribbon cable | Ready | https://sc02.alicdn.com/kf/A9b1173dfe5d748e9b080e7e5463b4dcfD.png |
+| `/assets/images/case-off-highway.webp` | imageGenerate | Off-highway controller in a finned die-cast housing, lid off, coated board, sealed connector and clamped power devices | Ready | https://sc02.alicdn.com/kf/Afcfdda59d91a432ab013de43dd2b1104R.png |
+| `/assets/images/case-car-audio.webp` | imageGenerate | Class-D car amplifier board with bus bar, electrolytics, toroid and power devices beside its heatsink and thermal pad | Ready | https://sc02.alicdn.com/kf/A8d4c16f8713240a4811559e86747ae5cg.png |
 
 All of them were encoded to 1400 px WebP, with `tools/gen-responsive-images.mjs`
 run afterwards, so `src/lib/imageVariants.js` lists their 700w and 900w copies and

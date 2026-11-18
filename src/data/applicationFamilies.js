@@ -1970,6 +1970,248 @@ export const FAMILIES = {
       },
     ],
   },
+
+  'led-display': {
+    slug: 'led-display',
+    name: 'LED Display Control & Receiver Cards',
+    cardName: 'LED Display & Receiver Cards',
+    keyword: 'LED display receiver card PCBA assembly',
+    image: '/assets/images/case-led-display.webp',
+    imageAlt:
+      'LED display receiver card with eight ribbon headers along one edge, beside a sending card with a DVI connector and a coiled grey ribbon cable',
+    h1: 'Receiver cards: the joint that fails is a connector, and it fails in year three on a wall nobody can reach',
+    lede:
+      'A receiver card is a long, narrow board with eight ribbon headers down one edge and a power connector at the end. Placing it is routine work. What decides whether the cabinet survives is the solder volume in those headers and the flatness of a board that is not allowed to bow behind an LED wall — and the part buyers actually care about, the colour and the brightness, is not measured on this floor at all.',
+    facts: [
+      ['Boards per unit', '1 sender + 1 – 3 per cabinet'],
+      ['Typical batch', '1,000 – 10,000 pcs'],
+      ['Characteristic', 'Long thin boards, 8 ribbon headers'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Eight headers, and every one of them is a lever',
+        paras: [
+          'A receiver card lives on a ribbon cable inside a cabinet that may run continuously for years. The header joints carry the insertion load of that ribbon every time the cabinet is serviced, and the thermal cycling of a box that has no fan. Both failure directions are solder-volume problems: too little and the fillet cracks after enough cycles, too much and the solder wicks into the contact, so the ribbon goes in stiffly and the pin loses its spring.',
+          'These are not joints AOI reads well. A header fillet is a shadowed, three-dimensional thing behind a plastic wall, so the control is the stencil aperture and the through-hole fill specification, agreed on the first article and then held by the process rather than inspected board by board.',
+          'The second physical item is flatness. A board this long and this thin bows through reflow, and a receiver card that bows sits off its standoffs and stresses the headers when it is screwed down. Panel design carries most of that — copper balance, board edge, and how the panel is supported through the oven — which is why the panel drawing is worth arguing about on this family more than on a compact one.',
+        ],
+      },
+      {
+        heading: 'This family is priced in cents and ordered in thousands',
+        paras: [
+          'Cabinet makers compare receiver cards at the cent level, and the honest consequence is that this is a volume family rather than a margin one. Eight lines and the placement rate are what make it viable here, and even then the price is decided less by the placer than by panel utilisation and by how much hand work is left after reflow.',
+          'So the quote is written on the panel, not the board. Board size, panel size, how many up, where the break-away tabs go, how many pieces the order has to reach before the setup is absorbed — those are the numbers that decide whether a card is worth building, and they are stated before the price is.',
+          'One to ten thousand pieces is the band. Below a thousand the setup dominates; above ten thousand the buyer is usually large enough to have a captive line, and the conversation becomes a rate comparison this floor does not win.',
+        ],
+      },
+      {
+        heading: 'What is not measured here: the colour, the wall, the EMC',
+        paras: [
+          'Nothing on this floor can tell you how the wall looks. Colour, brightness, gamma, greyscale depth and refresh rate are properties of the finished cabinet measured with a colourimeter on a live screen, and they belong to the cabinet maker — the receiver card is one input to them, not the measurement.',
+          'There is also no functional test of the card: no in-house in-circuit or functional test, so a card leaves here as a verified assembly rather than a verified product. Device programming from your supplied image is done in-house, but the function of that image is not exercised.',
+          'Outdoor cabinets bring a further set of tests that are not performed here — ingress protection, salt fog, UV ageing, thermal soak of the sealed cabinet. Those belong to the enclosure and the finished luminaire or cabinet, and a bare board that passed inspection has not been through any of them. Mains-side EMC is not measured either: no pre-compliance scan, no compliance test report.',
+        ],
+      },
+      {
+        heading: 'Where the board stops and somebody else starts',
+        paras: [
+          'What leaves this floor is a tested-by-inspection board with its lot record. The cabinet mechanical build, the power supply and its wiring, the front-face lamination and the calibration are four separate jobs, and on this family all four sit with the cabinet maker or a specialist in the same park.',
+          'The recurring engineering question is obsolescence rather than redesign. LED driver ICs and shift registers turn over faster than the cabinets they go into, and a wall specified on a particular driver IC becomes a substitution problem two years later. The BOM review, with a written second source per line, is the service that keeps a long-running cabinet build alive.',
+          'No market figure is used on this page. The band comes from the order shape this floor is built around — a long thin board, thousands of identical pieces, a three-day repeat build — and from nothing else.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for an LED display programme',
+      items: [
+        'Colour, brightness, gamma or refresh calibration at cabinet level, and any pixel-level or wall-level test.',
+        'EMC pre-compliance or compliance testing, ingress (IP) testing, salt-fog and UV ageing of the cabinet.',
+        'Cabinet mechanical assembly, power-supply integration and front-face lamination.',
+        'Programmes where the assembler is expected to prove the finished screen works before it ships.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you calibrate colour, brightness or gamma?',
+        a: 'No. That needs a colourimeter and the actual cabinet running, which is a screen-level job done by the cabinet maker. We build the receiver and sending cards to your drawing and hand over the lot record.',
+      },
+      {
+        q: 'Do you assemble the whole cabinet?',
+        a: 'No. Board-level assembly only. The cabinet frame, the power supply and its wiring, the front-face lamination and the calibration are separate builds, usually done by the cabinet maker or specialists alongside them.',
+      },
+      {
+        q: 'Which cards can you build?',
+        a: 'Receiver cards, sending cards and the cabinet power or distribution board. Long narrow boards are no problem within the 800 × 480 mm envelope, and the line runs 01005 passives and 0.30 mm pitch where a design needs them — most receiver cards do not.',
+      },
+      {
+        q: 'What batch size fits?',
+        a: 'One thousand to ten thousand pieces is the band, with fifty as the minimum. Below a thousand the setup dominates the piece price; above ten thousand the buyer usually has a captive line and the decision becomes rate, which is not a comparison this floor wins.',
+      },
+    ],
+  },
+
+  'off-highway': {
+    slug: 'off-highway',
+    name: 'Off-Highway, Agricultural & Construction Machinery Controllers',
+    cardName: 'Off-Highway & Agri Controllers',
+    keyword: 'off-highway controller PCBA assembly',
+    image: '/assets/images/case-off-highway.webp',
+    imageAlt:
+      'Off-highway machine controller in a finned die-cast housing with the lid off, showing a conformal-coated board, sealed multi-pin connector and power devices bolted to the housing',
+    h1: 'An off-highway controller is judged in a field, six months after it left the line',
+    lede:
+      'A machine controller is a coated board in a sealed casting, fed by 12 or 24 V that is allowed to be ugly, driving hydraulic valves through a connector that has to stay dry under a jet wash. The assembly is ordinary. What decides the field failure rate is the coating under the power devices and the joints that carry the valve current through vibration.',
+    facts: [
+      ['Boards per unit', '1 – 2 (logic, power)'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Coated, heavy copper, sealed connector'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Coating is not a finish on this family, it is the product',
+        paras: [
+          'A controller that lives on a sprayer or an excavator sees water, dust, oil mist and a wash-down hose. Conformal coating is what stands between that and a leaking current path, and it is applied here in-house over a mask list agreed before the first run: connector pins, thread inserts, pressure-sensor ports, test pads and any surface that has to make electrical contact later.',
+          'The masking is the labour and the risk. A pin that gets coated will not mate, and a masked area that is too generous leaves an uncoated ring right where water collects. On this family the mask drawing is reviewed against the housing drawing rather than against the board, because it is the housing that decides where water arrives.',
+          'Coating under a power device is a separate decision. A device bolted to the casting for heat wants bare metal and a thermal interface, not a dielectric layer — so the coating has to stop at the device footprint, and the sequence is coat, then mount, or mask, then coat, then mount. Which one applies is settled at DFM, not on the line.',
+        ],
+      },
+      {
+        heading: 'Valve current, load dump, and the joints that carry both',
+        paras: [
+          'The power section is heavy copper with through-hole devices, because the currents are amps and the transients are worse. Load dump on a 24 V machine is the event the input protection exists for, and the parts that absorb it are the ones that get reworked last if a joint is marginal — which is why the X-ray interest on this family is the power device joints and the connector tails rather than the fine-pitch logic.',
+          'The sealed connector is the other half of the job. Its tails are usually through-hole and often in two rows at a pitch that leaves little room for an iron, so they are wave or selective soldered where the design allows and hand-soldered where it does not. Fill, wicking and coplanarity all matter, because the connector is the one part a technician will pull on in the field.',
+          'Vibration is not measured here — there is no shaker table — so the answer is mechanical rather than evidential: conformal coating over the joints, no tall parts unsupported, and the board fixed to the housing at every standoff the design gives. A board that relies on the connector to hold it is a board that will fail somewhere the customer cannot reach.',
+        ],
+      },
+      {
+        heading: 'What is not proven here: sealing, EMC, vibration, functional safety',
+        paras: [
+          'The casting is sealed by whoever builds it. There is no ingress test, no burst test, no leak-down rig on this floor, so the IP rating of a finished controller belongs to the housing assembly and its test — not to a coated board that left here.',
+          'Environmental qualification is outside too. No load-dump verification, no thermal shock, no vibration or shock sequence, no salt spray. EMC is not measured: no pre-compliance scan, no immunity testing, no report. Those are test-house jobs and they are real work on a machine that has to be sold into a regulated market.',
+          'Functional safety is the third boundary and the one most often misunderstood at the enquiry. There is no ISO 13849 or IEC 61508 certification here and no PL or SIL claim for any board. If the controller performs a safety function, the certification is a system-level activity with a notified body, and an assembler holding ISO 9001 does not contribute to it.',
+          'IATF 16949 is also not held. An implement maker or an aftermarket supplier is not affected; work as a Tier supplier into a vehicle manufacturer is outside current scope.',
+        ],
+      },
+      {
+        heading: 'A hundred machines is a normal order, and it stays a hundred',
+        paras: [
+          'An implement or an attachment is built in hundreds, not tens of thousands, and the controller follows the machine. A hundred to a thousand sets, with the same board revised once or twice and then left alone for a decade, is the shape here — which means the repeat build and the stocked spare matter more than the piece price.',
+          'That long life is also the risk. A controller designed in 2019 is still in production when two of its semiconductors have gone end-of-life, and the substitution is never free: a different MOSFET changes the gate drive, a different transceiver changes the termination. The BOM lifecycle review, with a written second source and a documented substitute, is the recurring engineering service on this family.',
+          'No market figure and no shipment number is used on this page. The claim is about the order shape and the process content — a coated board in a casting, a hundred to a thousand a year — not about the size of the off-highway market.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for an off-highway or agricultural programme',
+      items: [
+        'Ingress (IP) testing, burst or leak-down testing of the sealed casting, and any IP rating for the finished controller.',
+        'EMC, load-dump, vibration, thermal-shock or salt-spray qualification, and any certified test report.',
+        'Functional safety certification (ISO 13849, IEC 61508) and any PL or SIL claim, plus IATF 16949 work as a Tier supplier.',
+        'Hydraulic valve calibration, end-of-line actuator test, and potting or encapsulation of the board.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Do you hold IATF 16949?',
+        a: 'No. Tenmay holds ISO 9001 with a scope of processing and assembly of digital electronics. An implement maker or aftermarket supplier is unaffected; a Tier supply position into a vehicle manufacturer is outside current scope.',
+      },
+      {
+        q: 'Can you certify the controller to a functional safety level?',
+        a: 'No. There is no ISO 13849 or IEC 61508 certification here and no PL or SIL claim for any board. If the controller performs a safety function, that certification is a system-level activity carried out with a notified body.',
+      },
+      {
+        q: 'Will you coat the board and still let the power devices bolt to the housing?',
+        a: 'Yes, with the device footprints and the connector pins on a mask list agreed at DFM, and the sequence — coat then mount, or mask then coat then mount — written into the process specification. The thermal interface material and the torque belong to the housing build.',
+      },
+      {
+        q: 'What batch size fits?',
+        a: 'One hundred to one thousand sets, with fifty as the minimum. Machines are built in hundreds and the controller follows the machine, so the repeated build and the stocked spare matter more than the piece price.',
+      },
+    ],
+  },
+
+  'car-audio': {
+    slug: 'car-audio',
+    name: 'Car Audio, DSP & Class-D Amplifier Boards',
+    cardName: 'Car Audio & Class-D Amps',
+    keyword: 'car audio amplifier board PCBA assembly',
+    image: '/assets/images/case-car-audio.webp',
+    imageAlt:
+      'Car audio Class-D amplifier board with a tinned copper bus bar, large electrolytic capacitors, a toroidal inductor and a row of power MOSFETs beside its extruded heatsink and thermal pad',
+    h1: 'A car amplifier is a power supply with an audio problem, and the board has to survive both',
+    lede:
+      'A Class-D car amplifier is a boost converter and a switching bridge on one board, with a bus bar, big electrolytics and a dozen or more power devices clamped to a heatsink. None of that is difficult to place. What decides the yield is voiding under the power devices, and what decides the field failure is the thermal path nobody on this floor can measure.',
+    facts: [
+      ['Boards per unit', '1 – 2 (amp, DSP / display)'],
+      ['Typical batch', '500 – 5,000 pcs'],
+      ['Characteristic', 'Heavy copper, THT capacitors, thermal path'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Voiding under the power devices is the whole yield number',
+        paras: [
+          'A dozen power devices on a board with a tinned copper bus bar is a thermal-mass problem before it is a placement problem. The bus bar and the electrolytics pull heat out of the joints beside them, the devices sit in a cluster, and a profile that suits the fine-pitch control section at one end will leave voids under the devices at the other.',
+          'So the profile is set on the power end and the control end is checked against it. X-ray is where the answer is read: voiding under a power device is invisible from outside and is the mechanism behind a channel that runs hot and dies at a fraction of its rated output. The acceptance limit for that void fraction is agreed with the customer at DFM, because the right number depends on the device and the thermal design rather than on a house rule.',
+          'The through-hole content gets selective or wave soldering where the design allows it: the bus bar, the snap-in capacitors and the speaker terminal block are all large thermal masses, and hand-soldering them consistently is a skill rather than a specification. Where hand work is unavoidable, the fill is specified and the first article is sectioned.',
+        ],
+      },
+      {
+        heading: 'The thermal path is half mechanical, and half of it is not measured here',
+        paras: [
+          'Between the devices and the aluminium there is either a gap pad or thermal compound, and the difference in outcome is decided by flatness, torque and how the board is supported — not by the solder joint. Board bow after reflow, heatsink flatness and the order in which the screws are tightened all change the contact pressure across the row.',
+          'Mounting the heatsink can be done here as part of box build, with your interface material and your torque sequence, and the screws are then checked on the first article. What cannot be done here is proving the result: there is no thermal chamber, no thermocouple instrumentation and no way to measure case temperature under load on this floor.',
+          'That gap is worth stating plainly at the enquiry rather than discovering at the first field return. A design that needs its thermal margin verified needs a test house with an environmental chamber and a load, and that is a separate supplier.',
+        ],
+      },
+      {
+        heading: 'What is not measured: watts, distortion, noise, efficiency',
+        paras: [
+          'There is no audio analyser, no dummy load and no electronic load bank on this floor. Power output, total harmonic distortion, signal-to-noise, damping factor, efficiency and idle current are numbers that come from the customer’s own test setup or a test house — none of them is measured here.',
+          'The same applies at the other end of the signal chain. There is no acoustic measurement, no DSP tuning and no verification of a crossover or equaliser curve; those are the brand’s voicing decisions and they live with whoever owns the sound.',
+          'EMC is not measured either. A switching amplifier is an emitter, and the compliance work — conducted and radiated limits for a 12 V retail accessory — is a test-house activity with a report at the end. No pre-compliance scan happens here.',
+        ],
+      },
+      {
+        heading: 'Five hundred to five thousand pieces, and the variants are the trap',
+        paras: [
+          'Car audio is a retail accessory market, so the same board ships as several products: different firmware, a different output device, sometimes a different connector set. That is exactly the shape a high-mix floor handles well, provided the variants are treated as separate builds with their own first article rather than as one build with parts changed on the line.',
+          'Five hundred to five thousand pieces is the band. Below that the setup and the NRE dominate; above it, the buyer is comparing on rate against plants that run one product continuously, and a high-mix line does not win that comparison on price.',
+          'On this family no IATF 16949 is required, because a 12 V retail amplifier sold as a consumer product is not a vehicle component in the regulated sense. That is the same line the site draws everywhere else, and it is worth knowing before an enquiry is written.',
+          'No market figure is used on this page. The judgement rests on the board — heavy copper, through-hole capacitors, a clamped thermal path — and on the order shape, not on the size of the car audio market.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a car audio or Class-D amplifier programme',
+      items: [
+        'Audio measurement of any kind: output power, distortion, noise, efficiency, or DSP tuning and acoustic verification.',
+        'Thermal verification of the assembled amplifier — no chamber, no thermocouple instrumentation, no measurement under load.',
+        'EMC pre-compliance or compliance testing for a switching amplifier, and any certified report.',
+        'Potting or encapsulation of the board, and ingress testing of the finished amplifier chassis.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you measure the output power or distortion?',
+        a: 'No. There is no audio analyser and no dummy load here, so watts, THD, noise and efficiency come from your own test setup or a test house. What we verify is the assembly: X-ray on the power joints, AOI on the control section, fill on the through-hole parts.',
+      },
+      {
+        q: 'Will you mount the heatsink?',
+        a: 'Yes, as part of box build, with your interface material and your torque sequence, checked on the first article. What we cannot do is prove the thermal result — there is no chamber or instrumentation here to measure case temperature under load.',
+      },
+      {
+        q: 'Do you need IATF 16949 for a car amplifier?',
+        a: 'Not for a 12 V retail accessory, which is a consumer product rather than a regulated vehicle component. IATF 16949 is not held here in any case, so work as a Tier supplier into a vehicle manufacturer is outside current scope.',
+      },
+      {
+        q: 'What batch size fits?',
+        a: 'Five hundred to five thousand pieces, with fifty as the minimum. Several product variants off one board is normal and welcome, as long as each variant is treated as its own build with its own first article.',
+      },
+    ],
+  },
 };
 
 export const FAMILY_SLUGS = Object.keys(FAMILIES);
@@ -1992,6 +2234,8 @@ export function familyBySlug(slug) {
  */
 export const RELATED = {
   vfd: [
+    ['off-highway', 'The same coated power stage on a machine that is driven rather than installed.'],
+
     ['servo', 'The same three-board stack, smaller frame and tighter gate-drive timing.'],
     ['hmi', 'The display and keypad board that usually ships in the same cabinet as a drive.'],
     ['evse', 'Another heavy-copper, through-hole power stage, but mains-facing and coated.'],
@@ -2035,6 +2279,8 @@ export const RELATED = {
     ['dashcam', 'Display, camera and connector assembly at a much higher volume.'],
   ],
   'led-driver': [
+    ['led-display', 'The other LED board on this site, where the joint rather than the isolation decides.'],
+
     ['evse', 'Mains-facing conversion with a real safety case instead of a cost target.'],
     ['power-station', 'The same AC-DC problem where the buyer will open the case.'],
     ['jump-starter', 'High-volume consumer assembly with a battery on the same board.'],
@@ -2093,6 +2339,8 @@ export const RELATED = {
     ['hmi', 'Isolation spacing as the design constraint, without the high voltage behind it.'],
   ],
   'power-tool': [
+    ['car-audio', 'Another twelve-volt board where voiding under the power devices is the yield number.'],
+
     ['ebike', 'The same MOSFET bridge and sealed housing, on a vehicle rather than in a hand.'],
     ['treadmill', 'A larger version of the same through-hole power stage, at a much smaller batch.'],
     ['evse', 'Mains-facing switching where the isolation requirement replaces the battery one.'],
@@ -2131,5 +2379,20 @@ export const RELATED = {
     ['rugged-radio', 'The other field-deployed board here, with the same coating and connector argument.'],
     ['uav', 'Where the same receiver flies instead of sitting on a mast.'],
     ['telecom', 'RF sections and screening, at a rack instead of on a pole.'],
+  ],
+  'led-display': [
+    ['led-driver', 'The same LED vocabulary in a different job: connector joints instead of mains isolation.'],
+    ['dashcam', 'Display and image electronics where the connector set, not the placer, sets the life.'],
+    ['telecom', 'Fine pitch, controlled impedance and long boards, without the cent-level pricing.'],
+  ],
+  'off-highway': [
+    ['vfd', 'The same coated power stage, in a cabinet instead of on a machine that moves.'],
+    ['rugged-radio', 'The other board here that lives outdoors and is judged by its sealing.'],
+    ['amr-agv', 'A mobile machine controller with a battery interface instead of a diesel one.'],
+  ],
+  'car-audio': [
+    ['jump-starter', 'Twelve-volt retail power electronics with the same heavy-copper problem.'],
+    ['power-tool', 'Heavy copper, through-hole tabs and a thermal path under the power devices.'],
+    ['power-station', 'A boost stage and a bridge on one board, at a similar batch size.'],
   ],
 };

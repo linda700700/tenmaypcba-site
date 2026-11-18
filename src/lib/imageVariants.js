@@ -44,6 +44,16 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-car-audio.webp": [
+    [
+      "/assets/images/case-car-audio-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-car-audio-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-dashcam.webp": [
     [
       "/assets/images/case-dashcam-700w.webp",
@@ -124,6 +134,16 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-led-display.webp": [
+    [
+      "/assets/images/case-led-display-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-led-display-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-led-driver.webp": [
     [
       "/assets/images/case-led-driver-700w.webp",
@@ -141,6 +161,16 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/case-medical-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-off-highway.webp": [
+    [
+      "/assets/images/case-off-highway-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-off-highway-900w.webp",
       900
     ]
   ],

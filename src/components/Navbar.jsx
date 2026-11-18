@@ -105,6 +105,7 @@ const NAV = [
           { label: 'AI & AR smart glasses', href: '/applications.html#smart-glasses', kw: 'smart glasses ar rigid flex hdi camera' },
           { label: 'Power tool & garden controllers', href: '/applications.html#power-tool', kw: 'power tool brushless drill garden tool controller mosfet bridge' },
           { label: 'Wearables & hearables', href: '/applications.html#wearables', kw: 'wearable watch earbud rigid flex 01005 sensor' },
+          { label: 'LED display & receiver cards', href: '/applications.html#led-display', kw: 'led display receiver card sending card hub75 ribbon header cabinet' },
         ],
       },
       {
@@ -118,6 +119,7 @@ const NAV = [
           { label: 'Energy storage (BESS)', href: '/applications.html#bess', kw: 'bess bms pcs energy storage contactor' },
           { label: 'AMR & AGV robot boards', href: '/applications.html#amr-agv', kw: 'amr agv mobile robot drive board lidar battery' },
           { label: 'Sensor & transmitter boards', href: '/applications.html#sensors', kw: 'pressure transmitter 4-20ma sensor cell instrumentation amplifier' },
+          { label: 'Off-highway & agri controllers', href: '/applications.html#off-highway', kw: 'off-highway agricultural construction controller can valve driver coating sealed connector' },
         ],
       },
       {
@@ -127,6 +129,7 @@ const NAV = [
           { label: 'Dashcam & mirror boards', href: '/applications.html#dashcam', kw: 'dashcam mirror camera' },
           { label: 'Parking sensor & headlight', href: '/applications.html#parking-sensor', kw: 'parking sensor ultrasonic led headlight' },
           { label: 'EVSE charging control', href: '/applications.html#evse', kw: 'ev charger evse pilot signal' },
+          { label: 'Car audio & Class-D amps', href: '/applications.html#car-audio', kw: 'car audio amplifier class-d dsp busbar heatsink 12v' },
         ],
       },
       {

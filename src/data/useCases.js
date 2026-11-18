@@ -111,6 +111,19 @@ export const SECTORS = [
         basis:
           'No shipment figure is used here. The judgement is about order shape: a model leads in tens of thousands on dedicated lines, so the reachable work is the pilot build, the second source and the board beside the main product.',
       },
+      {
+        id: 'led-display',
+        image: '/assets/images/case-led-display.webp',
+        name: 'LED Display Control & Receiver Cards',
+        keyword: 'LED display receiver card PCBA assembly',
+        board:
+          'A long narrow receiver card with eight ribbon headers down one edge and a power connector, plus a sending card with a video input and a ribbon output — one to three receiving cards per cabinet.',
+        fit: ['Long thin boards', '8 ribbon headers', 'Through-hole fill control', 'Panel utilisation'],
+        batch: '1,000 – 10,000',
+        heat: 'Volume, cent-level',
+        basis:
+          'No market figure used. The band comes from the order shape: cabinets are built in thousands of identical cards, and the price is decided by panel utilisation rather than by placement speed.',
+      },
     ],
   },
   {
@@ -225,6 +238,19 @@ export const SECTORS = [
         basis:
           'No market figure used. The fit is the order shape: eighty components on a round board, a few hundred pieces a year, and a product that stays in production for a decade.',
       },
+      {
+        id: 'off-highway',
+        image: '/assets/images/case-off-highway.webp',
+        name: 'Off-Highway, Agricultural & Construction Controllers',
+        keyword: 'off-highway controller PCBA assembly',
+        board:
+          'A conformal-coated logic and power board inside a sealed die-cast housing: MCU and CAN, hydraulic valve drivers, heavy-copper load paths and one sealed multi-pin connector.',
+        fit: ['Conformal coating', 'Heavy copper', 'Sealed connector tails', 'Wide temperature'],
+        batch: '100 – 1,000',
+        heat: 'Machine-paced, long life',
+        basis:
+          'No market figure used. The controller follows the machine, so an implement built in hundreds gives a board built in hundreds — with a repeat build and a stocked spare that matter more than the piece price.',
+      },
     ],
   },
   {
@@ -287,6 +313,19 @@ export const SECTORS = [
         heat: 'Regulated, so slower',
         basis:
           'Certification (CE / UL / EN 61851) sits with the brand owner, not the assembler. Boards are quotable, but expect the buyer to audit process records before the first order.',
+      },
+      {
+        id: 'car-audio',
+        image: '/assets/images/case-car-audio.webp',
+        name: 'Car Audio, DSP & Class-D Amplifier Boards',
+        keyword: 'car audio amplifier board PCBA assembly',
+        board:
+          'A boost converter and a switching bridge on one board: heavy copper and a tinned bus bar, snap-in electrolytics, a toroidal inductor and a row of power devices clamped to an extruded heatsink.',
+        fit: ['Heavy copper', 'THT capacitors', 'X-ray on power joints', 'Heatsink mounting'],
+        batch: '500 – 5,000',
+        heat: 'Variant families',
+        basis:
+          'No market figure used. A 12 V retail amplifier is a consumer product, so no IATF 16949 applies; the fit rests on one board shipping as several variants, which is the shape a high-mix floor handles well.',
       },
     ],
   },
@@ -463,13 +502,21 @@ export const PRIORITY = [
       'Test Instrument Boards',
       'Sensor & Transmitter Boards',
       'GNSS & Telemetry Modules',
+      'Off-Highway & Agri Controllers',
     ],
     why: 'Same board stacks and overlapping buyers, plus the newer power, imaging and robotics work. Worth a page each because they share keywords with tier A, but do not lead the homepage with them.',
   },
   {
     tier: 'C · Traffic only, low conversion',
     tone: 'grey',
-    items: ['Robot Vacuum Mainboards', 'LED Drivers & PD Chargers', 'Dashcams', 'AI & AR Smart Glasses'],
+    items: [
+      'Robot Vacuum Mainboards',
+      'LED Drivers & PD Chargers',
+      'Dashcams',
+      'AI & AR Smart Glasses',
+      'LED Display & Receiver Cards',
+      'Car Audio & Class-D Amps',
+    ],
     why: 'High search interest, but volume buyers demand in-circuit test and judge on cents. Publish the page for search reach; expect few profitable RFQs.',
   },
 ];

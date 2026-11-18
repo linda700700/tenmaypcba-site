@@ -254,6 +254,30 @@ export const ROUTE_HEADS = {
     ogDescription:
       'The RF section is what assembly can quietly ruin. Shield seating, coax heat and coating masking — and the antenna work that happens elsewhere.',
   },
+  '/applications/led-display': {
+    title: 'LED Display Receiver Card PCBA Assembly | TENMAY',
+    description:
+      'Long narrow receiver and sending cards with eight ribbon headers, through-hole fill control and panel-level pricing. 1,000 to 10,000 pcs. Colour calibration and the wall stay with the cabinet maker.',
+    ogTitle: 'LED Display and Receiver Card Assembly — TENMAY',
+    ogDescription:
+      'The joint that fails is a connector, three years in, on a wall nobody can reach. What this floor controls, and the calibration it never does.',
+  },
+  '/applications/off-highway': {
+    title: 'Off-Highway and Agricultural Controller PCBA | TENMAY',
+    description:
+      'Coated control and power boards in sealed castings: CAN, hydraulic valve drivers, heavy copper and sealed connector tails. 100 to 1,000 sets. No IP, EMC or functional-safety certification.',
+    ogTitle: 'Off-Highway and Agricultural Controller Assembly — TENMAY',
+    ogDescription:
+      'Judged in a field six months later. Why coating under the power devices and the connector joints decide the field failure rate — and what is not proven here.',
+  },
+  '/applications/car-audio': {
+    title: 'Car Audio Amplifier Board PCBA Assembly | TENMAY',
+    description:
+      'Class-D car amplifier boards with heavy copper, bus bars, snap-in electrolytics and clamped power devices. 500 to 5,000 pcs, X-ray on the power joints. No audio or thermal measurement in-house.',
+    ogTitle: 'Car Audio and Class-D Amplifier Board Assembly — TENMAY',
+    ogDescription:
+      'A power supply with an audio problem. Voiding under the power devices is the yield number, and the thermal path is half mechanical and half unmeasured.',
+  },
   '/insights': {
     title: 'PCBA Process Notes and Engineering Insights | TENMAY',
     description:
