@@ -6,12 +6,12 @@
     <description>Process limits, quoting arithmetic and BOM problems, written from a high-mix PCBA floor in Shenzhen.</description>
     <language>en</language>
     <atom:link href="https://tenmaypcba.com/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Tue, 17 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Wed, 18 Nov 2026 00:00:00 GMT</lastBuildDate>
     <item>
       <title>How to Choose a PCBA Supplier — Board by Board</title>
       <link>https://tenmaypcba.com/choose-a-pcba-supplier.html</link>
       <guid isPermaLink="true">https://tenmaypcba.com/choose-a-pcba-supplier.html</guid>
-      <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
+      <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
       <description>One assembler or two? Eleven board families, the split that is safe on each, what splitting costs you, and the note that settles the decision on each one.</description>
     </item>
     <item>
@@ -27,6 +27,13 @@
       <guid isPermaLink="true">https://tenmaypcba.com/pcba-process-limits.html</guid>
       <pubDate>Tue, 17 Nov 2026 00:00:00 GMT</pubDate>
       <description>What SPI, AOI and X-ray each prove and still cannot prove, what limits 01005 yield, which limits are worth paying for, and the four clocks inside a lead time.</description>
+    </item>
+    <item>
+      <title>PCBA since 2008: what a founding date proves, and what it does not</title>
+      <link>https://tenmaypcba.com/insights/pcba-since-2008.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/pcba-since-2008.html</guid>
+      <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A founding date is the cheapest question you can ask a PCBA supplier and the easiest to check. What it establishes, the three ways an old company can still be a young assembler, and how to separate them in an hour.</description>
     </item>
     <item>
       <title>Who owns the optics on a dashcam build?</title>
