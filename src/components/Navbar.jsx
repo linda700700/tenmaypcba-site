@@ -104,6 +104,7 @@ const NAV = [
           { label: 'Robot vacuum mainboards', href: '/applications.html#robot-vacuum', kw: 'vacuum cleaner mainboard' },
           { label: 'AI & AR smart glasses', href: '/applications.html#smart-glasses', kw: 'smart glasses ar rigid flex hdi camera' },
           { label: 'Power tool & garden controllers', href: '/applications.html#power-tool', kw: 'power tool brushless drill garden tool controller mosfet bridge' },
+          { label: 'Wearables & hearables', href: '/applications.html#wearables', kw: 'wearable watch earbud rigid flex 01005 sensor' },
         ],
       },
       {
@@ -116,6 +117,7 @@ const NAV = [
           { label: 'AI server power & BBU', href: '/applications.html#ai-power', kw: 'server power shelf rectifier bbu 48v busbar' },
           { label: 'Energy storage (BESS)', href: '/applications.html#bess', kw: 'bess bms pcs energy storage contactor' },
           { label: 'AMR & AGV robot boards', href: '/applications.html#amr-agv', kw: 'amr agv mobile robot drive board lidar battery' },
+          { label: 'Sensor & transmitter boards', href: '/applications.html#sensors', kw: 'pressure transmitter 4-20ma sensor cell instrumentation amplifier' },
         ],
       },
       {
@@ -134,6 +136,7 @@ const NAV = [
           { label: 'Rugged handhelds & radios', href: '/applications.html#rugged-radio', kw: 'rugged handheld radio field terminal coating shielding' },
           { label: 'Thermal & night-vision cores', href: '/applications.html#thermal-imaging', kw: 'thermal imaging night vision detector core' },
           { label: 'Robot joint & actuator boards', href: '/applications.html#humanoid', kw: 'humanoid robot joint actuator servo drive' },
+          { label: 'GNSS & telemetry modules', href: '/applications.html#gnss', kw: 'gnss rtk receiver telemetry ground station shield coax' },
           { label: 'The standards question', href: '/defence-robotics.html', kw: 'as9100 nadcap itar defence aerospace standards' },
         ],
       },

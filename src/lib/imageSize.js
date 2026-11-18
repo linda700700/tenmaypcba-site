@@ -49,6 +49,18 @@ const SIZES = {
     1400,
     934
   ],
+  "/assets/images/case-gnss.webp": [
+    1400,
+    934
+  ],
+  "/assets/images/case-sensors.webp": [
+    1400,
+    934
+  ],
+  "/assets/images/case-wearables.webp": [
+    1400,
+    934
+  ],
   "/assets/images/case-instruments.webp": [
     1400,
     934

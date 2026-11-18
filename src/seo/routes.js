@@ -230,6 +230,30 @@ export const ROUTE_HEADS = {
     ogDescription:
       'Fifty to five hundred, and mostly revisions: why high-mix low-volume is the product here, and why calibration stays with the instrument maker.',
   },
+  '/applications/sensors': {
+    title: 'Pressure Transmitter and Sensor PCBA Assembly | TENMAY',
+    description:
+      'Round transmitter boards with low-drift analog front ends, ceramic cells and two-wire terminal blocks. 100 to 1,000 sets, coating with port masking. Potting and calibration are named as not held.',
+    ogTitle: 'Sensor and Transmitter Board Assembly — TENMAY',
+    ogDescription:
+      'The op-amp is the easy part. Where the assembly stops, and why potting, sealing and calibration belong to the sensor maker.',
+  },
+  '/applications/wearables': {
+    title: 'Wearable and Hearable PCBA Assembly | TENMAY',
+    description:
+      'Miniature rigid-flex boards with 01005 passives and 0.30 mm pitch, charging-case boards and sensor carriers. 500 to 5,000 sets. No in-house ICT or RF test, stated up front.',
+    ogTitle: 'Wearables and Hearables Board Assembly — TENMAY',
+    ogDescription:
+      'Almost nothing on the board, and almost no room for a second attempt. Underfill by DFM agreement, and the tests this floor does not run.',
+  },
+  '/applications/gnss': {
+    title: 'GNSS and Telemetry Board Assembly | TENMAY',
+    description:
+      'Receiver and ground-station boards with shielded RF sections, SMA and TNC coax pigtails and rugged connectors. 50 to 500 sets, coating with shield-land masking. No RF characterisation.',
+    ogTitle: 'GNSS and Telemetry Board Assembly — TENMAY',
+    ogDescription:
+      'The RF section is what assembly can quietly ruin. Shield seating, coax heat and coating masking — and the antenna work that happens elsewhere.',
+  },
   '/insights': {
     title: 'PCBA Process Notes and Engineering Insights | TENMAY',
     description:

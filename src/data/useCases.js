@@ -98,6 +98,19 @@ export const SECTORS = [
         basis:
           'No published shipment figure is used here. The judgement is about order shape: the category leads in tens of thousands on dedicated lines, so the reachable work is the pilot build, the second source and the accessory board around the main product.',
       },
+      {
+        id: 'wearables',
+        image: '/assets/images/case-wearables.webp',
+        name: 'Wearables & Hearables Boards',
+        keyword: 'wearable device PCBA assembly',
+        board:
+          'A miniature rigid-flex main board with 01005 passives, a 0.30 mm-pitch package and a folded flex tail, plus a charging-case board with pogo contacts and a battery tab.',
+        fit: ['01005', 'Rigid-flex', 'Underfill by DFM', 'Fine-pitch SiP'],
+        batch: '500 – 5,000',
+        heat: 'Pilot and second source',
+        basis:
+          'No shipment figure is used here. The judgement is about order shape: a model leads in tens of thousands on dedicated lines, so the reachable work is the pilot build, the second source and the board beside the main product.',
+      },
     ],
   },
   {
@@ -198,6 +211,19 @@ export const SECTORS = [
         heat: 'Pilot first, fleet later',
         basis:
           'A judged fit rather than a market claim: robots are built in tens before they are built in thousands, which suits a high-mix floor, and the connector and isolation work is done in-house rather than subcontracted.',
+      },
+      {
+        id: 'sensors',
+        image: '/assets/images/case-sensors.webp',
+        name: 'Industrial Sensor & Transmitter Boards',
+        keyword: 'pressure transmitter PCBA assembly',
+        board:
+          'A round sensing board with an instrumentation amplifier, a voltage reference, a ceramic pressure cell and a two-wire terminal block — often a second, smaller board behind a local display.',
+        fit: ['Low-drift analog', 'Round boards', 'Conformal coating', 'Sealing-aware masking'],
+        batch: '100 – 1,000',
+        heat: 'Long-life, low-volume',
+        basis:
+          'No market figure used. The fit is the order shape: eighty components on a round board, a few hundred pieces a year, and a product that stays in production for a decade.',
       },
     ],
   },
@@ -325,6 +351,19 @@ export const SECTORS = [
         basis:
           'No published shipment figure used here. The observation is about revision rhythm rather than market size: programmes change weekly, so fifty identical boards and a three-day repeat build are worth more than a lower unit price.',
       },
+      {
+        id: 'gnss',
+        image: '/assets/images/case-gnss.webp',
+        name: 'GNSS, Telemetry & Ground Station Boards',
+        keyword: 'GNSS receiver board PCBA assembly',
+        board:
+          'A mixed board with an RF front end behind a shield frame, a GNSS module, a power and interface section, and SMA or TNC coax pigtails into a machined housing.',
+        fit: ['RF shield frames', 'Coax pigtails', 'Conformal coating', 'Rugged connectors'],
+        batch: '50 – 500',
+        heat: 'Iterating per site',
+        basis:
+          'A judged fit, not a market claim: receivers and ground units are built in dozens and revised often, and the shield, coating and connector work is done in-house rather than subcontracted.',
+      },
     ],
   },  {
     id: 'medical-tech',
@@ -422,6 +461,8 @@ export const PRIORITY = [
       'Medical Device Boards',
       'Telecom & 5G Edge Boards',
       'Test Instrument Boards',
+      'Sensor & Transmitter Boards',
+      'GNSS & Telemetry Modules',
     ],
     why: 'Same board stacks and overlapping buyers, plus the newer power, imaging and robotics work. Worth a page each because they share keywords with tier A, but do not lead the homepage with them.',
   },

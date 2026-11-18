@@ -66,6 +66,9 @@ const PROCESS_CLASS = {
   medical: 'fine',
   telecom: 'fine',
   instruments: 'fine',
+  sensors: 'fine',
+  wearables: 'fine',
+  gnss: 'fine',
 };
 
 function batchOf(family) {

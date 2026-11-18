@@ -1733,6 +1733,243 @@ export const FAMILIES = {
       },
     ],
   },
+  sensors: {
+    slug: 'sensors',
+    name: 'Industrial Sensor & Transmitter Boards',
+    cardName: 'Sensor & Transmitter Boards',
+    keyword: 'pressure transmitter PCBA assembly',
+    image: '/assets/images/case-sensors.webp',
+    imageAlt:
+      'Pressure transmitter with its stainless housing opened, showing the round sensing board, ceramic cell and two-wire terminal block',
+    h1: 'Transmitter boards: the op-amp is the easy part, the seal is not',
+    lede:
+      'A 4–20 mA transmitter is a round board, a ceramic cell and a housing that has to keep water out for ten years. The assembly is ordinary work. The three things that decide whether it lasts are the potting, the gasket and the calibration, and none of those three happens on this floor.',
+    facts: [
+      ['Boards per unit', '1 – 2 (sensing, display)'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Low-drift analog, tight assembly'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'A small board with an unusually expensive defect',
+        paras: [
+          'A round transmitter board carries perhaps eighty components, which makes it look like easy work and quote like easy work. It is not: the board sits behind an accuracy claim of a fraction of a percent, and a joint that would be invisible on a consumer product becomes a drift complaint in year three, returned from a plant that has already lost a batch because of it.',
+          'The placement is fine-pitch but not dense — an instrumentation amplifier, a DAC, a voltage reference, a handful of passives that set the gain, and the terminal block. What the job actually asks for is a stable reflow profile and a clean board, because leakage paths across a high-impedance node are what move the reading.',
+          'Coatings and wash are decided by the housing, not by preference. A potted transmitter is washed before potting; an open-frame sensor is usually no-clean, because the cell and its vent tube will not survive water.',
+        ],
+      },
+      {
+        heading: 'Where the work stops: potting, sealing and calibration',
+        paras: [
+          'Potting and encapsulation are not done here. There is no dispensing cell for filled epoxy or polyurethane, and a potted assembly is a process with its own voids, its own cure schedule and its own inspection — pretending otherwise would be the fastest way to hand back a batch that fails a leak test.',
+          'The same applies to the seal. The O-ring or gasket that keeps the housing dry is assembled by whoever builds the instrument, and the IP rating belongs to that assembly and its test, not to a bare board that left this floor.',
+          'Calibration is the third boundary. A 4–20 mA trim needs a pressure standard, a deadweight tester or a reference gauge with traceable uncertainty. That equipment belongs to the sensor maker or an accredited lab. What leaves here is a board that is electrically correct to your drawing, with its inspection record.',
+        ],
+      },
+      {
+        heading: 'What the process controls, and what it only records',
+        paras: [
+          'SPI before reflow on the fine-pitch side, AOI on every board after it, and X-ray where a joint is under a package or a thermal pad. On a transmitter the X-ray interest is usually the cell connection and the terminal block fillets, because those are the two joints a field failure comes back from.',
+          'Conformal coating is applied in-house with the pressure port, the cell window, the vent and the terminal screws masked by hand to a drawing agreed before the first run. That masking is quoted as labour, because that is what it is.',
+          'What is recorded is the lot: paste lot, stencil, reflow recipe, SPI and AOI results, operator and date, with a first article on the first run of every revision. What is not recorded is anything about pressure, because nothing here measures it.',
+        ],
+      },
+      {
+        heading: 'Two hundred a year is a normal order, and it stays that way',
+        paras: [
+          'Transmitters are a low-volume, long-life product. A hundred to a thousand sets is the band this floor is built around, and the repeat rhythm matters more than the unit price — the same programme, the same stencil, the same profile, on a board that will still be in production when two of its components have gone end-of-life.',
+          'That makes the BOM review the recurring service rather than the first build: a line-by-line lifecycle check with a written second-source cross-reference, and a proposed substitute documented rather than quietly fitted.',
+          'No market figure is used on this page. The fit rests on the order shape — a small round board, a few hundred pieces, a decade of production — and on nothing else.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a transmitter programme',
+      items: [
+        'Potting, encapsulation and any overmoulding of the assembled board — not done here.',
+        'Pressure calibration, the 4–20 mA trim and any accuracy or drift statement — these need a pressure standard and belong to the sensor maker or a calibration lab.',
+        'Ingress, burst and leak testing of the assembled housing, and the IP rating that comes from it.',
+        'Hazardous-area certification (ATEX, IECEx) and the documentation behind it.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Do you pot or encapsulate the board?',
+        a: 'No. Potting is a separate process with its own void and cure controls, and it is not installed here. The board is assembled, inspected and coated to your drawing, and the potting is done by whoever builds the instrument — or by a specialist the instrument maker nominates.',
+      },
+      {
+        q: 'Can you calibrate the 4–20 mA output?',
+        a: 'No. Trim needs a traceable pressure standard, which is metrology rather than assembly. We hand over a board that is electrically correct, with its lot record; the calibration and the accuracy claim stay with the sensor maker.',
+      },
+      {
+        q: 'Will you wash a sensor board?',
+        a: 'Only if the cell, the vent tube and the connectors tolerate it. Wash is cleaner for high-impedance analog work and fatal to an open ceramic cell, so the process follows the design. Tell us at DFM which one the design assumes.',
+      },
+      {
+        q: 'What is the smallest batch you will take?',
+        a: 'Fifty pieces, and one hundred to one thousand sets is the normal band. The repeat run is the cheap one: same programme, same stencil, same profile, which is what keeps lot two comparable with lot one on a product that ships for a decade.',
+      },
+    ],
+  },
+  wearables: {
+    slug: 'wearables',
+    name: 'Wearables & Hearables Boards',
+    cardName: 'Wearables & Hearables',
+    keyword: 'wearable device PCBA assembly',
+    image: '/assets/images/case-wearables.webp',
+    imageAlt:
+      'Round watch case opened on its rigid-flex board, sensor window and thin cell, beside an opened earbud charging case with its control board',
+    h1: 'Wearable boards: almost nothing on them, and almost no room for a second attempt',
+    lede:
+      'A watch or an earbud board carries a few hundred parts in the space of a fingernail, often on a rigid-flex that folds twice. Placement is the part this floor does well. Underfill, potting and the sealing test are the parts it does not — and a wearable programme usually asks for all four.',
+    facts: [
+      ['Boards per unit', '2 – 3 (main, case, sensor)'],
+      ['Typical batch', '500 – 5,000 sets'],
+      ['Characteristic', '01005, 0.30 mm pitch, rigid-flex'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'What is actually on the board',
+        paras: [
+          'The main board is a fine-pitch assembly with 01005 passives, a 0.30 mm-pitch package or two, a system-in-package module and a flex tail that leaves the rigid area and folds into the case. On a hearable the same content is squeezed smaller again, and the charging case adds its own board with pogo-pin contacts and a battery tab.',
+          'Rigid-flex is where the yield lives. The flex is supported through printing and reflow, held flat through the oven, and the fold line is kept clear of any coating or adhesive that would stiffen it. Get that wrong and the board passes AOI and fails on the third fold, in the customer’s hands.',
+          'Panelisation matters more here than on a normal board: a rigid-flex panel with twenty small assemblies is worth more per gram than anything else this floor runs, so a badly chosen break-away tab costs real money rather than a few cents.',
+        ],
+      },
+      {
+        heading: 'Underfill is a design decision, never an assumption',
+        paras: [
+          'Underfill and staking on a wearable are agreed per design at DFM, with the material and the dispense pattern written into the process specification. They are not something to discover on the quotation, and they are not something we apply because a package type usually gets it.',
+          'Where a design does need it, the reason is nearly always the same: a large die on a small board that flexes, or a drop requirement the housing cannot absorb. Say which of the two applies and the answer is a process choice rather than a preference.',
+          'Potting and overmoulding are outside what this floor does. A wearable that expects the board to be encapsulated before it goes into the case is a programme for a shop that runs that cell.',
+        ],
+      },
+      {
+        heading: 'The tests this family usually needs and will not find here',
+        paras: [
+          'There is no in-house in-circuit or functional test, so a wearable programme that expects the assembler to prove the radio works has the wrong supplier. Bluetooth or antenna validation needs a shielded room and a test set; the firmware pass criteria belong to the brand anyway.',
+          'There is no IP-rating, drop or tumble test of the finished device, no skin-contact biocompatibility work and no battery-pack certification. UN 38.3 and IEC 62133 are pack-level and cell-level approvals, and they sit with the pack maker rather than with a board assembler.',
+          'What does exist is the inspection trail: SPI, AOI, X-ray where a joint is hidden, and optical microscopy on the first article. That proves the assembly. It does not prove the product, and on this family the gap between the two is wider than on any other page here.',
+        ],
+      },
+      {
+        heading: 'Where volume turns this family into somebody else’s job',
+        paras: [
+          'Five hundred to five thousand sets is a real wearable order and a comfortable one for a high-mix floor. Tens of thousands is a different business: dedicated lines, test coverage at every step, and a price that assumes both. Saying so at the enquiry is cheaper for everyone than discovering it at the twentieth thousand.',
+          'The reachable work is therefore the pilot build, the second source, and the accessory or charging board beside the main product — the boards where a brand needs two thousand pieces in three days and not a hundred thousand in ninety.',
+          'No shipment or market figure is used on this page. The fit is the order shape and the process content, which are observable, rather than a forecast, which is not.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a wearable programme',
+      items: [
+        'In-circuit and functional test at volume, plus any Bluetooth, antenna or RF validation of the finished device.',
+        'Potting, overmoulding, and any IP-rating, drop or tumble test of the assembled product.',
+        'Skin-contact biocompatibility, and battery-pack certification such as UN 38.3 or IEC 62133.',
+        'Batches in the tens of thousands, where test coverage and not placement decides the price.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you assemble a rigid-flex watch board?',
+        a: 'Yes — that is ordinary work here, with the flex supported and held flat through print and reflow and the fold line kept clear of coating. What is not ordinary is underfill: it is agreed per design at DFM rather than applied by default.',
+      },
+      {
+        q: 'Do you test the Bluetooth radio?',
+        a: 'No. There is no shielded room or RF test set, and no in-house functional test at all. We prove the assembly with SPI, AOI and X-ray and hand the boards over for the brand’s own functional and RF test.',
+      },
+      {
+        q: 'What batch size makes sense?',
+        a: 'Five hundred to five thousand sets, with fifty as the minimum. Above roughly ten thousand the programme needs in-circuit and functional test at the assembler, which is a different kind of supplier.',
+      },
+      {
+        q: 'Will you underfill the large package?',
+        a: 'If the design calls for it, yes — material and dispense pattern written into the process specification, agreed before the first run. It is never assumed from a package type alone.',
+      },
+    ],
+  },
+  gnss: {
+    slug: 'gnss',
+    name: 'GNSS, Telemetry & Ground Station Boards',
+    cardName: 'GNSS & Telemetry Modules',
+    keyword: 'GNSS receiver board PCBA assembly',
+    image: '/assets/images/case-gnss.webp',
+    imageAlt:
+      'GNSS receiver in a die-cast housing with the lid off, showing the shielded RF section, SMA coax pigtails, module and terminal block, beside its magnetic antenna',
+    h1: 'GNSS and telemetry boards: the RF section is what assembly can quietly ruin',
+    lede:
+      'An RTK receiver or a telemetry module is a small mixed board: an RF front end behind a shield, a module, and a rugged connector set. The placement is easy. What decides the fix time is whether the shield frame sits flat, whether the coax pigtail took too much heat, and whether anyone characterised the antenna — and that last one is not this floor.',
+    facts: [
+      ['Boards per unit', '1 – 2 (main, interface)'],
+      ['Typical batch', '50 – 500 sets'],
+      ['Characteristic', 'RF shielding, coax, coating'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'The RF section is a keep-out, not a component',
+        paras: [
+          'Under a shield can the design assumes a clean ground reference: stitching vias around the frame, a continuous ground under the filter and a lid that contacts the frame along its whole length. Assembly decides whether that assumption survives — a frame that sits a few hundredths high, or a solder joint that wicks under it and lifts a corner, turns a shielded section into an antenna.',
+          'Coating is the other place the RF section can change. The shield interior is never coated, the frame land is masked before coating, and the antenna feed is masked to the drawing. Coating that creeps under a shield changes the dielectric loading of the microstrip, which is a shift nobody sees until the fix takes three times as long.',
+          'Wash is a real question here. Water-wash is cleaner for the flux that would otherwise sit around the RF and analog nodes, and it is hostile to open filters, MEMS parts and unsealed connectors. On this family the design usually answers which one it can take.',
+        ],
+      },
+      {
+        heading: 'Coax pigtails, connectors and heat',
+        paras: [
+          'SMA and TNC connectors with short semi-rigid or flexible pigtails are hand-soldered here, usually after the reflow stage, and the failure mode is thermal rather than mechanical: too much iron time and the dielectric inside the connector migrates, which shows up as a loss figure that nobody can explain.',
+          'The joint that X-ray is used for is the shield perimeter and the ground pads under the module, where voiding is invisible from outside and is the mechanism behind an intermittent receiver rather than a dead one. Connector seating and strain relief are checked by eye and by pull, on the first article and at a sampling rate agreed with the customer.',
+          'Mechanical fit is part of the assembly here: the pigtail has to route without being pinched when the lid closes, and the board has to sit flat on the casting. That gets checked on the first article in the housing, not on bare boards.',
+        ],
+      },
+      {
+        heading: 'What is not measured, and what that costs the buyer',
+        paras: [
+          'There is no anechoic chamber, no GNSS simulator and no position or time-to-first-fix measurement on this floor. Nothing here can tell you the receiver works; it can tell you the assembly is correct to the drawing and the joints are sound.',
+          'Environmental qualification is also outside: no MIL-STD-810 sequence, no thermal-vacuum, no vibration table, no certified IP test report. For a deployable product those tests are real work at a test house, and a board that leaves here has not been through them.',
+          'And the defence paperwork is the same answer as everywhere else on this site: ISO 9001 is held, while AS9100, AS9102, NADCAP and ITAR-registered handling are not. No classified work, no cryptography approval, no Type-1 anything.',
+        ],
+      },
+      {
+        heading: 'Fifty to five hundred a year, and that is the point',
+        paras: [
+          'A ground station, an RTK base or a telemetry unit is built in small numbers and iterated often. Fifty to five hundred sets with a three-day repeat build is worth more to that buyer than a lower unit price on a thousand pieces they will not order twice.',
+          'The recurring engineering work is the module and the antenna: GNSS modules go end-of-life on a schedule that has nothing to do with the product’s, and a receiver that changes module usually changes its RF matching with it. That is a DFM conversation and a re-qualification of the first article, not a silent substitution.',
+          'No market figure is used on this page. The claim is about the order shape and the process content — an RF board behind a shield, a few dozen to a few hundred a year — not about the size of any market.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a GNSS or telemetry programme',
+      items: [
+        'RF alignment, antenna characterisation, and any position accuracy or time-to-first-fix measurement.',
+        'EMC pre-compliance, environmental qualification (MIL-STD-810, IP ratings) and any certified test report.',
+        'ITAR-registered handling, classified work, and any cryptography approval or Type-1 requirement.',
+        'Volumes above a few thousand a year where the assembler is expected to run functional test.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Do you hold AS9100 or ITAR registration?',
+        a: 'No. Tenmay holds ISO 9001 with a scope of processing and assembly of digital electronics. A programme that requires AS9100, AS9102 or ITAR-registered handling has to place the work with a registered supplier.',
+      },
+      {
+        q: 'Can you align or characterise the antenna?',
+        a: 'No. That needs a chamber or a simulator and a calibrated setup, which is a test house job. We assemble the RF section to your drawing, keep the shield land and the feed clean through coating, and verify the joints.',
+      },
+      {
+        q: 'Will you conformal coat an RF board?',
+        a: 'Yes, with the shield frame land, the shield interior and the antenna feed masked to a drawing agreed before the first run. Coating inside a shield or over a feed changes the electrical behaviour, so the masking is quoted as labour and inspected.',
+      },
+      {
+        q: 'What batch size fits?',
+        a: 'Fifty to five hundred sets is the normal band, with a three-day standard build once parts are kitted. Small batches and frequent revisions are the shape this floor is organised around.',
+      },
+    ],
+  },
 };
 
 export const FAMILY_SLUGS = Object.keys(FAMILIES);
@@ -1792,6 +2029,7 @@ export const RELATED = {
     ['instruments', 'The same fine-pitch control board, driving a measurement instead of a motor.'],
   ],
   hmi: [
+    ['sensors', 'The loop the panel reads from: a transmitter board two wires away.'],
     ['vfd', 'The drive this panel controls, including the keypad board inside it.'],
     ['servo', 'The other drive family a panel is usually sold alongside.'],
     ['dashcam', 'Display, camera and connector assembly at a much higher volume.'],
@@ -1822,6 +2060,7 @@ export const RELATED = {
     ['robot-vacuum', 'Dense consumer control electronics if the volume matters more than the environment.'],
   ],
   'rugged-radio': [
+    ['gnss', 'The receiver that feeds it, behind a shield with a coax pigtail.'],
     ['uav', 'The other deployable family here, where the sensor is the fragile part rather than the coat.'],
     ['thermal-imaging', 'Optics and a coated board in one assembly, with the same keep-out discipline.'],
     ['hmi', 'The non-rugged industrial version: same isolation thinking, indoor environment.'],
@@ -1838,6 +2077,7 @@ export const RELATED = {
     ['amr-agv', 'The same drive stack on wheels, where the fleet arrives after the pilot.'],
   ],
   'smart-glasses': [
+    ['wearables', 'The same miniature rigid-flex work at a much higher volume per model.'],
     ['dashcam', 'Camera, fine pitch and a sealed housing, without the hinge.'],
     ['robot-vacuum', 'The other dense consumer family bought by brands rather than by price alone.'],
     ['thermal-imaging', 'Where a rigid-flex and an optical window make the same masking argument.'],
@@ -1876,5 +2116,20 @@ export const RELATED = {
     ['medical', 'The same guarded front end, sold under a different regulatory regime.'],
     ['servo', 'The same fine-pitch control board driving a motor rather than a measurement.'],
     ['hmi', 'An operator panel and its acquisition board, one enclosure apart.'],
+  ],
+  sensors: [
+    ['hmi', 'The other board that sits in a cabinet and has to make sense of a signal.'],
+    ['instruments', 'The same guarded front end, in a box rather than on a bench.'],
+    ['telecom', 'Small RF and analog boards behind a connector set, at a similar batch size.'],
+  ],
+  wearables: [
+    ['smart-glasses', 'The larger wearable board, where the flex crosses a hinge instead of a case.'],
+    ['robot-vacuum', 'Dense consumer electronics at a volume this family never reaches.'],
+    ['telecom', 'Fine pitch and controlled impedance, without the sealing problem.'],
+  ],
+  gnss: [
+    ['rugged-radio', 'The other field-deployed board here, with the same coating and connector argument.'],
+    ['uav', 'Where the same receiver flies instead of sitting on a mast.'],
+    ['telecom', 'RF sections and screening, at a rack instead of on a pole.'],
   ],
 };

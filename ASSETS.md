@@ -8,6 +8,28 @@ This file tracks all image assets for the PCBA Contract Manufacturing website pe
 - User-provided count: 0
 - Placeholders: 0
 
+## Family page imagery (outside the factory-slot budget above)
+
+The `case-<slug>.webp` images on the application pages are library photography of
+the board type, generated the same way as the factory slots; they are not
+photographs of a customer build. Eight were added with the power-tool, AMR,
+medical, telecom, instrument, sensor, wearable and GNSS families:
+
+| Filename / Path | Source | Slot / Usage | Status | CDN / Original URL |
+|---|---|---|---|---|
+| `/assets/images/case-power-tool.webp` | imageGenerate | Brushless tool controller, housing opened, MOSFET bridge and motor tabs | Ready | https://sc02.alicdn.com/kf/A1221091148114731a97a21c3d8a74102g.png |
+| `/assets/images/case-amr-agv.webp` | imageGenerate | AMR chassis, drive board, battery connector and lidar connector | Ready | https://sc02.alicdn.com/kf/Abdb3eb2963ce4eb8b3d10ea0607e0d63F.png |
+| `/assets/images/case-medical.webp` | imageGenerate | Patient monitor opened, acquisition board, guarded analog sections and sensor connectors | Ready | https://sc02.alicdn.com/kf/A16a522ac68a54888a2166b1acd71c9b0F.png |
+| `/assets/images/case-telecom.webp` | imageGenerate | Line card in a 1U chassis, shield cans, coax connectors, dense fine-pitch board | Ready | https://sc02.alicdn.com/kf/A108f849f923041669d82525ee3c6d931y.png |
+| `/assets/images/case-instruments.webp` | imageGenerate | Benchtop instrument opened, guarded inputs, BNC connectors, sealed relays | Ready | https://sc02.alicdn.com/kf/Ab10381e3c0ad4ba7832f47ddb2ec22cf4.png |
+| `/assets/images/case-sensors.webp` | imageGenerate | Pressure transmitter opened, round sensing board, ceramic cell and two-wire terminal block | Ready | https://sc02.alicdn.com/kf/A473f4edb04524393b662f6c7ab6ee0c8G.png |
+| `/assets/images/case-wearables.webp` | imageGenerate | Round watch case opened on its rigid-flex board and cell, beside an opened earbud charging case | Ready | https://sc02.alicdn.com/kf/Ab9635db8cbce48b893be396f1eadf613r.png |
+| `/assets/images/case-gnss.webp` | imageGenerate | GNSS receiver in a die-cast housing, shield can, SMA coax pigtails, terminal block and magnetic antenna | Ready | https://sc02.alicdn.com/kf/A62cfa39059a44833bbf95e8fc62edffeC.png |
+
+All of them were encoded to 1400 px WebP, with `tools/gen-responsive-images.mjs`
+run afterwards, so `src/lib/imageVariants.js` lists their 700w and 900w copies and
+`src/lib/imageSize.js` carries their intrinsic size (1400 x 934).
+
 ## Assets List
 
 | Filename / Path | Source | Slot / Usage | Status | CDN / Original URL |

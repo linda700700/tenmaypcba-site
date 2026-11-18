@@ -15,7 +15,11 @@ import FamilyMatrix from '../components/FamilyMatrix';
  * Applications landing page. One page, one anchor target per product family —
  * every family in the mega menu lands on its own card (#vfd, #uav, …) instead of
  * a generic section anchor. Sector ids match data/useCases.js: consumer,
- * industrial, aftermarket, defence.
+ * industrial, aftermarket, defence, medical-tech.
+ *
+ * Only the active sector is in the layout, so a deep link has to switch the tab
+ * before the browser can scroll: 24 of the 27 cards live in a sector that is not
+ * the default one, and an anchor pointing into a display:none card never fires.
  */
 
 const SEND_LIST = [
@@ -38,14 +42,29 @@ function scrollToHash(hash) {
 /* Spoken counts for the sector side panel, so the label follows the data. */
 const WORDS = { 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine', 10: 'ten' };
 
+const sectorOf = (id) =>
+  SECTORS.find((s) => s.id === id || s.cases.some((c) => c.id === id));
+
+const liveHash = () =>
+  (typeof window === 'undefined' ? '' : window.location.hash.replace('#', ''));
+
 export default function ApplicationsPage({ initialHash = '' }) {
-  const hash = initialHash.replace('#', '');
-  const sectorOfHash = SECTORS.find((s) => s.id === hash || s.cases.some((c) => c.id === hash));
+  const hash = initialHash.replace('#', '') || liveHash();
+  const sectorOfHash = sectorOf(hash);
   const [active, setActive] = useState(sectorOfHash ? sectorOfHash.id : SECTORS[0].id);
 
   useEffect(() => {
-    if (hash) window.setTimeout(() => scrollToHash(hash), 120);
-  }, [hash]);
+    const apply = () => {
+      const id = liveHash();
+      if (!id) return;
+      const sector = sectorOf(id);
+      if (sector) setActive(sector.id);
+      window.setTimeout(() => scrollToHash(id), 140);
+    };
+    apply();
+    window.addEventListener('hashchange', apply);
+    return () => window.removeEventListener('hashchange', apply);
+  }, []);
 
 
   return (
@@ -184,8 +203,8 @@ export default function ApplicationsPage({ initialHash = '' }) {
       <FamilyMatrix />
 
       {/* sector tabs */}
-      <section className="sticky top-[57px] z-30 border-b border-brand-200/50 bg-white/95 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-[1240px] gap-1 overflow-x-auto px-4 sm:px-6 lg:px-8">
+      <section className="sticky top-[var(--hdr)] z-30 border-b border-brand-200/50 bg-white/95 backdrop-blur-sm">
+        <div className="mx-auto flex max-w-[1240px] gap-1 overflow-x-auto px-4 sm:px-6 md:flex-wrap md:overflow-visible lg:px-8">
           {SECTORS.map((s) => {
             const on = s.id === active;
             return (
@@ -220,7 +239,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
               <article
                 key={c.id}
                 id={c.id}
-                className="zoom-parent sheen scroll-mt-[140px] overflow-hidden rounded-xl border border-brand-200/50 bg-white transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
+                className="zoom-parent sheen scroll-mt-[calc(var(--hdr)_+_var(--tabs)_+_14px)] overflow-hidden rounded-xl border border-brand-200/50 bg-white transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
               >
                  <FlipMedia
                    className="h-[190px] sm:h-[210px]"

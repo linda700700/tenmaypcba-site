@@ -74,6 +74,16 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-gnss.webp": [
+    [
+      "/assets/images/case-gnss-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-gnss-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-hmi.webp": [
     [
       "/assets/images/case-hmi-700w.webp",
@@ -184,6 +194,16 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-sensors.webp": [
+    [
+      "/assets/images/case-sensors-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-sensors-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-servo.webp": [
     [
       "/assets/images/case-servo-700w.webp",
@@ -251,6 +271,16 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/case-vfd-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-wearables.webp": [
+    [
+      "/assets/images/case-wearables-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-wearables-900w.webp",
       900
     ]
   ],
