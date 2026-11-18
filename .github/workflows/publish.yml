@@ -9,6 +9,7 @@ on:
 
 permissions:
   contents: write
+  pages: read
 
 concurrency:
   group: publish
@@ -30,13 +31,6 @@ jobs:
 
       - name: Build
         run: npx vite build
-
-      # Push the built URLs at Bing/Yandex instead of waiting for a recrawl.
-      # Google does not use IndexNow; Search Console stays the channel there.
-      # Non-blocking on purpose: publish already succeeded by this point.
-      - name: Ping IndexNow
-        continue-on-error: true
-        run: python3 .github/indexnow.py
 
       - name: Publish dist to main
         env:
@@ -72,3 +66,40 @@ jobs:
           git commit -q -m "Publish build ${GITHUB_SHA:0:8}"
           git push -q origin HEAD:main
           echo "Published."
+
+      # Pages rebuilds from main asynchronously after the push above. Tell
+      # IndexNow only once that deployment is serving, otherwise the crawler is
+      # invited to fetch the previous build, or a 404 on a brand-new URL.
+      # Bounded and non-blocking: 15 x 8s, then proceed regardless.
+      - name: Wait for Pages deployment
+        continue-on-error: true
+        env:
+          TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          for attempt in $(seq 1 15); do
+            code=$(curl -s -o "$RUNNER_TEMP/pages.json" -w '%{http_code}' \
+              -H "Authorization: Bearer ${TOKEN}" \
+              -H "Accept: application/vnd.github+json" \
+              "https://api.github.com/repos/${GITHUB_REPOSITORY}/pages/builds/latest")
+            if [ "$code" != "200" ]; then
+              echo "Pages status unavailable (HTTP $code); not waiting."
+              exit 0
+            fi
+            state=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1])).get('status',''))" "$RUNNER_TEMP/pages.json")
+            echo "Pages build: ${state:-unknown} (attempt ${attempt}/15)"
+            if [ "$state" = "built" ]; then
+              echo "Deployment is live; safe to notify IndexNow."
+              exit 0
+            fi
+            sleep 8
+          done
+          echo "Pages deployment not confirmed 'built' within ~2 min; submitting anyway."
+
+      # Push the built URLs at Bing/Yandex instead of waiting for a recrawl.
+      # Google does not use IndexNow; Search Console stays the channel there.
+      # Runs AFTER the deploy so every notified URL already resolves.
+      - name: Ping IndexNow
+        continue-on-error: true
+        env:
+          INDEXNOW_KEY: 975e87a7768d3a87f23715e3407174cb
+        run: python3 .github/indexnow.py
