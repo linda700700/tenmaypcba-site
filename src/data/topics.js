@@ -1,5 +1,5 @@
 /*
- * Three curated hubs over the twenty-three notes in src/content/insights/.
+ * Three curated hubs over the thirty-one notes in src/content/insights/.
  *
  * Why this file exists instead of tag pages: "Sourcing" appears on eleven
  * articles, and eleven auto-generated tag pages would be eleven thin pages
@@ -27,7 +27,7 @@ export const TOPICS = [
     blurb: "whether one assembler should build the whole product",
     h1: "How to choose a PCBA supplier, board by board",
     lede:
-      "Eleven notes on the decision that actually costs money: whether one assembler builds the whole product or the build splits. Each note takes one board family and asks the same question, because the answer changes with the board rather than with the price list.",
+      "Sixteen notes on the decision that actually costs money: whether one assembler builds the whole product or the build splits. Eleven of them take one board family and ask that question again, because the answer changes with the board rather than with the price list. The other five cover the checks that decide whether a quote is worth reading at all — what you are buying, whether the seller is the plant, and which certificate your programme actually requires.",
     title: "How to Choose a PCBA Supplier: 11 Board Families",
     description:
       "One assembler or two? Eleven board families, the split that is safe on each, what splitting costs you, and the note that settles the decision on each one.",
@@ -210,6 +210,33 @@ export const TOPICS = [
           },
         ],
       },
+      {
+        heading: "And before all of it — is this a factory, and can it carry your programme?",
+        intro:
+          "Five notes that come before a quote is worth comparing. One settles which half of the job you are even buying, two settle whether the seller is the plant, one says how to prove it without flying there, and one settles which certificate your programme requires.",
+        items: [
+          {
+            slug: "what-is-pcba",
+            why: "PCB or PCBA decides who can quote you at all — and which half of the job is yours to buy.",
+          },
+          {
+            slug: "shenzhen-pcba-factory-guide",
+            why: "Three checks settle in under an hour whether a Shenzhen supplier is a factory or a trading office.",
+          },
+          {
+            slug: "pcba-supplier-audit-checklist",
+            why: "Five documents settle most audits before anyone visits: licence, certificate holder, bank beneficiary, address, numbers.",
+          },
+          {
+            slug: "virtual-factory-audit",
+            why: "A remote audit only proves something when it is unscripted — what a live walk can show, and what it cannot.",
+          },
+          {
+            slug: "no-iatf-16949",
+            why: "Where the certification line actually sits between a vehicle programme and a retail accessory.",
+          },
+        ],
+      },
     ],
     up: [
       { label: "Board families by application", href: "/applications.html" },
@@ -225,11 +252,11 @@ export const TOPICS = [
     blurb: "what actually sits inside a PCBA price",
     h1: "What PCBA costs, and how to read a quote that holds",
     lede:
-      "Six notes on the arithmetic behind a PCBA price: which costs are fixed per job, how setup divides across a batch, where consigning flips, and why a second order costs less than the first. Written for the buyer who has a quote in hand and cannot tell what is inside it.",
-    title: "PCBA Cost and Quoting: 6 Notes That Move the Price",
+      "Eight notes on the arithmetic behind a PCBA price: which costs are fixed per job, how setup divides across a batch, where consigning flips, and why a second order costs less than the first. Written for the buyer who has a quote in hand and cannot tell what is inside it.",
+    title: "PCBA Cost and Quoting: 8 Notes That Move the Price",
     description:
       "Which PCBA quote lines move with quantity, which are recomputed on a design change, and which change with the supplier — plus where consigning flips.",
-    ogTitle: "PCBA Cost and Quoting — Six Notes",
+    ogTitle: "PCBA Cost and Quoting — Eight Notes",
     ogDescription:
       "A quote is not a number, it is eight line items with different behaviour. Read the behaviour before comparing the total.",
     quick: [
@@ -357,6 +384,10 @@ export const TOPICS = [
           "Build the structure before you compare a total, then use one simple board as a rehearsal for telling a real quote from a repriced one.",
         items: [
           {
+            slug: "pcba-cost-per-board",
+            why: "The five lines a PCBA price is made of, and the two that actually scale with quantity.",
+          },
+          {
             slug: "pcba-quote-what-it-should-contain",
             why: "The line-item skeleton: two quotes for one board are rarely the same offer.",
           },
@@ -374,6 +405,10 @@ export const TOPICS = [
           {
             slug: "fifty-piece-run-cost",
             why: "Fixed cost divided by quantity is most of the answer; changeover, kitting and reel minimums are the rest.",
+          },
+          {
+            slug: "fifty-piece-pcba-order",
+            why: "Fifty pieces is a normal order rather than a favour, and setup is the line that makes it look expensive.",
           },
           {
             slug: "what-is-hmlv-pcba",
@@ -418,7 +453,7 @@ export const TOPICS = [
     blurb: "what the process proves and what it only appears to prove",
     h1: "What the process can do, and what it only appears to do",
     lede:
-      "Six notes for the engineer still choosing footprints, panelisation and inspection. The subject is boundaries: what each inspection station actually proves, which limits are real, and the four different clocks hiding inside one lead time.",
+      "Seven notes for the engineer still choosing footprints, panelisation and inspection. The subject is boundaries: what each inspection station actually proves, which limits are real, and the four different clocks hiding inside one lead time.",
     title: "PCBA Process Limits: Yield, Inspection, DFM, Lead Time",
     description:
       "What SPI, AOI and X-ray each prove and still cannot prove, what limits 01005 yield, which limits are worth paying for, and the four clocks inside a lead time.",
@@ -557,11 +592,15 @@ export const TOPICS = [
       {
         heading: "What inspection is worth",
         intro:
-          "One note, but the one that converts a quality claim into a scope you can hold a supplier to.",
+          "Two notes that convert a quality claim into a scope you can hold a supplier to: what the stations prove, and what to do when the test you need is not on the supplier's floor.",
         items: [
           {
             slug: "what-aoi-xray-cannot-catch",
             why: "Three stations, three different proofs, and none of them says the board works.",
+          },
+          {
+            slug: "in-circuit-test-outsourcing",
+            why: "A fixture has to exist whether or not your assembler runs ICT. Three arrangements and what each costs you.",
           },
         ],
       },
