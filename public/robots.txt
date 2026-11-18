@@ -1,10 +1,17 @@
 # ============================================================
 # tenmaypcba.com  robots.txt
-# 更新：2026-11-17
-# 变更点：在不改现有抓取策略的前提下，为 AI 搜索/抓取爬虫显式表态
-# 注意：robots 的分组是相互独立的。User-agent 分组一旦指定，
-#       User-agent:* 里的 Disallow 不再自动适用于它，
-#       所以下面每个 AI 段都重复写了一次 Disallow: /*?*
+# Updated: 2026-11-17
+#
+# Policy: allow all crawling, block parameterized URLs only.
+#
+# All AI and search crawlers are covered by the single wildcard
+# group below. Do NOT add a named User-agent group unless that
+# crawler genuinely needs rules different from the wildcard.
+#
+# Why: robots groups are independent. A named group does not
+# inherit anything from User-agent: *. Adding a Disallow here
+# therefore applies to every crawler listed at the bottom of
+# this file automatically -- no per-crawler duplication needed.
 # ============================================================
 
 User-agent: *
@@ -12,109 +19,24 @@ Allow: /
 Disallow: /*?*
 
 # ------------------------------------------------------------
-# AI 搜索与抓取爬虫：显式放行（保留参数页屏蔽）
+# Crawlers covered by the wildcard group above.
+# Listed for reference only -- these are NOT separate groups.
+# ------------------------------------------------------------
+# OpenAI        GPTBot, OAI-SearchBot, ChatGPT-User
+# Anthropic     ClaudeBot, Claude-SearchBot, Claude-User
+#               (anthropic-ai is a legacy token, also covered)
+# Perplexity    PerplexityBot, Perplexity-User
+# Google        Googlebot, Google-Extended
+# Apple         Applebot-Extended
+# Meta          meta-externalagent
+# Amazon        Amazonbot
+# Microsoft     Bingbot
+# Common Crawl  CCBot
+# ByteDance     Bytespider
+# DuckDuckGo    DuckAssistBot
+# You.com       YouBot
+# Cohere        cohere-ai
+# Mistral       MistralAI-User
 # ------------------------------------------------------------
 
-# OpenAI
-User-agent: GPTBot
-Allow: /
-Disallow: /*?*
-
-User-agent: OAI-SearchBot
-Allow: /
-Disallow: /*?*
-
-User-agent: ChatGPT-User
-Allow: /
-Disallow: /*?*
-
-# Anthropic
-User-agent: ClaudeBot
-Allow: /
-Disallow: /*?*
-
-User-agent: Claude-SearchBot
-Allow: /
-Disallow: /*?*
-
-User-agent: Claude-User
-Allow: /
-Disallow: /*?*
-
-User-agent: anthropic-ai
-Allow: /
-Disallow: /*?*
-
-# Perplexity
-User-agent: PerplexityBot
-Allow: /
-Disallow: /*?*
-
-User-agent: Perplexity-User
-Allow: /
-Disallow: /*?*
-
-# Google / Apple / Meta / Amazon 的 AI 用途爬虫
-User-agent: Google-Extended
-Allow: /
-Disallow: /*?*
-
-User-agent: Applebot-Extended
-Allow: /
-Disallow: /*?*
-
-User-agent: meta-externalagent
-Allow: /
-Disallow: /*?*
-
-User-agent: Amazonbot
-Allow: /
-Disallow: /*?*
-
-# -------------------------------------------------------------
-# 训练语料与其它 AI 检索爬虫
-# -------------------------------------------------------------
-
-# Common Crawl — 多数开源模型的训练语料来源
-User-agent: CCBot
-Allow: /
-Disallow: /*?*
-
-# ByteDance / TikTok
-User-agent: Bytespider
-Allow: /
-Disallow: /*?*
-
-# DuckDuckGo AI 摘要
-User-agent: DuckAssistBot
-Allow: /
-Disallow: /*?*
-
-# You.com
-User-agent: YouBot
-Allow: /
-Disallow: /*?*
-
-# Cohere
-User-agent: cohere-ai
-Allow: /
-Disallow: /*?*
-
-# Mistral
-User-agent: MistralAI-User
-Allow: /
-Disallow: /*?*
-
-# ------------------------------------------------------------
-# 传统搜索引擎（保持不变）
-# ------------------------------------------------------------
-User-agent: Googlebot
-Allow: /
-Disallow: /*?*
-
-User-agent: Bingbot
-Allow: /
-Disallow: /*?*
-
-# ------------------------------------------------------------
 Sitemap: https://tenmaypcba.com/sitemap.xml
