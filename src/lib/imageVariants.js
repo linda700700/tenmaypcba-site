@@ -94,6 +94,16 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-instruments.webp": [
+    [
+      "/assets/images/case-instruments-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-instruments-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-jump-starter.webp": [
     [
       "/assets/images/case-jump-starter-700w.webp",
@@ -111,6 +121,16 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/case-led-driver-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-medical.webp": [
+    [
+      "/assets/images/case-medical-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-medical-900w.webp",
       900
     ]
   ],
@@ -181,6 +201,16 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/case-smart-glasses-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-telecom.webp": [
+    [
+      "/assets/images/case-telecom-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-telecom-900w.webp",
       900
     ]
   ],

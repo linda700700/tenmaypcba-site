@@ -1497,6 +1497,242 @@ export const FAMILIES = {
       },
     ],
   },
+  medical: {
+    slug: 'medical',
+    name: 'Medical Device & Diagnostic Instrument Boards',
+    cardName: 'Medical Device Boards',
+    keyword: 'medical device PCBA assembly',
+    image: '/assets/images/case-medical.webp',
+    imageAlt:
+      'Patient monitor with the case opened, showing its acquisition board, guarded analog sections and sensor connectors',
+    h1: 'Medical boards: the board is ordinary, the record is not',
+    lede:
+      'An acquisition board in a patient monitor is not exotic hardware. What separates it from a consumer board is the analog front end, the cleanliness behind it and a lot record that somebody may ask to see two years later — which is why the honest first question is not what we can build, but what we are not certified to be.',
+    facts: [
+      ['Boards per unit', '2 – 3 (acquisition, main, UI)'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Guarded analog, lot records'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'What this floor can be to a device maker, and what it cannot',
+        paras: [
+          'ISO 13485 is not held here, and no wording on this site should be read as claiming it. That single fact decides the role: this floor cannot be a contract manufacturer of record inside your quality system.',
+          'What it can be is the assembler your validated process runs through. Build to your drawings, your process specification and your acceptance criteria; return the lot record, the first article and the inspection evidence with the boards. The validation stays with you, which is where it belongs.',
+          'The design history file, the risk analysis and the regulatory submission are the device maker’s work. We are not a notified body, we do not write a technical file, and a quotation from here is not a regulatory opinion.',
+        ],
+      },
+      {
+        heading: 'Cleanliness and guarding: where assembly changes the reading',
+        paras: [
+          'High-impedance inputs care about things nobody sees on a photograph. Flux residue, ionic contamination and coating creeping over a guard ring all shift a reading that the instrument’s accuracy claim rests on. Say which process you want — no-clean or water-wash — and expect the board to be designed for that answer.',
+          'Water-wash is the cleaner process and the harsher one. Connectors, piezo elements and unsealed sensors usually do not survive it, and a board specified for wash with an open connector on it is a mismatch worth catching at DFM rather than at the first lot.',
+          'Coating is applied in-house with the sensor connectors, any optical area and the guard regions masked by hand, to a drawing agreed before the first run. That masking is quoted as its own line because it is labour, not an overhead.',
+        ],
+      },
+      {
+        heading: 'A lot record that survives a question two years later',
+        paras: [
+          'Every lot leaves with the paste lot and stencil ID, the reflow recipe, the SPI, AOI and X-ray results, the operator and the date. Retention is agreed per customer rather than promised as a number here, because a retention claim nobody has tested is not a control.',
+          'Optical microscopy on every first article is standard, and images are attached to that report. On a medical board this is usually the document a reviewer asks for first, and it exists before it is asked for.',
+          'What is not provided at any batch size: sterilisation, biocompatibility or packaging validation, and any test that touches patient safety. Those belong to the device maker and a test house, and a board shipped from here has not been through them.',
+        ],
+      },
+      {
+        heading: 'A device lives for a decade; the BOM does not',
+        paras: [
+          'A hundred to a thousand sets is the normal band, and a medical product tends to stay in production far longer than its components do. The recurring problem is not the first build — it is year six, when an op-amp or a connector goes end-of-life and the validated design has to change without invalidating the paperwork behind it.',
+          'That is why the BOM review here is a line-by-line lifecycle check with a written second-source cross-reference, and why a proposed substitute is documented rather than silently fitted. On a medical programme the change is yours to approve; our job is to make sure you see it while there is still time to plan.',
+          'No market figure is used on this page. The claim is about the order shape — a few hundred boards, a traceable lot and a validation you own — not about the size of the medical electronics market.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a medical programme',
+      items: [
+        'ISO 13485 certification and any quality-system audit trail under it — not held.',
+        'Sterilisation, biocompatibility and packaging validation, and the regulatory submission itself.',
+        'In-circuit or functional test of the finished device, and any test that touches patient safety.',
+        'Volumes in the tens of thousands a year, where a medical-certified contract manufacturer is the right counterpart.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Do you hold ISO 13485?',
+        a: 'No. Tenmay holds ISO 9001 with a scope of processing and assembly of digital electronics. A medical programme that requires an ISO 13485 supplier has to place the work elsewhere; what this floor can do is assemble to a validated process owned by the device maker and return the lot record.',
+      },
+      {
+        q: 'Can you build a few hundred monitor boards a year, repeatedly?',
+        a: 'Yes. One hundred to one thousand sets is the normal band, with a three-day standard build once parts are kitted and a first article on the first run of every revision. Repeat orders use the same programme and stencil, which is what keeps lot two comparable with lot one.',
+      },
+      {
+        q: 'Will you water-wash the boards?',
+        a: 'Only if the design tolerates it. Wash is cleaner for high-impedance analog work and harsher on connectors, piezo elements and unsealed sensors. Tell us which process the design assumes at DFM and the answer follows from the board, not from preference.',
+      },
+      {
+        q: 'What documentation comes with a lot?',
+        a: 'A certificate of conformance, a first article with microscope images, and a per-lot device history record carrying the paste lot, stencil ID, reflow recipe, SPI/AOI/X-ray results, operator and date. The retention period is written into the order rather than assumed.',
+      },
+    ],
+  },
+  telecom: {
+    slug: 'telecom',
+    name: 'Telecom & 5G Edge Equipment Boards',
+    cardName: 'Telecom & 5G Edge Boards',
+    keyword: 'telecom board PCBA assembly',
+    image: '/assets/images/case-telecom.webp',
+    imageAlt:
+      'Line card slid out of a 1U chassis, showing shield cans, coax connectors and a dense fine-pitch board',
+    h1: 'Telecom boards: impedance is a stackup decision, shielding is an assembly one',
+    lede:
+      'A line card or an edge unit is dense, impedance-controlled and partly screened, and the parts that decide whether it works are shared between two suppliers: the bare board decides the impedance, and this floor decides whether the shield, the coax and the ground copper survive assembly.',
+    facts: [
+      ['Boards per unit', '1 – 3 (line card, control, front panel)'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Controlled impedance, screening'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Where assembly can still spoil a controlled stackup',
+        paras: [
+          'The impedance itself comes from the fabrication partner: layer stack, dielectric, trace width and the coupon that proves it. That is quoted with the bare boards and the coupon results travel with them.',
+          'Assembly can undo part of it. Ground-plane solder coverage under a screened section, a coax connector seated with a gap, a shield can whose tabs never wet, or a reflow profile that leaves voids under a large ground pad — each of those changes the return path that the stackup was designed around.',
+          'That is why the X-ray on this family looks at ground and thermal pads rather than only at fine-pitch joints, and why the shield and connector work is quoted as its own line instead of being folded into a placement price.',
+        ],
+      },
+      {
+        heading: 'Shield cans, coax and the order of operations',
+        paras: [
+          'Cans are fitted to your drawing: reflowed with the board where the design allows it, or added after wash where the can would trap flux. The decision follows the shielding and cleaning requirement, not convenience on the line.',
+          'Board-edge cage connectors and coaxial jacks take mechanical load from every cable that is plugged into them, and the solder joint behind them is what eventually cracks. They are through-hole or press-fit work, handled after reflow and inspected rather than assumed.',
+          'If the mechanical drawing is still moving, say so before the first build. A connector that changes after the stencil is cut is a re-qualification here, not a drawing update.',
+        ],
+      },
+      {
+        heading: 'Volume: a few hundred boards is the honest band',
+        paras: [
+          'One hundred to one thousand sets is where this floor is the right size, and it is the band most edge and private-network hardware actually lives in. Carrier-grade programmes run in tens of thousands and are built by EMS companies with dedicated lines and their own qualification teams — recommending that openly is cheaper for both sides than quoting and losing.',
+          'What this floor is genuinely good for is the year of change before a product settles: a new radio module, a respin of the front end, a variant with two more ports. Each of those is a stencil and a first article, and a high-mix floor absorbs them without a requalification meeting.',
+          'No market-size or 5G forecast figure appears on this page. The claim is about process fit — controlled impedance, screening and dense fine-pitch assembly — not about how fast the network build-out is going.',
+        ],
+      },
+      {
+        heading: 'What a telecom buyer asks for, and what is not on the shelf',
+        paras: [
+          'The documentation set is the same one used elsewhere on this site: certificate of conformance, first article with microscope images, a per-lot device history record, and coating records where coating is applied. Traceability runs to board serial at lot level.',
+          'What is not here: NEBS or any carrier qualification testing, environmental and EMC qualification, and in-house in-circuit or functional test. Those run at a test house or at your own end-of-line, and a board from here has not been through them.',
+          'ISO 9001 is held. Nothing on this page should be read as a carrier approval, a qualification mark or a claim to be on any operator’s approved-vendor list.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for telecom hardware',
+      items: [
+        'Carrier qualification, NEBS or any operator approval testing — none of that is performed here.',
+        'In-house in-circuit or functional test of a line card, including RF alignment and calibration.',
+        'Carrier-grade volumes in the tens of thousands, where a dedicated-line EMS is the right counterpart.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you hold impedance on a controlled stackup?',
+        a: 'The impedance is set by the bare board and proved by its coupon, which comes from the fabrication partner and travels with the lot. What this floor controls is the part assembly can spoil: ground and thermal pad coverage, connector seating and shield tab wetting, all checked optically and by X-ray.',
+      },
+      {
+        q: 'Do you fit shield cans?',
+        a: 'Yes, to your drawing — reflowed with the board where the design allows, or added after wash where a can would trap flux. Which one applies is decided by the shielding and cleaning requirement before the first run, not on the line.',
+      },
+      {
+        q: 'Do you test a line card?',
+        a: 'No. There is no in-house in-circuit or functional test, and RF alignment and calibration need an instrumented bench that belongs to you or a test house. Inspection here is SPI, AOI and X-ray plus a chamber soak if the specification asks for one.',
+      },
+      {
+        q: 'Is Tenmay on any carrier approved-vendor list?',
+        a: 'No, and this page does not claim it. Tenmay holds ISO 9001 with a scope of processing and assembly of digital electronics. Carrier qualification is a programme run by the operator with the equipment maker, and it is outside what this floor can offer.',
+      },
+    ],
+  },
+  instruments: {
+    slug: 'instruments',
+    name: 'Test & Measurement Instrument Boards',
+    cardName: 'Test Instrument Boards',
+    keyword: 'test instrument PCBA assembly',
+    image: '/assets/images/case-instruments.webp',
+    imageAlt:
+      'Benchtop test instrument with the case open, showing guarded input sections, BNC connectors and sealed relays',
+    h1: 'Instrument boards: fifty to five hundred, and mostly revisions',
+    lede:
+      'A bench instrument is a low-volume product with a high-cost front end: guarded inputs, sealed relays, a shielding can over the sensitive part and an accuracy claim printed on the case. The board set is exactly the shape this floor is built around — small batches, many revisions and hand-work that a placement-only house will not quote.',
+    facts: [
+      ['Boards per unit', '2 – 3 (front end, control, panel)'],
+      ['Typical batch', '50 – 500 sets'],
+      ['Characteristic', 'Fine pitch, relays, low volume'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Small batches are the product, not a phase before volume',
+        paras: [
+          'An instrument maker does not get to a hundred thousand units and stop worrying. A model sells in hundreds, then a variant sells in tens, and each of those needs its own stencil, its own first article and a build that starts within days of the parts arriving.',
+          'A high-mix floor prices that better than a dedicated line because the setup is what it does all day. The honest limit is at the other end: at a few thousand a month, a line that never changes over beats this one on unit price, and the page says so rather than quoting and hoping.',
+          'Fifty pieces is the floor for a sensible run here. Below that the stencil and first-article work dominates the price, which is normal for a prototype and worth saying before the quotation arrives.',
+        ],
+      },
+      {
+        heading: 'The front end is where assembly decides the noise floor',
+        paras: [
+          'Guarded inputs, high-impedance buffers and precision references are drawn to reject interference, and assembly can quietly defeat the drawing. Residue under a high-impedance node, coating creeping over a guard ring, a relay seated with a bent pin, or a BNC whose plating was damaged in handling all show up as a reading that drifts.',
+          'The process choice is part of the design: a no-clean process leaves residue that matters at high impedance, and a water-wash process is cleaner but harsher on relays, unsealed connectors and any acoustic or optical part on the board.',
+          'Coating is applied in-house with the connectors, the guard regions and any optical area masked by hand. On an instrument, the masking drawing is closer to a functional requirement than a cosmetic one.',
+        ],
+      },
+      {
+        heading: 'Relays, BNCs and the hand-work instruments still need',
+        paras: [
+          'Instrument boards carry through-hole work that consumer boards abandoned years ago: sealed relays, binding posts, BNC jacks, terminal blocks and sometimes a shielding frame. That work is done on this floor rather than subcontracted, and quoted as its own line because the labour depends on the part and the access around it.',
+          'It is also where the fixture earns its money. A relay with sixteen pins in a crowded corner needs a defined solder order and a check, otherwise the one cold joint that matters ends up under a can.',
+          'Fine-pitch placement runs alongside it: 0.30 mm IC pitch and 01005 passives are ordinary work here, which matters on the digital control board and the panel board rather than on the front end.',
+        ],
+      },
+      {
+        heading: 'Calibration, accuracy and the parts that are not ours',
+        paras: [
+          'An instrument’s accuracy claim rests on calibration against a traceable standard, and that is metrology, not assembly. It happens at the instrument maker or a calibration laboratory, on a finished unit, with its own certificate.',
+          'This floor’s contribution is the part before that: joints that are inspected rather than assumed, a lot record that ties the build to its materials, and first-article images that show what the front end actually looked like when it left.',
+          'What is not available here: in-circuit or functional test of the instrument, calibration, EMC or safety testing, and any statement about measurement uncertainty. A board from this floor has been assembled and inspected; it has not been characterised.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor cannot carry an instrument programme',
+      items: [
+        'Calibration and any accuracy or uncertainty statement — metrology, not assembly.',
+        'In-circuit or functional test of the finished instrument, and EMC or safety qualification.',
+        'Runs above a few thousand sets a month, where a dedicated line wins on unit price.',
+        'Potting or full encapsulation of a front end; coating is what this floor does.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you build fifty instrument boards and then two hundred more?',
+        a: 'Yes. Fifty to five hundred sets is the normal band, with a three-day standard build once parts are kitted and a first article on the first run of every revision. Both runs use the same programme and stencil, so the second lot is comparable with the first.',
+      },
+      {
+        q: 'Do you solder the relays and BNC connectors?',
+        a: 'Yes. Sealed relays, binding posts, BNC jacks and terminal blocks are through-hole work done on this floor after reflow, quoted as its own line because the labour depends on the part and the access around it.',
+      },
+      {
+        q: 'Will you wash the boards?',
+        a: 'Only if the design tolerates it. Wash is cleaner for high-impedance front ends and harsher on relays, unsealed connectors and acoustic parts. The process is decided at DFM from the board, not from preference on the line.',
+      },
+      {
+        q: 'Do you calibrate or test the instrument?',
+        a: 'No. Calibration against a traceable standard, functional test and EMC or safety qualification all happen on a finished unit at the instrument maker or a laboratory. Inspection here is SPI, AOI and X-ray, plus a chamber soak if the specification asks for one.',
+      },
+    ],
+  },
 };
 
 export const FAMILY_SLUGS = Object.keys(FAMILIES);
@@ -1553,6 +1789,7 @@ export const RELATED = {
     ['vfd', 'The same stack one frame size up, where the power board gets large.'],
     ['hmi', 'The operator panel the drive is wired to.'],
     ['robot-vacuum', 'The same encoder-adjacent logic at consumer volumes instead of industrial ones.'],
+    ['instruments', 'The same fine-pitch control board, driving a measurement instead of a motor.'],
   ],
   hmi: [
     ['vfd', 'The drive this panel controls, including the keypad board inside it.'],
@@ -1624,5 +1861,20 @@ export const RELATED = {
     ['humanoid', 'The joint-level version of the same argument, with more identical boards per unit.'],
     ['bess', 'The battery interface and its isolation gap, at rack scale rather than on a chassis.'],
     ['rugged-radio', 'Portable field hardware where the same connectors and coating decide survival.'],
+  ],
+  medical: [
+    ['instruments', 'The same low-volume, record-heavy order shape without the device paperwork.'],
+    ['thermal-imaging', 'A detector and its analog front end, where cleanliness also decides the signal.'],
+    ['smart-glasses', 'Sensor-dense fine-pitch work at a batch size this floor can hold.'],
+  ],
+  telecom: [
+    ['rugged-radio', 'RF sections and screening in a housing that travels instead of a rack.'],
+    ['hmi', 'Fieldbus gateways and controllers, the other side of the same network.'],
+    ['ai-power', 'The power shelf behind edge and data-centre equipment.'],
+  ],
+  instruments: [
+    ['medical', 'The same guarded front end, sold under a different regulatory regime.'],
+    ['servo', 'The same fine-pitch control board driving a motor rather than a measurement.'],
+    ['hmi', 'An operator panel and its acquisition board, one enclosure apart.'],
   ],
 };

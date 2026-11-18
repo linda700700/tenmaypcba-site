@@ -63,6 +63,9 @@ const PROCESS_CLASS = {
   bess: 'power',
   'power-tool': 'power',
   'amr-agv': 'power',
+  medical: 'fine',
+  telecom: 'fine',
+  instruments: 'fine',
 };
 
 function batchOf(family) {

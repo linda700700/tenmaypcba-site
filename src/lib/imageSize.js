@@ -49,6 +49,10 @@ const SIZES = {
     1400,
     934
   ],
+  "/assets/images/case-instruments.webp": [
+    1400,
+    934
+  ],
   "/assets/images/case-jump-starter.webp": [
     1400,
     933
@@ -56,6 +60,10 @@ const SIZES = {
   "/assets/images/case-led-driver.webp": [
     1400,
     933
+  ],
+  "/assets/images/case-medical.webp": [
+    1400,
+    934
   ],
   "/assets/images/case-parking-sensor.webp": [
     1400,
@@ -82,6 +90,10 @@ const SIZES = {
     933
   ],
   "/assets/images/case-smart-glasses.webp": [
+    1400,
+    934
+  ],
+  "/assets/images/case-telecom.webp": [
     1400,
     934
   ],

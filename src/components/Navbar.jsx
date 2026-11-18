@@ -137,6 +137,15 @@ const NAV = [
           { label: 'The standards question', href: '/defence-robotics.html', kw: 'as9100 nadcap itar defence aerospace standards' },
         ],
       },
+      {
+        title: 'Medical, telecom & test',
+        items: [
+          { label: 'Medical device boards', href: '/applications.html#medical', kw: 'medical device monitor diagnostic 13485 acquisition' },
+          { label: 'Telecom & 5G edge boards', href: '/applications.html#telecom', kw: 'telecom 5g line card edge impedance shielding coax' },
+          { label: 'Test & measurement boards', href: '/applications.html#instruments', kw: 'instrument oscilloscope analyser bnc relay front end' },
+          { label: 'Quality records & traceability', href: '/#quality', kw: 'device history record lot traceability coc fai' },
+        ],
+      },
     ],
     promo: {
       image: '/assets/images/case-uav.webp',

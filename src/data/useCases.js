@@ -326,7 +326,57 @@ export const SECTORS = [
           'No published shipment figure used here. The observation is about revision rhythm rather than market size: programmes change weekly, so fifty identical boards and a three-day repeat build are worth more than a lower unit price.',
       },
     ],
+  },  {
+    id: 'medical-tech',
+    label: 'Medical, Telecom & Test',
+    image: '/assets/images/case-medical.webp',
+    imageAlt: 'Patient monitor with the case opened, showing the acquisition board and its sensor connectors',
+    imageCase: 'medical',
+    blurb:
+      'What these three share is the order shape rather than the market: a few hundred boards, a documentation trail somebody may audit, and a buyer who owns the validation. ISO 9001 is held. ISO 13485 and any carrier qualification are not, so a programme that needs them is named here rather than discovered in an audit.',
+    cases: [
+      {
+        id: 'medical',
+        image: '/assets/images/case-medical.webp',
+        name: 'Medical Device & Diagnostic Instrument Boards',
+        keyword: 'medical device PCBA assembly',
+        board:
+          'An acquisition board with guarded low-noise front ends and isolated sensor connectors, a main board, and a front-panel board — usually three PCBs and one validated process.',
+        fit: ['Guarded analog front ends', 'Per-lot device record', 'Conformal coating', 'Fine-pitch sensors'],
+        batch: '100 – 1,000',
+        heat: 'Documentation-led',
+        basis:
+          'No market figure used. The fit is the order shape: a few hundred boards, a traceable lot record and a final validation that stays with the device maker.',
+      },
+      {
+        id: 'telecom',
+        image: '/assets/images/case-telecom.webp',
+        name: 'Telecom & 5G Edge Equipment Boards',
+        keyword: 'telecom board PCBA assembly',
+        board:
+          'A line card or edge unit board with impedance-controlled traces, heavy ground copper, shielded RF sections and board-edge cage or coax connectors.',
+        fit: ['Controlled impedance', 'Heavy ground copper', 'Shield cans & coax', 'Conformal coating'],
+        batch: '100 – 1,000',
+        heat: 'Specification-led',
+        basis:
+          'Judged on process fit: controlled impedance, shielding and dense fine-pitch placement are work this floor can hold. Carrier-grade volume is not, and the page says so.',
+      },
+      {
+        id: 'instruments',
+        image: '/assets/images/case-instruments.webp',
+        name: 'Test & Measurement Instrument Boards',
+        keyword: 'test instrument PCBA assembly',
+        board:
+          'A front-end acquisition board with guarded inputs, sealed relays and BNC connectors, a digital control board, and a front-panel board with encoders and a display.',
+        fit: ['0.30 mm pitch', '01005 passives', 'Relays & BNC THT', 'Low-volume high-mix'],
+        batch: '50 – 500',
+        heat: 'Revision-heavy',
+        basis:
+          'A judged fit rather than market data: instruments are the classic high-mix, low-volume board set, which is the shape this floor is organised around.',
+      },
+    ],
   },
+
 ];
 
 /* Question / answer pairs used for FAQ structured data and GEO answer blocks. */
@@ -369,6 +419,9 @@ export const PRIORITY = [
       'Robot Joint Boards',
       'Power Tool Controllers',
       'AMR / AGV Boards',
+      'Medical Device Boards',
+      'Telecom & 5G Edge Boards',
+      'Test Instrument Boards',
     ],
     why: 'Same board stacks and overlapping buyers, plus the newer power, imaging and robotics work. Worth a page each because they share keywords with tier A, but do not lead the homepage with them.',
   },

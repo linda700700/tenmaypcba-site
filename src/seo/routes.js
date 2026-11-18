@@ -206,6 +206,30 @@ export const ROUTE_HEADS = {
     ogDescription:
       'A few difficult boards per robot, then a fleet: why the connector and the isolation gap decide the outcome, not placement accuracy.',
   },
+  '/applications/medical': {
+    title: 'Medical Device PCBA Assembly Without ISO 13485 | TENMAY',
+    description:
+      'Acquisition, main and panel boards for patient monitors and diagnostic instruments: guarded analog front ends, lot device records, 100 to 1,000 sets, ISO 9001 held.',
+    ogTitle: 'Medical Device Board Assembly — TENMAY',
+    ogDescription:
+      'The board is ordinary; the record is not. What this floor can be inside a medical programme, and the certification it does not hold.',
+  },
+  '/applications/telecom': {
+    title: 'Telecom and 5G Edge Board Assembly | TENMAY',
+    description:
+      'Line card and edge unit boards with controlled impedance, heavy ground copper, shield cans and coax connectors. 100 to 1,000 sets, 0.30 mm pitch, X-ray on ground pads.',
+    ogTitle: 'Telecom and 5G Edge Board Assembly — TENMAY',
+    ogDescription:
+      'Impedance is a stackup decision; shielding is an assembly one. Where this floor helps on a dense board, and where carrier volume goes elsewhere.',
+  },
+  '/applications/instruments': {
+    title: 'Test and Measurement Instrument PCBA | TENMAY',
+    description:
+      'Front-end, control and panel boards for bench instruments: guarded inputs, sealed relays and BNC connectors, 01005 and 0.30 mm pitch, 50 to 500 sets.',
+    ogTitle: 'Test Instrument Board Assembly — TENMAY',
+    ogDescription:
+      'Fifty to five hundred, and mostly revisions: why high-mix low-volume is the product here, and why calibration stays with the instrument maker.',
+  },
   '/insights': {
     title: 'PCBA Process Notes and Engineering Insights | TENMAY',
     description:
