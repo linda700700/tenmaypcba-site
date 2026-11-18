@@ -52,12 +52,45 @@ jobs:
           # .git must be excluded or this delete removes the repository itself.
           # The three excluded files are Pages settings that are not build output:
           # the custom domain, the Jekyll opt-out and the domain verification token.
-          rsync -a --delete \
+          # --checksum, not the default size+mtime quick check: a rebuild that
+          # changes nothing but the hashed bundle name produces HTML of exactly
+          # the same byte length, and a skipped copy there is invisible.
+          rsync -a --delete --checksum \
             --exclude '.git' \
             --exclude 'CNAME' \
             --exclude '.nojekyll' \
             --exclude '47f21dfb48da328caa9209536c92dfc6.txt' \
             "$GITHUB_WORKSPACE/dist/" .
+
+          # The build already refuses to publish a dist whose index.html points
+          # at assets it did not emit. That guard runs one step too early: it
+          # cannot see this worktree. This one checks the tree about to be
+          # committed, across every page, because a publish that replaces
+          # assets/ and leaves the HTML behind ships a site whose stylesheet
+          # 404s — visible, unstyled, and with a dead RFQ form.
+          node -e '
+            const fs = require("fs"), path = require("path");
+            const walk = (d, o = []) => {
+              for (const e of fs.readdirSync(d)) {
+                if (e === ".git") continue;
+                const p = path.join(d, e);
+                fs.statSync(p).isDirectory() ? walk(p, o) : o.push(p);
+              }
+              return o;
+            };
+            const htmls = walk(".").filter((f) => f.endsWith(".html"));
+            const missing = [];
+            for (const h of htmls) {
+              for (const ref of new Set(fs.readFileSync(h, "utf8").match(/\/assets\/[A-Za-z0-9._\/-]+/g) || [])) {
+                if (!fs.existsSync(path.join(".", ref.replace(/^\//, "")))) missing.push(ref + "  <- " + h);
+              }
+            }
+            if (missing.length) {
+              console.error("Refusing to publish: HTML references assets that are not in this tree.\n" + missing.join("\n"));
+              process.exit(1);
+            }
+            console.log("Verified " + htmls.length + " HTML files: every referenced asset exists.");
+          '
 
           git add -A
           if git diff --cached --quiet; then
