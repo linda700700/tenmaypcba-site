@@ -36,24 +36,33 @@
     <meta name="twitter:image" content="https://tenmaypcba.com/assets/images/og-tengmei.jpg" />
 
     <meta name="theme-color" content="#126B3F" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Non-blocking: a stylesheet on the critical path also blocks every
-         script behind it, so a slow or filtered fonts.googleapis.com used to
-         delay the whole page becoming interactive. media="print" until loaded
-         keeps the same fonts without holding up parsing. -->
+    <!-- Fonts are served from this origin (see @font-face in src/styles.css).
+         Google's host was measured unreachable from a Shenzhen network and
+         answered in 4.7s when it did, so the face either never applied or
+         swapped in after the visitor had already started reading. Preloading
+         the three faces used above the fold lets the browser resolve them
+         before the first paint. -->
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Barlow+Semi+Condensed:wght@600;700&display=swap"
-      rel="stylesheet"
-      media="print"
-      onload="this.media='all'"
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/barlow-semi-condensed-latin-700-normal.woff2"
+      crossorigin
     />
-    <noscript>
-      <link
-        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Barlow+Semi+Condensed:wght@600;700&display=swap"
-        rel="stylesheet"
-      />
-    </noscript>
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/ibm-plex-sans-latin-400-normal.woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      as="font"
+      type="font/woff2"
+      href="/fonts/ibm-plex-sans-latin-600-normal.woff2"
+      crossorigin
+    />
     <!-- Feed. Generated at build time from the article list, so a new Markdown
          file appears here without anyone editing this head. -->
     <link rel="alternate" type="application/rss+xml" title="TENMAY — Notes from the PCBA line" href="/feed.xml" />
