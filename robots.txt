@@ -1,6 +1,6 @@
 # ============================================================
 # tenmaypcba.com  robots.txt
-# Updated: 2026-11-17
+# Updated: 2026-11-18
 #
 # Policy: allow all crawling, block parameterized URLs only.
 #
@@ -38,5 +38,13 @@ Disallow: /*?*
 # Cohere        cohere-ai
 # Mistral       MistralAI-User
 # ------------------------------------------------------------
+
+# ------------------------------------------------------------
+# Machine-readable summaries for crawlers and answer engines.
+# llms.txt and llms-full.txt are plain text; facts.json is JSON. No auth.
+# ------------------------------------------------------------
+# llms.txt       https://tenmaypcba.com/llms.txt
+# llms-full.txt  https://tenmaypcba.com/llms-full.txt
+# facts.json     https://tenmaypcba.com/facts.json
 
 Sitemap: https://tenmaypcba.com/sitemap.xml
