@@ -124,6 +124,19 @@ export const SECTORS = [
         basis:
           'No market figure used. The band comes from the order shape: cabinets are built in thousands of identical cards, and the price is decided by panel utilisation rather than by placement speed.',
       },
+      {
+        id: 'ip-camera',
+        image: '/assets/images/case-ip-camera.webp',
+        name: 'IP Cameras, NVR & Access Control Boards',
+        keyword: 'IP camera board PCBA assembly',
+        board:
+          'A dense square main board with a SoC under a heatsink, a PoE front end, an RJ45 with magnetics, a sensor board-to-board connector and a card slot — plus the reader board with its relay, terminal block and antenna coil.',
+        fit: ['BGA SoC', 'PoE magnetics', 'Board flatness', 'Fine pitch'],
+        batch: '500 – 5,000',
+        heat: 'Many variants, one platform',
+        basis:
+          'No market figure used. One platform ships as a dozen products, so the fit is the variant shape — provided each variant gets its own first article — while the image itself is proven by the brand, not here.',
+      },
     ],
   },
   {
@@ -250,6 +263,19 @@ export const SECTORS = [
         heat: 'Machine-paced, long life',
         basis:
           'No market figure used. The controller follows the machine, so an implement built in hundreds gives a board built in hundreds — with a repeat build and a stocked spare that matter more than the piece price.',
+      },
+      {
+        id: 'dc-charger',
+        image: '/assets/images/case-dc-charger.webp',
+        name: 'DC Charging Power Modules (20–40 kW)',
+        keyword: 'DC fast charging power module PCBA assembly',
+        board:
+          'Two or three heavy boards per module — PFC, isolated DC-DC and a control / driver board — with a laminated bus bar, power devices bolted to a cold plate and a stack of magnetics.',
+        fit: ['Heavy copper', 'Busbar assembly', 'Cold-plate mounting', 'X-ray on power joints'],
+        batch: '100 – 1,000',
+        heat: 'Programme-paced, slow to change',
+        basis:
+          'No market figure used. Efficiency, thermals and harmonics are measured on a load this floor does not have, so the fit rests on the assembly content and on a charger maker building cabinets in tens or hundreds.',
       },
     ],
   },
@@ -503,6 +529,7 @@ export const PRIORITY = [
       'Sensor & Transmitter Boards',
       'GNSS & Telemetry Modules',
       'Off-Highway & Agri Controllers',
+      'DC Charging Power Modules',
     ],
     why: 'Same board stacks and overlapping buyers, plus the newer power, imaging and robotics work. Worth a page each because they share keywords with tier A, but do not lead the homepage with them.',
   },
@@ -516,6 +543,7 @@ export const PRIORITY = [
       'AI & AR Smart Glasses',
       'LED Display & Receiver Cards',
       'Car Audio & Class-D Amps',
+      'IP Camera & Access Control',
     ],
     why: 'High search interest, but volume buyers demand in-circuit test and judge on cents. Publish the page for search reach; expect few profitable RFQs.',
   },

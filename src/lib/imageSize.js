@@ -73,6 +73,14 @@ const SIZES = {
     1400,
     934
   ],
+  "/assets/images/case-dc-charger.webp": [
+    1400,
+    934
+  ],
+  "/assets/images/case-ip-camera.webp": [
+    1400,
+    934
+  ],
   "/assets/images/case-instruments.webp": [
     1400,
     934

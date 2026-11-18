@@ -64,6 +64,16 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-dc-charger.webp": [
+    [
+      "/assets/images/case-dc-charger-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-dc-charger-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-ebike.webp": [
     [
       "/assets/images/case-ebike-700w.webp",
@@ -121,6 +131,16 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/case-instruments-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-ip-camera.webp": [
+    [
+      "/assets/images/case-ip-camera-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-ip-camera-900w.webp",
       900
     ]
   ],

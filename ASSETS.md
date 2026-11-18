@@ -4,7 +4,7 @@ This file tracks all image assets for the PCBA Contract Manufacturing website pe
 
 ## Summary
 - Approved allocation limit: 8
-- Generated count: 10
+- Generated count: 12
 - User-provided count: 0
 - Placeholders: 0
 
@@ -12,9 +12,9 @@ This file tracks all image assets for the PCBA Contract Manufacturing website pe
 
 The `case-<slug>.webp` images on the application pages are library photography of
 the board type, generated the same way as the factory slots; they are not
-photographs of a customer build. Eleven were added with the power-tool, AMR,
-medical, telecom, instrument, sensor, wearable, GNSS, LED display, off-highway and
-car audio families:
+photographs of a customer build. Thirteen were added with the power-tool, AMR,
+medical, telecom, instrument, sensor, wearable, GNSS, LED display, off-highway,
+car audio, DC charging and IP camera families:
 
 | Filename / Path | Source | Slot / Usage | Status | CDN / Original URL |
 |---|---|---|---|---|
@@ -29,6 +29,8 @@ car audio families:
 | `/assets/images/case-led-display.webp` | imageGenerate | LED display receiver card with eight ribbon headers beside a sending card with DVI connector and coiled ribbon cable | Ready | https://sc02.alicdn.com/kf/A9b1173dfe5d748e9b080e7e5463b4dcfD.png |
 | `/assets/images/case-off-highway.webp` | imageGenerate | Off-highway controller in a finned die-cast housing, lid off, coated board, sealed connector and clamped power devices | Ready | https://sc02.alicdn.com/kf/Afcfdda59d91a432ab013de43dd2b1104R.png |
 | `/assets/images/case-car-audio.webp` | imageGenerate | Class-D car amplifier board with bus bar, electrolytics, toroid and power devices beside its heatsink and thermal pad | Ready | https://sc02.alicdn.com/kf/A8d4c16f8713240a4811559e86747ae5cg.png |
+| `/assets/images/case-dc-charger.webp` | imageGenerate | DC charging power module with cover off: bus bars, power modules on a cold plate, planar transformer and vertical gate-driver boards | Ready | https://sc02.alicdn.com/kf/Aa0f15e37b8754c93bb92926c9460a3abb.png |
+| `/assets/images/case-ip-camera.webp` | imageGenerate | IP camera main board with SoC heatsink, RJ45 and PoE magnetics beside an access-control reader board, with a detached lens module | Ready | https://sc02.alicdn.com/kf/A6ed30a0a37fa4d7ab6ca4fbcc38be496N.png |
 
 All of them were encoded to 1400 px WebP, with `tools/gen-responsive-images.mjs`
 run afterwards, so `src/lib/imageVariants.js` lists their 700w and 900w copies and

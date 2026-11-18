@@ -72,6 +72,8 @@ const PROCESS_CLASS = {
   'led-display': 'fine',
   'off-highway': 'power',
   'car-audio': 'power',
+  'dc-charger': 'power',
+  'ip-camera': 'fine',
 };
 
 function batchOf(family) {

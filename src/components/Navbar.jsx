@@ -106,6 +106,7 @@ const NAV = [
           { label: 'Power tool & garden controllers', href: '/applications.html#power-tool', kw: 'power tool brushless drill garden tool controller mosfet bridge' },
           { label: 'Wearables & hearables', href: '/applications.html#wearables', kw: 'wearable watch earbud rigid flex 01005 sensor' },
           { label: 'LED display & receiver cards', href: '/applications.html#led-display', kw: 'led display receiver card sending card hub75 ribbon header cabinet' },
+          { label: 'IP camera & access control', href: '/applications.html#ip-camera', kw: 'ip camera nvr poe access control reader rfid board' },
         ],
       },
       {
@@ -120,6 +121,7 @@ const NAV = [
           { label: 'AMR & AGV robot boards', href: '/applications.html#amr-agv', kw: 'amr agv mobile robot drive board lidar battery' },
           { label: 'Sensor & transmitter boards', href: '/applications.html#sensors', kw: 'pressure transmitter 4-20ma sensor cell instrumentation amplifier' },
           { label: 'Off-highway & agri controllers', href: '/applications.html#off-highway', kw: 'off-highway agricultural construction controller can valve driver coating sealed connector' },
+          { label: 'DC charging power modules', href: '/applications.html#dc-charger', kw: 'dc fast charger power module pfc llc busbar cold plate 20kw' },
         ],
       },
       {

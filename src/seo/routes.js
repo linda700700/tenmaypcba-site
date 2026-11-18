@@ -278,6 +278,22 @@ export const ROUTE_HEADS = {
     ogDescription:
       'A power supply with an audio problem. Voiding under the power devices is the yield number, and the thermal path is half mechanical and half unmeasured.',
   },
+  '/applications/dc-charger': {
+    title: 'DC Charging Power Module PCBA Assembly | TENMAY',
+    description:
+      'PFC, isolated DC-DC and control boards for 20 to 40 kW charging modules: heavy copper, laminated bus bars and cold-plate mounting. 100 to 1,000 modules. No load bank, no hipot, no certification.',
+    ogTitle: 'DC Charging Power Module Assembly — TENMAY',
+    ogDescription:
+      'Everything a buyer wants to know about a power module is measured on a load this floor does not have. What the assembly does control, and where the proof happens instead.',
+  },
+  '/applications/ip-camera': {
+    title: 'IP Camera and Access Control Board Assembly | TENMAY',
+    description:
+      'Camera main boards with BGA SoC, PoE magnetics and sensor connectors, plus access-control reader boards. 500 to 5,000 pcs. No image tuning, no functional test, no IP or EMC testing.',
+    ogTitle: 'IP Camera and Access Control Board Assembly — TENMAY',
+    ogDescription:
+      'Easy to assemble and hard to prove, because the proof is an image. SoC reflow, board flatness and the parts installers pull — and the tuning that is not done here.',
+  },
   '/insights': {
     title: 'PCBA Process Notes and Engineering Insights | TENMAY',
     description:

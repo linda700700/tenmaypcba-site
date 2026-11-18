@@ -2212,6 +2212,167 @@ export const FAMILIES = {
       },
     ],
   },
+
+  'dc-charger': {
+    slug: 'dc-charger',
+    name: 'DC Charging Power Modules (20–40 kW)',
+    cardName: 'DC Charging Power Modules',
+    keyword: 'DC fast charging power module PCBA assembly',
+    image: '/assets/images/case-dc-charger.webp',
+    imageAlt:
+      'DC charging power module with the cover off, showing heavy-copper bus bars, power modules bolted to a cold plate, a planar transformer and vertical gate-driver boards',
+    h1: 'A charging power module is argued over in efficiency points, and nobody here owns a load bank',
+    lede:
+      'A 20 to 40 kW module is two or three heavy boards, a laminated bus bar, power devices bolted to a cold plate and a stack of magnetics, inside a casting with coolant barbs on it. Placing it is not the hard part. The hard part is that everything a buyer wants to know about it — efficiency, thermals, harmonics — is measured on a load this floor does not have.',
+    facts: [
+      ['Boards per unit', '2 – 3 (PFC, DC-DC, control)'],
+      ['Typical batch', '100 – 1,000 modules'],
+      ['Characteristic', 'Heavy copper, busbar, cold-plate mounting'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Before it is a power supply it is a mechanical assembly',
+        paras: [
+          'The devices in a module like this are not held by solder alone. They are clamped to a cold plate through a thermal interface, and the joints carry current in the tens of amps while the plate underneath is trying to pull heat out of the same area. That makes the build order the design: mask, print, reflow, clean, coat where the drawing asks, then mount, then torque.',
+          'Voiding under those devices is the yield number, exactly as it is on a car amplifier, and for the same reason — it is invisible from outside and it shows up as a device that runs hot. X-ray on the power joints and on the bus bar attachments is the inspection that carries this family; AOI tells you the driver section is right, and that is the easy half.',
+          'The bus bar is the other mechanical item. A laminated bar bolted across the board carries the DC output, and a bar that sits a fraction off flat loads one end of the joint more than the other. Screw torque and sequence on the bar are specified, and they are checked on the first article in the assembly, not on bare boards.',
+        ],
+      },
+      {
+        heading: 'Everything the buyer wants to know is measured elsewhere',
+        paras: [
+          'There is no electronic load bank on this floor. Output power, efficiency curves, power factor, current harmonics and thermal behaviour under load are therefore not measured here at all — they come from the charger maker’s own test setup or from a test house with the right instrumentation.',
+          'The coolant side is the same story. The cold plate is not pressure-tested, not leak-tested and not flow-tested by us; here the plate is a mechanical interface that the board is mounted to. Glycol compatibility, flow rate and pressure drop belong to whoever builds the cooling loop.',
+          'Isolation is the third one buyers assume without asking. There is no hipot or dielectric-strength test at this floor, and no insulation-resistance measurement. The creepage and clearance on a mains-facing board are held by design and by assembly — the proof that the isolation holds is a safety test, and it happens at the charger level with the module in place.',
+        ],
+      },
+      {
+        heading: 'Certification is not a board document',
+        paras: [
+          'A DC charger is certified as a system. The EMC, the safety file, the connector standard and the metering accuracy are all properties of the finished cabinet with its cables, its enclosure and its firmware, and the certificate is issued against that. Nothing this floor produces contributes a certificate, and no page on this site should be read as offering one.',
+          'What this floor does produce is process evidence: lot records, reflow recipes, X-ray images on the power joints, first-article approval per revision, and a documented coating mask where coating applies. That is the material a charger maker assembles into an audit pack, and it is the part an assembler can honestly supply.',
+          'There is also no potting or encapsulation here. Where a design wants the power stack encapsulated for creepage or for humidity, that is a dispensing process with its own void and cure controls, and it is a different shop.',
+        ],
+      },
+      {
+        heading: 'A hundred modules is a programme, not a batch',
+        paras: [
+          'A charger cabinet takes a handful of modules, and a charger maker builds cabinets in tens or hundreds while iterating the firmware continuously. One hundred to a thousand modules a year, on a board revised twice, is the real shape — and the repeat build with a stable stencil and profile matters more than a rate.',
+          'The engineering risk on this family is change. A power module is designed around a device that is available, a magnetics set that is wound to order, and a bus bar geometry that is drawn to the casting. Any one of those changing reopens the first article, and quietly substituting a device because it is in stock is how a module acquires a thermal problem nobody can explain.',
+          'No market figure, shipment number or installed-base number is used on this page. The band comes from the order shape and the process content, not from the size of any charging market.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a DC charging power module',
+      items: [
+        'Efficiency, output power, power-factor, harmonic or thermal measurement under load — there is no load bank here.',
+        'Pressure, leak or flow testing of the cold plate, and any coolant compatibility statement.',
+        'Hipot, dielectric-strength or insulation-resistance testing, and any safety certification for the module or the cabinet.',
+        'EMC pre-compliance or compliance testing, and potting or encapsulation of the power stack.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you measure the efficiency of the module?',
+        a: 'No. There is no electronic load bank here, so efficiency, output power, power factor and harmonics are measured on your own setup or at a test house. What we verify is the assembly: X-ray on the power joints and the bus bar, AOI on the driver section, torque on the bar.',
+      },
+      {
+        q: 'Do you test the cold plate for leaks?',
+        a: 'No. The plate is a mechanical interface here: the board is mounted and torqued to it. Pressure, leak and flow testing belong to whoever builds the cooling loop, and the coolant compatibility statement belongs with them too.',
+      },
+      {
+        q: 'Is the module safety-certified when it leaves you?',
+        a: 'No. Certification is issued against the finished charger as a system, with its enclosure, cabling and firmware. What we supply is process evidence — lot records, X-ray images, first-article approval — which the charger maker folds into their audit pack.',
+      },
+      {
+        q: 'What batch size fits?',
+        a: 'One hundred to one thousand modules a year, with fifty as the minimum. The repeat build with a stable stencil and profile is worth more than a lower rate, because a power module that changes device or magnetics reopens its first article.',
+      },
+    ],
+  },
+
+  'ip-camera': {
+    slug: 'ip-camera',
+    name: 'IP Cameras, NVR & Access Control Boards',
+    cardName: 'IP Camera & Access Control',
+    keyword: 'IP camera board PCBA assembly',
+    image: '/assets/images/case-ip-camera.webp',
+    imageAlt:
+      'IP camera main board with SoC heatsink, RJ45 jack, PoE magnetics and sensor connector, beside an access-control reader board with relay, terminal block and RFID antenna coil, and a detached lens module',
+    h1: 'An IP camera board is easy to assemble and hard to prove, because the proof is an image',
+    lede:
+      'A camera main board is a system-on-chip, a PoE front end, a sensor connector and a card slot on a dense square PCB. Nothing about placing it is unusual. What is unusual is how completely the product is judged by something this floor never looks at — a picture, in a room, at night, after two years on a wall.',
+    facts: [
+      ['Boards per unit', '1 – 3 (main, sensor, PoE / IR)'],
+      ['Typical batch', '500 – 5,000 pcs'],
+      ['Characteristic', 'BGA SoC, PoE magnetics, fine pitch'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'The SoC is a thermal and a reflow problem at the same time',
+        paras: [
+          'A camera SoC is a large BGA on a small board with a heatsink on top of it, and both facts land on assembly. The package needs a profile that gets every ball to collapse on a board that has almost no thermal mass to buffer it, and it needs a ground path that actually reaches the housing — because a camera that throttles in summer is a support ticket, not a spec failure.',
+          'X-ray on the SoC perimeter and on the thermal vias under it is where this is checked. Voiding in the thermal array is the mechanism behind a unit that benchmarks correctly on a bench and drops frames after an hour in an outdoor housing.',
+          'Board warp is the second-order version of the same problem. A thin square board with a heavy connector on one edge and a heatsink screwed to the middle bows in the oven; if it bows, the sensor connector and the lens mount no longer line up, and the result is a soft corner that everyone blames on the lens.',
+        ],
+      },
+      {
+        heading: 'PoE, connectors and the parts that get pulled',
+        paras: [
+          'An RJ45 with integrated magnetics is a tall, heavy, through-hole part on the edge of a thin board, and it is the part an installer yanks. Its joints are soldered and inspected as a mechanical joint, not just an electrical one, and the isolation barrier inside the jack is a property of the part rather than of the assembly.',
+          'The board-to-board connector to the sensor is fine-pitch and unforgiving: a board that is a fraction out of flat will seat, pass a continuity check, and lose one lane intermittently in the field. On this family the connector is mated and checked with the actual sensor board on the first article.',
+          'The access-control reader board beside it is the opposite kind of work: a relay, a screw terminal, a buzzer, a tamper switch and a printed antenna coil, all through-hole on a small board, where the joint quality matters more than the pitch.',
+        ],
+      },
+      {
+        heading: 'What is not done here: the image, the protocol, the rating',
+        paras: [
+          'There is no image tuning and no optical work of any kind on this floor. Lens focusing, IR-cut alignment, white balance, low-light noise measurement and resolution testing are all camera-level activities that need a chart, a light box and a person looking at the result. None of that happens here, and there is no in-house functional test at all — no ICT, no FCT.',
+          'Protocol and firmware validation is likewise outside. ONVIF conformance, RTSP behaviour, PoE negotiation and the firmware image itself are the brand’s work; device programming from a supplied image is done in-house, and the function of that image is not exercised.',
+          'The environmental and compliance side is the same boundary as everywhere else on this site: no IP or IK testing of the finished camera, no salt fog, no EMC measurement. An outdoor camera rating belongs to the housing assembly and its test report, not to the board inside it.',
+        ],
+      },
+      {
+        heading: 'Five hundred to five thousand, and the variants multiply',
+        paras: [
+          'One camera platform ships as a dozen products: different sensor, different lens, with or without IR, PoE or 12 V, a dome and a bullet version of the same internals. That is a variant family rather than a single build, and it is handled well here provided each variant gets its own first article instead of being patched on the line.',
+          'Five hundred to five thousand pieces is the band. Below that, setup and NRE dominate the price; above it, the buyer is comparing against plants that run one model continuously with in-circuit test at every step, and that is a different kind of supplier.',
+          'The recurring engineering work is the sensor and the SoC: image sensors go end-of-life on a short cycle and a replacement usually changes the connector, the power sequencing and the lens mount together. That is a redesign conversation, and it is worth having before the stock runs out rather than after.',
+          'No market figure or shipment number is used on this page. The judgement is about the board and the order shape, not the size of the surveillance market.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a camera or access-control programme',
+      items: [
+        'Image tuning, lens focusing, IR-cut alignment and any low-light, resolution or colour measurement.',
+        'Functional test of any kind: no in-circuit test, no functional test, and no ONVIF or RTSP conformance work.',
+        'IP or IK testing of the finished camera, salt-fog testing, and EMC pre-compliance or compliance testing.',
+        'Potting of the camera module, and any programme that expects the assembler to prove the picture before it ships.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Do you focus the lens or tune the image?',
+        a: 'No. Lens focusing, IR-cut alignment, white balance and low-light performance are camera-level work needing a chart, a light box and a viewer. We assemble the board to your drawing and inspect the joints; the image is proven by you.',
+      },
+      {
+        q: 'Can you run a functional test on the camera board?',
+        a: 'No. There is no in-circuit or functional test here, so what leaves the floor is a verified assembly with its lot record. Device programming from your image is done in-house, but the firmware and the protocol stack are not exercised.',
+      },
+      {
+        q: 'How do you handle the sensor connector?',
+        a: 'It is mated with the actual sensor board on the first article, because a board that is slightly out of flat seats, passes continuity, and then loses a lane intermittently. Board flatness on this family matters as much as the solder joint.',
+      },
+      {
+        q: 'What batch size fits?',
+        a: 'Five hundred to five thousand pieces, with fifty as the minimum. One platform shipping as a dozen variants is normal and welcome, as long as each variant gets its own first article rather than being patched on the line.',
+      },
+    ],
+  },
 };
 
 export const FAMILY_SLUGS = Object.keys(FAMILIES);
@@ -2286,6 +2447,8 @@ export const RELATED = {
     ['jump-starter', 'High-volume consumer assembly with a battery on the same board.'],
   ],
   dashcam: [
+    ['ip-camera', 'More of the same image chain, one enclosure further out.'],
+
     ['robot-vacuum', 'Camera and fine-pitch density with a motor added.'],
     ['hmi', 'Display assembly where the panel is the product rather than a part of it.'],
     ['parking-sensor', 'The other automotive aftermarket family, bought by the same distributors.'],
@@ -2296,6 +2459,8 @@ export const RELATED = {
     ['robot-vacuum', 'Another sensor-heavy consumer board, if the automotive paperwork is not needed.'],
   ],
   evse: [
+    ['dc-charger', 'The power module behind the same cabinet, where the load bank decides who can quote.'],
+
     ['vfd', 'The same through-hole power work without the certification burden.'],
     ['power-station', 'Portable energy conversion, where the buyer judges the thermal design by touch.'],
     ['led-driver', 'Mains conversion at a volume this floor rarely sees.'],
@@ -2394,5 +2559,15 @@ export const RELATED = {
     ['jump-starter', 'Twelve-volt retail power electronics with the same heavy-copper problem.'],
     ['power-tool', 'Heavy copper, through-hole tabs and a thermal path under the power devices.'],
     ['power-station', 'A boost stage and a bridge on one board, at a similar batch size.'],
+  ],
+  'dc-charger': [
+    ['evse', 'The control board in the same cabinet, where the mains isolation question starts.'],
+    ['bess', 'Another high-current conversion board whose isolation gap is the product.'],
+    ['ai-power', 'Heavy copper, busbars and a thermal path decided by the joint rather than the placer.'],
+  ],
+  'ip-camera': [
+    ['dashcam', 'The same image-sensor carrier and SoC problem, in a smaller housing.'],
+    ['robot-vacuum', 'Dense consumer boards where the sensor stack decides which assembler can quote.'],
+    ['rugged-radio', 'Small dense boards behind a connector set, judged in the field.'],
   ],
 };
