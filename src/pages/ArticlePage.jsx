@@ -42,7 +42,9 @@ function ArticleJsonLd({ article, topic }) {
       name: COMPANY.shortName,
       logo: { '@type': 'ImageObject', url: `${SITE_URL}/assets/images/logo-192.webp` },
     },
-    mainEntityOfPage: { '@type': 'WebPage', '@id': `${SITE_URL}/insights/${article.slug}.html` },
+    /* Points at the WebPage node Seo.jsx emits for the same URL, so the note
+     * and its page are one thing rather than two nodes that merely share a URL. */
+    mainEntityOfPage: { '@id': `${canonicalFor(article.path)}#webpage` },
     // The article's own cover, so the structured-data image matches the page
     // rather than falling back to a stock shot shared by every article.
     image: article.cover

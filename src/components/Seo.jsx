@@ -1,11 +1,12 @@
 import React from 'react';
 import { COMPANY, SITE_URL, ISO_CERT, SAME_AS } from '../data/company';
 import { USE_CASE_FAQ } from '../data/useCases';
-import { FAMILIES } from '../data/applicationFamilies';
+import { FAMILIES, FAMILY_SLUGS } from '../data/applicationFamilies';
 import { TOPIC_BY_PATH } from '../data/topics';
 import { FAQS } from '../data/faq';
-import { canonicalFor } from '../seo/routes';
-import { articleBySlug } from '../lib/insights';
+import { canonicalFor, ROUTE_HEADS } from '../seo/routes';
+import { resolveHead } from '../lib/head';
+import { articleBySlug, ARTICLES } from '../lib/insights';
 import { ARTICLE_FAQ } from '../data/articleFaq';
 
 /*
@@ -41,6 +42,15 @@ function JsonLd({ id, data }) {
  * hierarchy rather than inventing a shorter one. */
 /* Family pages live under /applications, so the trail is three levels deep and
  * the middle step is a real link a visitor can follow back. */
+/* URLs whose page component already emits its own CollectionPage node. */
+const OWN_PAGE_ENTITY = new Set([
+  '/choose-a-pcba-supplier',
+  '/company',
+  '/pcba-cost-and-quotes',
+  '/pcba-process-limits',
+  '/defence-robotics',
+]);
+
 function familyFor(path) {
   const m = /^\/applications\/([^/]+)$/.exec(path || '');
   return m && FAMILIES[m[1]] ? FAMILIES[m[1]] : null;
@@ -111,11 +121,23 @@ export default function Seo({ path = '/' }) {
      * hide the spelling, it just leaves the engine free to pick it as primary.
      * Listed here, both strings are declared to be the same entity. */
     alternateName: [COMPANY.legalName, ISO_CERT.holderAsPrinted, COMPANY.shortName],
-    identifier: {
-      '@type': 'PropertyValue',
-      propertyID: 'Unified Social Credit Code',
-      value: COMPANY.creditCode,
-    },
+    /* Two registry identifiers, both checkable by a third party: the credit code
+     * against the business licence, the certificate number against the issuing
+     * body's register. A buyer asking "is this company real and is the ISO
+     * certificate real" is asking two questions, so they get two identifiers
+     * rather than one plus a paragraph of prose. */
+    identifier: [
+      {
+        '@type': 'PropertyValue',
+        propertyID: 'Unified Social Credit Code',
+        value: COMPANY.creditCode,
+      },
+      {
+        '@type': 'PropertyValue',
+        propertyID: 'ISO 9001 certificate number',
+        value: ISO_CERT.number,
+      },
+    ],
     sameAs: SAME_AS,
     url: SITE_URL,
     logo: `${SITE_URL}/assets/images/logo-192.webp`,
@@ -233,8 +255,20 @@ export default function Seo({ path = '/' }) {
           about: { '@id': `${SITE_URL}/#organization` },
           mainEntity: { '@id': `${SITE_URL}/#organization` },
           inLanguage: 'en',
+          isPartOf: { '@id': `${SITE_URL}/#website` },
+          /* The review date printed on the page. Only set where the page itself
+           * states a date: a dateModified that ticks with every deploy is a
+           * freshness claim the page cannot back up. */
+          dateModified: '2026-11-18',
+          datePublished: '2026-11-17',
         }
       : null;
+
+  /* Resolved before the trail so the WebPage node can point at both. */
+  const article =
+    path.startsWith('/insights/') ? articleBySlug(path.slice('/insights/'.length)) : null;
+  const pageImage =
+    (family && family.image) || (article && article.cover) || null;
 
   const trail = breadcrumbsFor(path);
   const breadcrumb = trail
@@ -279,10 +313,78 @@ export default function Seo({ path = '/' }) {
       }
     : null;
 
+  /* One page entity per URL. Before this node existed every page was a head of
+   * <title>/<meta> and a pile of Service and FAQ nodes with nothing saying "this
+   * URL is a page of this site, about this company, last touched on this date".
+   * An answer engine reading a family page had to infer the page from the
+   * breadcrumb. WebPage states it, and isPartOf/about/breadcrumb are @id
+   * references into the graph that is already on the page, not new claims.
+   *
+   * Four hubs declare their own CollectionPage with hasPart in the page
+   * component — a page listing other pages is a different claim from a page
+   * describing a service, so those keep their own node and are skipped here.
+   * Two WebPage nodes on one URL would fork the page identity. */
+  const head = ROUTE_HEADS[path] || article ? resolveHead(path) : null;
+  /* Two URLs are genuinely collections: /applications indexes every family page
+   * and /insights indexes every note. Typing them CollectionPage with hasPart
+   * hands an answer engine the list without it having to scrape the cards, and
+   * says the relationship is membership rather than "related links". Every other
+   * URL is a single page about one subject and stays WebPage. */
+  const isCollection = path === '/applications' || path === '/insights';
+  const members =
+    path === '/applications'
+      ? FAMILY_SLUGS.map((slug) => ({
+          '@type': 'WebPage',
+          '@id': `${canonicalFor(`/applications/${slug}`)}#webpage`,
+          url: canonicalFor(`/applications/${slug}`),
+          name: FAMILIES[slug].cardName,
+        }))
+      : path === '/insights'
+        ? ARTICLES.map((a) => ({
+            '@type': 'WebPage',
+            '@id': `${canonicalFor(a.path)}#webpage`,
+            url: canonicalFor(a.path),
+            name: a.title,
+          }))
+        : null;
+
+  const webPage =
+    head && !OWN_PAGE_ENTITY.has(path)
+      ? {
+          '@context': 'https://schema.org',
+          '@type': isCollection ? 'CollectionPage' : 'WebPage',
+          '@id': `${canonicalFor(path)}#webpage`,
+          url: canonicalFor(path),
+          name: head.title,
+          description: head.description,
+          isPartOf: { '@id': `${SITE_URL}/#website` },
+          about: { '@id': `${SITE_URL}/#organization` },
+          inLanguage: 'en',
+          /* Only where the page shows that image. The organisation logo is not
+           * the image of every page, and a primaryImageOfPage that the URL does
+           * not actually display is a markup claim the page cannot support. */
+          ...(pageImage
+            ? {
+                primaryImageOfPage: {
+                  '@type': 'ImageObject',
+                  url: `${SITE_URL}${pageImage}`,
+                },
+              }
+            : {}),
+          ...(familyService ? { mainEntity: { '@id': familyService['@id'] } } : {}),
+          ...(article
+            ? { datePublished: article.date, dateModified: article.date }
+            : {}),
+          ...(breadcrumb ? { breadcrumb: { '@id': `${canonicalFor(path)}#breadcrumb` } } : {}),
+          ...(members ? { hasPart: members } : {}),
+        }
+      : null;
+
   return (
     <>
       <JsonLd id="ld-organization" data={org} />
       <JsonLd id="ld-website" data={website} />
+      {webPage ? <JsonLd id="ld-webpage" data={webPage} /> : null}
       <JsonLd id="ld-service" data={service} />
       {familyService ? <JsonLd id="ld-family-service" data={familyService} /> : null}
       {aboutPage ? <JsonLd id="ld-about-page" data={aboutPage} /> : null}
