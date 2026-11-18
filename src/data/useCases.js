@@ -220,21 +220,21 @@ export const USE_CASE_FAQ = [
 /* Ranked shortlist: what to lead with on the site and in outreach. */
 export const PRIORITY = [
   {
-    tier: 'A · Lead with these',
+    tier: 'A · Best fit for this line',
     tone: 'blue',
     items: ['VFD / Inverter', 'Jump Starter with Air Compressor', 'Treadmill Control Boards'],
     why: 'Small batches, through-hole power stages, conformal coating and fast turnaround all land inside the confirmed capability window. Each has a clear buyer and a repeat order rhythm.',
   },
   {
-    tier: 'B · Support content',
+    tier: 'B · Same process, adjacent markets',
     tone: 'slate',
     items: ['Servo Drives', 'E-bike Controllers', 'Portable Power Stations', 'PLC I/O & Gateways'],
-    why: 'Same board stacks and overlapping buyers. Worth a page each because they share keywords with tier A, but do not lead the homepage with them.',
+    why: 'Servo drives, e-bike controllers and PLC I/O boards are the same build as the group above: an MCU, a driver stage, connectors, one or two fine-pitch parts. A new stencil per board, not a new process.',
   },
   {
-    tier: 'C · Traffic only, low conversion',
+    tier: 'C · Buildable, one limit named',
     tone: 'grey',
     items: ['Robot Vacuum Mainboards', 'LED Drivers & PD Chargers', 'Dashcams'],
-    why: 'High search interest, but volume buyers demand in-circuit test and judge on cents. Publish the page for search reach; expect few profitable RFQs.',
+    why: 'High-density mainboards, charger ICs and camera modules run to 01005 parts and 0.3 mm pitch, which the line handles. The limit is test: volume programmes here specify in-circuit test, and we do not run ICT in house.',
   },
 ];
