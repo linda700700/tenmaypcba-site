@@ -98,7 +98,7 @@ export default function ArticlePage({ article }) {
           </h1>
           <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12.5px] text-slate-600">
             <span className="font-semibold text-[#0A2A1C]">
-              By {FOUNDER.name} · {FOUNDER.jobTitle}
+              By {FOUNDER.name} ({FOUNDER.alternateName[0]}) · {FOUNDER.jobTitle}
             </span>
             <span>{formatDate(article.date)}</span>
             <span className="inline-flex items-center gap-1">
@@ -184,7 +184,7 @@ export default function ArticlePage({ article }) {
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <div className="text-[16px] font-bold text-slate-900">
-                {FOUNDER.name}, {FOUNDER.jobTitle}, {COMPANY.shortName}
+                {FOUNDER.name} ({FOUNDER.alternateName[0]}), {FOUNDER.jobTitle}, {COMPANY.shortName}
               </div>
               <p className="mt-1 text-[14px] text-slate-600">
                 {FOUNDER.description} Based in {COMPANY.city}, {COMPANY.region}. Questions on this

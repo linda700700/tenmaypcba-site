@@ -15,12 +15,16 @@ import { SITE_URL } from './company';
 export const FOUNDER = {
   '@type': 'Person',
   '@id': `${SITE_URL}/#founder`,
-  name: '秦德斌',
+  /* The Latin form leads because the site is English and this is the name on
+   * the business card oversea buyers receive. The registered Chinese name is
+   * carried as alternateName so registry and certificate checks still match. */
+  name: 'Debin Qin',
+  alternateName: ['秦德斌'],
   jobTitle: 'Owner',
   /* Twenty years in the trade, stated as the buyer would say it. No start year
    * is given because none was confirmed — a guessed date is worse than none. */
   description:
-    'Owner of Shenzhen Tenmay Technology. Twenty years in PCB assembly and electronics manufacturing in Shenzhen.',
+    'Owner of Shenzhen Tenmay Technology (秦德斌). Twenty years in PCB assembly and electronics manufacturing in Shenzhen.',
   worksFor: { '@id': `${SITE_URL}/#organization` },
   knowsAbout: [
     'PCB assembly',
