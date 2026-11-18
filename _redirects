@@ -18,3 +18,9 @@
 /applications/dashcam /applications/dashcam.html 301
 /applications/parking-sensor /applications/parking-sensor.html 301
 /applications/evse /applications/evse.html 301
+
+# www → apex. GitHub Pages ignores this file entirely; the live redirect has to
+# be done at the host/DNS layer (a Cloudflare Redirect Rule on the www hostname).
+# Kept here so the rule is version-controlled and starts working the day the site
+# moves to a host that reads _redirects (Cloudflare Pages / Netlify).
+https://www.tenmaypcba.com/*  https://tenmaypcba.com/:splat  301

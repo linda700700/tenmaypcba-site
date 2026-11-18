@@ -2,351 +2,225 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tenmaypcba.com/</loc>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/assembly.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/vfd.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/jump-starter.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/treadmill.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/ebike.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/power-station.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/robot-vacuum.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/servo.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/hmi.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/led-driver.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/dashcam.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/parking-sensor.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/evse.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/uav.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/rugged-radio.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/thermal-imaging.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/humanoid.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/smart-glasses.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/ai-power.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/applications/bess.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/rfq.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/company.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/privacy.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/terms.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/cookies.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/capabilities.html</loc>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/choose-a-pcba-supplier.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/pcba-cost-and-quotes.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/pcba-process-limits.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/dashcam-optics-not-an-assembly-step.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/ebike-controller-display-split-sourcing.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/evse-audit-record-set.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/fifty-piece-pcba-order.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/hmi-module-or-bare-board.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/in-circuit-test-outsourcing.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/jump-starter-safety-liability.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/led-driver-quote-reality-check.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/no-iatf-16949.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/pcba-cost-per-board.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/pcba-quote-what-it-should-contain.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/pcba-supplier-audit-checklist.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/power-station-three-board-supplier.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/robot-vacuum-ict-decision.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/servo-drive-shared-stack-with-vfd.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/shenzhen-pcba-factory-guide.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/treadmill-large-board-mechanics.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/vfd-three-boards-one-quote.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/virtual-factory-audit.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/what-is-pcba.html</loc>
     <lastmod>2026-11-17</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/consigned-vs-turnkey-pcba.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/four-clocks-in-a-pcba-lead-time.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/dfm-review-before-the-stencil.html</loc>
     <lastmod>2026-11-15</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/why-the-second-run-costs-less.html</loc>
     <lastmod>2026-11-14</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/01005-vs-0201.html</loc>
     <lastmod>2026-11-07</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/what-aoi-xray-cannot-catch.html</loc>
     <lastmod>2026-11-07</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/what-is-hmlv-pcba.html</loc>
     <lastmod>2026-11-07</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/01005-placement-what-limits-yield.html</loc>
     <lastmod>2026-11-06</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/bom-substitution-checklist.html</loc>
     <lastmod>2026-11-06</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
   <url>
     <loc>https://tenmaypcba.com/insights/fifty-piece-run-cost.html</loc>
     <lastmod>2026-11-06</lastmod>
-    <changefreq>yearly</changefreq>
-    <priority>0.6</priority>
   </url>
 </urlset>
