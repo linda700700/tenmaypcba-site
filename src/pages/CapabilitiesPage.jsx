@@ -74,7 +74,7 @@ const sourcingTable = [
   ['Moisture-sensitive storage', 'Dry cabinet below 5% RH (J-STD-033)', 'Controlled bake before assembly', 'Floor life logged per reel'],
   ['Consignment', 'Partial or full customer kit accepted', 'Kit shortage bridging', 'Customer parts inspected on receipt'],
   ['Counterfeit screening', 'Incoming visual and packaging check', 'Decapsulation and solderability on request', 'Rejected lots quarantined and reported'],
-  ['Excess & shortage handling', 'Shortage list issued within 24 h', 'Approved alternate parts proposed', 'No substitution without written approval'],
+  ['Excess & shortage handling', 'Shortage list one working day after kit check', 'Approved alternate parts proposed', 'No substitution without written approval'],
   ['Pricing basis', 'Distributor price passed through', 'Volume tier pricing at 1k / 5k', 'Line-item BOM on every quote'],
 ];
 
@@ -92,7 +92,7 @@ const bareBoardTable = [
 ];
 
 const processSteps = [
-  ['01', 'Pre-production engineering & DFM', 'Gerber, BOM and centroid files are checked against our assembly window before anything is released. Clearance, aperture ratio, panelisation, test-point access and component lifecycle come back as a written DFM report, normally within 24 hours.', null],
+  ['01', 'Pre-production engineering & DFM', 'Gerber, BOM and centroid files are checked against our assembly window before anything is released. Clearance, aperture ratio, panelisation, test-point access and component lifecycle come back as a written DFM report, normally inside one working day.', null],
   ['02', 'BOM sourcing & allocation', 'Every line is matched to an authorised distributor or factory allocation. Long-lead and end-of-life parts are flagged before you commit, and alternates are proposed in writing rather than substituted silently.', null],
   ['03', 'Incoming quality control (IQC)', 'Reels and trays are checked for part number, quantity, date code and packaging integrity against the BOM. Moisture-sensitive parts go directly into dry storage.', '/assets/images/tht-selective-solder.webp'],
   ['04', 'Bare-board incoming inspection', 'Boards are checked for thickness, warpage, surface finish, hole registration and mask alignment before they are allowed onto the line. Out-of-spec lots are quarantined and reported.', null],
@@ -435,7 +435,7 @@ export default function CapabilitiesPage() {
                 <h2 className="text-lg sm:text-xl font-bold text-white">Have a design that sits outside the table?</h2>
                 <p className="text-[14px] text-slate-300 mt-1.5 max-w-xl leading-relaxed">
                   Upload the BOM, centroid file and Gerber. An assembly engineer will confirm feasibility and return an
-                  itemized quote — including stencil, fixture and test cost — within 24 hours.
+                  itemized quote — including stencil, fixture and test cost — inside one working day.
                 </p>
               </div>
               <a href="/#rfq" className="shrink-0 inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-[#0B1E36] px-6 py-3 rounded text-sm font-bold transition-colors">

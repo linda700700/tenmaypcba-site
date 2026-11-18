@@ -105,7 +105,7 @@ export default function PricingLogic() {
               href="#rfq"
               className="mt-6 inline-flex items-center gap-2 bg-white hover:bg-slate-100 text-[#126B3F] px-5 py-3 rounded text-xs font-bold uppercase tracking-wider transition-colors justify-center shadow-sm"
             >
-              <span>Get Itemized 24h RFQ</span>
+              <span>Get an itemised quote</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
           </div>

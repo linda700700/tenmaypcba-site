@@ -17,7 +17,7 @@ const MODELS = [
       lead: '3 days, parts in stock',
       best: 'First build, or a team without a purchasing desk',
     },
-    points: ['One PO covers board, parts and assembly', 'Shortage list within 24 h', 'No substitution without written approval'],
+    points: ['One PO covers board, parts and assembly', 'Shortage list within one working day', 'No substitution without written approval'],
   },
   {
     name: 'Partial turnkey',

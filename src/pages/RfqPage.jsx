@@ -25,7 +25,7 @@ const STEPS = [
   {
     icon: ClipboardCheck,
     title: 'Get a DFM note and a price',
-    text: 'An assembly engineer reads the files before quoting, so the price you receive already accounts for the process route, panelisation and any part we would flag.',
+    text: 'An assembly engineer reads the files before quoting, so the price already accounts for the process route, panelisation and any part we would flag. The DFM note and the price come back inside one working day — by the end of the next Shenzhen working day, GMT+8, Monday to Friday.',
   },
   {
     icon: Truck,

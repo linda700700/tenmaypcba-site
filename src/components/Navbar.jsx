@@ -352,7 +352,7 @@ export default function Navbar({ currentPath = '/' }) {
             ))}
             <span className="flex sm:hidden items-center gap-1.5">
               <Clock className="w-3 h-3 text-sky-400" />
-              24h Mon–Fri
+              Reachable 24h, Mon–Fri
             </span>
           </div>
           <div className="flex items-center gap-4">

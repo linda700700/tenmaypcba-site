@@ -111,7 +111,7 @@ export default function Footer() {
                 </a>
               </li>
               <li className="text-[12px] text-slate-400 pt-1">
-                Response window: {COMPANY.hours}
+                Reachable: {COMPANY.hours}
               </li>
             </ul>
           </div>
