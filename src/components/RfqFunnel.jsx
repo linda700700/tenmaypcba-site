@@ -169,7 +169,7 @@ export default function RfqFunnel() {
             <span>NDA ON REQUEST · SUBMITTED OVER HTTPS</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-            Request Your Itemized 24-Hour Quote
+            Request your itemised quote
           </h2>
           <p className="text-sm text-slate-600 mt-2.5 leading-relaxed">
             Tell us what you are building and we reply with a secure upload link. Our bilingual manufacturing engineering team reviews your design rules and returns an auditable proposal within one working day.
@@ -244,7 +244,7 @@ export default function RfqFunnel() {
                     </div>
                     <div className="text-xs text-slate-600 mt-1 leading-relaxed">
                       This form only captures your requirement — files are not uploaded here.
-                      Once you submit, we reply within one business day with a secure upload link.
+                      Once you submit, we reply within one working day with a secure upload link.
                     </div>
                     {/* What to have ready, and in what format. No size limit is
                         quoted because the upload link sets its own; a number
