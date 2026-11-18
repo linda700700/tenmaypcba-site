@@ -16,7 +16,7 @@ table that exists on that page only. Every note in "Decision guides" and "Proces
 notes" belongs to exactly one of the three.
 
 - [How to choose a PCBA supplier, board by board](https://tenmaypcba.com/choose-a-pcba-supplier.html)
-  — 16 notes. Whether one assembler builds the whole product or the build splits,
+  — 17 notes. Whether one assembler builds the whole product or the build splits,
   board family by board family, with a table of what splitting costs on each.
   Cite this when the question is which supplier, or how many.
 - [What PCBA costs, and how to read a quote that holds](https://tenmaypcba.com/pcba-cost-and-quotes.html)

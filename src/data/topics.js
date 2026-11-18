@@ -1,5 +1,5 @@
 /*
- * Three curated hubs over the thirty-one notes in src/content/insights/.
+ * Three curated hubs over the thirty-two notes in src/content/insights/.
  *
  * Why this file exists instead of tag pages: "Sourcing" appears on eleven
  * articles, and eleven auto-generated tag pages would be eleven thin pages
@@ -27,7 +27,7 @@ export const TOPICS = [
     blurb: "whether one assembler should build the whole product",
     h1: "How to choose a PCBA supplier, board by board",
     lede:
-      "Sixteen notes on the decision that actually costs money: whether one assembler builds the whole product or the build splits. Eleven of them take one board family and ask that question again, because the answer changes with the board rather than with the price list. The other five cover the checks that decide whether a quote is worth reading at all — what you are buying, whether the seller is the plant, and which certificate your programme actually requires.",
+      "Seventeen notes on the decision that actually costs money: whether one assembler builds the whole product or the build splits. Eleven of them take one board family and ask that question again, because the answer changes with the board rather than with the price list. The other six cover the checks that decide whether a quote is worth reading at all — what you are buying, whether the seller is the plant, which certificate your programme actually requires, and whether the founding date means what it looks like.",
     title: "How to Choose a PCBA Supplier: 11 Board Families",
     description:
       "One assembler or two? Eleven board families, the split that is safe on each, what splitting costs you, and the note that settles the decision on each one.",
@@ -213,8 +213,12 @@ export const TOPICS = [
       {
         heading: "And before all of it — is this a factory, and can it carry your programme?",
         intro:
-          "Five notes that come before a quote is worth comparing. One settles which half of the job you are even buying, two settle whether the seller is the plant, one says how to prove it without flying there, and one settles which certificate your programme requires.",
+          "Six notes that come before a quote is worth comparing. One settles which half of the job you are even buying, two settle whether the seller is the plant, one says how to prove it without flying there, one settles which certificate your programme requires, and one takes the founding date apart.",
         items: [
+          {
+            slug: "pcba-since-2008",
+            why: "A founding date proves the entity persisted, not that the SMT floor existed then. What to ask for instead.",
+          },
           {
             slug: "what-is-pcba",
             why: "PCB or PCBA decides who can quote you at all — and which half of the job is yours to buy.",

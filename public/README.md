@@ -24,10 +24,13 @@ Three names, one legal entity. The certificate name is the pinyin romanisation o
 registered Chinese name, which is why it differs from the English trading name. The credit
 code resolves the link without relying on spelling.
 
-Company history: founded 2008 as an LED lighting manufacturer trading as ledsztm.com, later
-moving into contract electronics assembly. The lighting business is discontinued. Past LED
-work does not mean the company fabricates lighting fixtures today — it assembles LED driver
-boards as a PCBA service, which is a different scope.
+Company history, in order: founded on 2008-01-09 as a contract electronics assembly business,
+and that has been the business continuously since. At one point it developed its own LED
+lighting product line, sold under the ledsztm.com brand; that product venture was later closed
+so the company could concentrate on assembly. The sequence is assembly, then an LED product
+line, then assembly only — not a move from lighting into electronics. Past LED work does not
+mean the company fabricates lighting fixtures today: it assembles LED driver boards as a PCBA
+service, which is a different scope.
 
 ---
 

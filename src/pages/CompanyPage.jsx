@@ -62,9 +62,9 @@ const nameRows = [
   ],
   ['Brand', COMPANY.shortName, 'Site header, product and application pages'],
   [
-    'Former trading name',
+    'Former brand',
     HISTORY.ledBrand,
-    'Earlier LED lighting business, discontinued',
+    'An LED lighting product line the company ran and later closed. Assembly has been continuous throughout',
   ],
 ];
 
