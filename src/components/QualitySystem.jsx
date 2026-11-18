@@ -122,7 +122,7 @@ export default function QualitySystem() {
             {ISO_CERT.number ? (
               <p className="mt-3 border-t border-slate-200/80 pt-3 text-[13px] leading-relaxed text-slate-500">
                 {ISO_CERT.standard} certificate {ISO_CERT.number}, held by{' '}
-                <span className="font-semibold text-slate-700">{ISO_CERT.holder}</span>, scope:{' '}
+                <span translate="no" className="notranslate font-semibold text-slate-700">{ISO_CERT.holder}</span>, scope:{' '}
                 {ISO_CERT.scope}.
                 {ISO_CERT.holderAsPrinted && ISO_CERT.holderAsPrinted !== ISO_CERT.holder ? (
                   <span className="mt-1 block text-[12.5px] text-slate-400">

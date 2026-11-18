@@ -57,8 +57,8 @@ export default function AboutCompany() {
                 className="h-24 w-auto object-contain"
               />
               <div className="mt-6 text-center">
-                <div className="text-[14px] font-bold tracking-[0.18em] text-slate-900">TENMAY</div>
-                <div className="mt-1.5 text-[11.5px] tracking-[0.08em] text-slate-500 uppercase leading-relaxed">
+                <div translate="no" className="notranslate text-[14px] font-bold tracking-[0.18em] text-slate-900">TENMAY</div>
+                <div translate="no" className="notranslate mt-1.5 text-[11.5px] tracking-[0.08em] text-slate-500 uppercase leading-relaxed">
                   {COMPANY.legalName}
                 </div>
               </div>
@@ -76,7 +76,7 @@ export default function AboutCompany() {
 
           {/* Copy */}
           <div>
-            <div className="text-[12px] font-bold tracking-[0.18em] text-[#126B3F] uppercase">About Tenmay</div>
+            <div translate="no" className="notranslate text-[12px] font-bold tracking-[0.18em] text-[#126B3F] uppercase">About Tenmay</div>
             <h2 className="mt-3 text-2xl sm:text-3xl lg:text-[34px] font-bold tracking-tight text-slate-900 leading-[1.2]">
               {yearsInBusiness()} years in Shenzhen,
               <br className="hidden sm:block" /> building boards for other people&rsquo;s products.
@@ -84,7 +84,7 @@ export default function AboutCompany() {
 
             <div className="mt-6 space-y-4 text-[15.5px] leading-relaxed text-slate-700 max-w-[680px]">
               <p>
-                {COMPANY.legalName} was established in {COMPANY.founded} and is registered in
+                <span translate="no" className="notranslate">{COMPANY.legalName}</span> was established in {COMPANY.founded} and is registered in
                 {' '}{COMPANY.city}, {COMPANY.region}. We are a PCBA contract manufacturer: surface-mount and
                 through-hole assembly, post-solder, conformal coating, programming and inspection,
                 run across eight production lines of Yamaha YSM20 and YSM10 equipment.

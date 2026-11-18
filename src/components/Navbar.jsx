@@ -412,7 +412,7 @@ export default function Navbar({ currentPath = '/' }) {
               className="h-9 sm:h-10 w-auto object-contain"
             />
             <div>
-              <div className="text-[15px] sm:text-[17px] font-bold tracking-[0.02em] text-slate-900 leading-none">
+              <div translate="no" className="notranslate text-[15px] sm:text-[17px] font-bold tracking-[0.02em] text-slate-900 leading-none">
                 TENMAY
               </div>
               <div className="text-[8px] sm:text-[9px] tracking-[0.12em] sm:tracking-[0.14em] text-slate-500 font-semibold uppercase mt-1">
