@@ -124,6 +124,12 @@ export default function QualitySystem() {
                 {ISO_CERT.standard} certificate {ISO_CERT.number}, held by{' '}
                 <span className="font-semibold text-slate-700">{ISO_CERT.holder}</span>, scope:{' '}
                 {ISO_CERT.scope}.
+                {ISO_CERT.holderAsPrinted && ISO_CERT.holderAsPrinted !== ISO_CERT.holder ? (
+                  <span className="mt-1 block text-[12.5px] text-slate-400">
+                    Printed on the certificate as “{ISO_CERT.holderAsPrinted}”, the spelling in
+                    use when it was issued.
+                  </span>
+                ) : null}
               </p>
             ) : null}
           </div>

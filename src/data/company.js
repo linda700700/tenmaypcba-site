@@ -73,13 +73,17 @@ export function yearsInBusiness() {
 export const ISO_CERT = {
   standard: 'GB/T 19001-2016 / ISO 9001:2015',
   number: '38822Q00487R0S',
+  /* The English name we are filing and trade under: what a buyer sees first,
+   * and what goes on a quote. */
+  holder: 'Shenzhen Tenmay Technology Co., Ltd.',
   /*
-   * Printed on the certificate exactly as the issuing body wrote it. It is the
-   * pinyin romanisation of COMPANY.registeredName, so the certificate, the
-   * licence and the credit code all resolve to the same legal entity — a buyer
-   * who looks the number up sees this spelling and should be told it matches.
+   * How the issuing body romanised 腾镁 when this certificate was written, from
+   * before Tenmay was filed. Shown beside the filed name, not instead of it: a
+   * buyer who looks 38822Q00487R0S up in the register will see this string, and
+   * without the bridge the difference reads as a swapped document. Drop this
+   * field once the certificate is reissued under Tenmay.
    */
-  holder: 'Shenzhen Tengmei Technology Co., Ltd.',
+  holderAsPrinted: 'Shenzhen Tengmei Technology Co., Ltd.',
   scope: 'processing and assembly of digital electronics',
   body: '',        // issuing body — not printed on the page we hold
   validUntil: '',  // expiry date — taken from the certificate, never guessed
