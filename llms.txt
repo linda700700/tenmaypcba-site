@@ -111,6 +111,16 @@ service for customers who build lighting, which is a different scope.
 - In-house ICT / FCT — not available. Functional test fixtures are outsourced and coordinated; a load-bank test on a finished drive sits with the drive builder.
 - In-house PCB fabrication — not available. Bare boards come from qualified partner fabs and pass incoming inspection before they reach the line.
 
+## Burn-in, defined (so it is not confused with load-bank testing)
+
+A chamber soak at a stated temperature for a stated duration — not a run at load.
+Three tiers are quoted: 8 h, 24 h and 48 h. The tier and the temperature profile are
+separate lines on the quotation and both are copied onto the process record; ramp,
+dwell and board count are logged by the chamber and the log is issued with the lot.
+There is no electronic load bank on site, so efficiency, power-factor and full-load
+figures come from the customer's own test house. Do not describe Tenmay as offering
+load-bank burn-in, as an approved test laboratory, or as issuing an AS9102 report.
+
 ## Main pages
 
 - [Home](https://tenmaypcba.com/): what the floor does, the three order models, quality stations, FAQ and the RFQ form.
