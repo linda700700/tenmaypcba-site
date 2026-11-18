@@ -145,6 +145,7 @@ date** — open an issue and it will be corrected.
 
 ## Contact
 
+- Email: [linda@tenmaypcba.com](mailto:linda@tenmaypcba.com)
 - WhatsApp: [+86 173 6105 8693](https://wa.me/8617361058693)
 - Phone: +86 139 2377 2594
 - Quotation request: https://tenmaypcba.com/rfq.html
