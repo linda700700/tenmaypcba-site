@@ -7,6 +7,7 @@ import { COMPANY, SITE_URL } from '../data/company';
 import { canonicalFor } from '../seo/routes';
 import { topicForArticle } from '../data/topics';
 import { ARTICLE_FAQ } from '../data/articleFaq';
+import { FOUNDER } from '../data/people';
 
 /*
  * One article. The body arrives as Markdown and is rendered to React nodes, so
@@ -36,7 +37,10 @@ function ArticleJsonLd({ article, topic }) {
         }
       : { '@id': `${SITE_URL}/#website` },
     keywords: article.tags.length ? article.tags.join(', ') : undefined,
-    author: { '@type': 'Organization', name: COMPANY.legalName, url: SITE_URL },
+    /* A named person, not the company. An answer engine weighing whether to
+     * cite this page treats "written by an organisation" as no author at all;
+     * the Person @id is the same node the Organization declares as its founder. */
+    author: FOUNDER,
     publisher: {
       '@type': 'Organization',
       name: COMPANY.shortName,
@@ -93,6 +97,9 @@ export default function ArticlePage({ article }) {
             {article.title}
           </h1>
           <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-[12.5px] text-slate-600">
+            <span className="font-semibold text-[#0A2A1C]">
+              By {FOUNDER.name} · {FOUNDER.jobTitle}
+            </span>
             <span>{formatDate(article.date)}</span>
             <span className="inline-flex items-center gap-1">
               <Clock className="h-3.5 w-3.5" />
@@ -177,11 +184,11 @@ export default function ArticlePage({ article }) {
           <div className="flex flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div>
               <div className="text-[16px] font-bold text-slate-900">
-                Written by the {COMPANY.shortName} engineering desk
+                {FOUNDER.name}, {FOUNDER.jobTitle}, {COMPANY.shortName}
               </div>
               <p className="mt-1 text-[14px] text-slate-600">
-                {COMPANY.city}, {COMPANY.region}. Questions on this note go to the same inbox as
-                quotations.
+                {FOUNDER.description} Based in {COMPANY.city}, {COMPANY.region}. Questions on this
+                note go to the same inbox as quotations.
               </p>
             </div>
             <a

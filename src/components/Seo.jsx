@@ -1,5 +1,6 @@
 import React from 'react';
 import { COMPANY, SITE_URL, ISO_CERT, SAME_AS } from '../data/company';
+import { FOUNDER } from '../data/people';
 import { USE_CASE_FAQ } from '../data/useCases';
 import { FAMILIES, FAMILY_SLUGS } from '../data/applicationFamilies';
 import { TOPIC_BY_PATH } from '../data/topics';
@@ -143,6 +144,10 @@ export default function Seo({ path = '/' }) {
     logo: `${SITE_URL}/assets/images/logo-192.webp`,
     image: `${SITE_URL}/assets/images/macro-joints.webp`,
     foundingDate: COMPANY.foundedFull,
+    /* The same Person node the articles name as author. Declared here so the
+     * company has a face on the page an answer engine reads first, and so the
+     * two statements resolve to one entity rather than two lookalikes. */
+    founder: FOUNDER,
     telephone: COMPANY.phoneDisplay,
     /* A published address with no mailbox behind it was the gap here: the legal
      * pages invited privacy requests to an address nobody had set up. The
