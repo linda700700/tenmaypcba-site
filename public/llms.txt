@@ -130,7 +130,7 @@ load-bank burn-in, as an approved test laboratory, or as issuing an AS9102 repor
 - [Home](https://tenmaypcba.com/): what the floor does, the three order models, quality stations, FAQ and the RFQ form.
 - [Assembly services](https://tenmaypcba.com/assembly.html): the three process routes — surface mount, through-hole and mechanical, inspection and finishing — step by step, with what the buyer supplies and receives.
 - [Capabilities](https://tenmaypcba.com/capabilities.html): placement, inspection, coating and bare-board limits as they run today, including the operations not held in-house.
-- [Applications](https://tenmaypcba.com/applications.html): nineteen board families across industrial, power, mobility, consumer and the defence / imaging / robotics group, each with the board stack, the process it leans on, the batch size that makes sense, and a basis line saying whether that judgement rests on shipped jobs or on the process window alone.
+- [Applications](https://tenmaypcba.com/applications.html): twenty-one board families across industrial, power, mobility, consumer and the defence / imaging / robotics group, each with the board stack, the process it leans on, the batch size that makes sense, and a basis line saying whether that judgement rests on shipped jobs or on the process window alone.
 - [Insights](https://tenmaypcba.com/insights.html): process notes written for engineers and buyers.
 - [Request a quote](https://tenmaypcba.com/rfq.html): the form that takes Gerber, BOM and centroid to an assembly engineer.
 
@@ -155,6 +155,8 @@ load-bank burn-in, as an approved test laboratory, or as issuing an AS9102 repor
 - [AI and AR smart glasses boards](https://tenmaypcba.com/applications/smart-glasses.html): a rigid-flex inside a five-millimetre temple, split across a rigid main section, a flexible section crossing the hinge and a camera module. 500–5,000 sets, 01005 and HDI.
 - [AI server power shelf and BBU boards](https://tenmaypcba.com/applications/ai-power.html): heavy-copper power conversion with metal bolted through it, where yield is decided by the board-to-busbar joint and the thermal path under the switching devices rather than by placement. 100–1,000 sets, 48 V busbar and press-fit.
 - [Energy storage (BESS) and PCS control boards](https://tenmaypcba.com/applications/bess.html): one small BMU per module, one isolated rack master with contactor drive and insulation monitoring, plus a PCS control board — the isolation gap is the product. 100–1,000 sets, THT contactors and coating.
+- [Brushless power tool and garden tool controllers](https://tenmaypcba.com/applications/power-tool.html): a six- or nine-MOSFET bridge under a heatsink with three motor tabs and a battery contact set on the same board, where yield is decided by voiding under the power devices rather than by placement. 1,000–5,000 sets, heavy copper, tabs soldered in-house.
+- [AMR and AGV drive and battery boards](https://tenmaypcba.com/applications/amr-agv.html): two or four motor bridges, a battery interface with contactor drive and a fine-pitch carrier for the compute and sensor stack — a few difficult boards per robot, built in tens before they are built in thousands. 100–1,000 sets, isolation spacing and through-hole connectors.
 
 ## Decision guides by board family
 

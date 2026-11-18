@@ -103,6 +103,7 @@ const NAV = [
           { label: 'Portable power station', href: '/applications.html#power-station', kw: 'energy storage inverter bms' },
           { label: 'Robot vacuum mainboards', href: '/applications.html#robot-vacuum', kw: 'vacuum cleaner mainboard' },
           { label: 'AI & AR smart glasses', href: '/applications.html#smart-glasses', kw: 'smart glasses ar rigid flex hdi camera' },
+          { label: 'Power tool & garden controllers', href: '/applications.html#power-tool', kw: 'power tool brushless drill garden tool controller mosfet bridge' },
         ],
       },
       {
@@ -114,6 +115,7 @@ const NAV = [
           { label: 'LED drivers & PD chargers', href: '/applications.html#led-driver', kw: 'led driver pd charger acdc pfc' },
           { label: 'AI server power & BBU', href: '/applications.html#ai-power', kw: 'server power shelf rectifier bbu 48v busbar' },
           { label: 'Energy storage (BESS)', href: '/applications.html#bess', kw: 'bess bms pcs energy storage contactor' },
+          { label: 'AMR & AGV robot boards', href: '/applications.html#amr-agv', kw: 'amr agv mobile robot drive board lidar battery' },
         ],
       },
       {

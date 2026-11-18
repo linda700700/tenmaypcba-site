@@ -24,6 +24,16 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-amr-agv.webp": [
+    [
+      "/assets/images/case-amr-agv-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-amr-agv-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-bess.webp": [
     [
       "/assets/images/case-bess-700w.webp",
@@ -121,6 +131,16 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/case-power-station-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-power-tool.webp": [
+    [
+      "/assets/images/case-power-tool-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-power-tool-900w.webp",
       900
     ]
   ],

@@ -61,6 +61,8 @@ const PROCESS_CLASS = {
   uav: 'fine',
   'ai-power': 'power',
   bess: 'power',
+  'power-tool': 'power',
+  'amr-agv': 'power',
 };
 
 function batchOf(family) {

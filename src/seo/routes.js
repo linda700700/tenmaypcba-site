@@ -190,6 +190,22 @@ export const ROUTE_HEADS = {
     ogDescription:
       'Many identical BMUs and a few isolation-critical masters. Why the assembly argument on storage is a record set, not a unit price.',
   },
+  '/applications/power-tool': {
+    title: 'Brushless Power Tool Controller PCBA Assembly | TENMAY',
+    description:
+      'Brushless tool and garden tool controllers: heavy-copper bridge under a heatsink, through-hole motor tabs soldered in-house, X-ray on power joints, 1,000 to 5,000 sets.',
+    ogTitle: 'Brushless Power Tool Controller Assembly — TENMAY',
+    ogDescription:
+      'A power board that lives inside a handle: what the bridge and the motor tabs take, and why the tool test stays with the brand.',
+  },
+  '/applications/amr-agv': {
+    title: 'AMR and AGV Controller Board Assembly | TENMAY',
+    description:
+      'Drive, battery and sensor boards for autonomous mobile robots: isolation spacing, through-hole contactors and connectors, coating, 100 to 1,000 sets.',
+    ogTitle: 'AMR and AGV Robot Board Assembly — TENMAY',
+    ogDescription:
+      'A few difficult boards per robot, then a fleet: why the connector and the isolation gap decide the outcome, not placement accuracy.',
+  },
   '/insights': {
     title: 'PCBA Process Notes and Engineering Insights | TENMAY',
     description:

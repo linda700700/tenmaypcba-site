@@ -34,6 +34,19 @@ export const SECTORS = [
           'Judged on process fit rather than market data: large boards, through-hole power stages and low layer counts are work a pure placement house can win outright.',
       },
       {
+        id: 'power-tool',
+        image: '/assets/images/case-power-tool.webp',
+        name: 'Brushless Power Tool & Garden Tool Controllers',
+        keyword: 'brushless power tool controller PCBA',
+        board:
+          'A six- or nine-MOSFET bridge under a heatsink, gate drive, current sense and a hall interface, with three motor tabs and a battery contact set on the same board.',
+        fit: ['Heavy copper', 'THT motor tabs', 'X-ray on the bridge', 'Conformal coating'],
+        batch: '1,000 – 5,000',
+        heat: 'Identical pieces, not variants',
+        basis:
+          'No market figure used. The fit rests on the board shape — heavy copper, through-hole tabs and thousands of identical pieces are work this floor can hold — while the tool test itself stays with the brand.',
+      },
+      {
         id: 'ebike',
         image: '/assets/images/case-ebike.webp',
         name: 'E-bike & E-scooter Controller / Display',
@@ -172,6 +185,19 @@ export const SECTORS = [
         heat: 'Certification-gated',
         basis:
           'Many identical small boards plus a few isolation-critical ones. The buying argument is consistency and a record set that survives an audit, not unit price — which is a fit for this floor rather than a volume claim.',
+      },
+      {
+        id: 'amr-agv',
+        image: '/assets/images/case-amr-agv.webp',
+        name: 'AMR & AGV Drive and Battery Boards',
+        keyword: 'AMR / AGV controller board PCBA',
+        board:
+          'A drive board with two or four motor bridges, a battery interface with contactor drive, and a fine-pitch carrier for the compute and sensor stack — several boards per robot, none of them large.',
+        fit: ['Isolation spacing', 'THT connectors', 'Conformal coating', 'Fine-pitch compute'],
+        batch: '100 – 1,000',
+        heat: 'Pilot first, fleet later',
+        basis:
+          'A judged fit rather than a market claim: robots are built in tens before they are built in thousands, which suits a high-mix floor, and the connector and isolation work is done in-house rather than subcontracted.',
       },
     ],
   },
@@ -341,6 +367,8 @@ export const PRIORITY = [
       'Rugged Handhelds & Radios',
       'Thermal & Night-Vision Cores',
       'Robot Joint Boards',
+      'Power Tool Controllers',
+      'AMR / AGV Boards',
     ],
     why: 'Same board stacks and overlapping buyers, plus the newer power, imaging and robotics work. Worth a page each because they share keywords with tier A, but do not lead the homepage with them.',
   },

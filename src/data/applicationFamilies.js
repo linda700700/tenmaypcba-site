@@ -1340,6 +1340,163 @@ export const FAMILIES = {
     ],
   },
 
+  'power-tool': {
+    slug: 'power-tool',
+    name: 'Brushless Power Tools & Garden Tools',
+    cardName: 'Power Tool Controllers',
+    keyword: 'brushless power tool controller PCBA',
+    image: '/assets/images/case-power-tool.webp',
+    imageAlt:
+      'Brushless cordless drill with the housing opened, showing the MOSFET bridge under its heatsink and the three-phase motor terminals',
+    h1: 'Brushless tool controllers: a power board that lives inside a handle',
+    lede:
+      'A cordless tool is a battery, a switch, a motor and one small board with a lot of current through it. That board decides whether the tool stalls, cooks its bridge or feels soft on a cold pack — and it is built in thousands of identical pieces, so the argument here is consistency on a board that carries almost no logic.',
+    facts: [
+      ['Boards per unit', '1 – 2 (controller, indicator)'],
+      ['Typical batch', '1,000 – 5,000 sets'],
+      ['Characteristic', 'Heavy copper, THT motor tabs, coating'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'A power board, not a computing board',
+        paras: [
+          'Six or nine MOSFETs in a bridge, one or two shunts, a gate driver, a hall interface and a trigger input. At 20 – 40 A of phase current the layout is decided by copper and cooling rather than by pin count: thicker outer layers, a wide bridge bus, thermal vias under the devices, and a heatsink or a pad that clamps them to the housing.',
+          'That shape is why this family lands on a floor set up for power work. The smallest part on the board is usually an 0402 decoupling capacitor; the part that decides yield is the void under a power device, which is exactly what the X-ray after reflow is looking at.',
+          'The gate-drive and current-sense traces still have to survive the process. A controller that reads phase current five per cent high on one unit and low on the next is a torque mismatch on a production tool, and it looks perfectly fine on the AOI image.',
+        ],
+      },
+      {
+        heading: 'The motor tabs are soldered, not placed',
+        paras: [
+          'Three motor tabs and a battery contact set are through-hole, and a cold joint on either does not fail at inspection — it heats up in the customer’s hand three months later. Terminals are soldered in-house on this floor rather than subcontracted, and they are quoted as their own line because the labour depends on tab size and wire gauge.',
+          'The switch is the other hand-work item. A trigger or rocker is often a flying lead or a press-fit block, and the strain relief behind it is what fails first in the field. This is the part of a tool board where a proper fixture and a defined solder order earn their money.',
+          'Programming and any functional check at board level are agreed per product. What is not offered here is the tool test — see below.',
+        ],
+      },
+      {
+        heading: 'Coating, and the housing that is not ours',
+        paras: [
+          'Tools live in dust, rain and the back of a van, so coating is common on the controller: applied here after inspection, with the motor tabs, battery contacts, programming pads and any thermal area masked by hand. On a gasketed tool the coating is the primary protection; on a potted one it is belt-and-braces.',
+          'Potting, overmoulding and pressing the board into a housing are mechanical processes and sit outside this building, as does motor and gearbox assembly. If the design calls for the board encapsulated, that step belongs to whoever closes the tool.',
+          'Masking is real labour and it appears on the quote rather than in the margin. A design that keeps the tabs and the heatsink area clear of the coating keep-out gets cheaper on every run without anyone renegotiating anything.',
+        ],
+      },
+      {
+        heading: 'Batch size, and why the volume argument turns early',
+        paras: [
+          'One to five thousand sets is the honest band here. A tool brand shipping in containers runs tens of thousands a month, and at that point a dedicated line with cheaper hourly rates beats a high-mix floor on unit price — saying so early saves both sides a fortnight of quotation work nobody wins.',
+          'What this floor is good for is the stretch before that: weekly revisions where a new bridge or a bigger heatsink needs a fresh stencil, a second-source run when the incumbent misses a season, the indicator and accessory boards that never get their own line, and a three-day build from kitted parts when the retail launch already has a date.',
+          'No market-size figure is used on this page. The claim is about the shape of the work — heavy copper, through-hole tabs, coating and thousands of identical pieces — not about how fast the category is growing.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a tool controller',
+      items: [
+        'Motor, gearbox and switch test under load — a dynamometer or torque rig belongs at the tool brand’s end-of-line station.',
+        'Potting, overmoulding and closing the housing around the board.',
+        'Volumes above roughly 10,000 sets a month, where a dedicated high-volume line wins on unit price.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you build two thousand brushless tool controllers in one batch?',
+        a: 'Yes. One to five thousand sets is the normal band, with the motor tabs and battery contacts soldered in-house after reflow, a three-day standard build once parts are kitted, and first-article evidence on the first run of every revision.',
+      },
+      {
+        q: 'Do you X-ray the bridge joints?',
+        a: 'Yes. The bridge and any thermal pad are the X-ray target, because voiding under a power device is invisible from the surface and becomes a hot tool in the field. Paste inspection runs before reflow and AOI runs after it on every board.',
+      },
+      {
+        q: 'Can you test the tool under load?',
+        a: 'No. There is no electronic load and no dynamometer in this building, and a chamber soak is a different test rather than a substitute. Load, torque and run-time figures come from your own end-of-line station.',
+      },
+      {
+        q: 'Can you coat the board and leave the battery contacts clean?',
+        a: 'Yes. Coating is done in-house with the tabs, contacts, programming pads and thermal areas masked by hand, to a masking drawing agreed before the first run, and that masking is quoted as its own line.',
+      },
+    ],
+  },
+  'amr-agv': {
+    slug: 'amr-agv',
+    name: 'AMR & AGV Drive and Battery Boards',
+    cardName: 'AMR / AGV Robot Boards',
+    keyword: 'AMR / AGV controller board PCBA',
+    image: '/assets/images/case-amr-agv.webp',
+    imageAlt:
+      'Autonomous mobile robot chassis with its cover off, showing the drive board, battery connector and lidar connector',
+    h1: 'AMR and AGV boards: a few difficult boards per robot, then a fleet',
+    lede:
+      'A mobile robot is a battery, two or four drives, a safety-rated stop path and a sensor head. The boards joining them are neither consumer boards nor cabinet boards: 48 V DC, tens of amps per wheel, encoders on one side of an isolation barrier and a compute module on the other — and they are built in tens before they are built in thousands.',
+    facts: [
+      ['Boards per unit', '2 – 4 (drive, battery, sensor)'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Isolation, connectors, coating'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Two or four drives, one battery interface',
+        paras: [
+          'Each wheel has its own bridge, current sense and encoder feedback, and the battery side has contactor or pre-charge drive, a pack interface and the logic that decides when closing is safe. Between the two sits an isolation barrier that has to survive assembly, coating and a decade of vibration.',
+          'The assembly consequences are concrete. Creepage and clearance across that barrier, sense resistors on a wide copper neck, contactors and terminal blocks that are through-hole, and a lot of board-mounted connectors — because nothing on a robot is wired directly.',
+          'Compute and sensing usually arrive as a second board: a fine-pitch carrier for the module, the lidar and the bumper chain. It is the dense board in the stack and the one where 0.30 mm pitch and 01005 passives are actually used.',
+        ],
+      },
+      {
+        heading: 'The connector is the failure point, not the placement',
+        paras: [
+          'A warehouse robot is plugged and unplugged every working day: battery, lidar, bumper, e-stop and a service laptop. Every one of those is a board-mounted connector carrying mechanical load, so the footprint and the solder joint — not the placement accuracy — decide whether a fleet stays up.',
+          'That is why connector and through-hole work is quoted as its own line here and done on this floor rather than subcontracted, and why a connector change late in a programme is a re-qualification rather than a drawing update.',
+          'It is also the argument for one programme and one stencil across a revision. A robot built from boards that passed on two different stencils is a fleet with two behaviours, and the pilot site will find both.',
+        ],
+      },
+      {
+        heading: 'Coating, dust, and the parts a photograph does not show',
+        paras: [
+          'AMRs run in warehouses full of cardboard dust and, on food and pharma sites, through washdown. Coating is applied here with connectors, pressure sensors and any optical area masked by hand; the keep-out drawing is agreed before the first run and checked after coating, not during a dispute.',
+          'Vibration is the other quiet requirement. If the design needs underfill or staking under heavy parts, raise it at the DFM stage: it is not part of the standard build, and a board that leaves here without it should not be assumed to have it.',
+          'Potting or full encapsulation is not done in-house, and neither is bonding a board onto a thermal chassis. Those are mechanical steps and they belong with whoever assembles the robot.',
+        ],
+      },
+      {
+        heading: 'Prototype to fleet: what actually changes with volume',
+        paras: [
+          'The first build is usually ten or twenty boards, walked to a pilot site, followed by a revision and then a few hundred. Holding one programme, one stencil and one first-article record across those steps is worth more than a few cents on the pilot order, because a fleet is a repeat of the board that passed rather than a new design.',
+          'One hundred to a thousand sets is the band where this floor is the right size. Above that a dedicated line wins on unit price; below it, stencil and first-article work dominate the price — which is normal for a pilot, and worth saying before the quotation arrives rather than after.',
+          'Test stays split the same way. Inspection is SPI, AOI and X-ray here, plus a chamber soak if the specification asks for one. Anything that needs a running chassis, a real pack or a safety-rated setup happens at the robot builder.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor cannot carry a robot programme',
+      items: [
+        'Vehicle-level safety certification and the standards file — that sits with the robot builder and a test house.',
+        'Motor-load test on a running chassis, and any in-house in-circuit or functional test — none of those run here.',
+        'Potting, encapsulation, or bonding the board to a thermal chassis.',
+        'Underfill or staking as a standard step: agreed per design at DFM, never assumed.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you take the same files from a twenty-unit pilot to a five-hundred-unit fleet?',
+        a: 'Yes. One programme, one stencil and one first-article record per revision, with the band running from a hundred sets upward. The pilot is quoted as its own smaller run rather than hidden inside a later price.',
+      },
+      {
+        q: 'Do you test the drive under a motor load?',
+        a: 'No. Motor-load and full-vehicle test need the chassis, the pack and a safety-rated setup, which is the robot builder’s end-of-line station. Inspection here is SPI, AOI and X-ray, plus a chamber soak when the specification asks for one.',
+      },
+      {
+        q: 'How is the isolation barrier protected?',
+        a: 'It is a keep-out on the masking drawing agreed before the first run, with connectors and sensing areas masked by hand, checked at AOI for splash and residue, and inspected again after coating. A bridged barrier is a scrapped board, not a rework.',
+      },
+      {
+        q: 'Can you solder the battery and motor connectors in-house?',
+        a: 'Yes. Terminal blocks, contactors and board-mounted connectors are through-hole work done on this floor after reflow, quoted as its own line because the labour depends on the connector type and the cable.',
+      },
+    ],
+  },
 };
 
 export const FAMILY_SLUGS = Object.keys(FAMILIES);
@@ -1380,6 +1537,7 @@ export const RELATED = {
     ['treadmill', 'The nearest neighbour: motor control, current sense, consumer volumes.'],
     ['robot-vacuum', 'Battery management and motor drive in a product that is thrown down the stairs.'],
     ['evse', 'The charging side of the same vehicle, with the safety case attached.'],
+    ['power-tool', 'One bridge, one sealed housing, thousands of identical pieces.'],
   ],
   'power-station': [
     ['jump-starter', 'The same pack architecture at a fifth of the power and a tenth of the price.'],
@@ -1440,6 +1598,7 @@ export const RELATED = {
     ['servo', 'The joint-drive stack at industrial scale, where the batch is smaller and the life longer.'],
     ['uav', 'Many small identical boards again, in an airframe instead of an arm.'],
     ['robot-vacuum', 'Consumer motion control at volumes this family never reaches.'],
+    ['amr-agv', 'The same drive stack on wheels, where the fleet arrives after the pilot.'],
   ],
   'smart-glasses': [
     ['dashcam', 'Camera, fine pitch and a sealed housing, without the hinge.'],
@@ -1455,5 +1614,15 @@ export const RELATED = {
     ['ai-power', 'The rack-mate: same busbar, same thermal argument, different load profile.'],
     ['evse', 'Isolation and contactor drive on a product that is audited before it ships.'],
     ['hmi', 'Isolation spacing as the design constraint, without the high voltage behind it.'],
+  ],
+  'power-tool': [
+    ['ebike', 'The same MOSFET bridge and sealed housing, on a vehicle rather than in a hand.'],
+    ['treadmill', 'A larger version of the same through-hole power stage, at a much smaller batch.'],
+    ['evse', 'Mains-facing switching where the isolation requirement replaces the battery one.'],
+  ],
+  'amr-agv': [
+    ['humanoid', 'The joint-level version of the same argument, with more identical boards per unit.'],
+    ['bess', 'The battery interface and its isolation gap, at rack scale rather than on a chassis.'],
+    ['rugged-radio', 'Portable field hardware where the same connectors and coating decide survival.'],
   ],
 };

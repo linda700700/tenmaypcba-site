@@ -21,6 +21,10 @@ const SIZES = {
     1400,
     934
   ],
+  "/assets/images/case-amr-agv.webp": [
+    1400,
+    934
+  ],
   "/assets/images/case-bess.webp": [
     1400,
     934
@@ -56,6 +60,10 @@ const SIZES = {
   "/assets/images/case-parking-sensor.webp": [
     1400,
     933
+  ],
+  "/assets/images/case-power-tool.webp": [
+    1400,
+    934
   ],
   "/assets/images/case-power-station.webp": [
     1400,
@@ -144,6 +152,10 @@ const SIZES = {
   "/assets/images/macro-joints.webp": [
     1400,
     933
+  ],
+  "/assets/images/og-tengmei.jpg": [
+    1200,
+    630
   ],
   "/assets/images/og-tenmay.jpg": [
     1200,

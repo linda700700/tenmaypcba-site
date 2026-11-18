@@ -35,6 +35,9 @@ function scrollToHash(hash) {
   }
 }
 
+/* Spoken counts for the sector side panel, so the label follows the data. */
+const WORDS = { 2: 'two', 3: 'three', 4: 'four', 5: 'five', 6: 'six', 7: 'seven', 8: 'eight', 9: 'nine', 10: 'ten' };
+
 export default function ApplicationsPage({ initialHash = '' }) {
   const hash = initialHash.replace('#', '');
   const sectorOfHash = SECTORS.find((s) => s.id === hash || s.cases.some((c) => c.id === hash));
@@ -311,7 +314,10 @@ export default function ApplicationsPage({ initialHash = '' }) {
             <div className="lg:sticky lg:top-[150px] space-y-5">
               <div className="rounded-xl border border-brand-200/70 bg-white p-6">
                 <div className="text-[11.5px] font-bold uppercase tracking-[0.16em] text-brand-700">
-                  Why these four
+                  {/* Read from the sector, not typed: the consumer and industrial
+                      groups grew past four and a hard-coded number would be a
+                      visible miscount on the tab the reader is on. */}
+                  {`Why these ${WORDS[(SECTORS.find((s) => s.id === active) || SECTORS[0]).cases.length] || 'boards'}`}
                 </div>
                 {SECTORS.map((s) => (
                   <p
