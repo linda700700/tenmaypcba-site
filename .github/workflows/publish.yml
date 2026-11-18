@@ -33,6 +33,7 @@ jobs:
         run: npx vite build
 
       - name: Publish dist to main
+        id: publish
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -61,22 +62,32 @@ jobs:
           git add -A
           if git diff --cached --quiet; then
             echo "Build matches what is already published; nothing to commit."
+            echo "sha=none" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git commit -q -m "Publish build ${GITHUB_SHA:0:8}"
           git push -q origin HEAD:main
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
           echo "Published."
 
       # Pages rebuilds from main asynchronously after the push above. Tell
-      # IndexNow only once that deployment is serving, otherwise the crawler is
-      # invited to fetch the previous build, or a 404 on a brand-new URL.
-      # Bounded and non-blocking: 15 x 8s, then proceed regardless.
+      # IndexNow only once THAT build is serving, otherwise the crawler is
+      # invited to fetch the previous one, or a 404 on a brand-new URL.
+      #
+      # `/pages/builds/latest` reports the last build the Pages service ran, so
+      # checking only `status == built` matches the *previous* deployment and
+      # proves nothing. Compare its commit with the one just pushed instead, and
+      # skip entirely when the publish step had nothing to commit.
+      # Bounded and non-blocking: 20 x 8s, then proceed regardless.
       - name: Wait for Pages deployment
+        if: steps.publish.outputs.sha != '' && steps.publish.outputs.sha != 'none'
         continue-on-error: true
         env:
           TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WANT: ${{ steps.publish.outputs.sha }}
         run: |
-          for attempt in $(seq 1 15); do
+          echo "Waiting for Pages to build ${WANT:0:8}."
+          for attempt in $(seq 1 20); do
             code=$(curl -s -o "$RUNNER_TEMP/pages.json" -w '%{http_code}' \
               -H "Authorization: Bearer ${TOKEN}" \
               -H "Accept: application/vnd.github+json" \
@@ -85,15 +96,15 @@ jobs:
               echo "Pages status unavailable (HTTP $code); not waiting."
               exit 0
             fi
-            state=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1])).get('status',''))" "$RUNNER_TEMP/pages.json")
-            echo "Pages build: ${state:-unknown} (attempt ${attempt}/15)"
-            if [ "$state" = "built" ]; then
-              echo "Deployment is live; safe to notify IndexNow."
+            read -r state commit < <(python3 -c "import json,sys;d=json.load(open(sys.argv[1]));print(d.get('status',''),d.get('commit',''))" "$RUNNER_TEMP/pages.json")
+            echo "Pages build: ${state:-unknown} at ${commit:0:8} (attempt ${attempt}/20)"
+            if [ "$state" = "built" ] && [ "$commit" = "$WANT" ]; then
+              echo "Deployment of ${WANT:0:8} is live; safe to notify IndexNow."
               exit 0
             fi
             sleep 8
           done
-          echo "Pages deployment not confirmed 'built' within ~2 min; submitting anyway."
+          echo "Pages did not report ${WANT:0:8} built within ~2.5 min; submitting anyway."
 
       # Push the built URLs at Bing/Yandex instead of waiting for a recrawl.
       # Google does not use IndexNow; Search Console stays the channel there.
