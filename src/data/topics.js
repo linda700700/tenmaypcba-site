@@ -212,7 +212,7 @@ export const TOPICS = [
       },
     ],
     up: [
-      { label: "Twelve board families", href: "/applications.html" },
+      { label: "Board families by application", href: "/applications.html" },
       { label: "Capabilities as they run today", href: "/capabilities.html" },
     ],
   },

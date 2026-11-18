@@ -1,5 +1,6 @@
 import React from 'react';
 import { SECTORS } from '../data/useCases';
+import { FAMILY_COUNT } from '../data/applicationFamilies';
 import { imgAttrs } from '../lib/imageSize';
 
 /*
@@ -42,7 +43,7 @@ export default function BoardMarquee() {
           Boards that leave this floor
         </div>
         <a href="/applications.html" className="text-[12.5px] font-semibold text-brand-700 hover:underline">
-          All twelve families →
+          {`All ${FAMILY_COUNT} families →`}
         </a>
       </div>
       <div className="mt-4 overflow-hidden">

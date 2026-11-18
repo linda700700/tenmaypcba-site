@@ -9,6 +9,7 @@
  */
 
 import { TOPICS } from '../data/topics';
+import { FAMILY_COUNT } from '../data/applicationFamilies';
 
 export const SITE_URL = 'https://tenmaypcba.com';
 
@@ -30,12 +31,12 @@ export const ROUTE_HEADS = {
       'Turnkey and consignment PCBA: paste print, placement, reflow, in-line SPI/AOI/X-ray, through-hole, coating, programming and box build.',
   },
   '/applications': {
-    title: 'PCBA by Application — Twelve Board Families | TENMAY',
+    title: `PCBA by Application — ${FAMILY_COUNT} Board Families | TENMAY`,
     description:
-      'Treadmill, e-bike, VFD, servo, HMI, power station, dashcam, parking sensor and EV charger boards: what each needs in process and inspection.',
-    ogTitle: 'PCBA by Application — Twelve Board Families',
+      'VFD, servo, EV charger, jump starter, drone flight controller, rugged radio, thermal core, robot joint and AI server power boards: process and inspection for each.',
+    ogTitle: `PCBA by Application — ${FAMILY_COUNT} Board Families`,
     ogDescription:
-      'Twelve board families we build repeatedly, with the process fit, batch band and inspection call for each one.',
+      'Board families this floor is set up for, grouped by sector, with the process fit, batch band, inspection call and the cases where we are the wrong shop.',
   },
   '/applications/vfd': {
     title: 'VFD Control Board PCBA — Three Boards per Drive | TENMAY',
@@ -132,6 +133,62 @@ export const ROUTE_HEADS = {
     ogTitle: 'EV Charging Point (EVSE) Control Board PCBA — TENMAY',
     ogDescription:
       'Three safety jobs on one board, and a buyer who audits the build record before ordering. What that record set has to contain.',
+  },
+  '/applications/uav': {
+    title: 'Drone Flight Controller and ESC Board PCBA | TENMAY',
+    description:
+      'Flight controller, 4-in-1 ESC and payload boards for UAVs: fine-pitch inertial sensors, heavy-copper power stages, X-ray on the joints, 100 to 1,000 sets.',
+    ogTitle: 'UAV and Drone Flight Controller PCBA — TENMAY',
+    ogDescription:
+      'Dense control electronics beside a heavy-copper ESC on one order. Where the inertial sensor changes the process, and what inspection cannot prove.',
+  },
+  '/applications/rugged-radio': {
+    title: 'Rugged Handheld and Radio Board Assembly | TENMAY',
+    description:
+      'Rugged handheld, two-way radio and field terminal boards: conformal coating to a masking drawing, shield cans on the reflow pass, 01005, 100 to 1,000 sets.',
+    ogTitle: 'Rugged Handheld and Radio PCBA — TENMAY',
+    ogDescription:
+      'On a field terminal the coating is the product. How the masking drawing and the shield cans decide both the yield and the repair path.',
+  },
+  '/applications/thermal-imaging': {
+    title: 'Thermal and Night-Vision Core Board Assembly | TENMAY',
+    description:
+      'Detector interface and processing boards for thermal cores: low-noise analogue, fine-pitch BGA, rigid-flex to the detector, masked optical window, 50 to 500 sets.',
+    ogTitle: 'Thermal Imaging Core PCBA — TENMAY',
+    ogDescription:
+      'A microvolt front end makes cleanliness and masking part of the process. What is built here, and which calibration steps stay with the buyer.',
+  },
+  '/applications/humanoid': {
+    title: 'Robot Joint and Actuator Board Assembly | TENMAY',
+    description:
+      'One driver board per robot joint, twelve to forty per unit: circular boards, GaN or MOSFET bridges, 0.3 mm pitch, per-panel paste data, 100 to 1,000 boards.',
+    ogTitle: 'Humanoid and Service Robot Joint PCBA — TENMAY',
+    ogDescription:
+      'Small in sets and large in identical pieces. Why repeatability, not placement density, is the requirement a robot programme is buying.',
+  },
+  '/applications/smart-glasses': {
+    title: 'AI and AR Smart Glasses Board Assembly | TENMAY',
+    description:
+      'Rigid main board, hinge-crossing rigid-flex and camera boards for AI glasses: 01005, HDI microvias, port masking, 500 to 5,000 sets.',
+    ogTitle: 'AI and AR Smart Glasses PCBA — TENMAY',
+    ogDescription:
+      'A rigid-flex inside a five millimetre temple. Where the fold-cycle life is decided, and why the microphone keep-outs are the real risk.',
+  },
+  '/applications/ai-power': {
+    title: 'AI Server Power Shelf and BBU Board PCBA | TENMAY',
+    description:
+      'Rectifier module and battery-backup boards for rack power shelves: 48 V busbar, press-fit and heavy copper, X-ray on power joints, 100 to 1,000 modules.',
+    ogTitle: 'AI Server Power Shelf and BBU PCBA — TENMAY',
+    ogDescription:
+      'Heavy-copper conversion with a busbar bolted through it. Why voiding decides the yield, and which test and certification stay outside.',
+  },
+  '/applications/bess': {
+    title: 'BESS and PCS Control Board Assembly — BMS | TENMAY',
+    description:
+      'Battery management unit, rack master and conversion control boards for energy storage: isolation spacing, THT contactors, coating, per-lot records, 100 to 1,000 sets.',
+    ogTitle: 'Energy Storage (BESS) Board Assembly — TENMAY',
+    ogDescription:
+      'Many identical BMUs and a few isolation-critical masters. Why the assembly argument on storage is a record set, not a unit price.',
   },
   '/insights': {
     title: 'PCBA Process Notes and Engineering Insights | TENMAY',

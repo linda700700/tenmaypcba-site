@@ -72,11 +72,24 @@ export const SECTORS = [
         basis:
           'The most-searched consumer category of the four, but unit pricing is compressed and volume buyers specify in-circuit test — which this shop does not run in-house.',
       },
+      {
+        id: 'smart-glasses',
+        image: '/assets/images/case-smart-glasses.webp',
+        name: 'AI / AR Smart Glasses Boards',
+        keyword: 'smart glasses PCBA',
+        board:
+          'Rigid main board, a rigid-flex section that crosses the hinge, and a camera or display module at the front — often three assemblies per frame.',
+        fit: ['01005', 'HDI microvias', 'Rigid-flex', 'Port masking'],
+        batch: '500 – 5,000',
+        heat: 'Volume, brand-led',
+        basis:
+          'No published shipment figure is used here. The judgement is about order shape: the category leads in tens of thousands on dedicated lines, so the reachable work is the pilot build, the second source and the accessory board around the main product.',
+      },
     ],
   },
   {
     id: 'industrial',
-    label: 'Industrial Control',
+    label: 'Industrial & Energy',
     image: '/assets/images/case-vfd.webp',
     imageAlt: 'Variable frequency drive with the cover off, exposing the assembled IGBT power board',
     imageCase: 'vfd',
@@ -133,6 +146,32 @@ export const SECTORS = [
         heat: 'Price war',
         basis:
           'Enormous volume, thin margin, and buyers switch suppliers over fractions of a cent. Useful as filler capacity, not as a traffic bet.',
+      },
+      {
+        id: 'ai-power',
+        image: '/assets/images/case-ai-power.webp',
+        name: 'AI Server Power Shelves & BBU Boards',
+        keyword: 'server power shelf PCBA',
+        board:
+          'Rectifier module board with PFC and an LLC bridge delivering 2–5 kW into a 48 V busbar, plus a battery-backup control and monitoring board.',
+        fit: ['Heavy copper', 'Press-fit busbar', 'THT terminals', 'X-ray on power joints'],
+        batch: '100 – 1,000',
+        heat: 'Fastest-moving power work',
+        basis:
+          'No market-size figure is used here. The claim is about the architecture: 48 V DC distribution with battery backup inside the rack is now a shipping design rather than a proposal, which moves the question from a power-supply purchase to a board-level one.',
+      },
+      {
+        id: 'bess',
+        image: '/assets/images/case-bess.webp',
+        name: 'Energy Storage (BESS) & PCS Control Boards',
+        keyword: 'BESS BMS PCBA',
+        board:
+          'One small BMU per battery module, a rack master with contactor drive and insulation monitoring, and a control board on the conversion side.',
+        fit: ['Isolation spacing', 'THT contactors', 'Conformal coating', 'Lot records'],
+        batch: '100 – 1,000',
+        heat: 'Certification-gated',
+        basis:
+          'Many identical small boards plus a few isolation-critical ones. The buying argument is consistency and a record set that survives an audit, not unit price — which is a fit for this floor rather than a volume claim.',
       },
     ],
   },
@@ -199,6 +238,69 @@ export const SECTORS = [
       },
     ],
   },
+  {
+    id: 'defence',
+    label: 'Defence, Aerospace & Robotics',
+    image: '/assets/images/case-uav.webp',
+    imageAlt: 'Carbon-fibre quadcopter frame with the flight controller and its sensor stack exposed',
+    imageCase: 'uav',
+    blurb:
+      'What these four share is not the customer — it is the order shape: low volume, high value, a long service life and a buyer who owns the final test and the calibration. What this floor holds is ISO 9001. AS9100, NADCAP special processes and ITAR-registered handling are not held, so a programme that requires them is the wrong fit here and saying so early is cheaper for both sides.',
+    cases: [
+      {
+        id: 'uav',
+        image: '/assets/images/case-uav.webp',
+        name: 'UAV & Drone Flight Controllers',
+        keyword: 'drone flight controller PCBA',
+        board:
+          'Flight controller with a redundant inertial sensor stack, a 4-in-1 ESC board carrying the phase current, and a payload or gimbal board.',
+        fit: ['Fine-pitch IMU', 'Heavy-copper ESC', 'X-ray on power joints', 'Conformal coating'],
+        batch: '100 – 1,000',
+        heat: 'Specification-led',
+        basis:
+          'No published figure used here. The work is judged on process fit: dense fine-pitch control plus a heavy-copper ESC on one order, which is two different process profiles from one shop.',
+      },
+      {
+        id: 'rugged-radio',
+        image: '/assets/images/case-rugged-radio.webp',
+        name: 'Rugged Handhelds, Radios & Field Terminals',
+        keyword: 'rugged handheld PCBA assembly',
+        board:
+          'Main radio board, keypad and display board, and an RF power section under shield cans, all coated to a defined masking drawing.',
+        fit: ['Conformal coating', 'Shield cans', 'Press-fit joints', '01005'],
+        batch: '100 – 1,000',
+        heat: 'Low volume, long life',
+        basis:
+          'No published figure used here. Buyers are equipment makers with a product life measured in years, so a repeat order at an unchanged revision is the norm and setup cost matters more than unit price.',
+      },
+      {
+        id: 'thermal-imaging',
+        image: '/assets/images/case-thermal-imaging.webp',
+        name: 'Thermal & Night-Vision Imaging Cores',
+        keyword: 'thermal camera core PCBA',
+        board:
+          'Detector interface board with a low-noise bias and converter chain, joined by a rigid-flex to the processing board behind the lens.',
+        fit: ['Fine-pitch BGA', 'Rigid-flex', 'Masked optical window', 'Ionic cleanliness'],
+        batch: '50 – 500',
+        heat: 'Quiet, high value',
+        basis:
+          'No published figure used here. The order shape is set by detector cost and lead time: small batches, a buyer who owns calibration, and a price that is secondary to whether the window and the flex survive the build.',
+      },
+      {
+        id: 'humanoid',
+        image: '/assets/images/case-humanoid.webp',
+        name: 'Humanoid & Service Robot Joint Boards',
+        keyword: 'robot joint actuator PCBA',
+        board:
+          'One driver board per joint — bridge, shunt, gate drive, MCU and encoder interface — on a circular board inside the actuator housing.',
+        fit: ['Circular boards', 'GaN / MOSFET bridge', '0.3 mm pitch', 'X-ray on thermal pads'],
+        batch: '100 – 1,000',
+        heat: 'Iterating weekly',
+        basis:
+          'No published shipment figure used here. The observation is about revision rhythm rather than market size: programmes change weekly, so fifty identical boards and a three-day repeat build are worth more than a lower unit price.',
+      },
+    ],
+  },
 ];
 
 /* Question / answer pairs used for FAQ structured data and GEO answer blocks. */
@@ -220,21 +322,32 @@ export const USE_CASE_FAQ = [
 /* Ranked shortlist: what to lead with on the site and in outreach. */
 export const PRIORITY = [
   {
-    tier: 'A · Best fit for this line',
+    tier: 'A · Lead with these',
     tone: 'blue',
     items: ['VFD / Inverter', 'Jump Starter with Air Compressor', 'Treadmill Control Boards'],
     why: 'Small batches, through-hole power stages, conformal coating and fast turnaround all land inside the confirmed capability window. Each has a clear buyer and a repeat order rhythm.',
   },
   {
-    tier: 'B · Same process, adjacent markets',
+    tier: 'B · Support content',
     tone: 'slate',
-    items: ['Servo Drives', 'E-bike Controllers', 'Portable Power Stations', 'PLC I/O & Gateways'],
-    why: 'Servo drives, e-bike controllers and PLC I/O boards are the same build as the group above: an MCU, a driver stage, connectors, one or two fine-pitch parts. A new stencil per board, not a new process.',
+    items: [
+      'Servo Drives',
+      'E-bike Controllers',
+      'Portable Power Stations',
+      'PLC I/O & Gateways',
+      'AI Server Power & BBU',
+      'Energy Storage (BESS)',
+      'UAV & Flight Controllers',
+      'Rugged Handhelds & Radios',
+      'Thermal & Night-Vision Cores',
+      'Robot Joint Boards',
+    ],
+    why: 'Same board stacks and overlapping buyers, plus the newer power, imaging and robotics work. Worth a page each because they share keywords with tier A, but do not lead the homepage with them.',
   },
   {
-    tier: 'C · Buildable, one limit named',
+    tier: 'C · Traffic only, low conversion',
     tone: 'grey',
-    items: ['Robot Vacuum Mainboards', 'LED Drivers & PD Chargers', 'Dashcams'],
-    why: 'High-density mainboards, charger ICs and camera modules run to 01005 parts and 0.3 mm pitch, which the line handles. The limit is test: volume programmes here specify in-circuit test, and we do not run ICT in house.',
+    items: ['Robot Vacuum Mainboards', 'LED Drivers & PD Chargers', 'Dashcams', 'AI & AR Smart Glasses'],
+    why: 'High search interest, but volume buyers demand in-circuit test and judge on cents. Publish the page for search reach; expect few profitable RFQs.',
   },
 ];

@@ -19,7 +19,7 @@ export default function IndustryUseCases() {
         <div className="max-w-[760px]">
           <div className="text-[12px] font-bold uppercase tracking-[0.18em] text-brand-700">Applications</div>
           <h2 className="mt-3 text-2xl font-bold leading-[1.2] tracking-tight text-slate-900 sm:text-[32px]">
-            Twelve product families we have built, and why each one fits
+            The product families we build, and why each one fits
           </h2>
           <p className="mt-4 text-[15px] leading-relaxed text-slate-600">
             Almost any board fits an 800 × 480 mm panel and a 01005 window, so the real question is which
@@ -66,7 +66,7 @@ export default function IndustryUseCases() {
         </div>
 
         {/* featured case + list — every sector is rendered, so the served HTML
-            carries all twelve product families and not just the selected one.
+            carries every product family and not just the selected one.
             The inactive sectors sit in a plain wrapper with the hidden
             attribute: no display utility on it, or the class would beat the
             user-agent rule and the panel would stay on screen. */}

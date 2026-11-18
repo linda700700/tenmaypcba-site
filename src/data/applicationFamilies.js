@@ -1,9 +1,12 @@
 /*
- * Detail pages for the twelve board families.
+ * Detail pages for the board families.
  *
- * The three tier-A families (VFD, jump starter, treadmill) lead; the other nine
- * exist because each one has its own search intent and its own process story,
- * and a buyer who searches for a servo drive is not helped by an e-bike page.
+ * The three tier-A families (VFD, jump starter, treadmill) lead; the rest exist
+ * because each one has its own search intent and its own process story, and a
+ * buyer who searches for a servo drive is not helped by an e-bike page. The
+ * defence / imaging / robotics group was added later for the same reason: those
+ * buyers arrive with a different question — what standard can you hold — before
+ * they ask a price.
  *
  * Every page states where this floor is the wrong shop. That is deliberate: a
  * mismatched enquiry costs a week of quotation work on both sides.
@@ -880,17 +883,478 @@ export const FAMILIES = {
     ],
   },
 
+  /* ── Added in the second application review ─────────────────────────────
+   * Four defend-and-deploy families and three volume families. Same rules as
+   * above: every figure traces to the confirmed shop-floor sheet, and anything
+   * that is a reading of order shape is written as a reading of order shape.
+   * The `limits` blocks matter more on these pages than on the consumer ones,
+   * because the gap between what a buyer assumes a Chinese PCBA floor holds and
+   * what this one actually holds is widest here.
+   */
+
+  uav: {
+    slug: 'uav',
+    name: 'UAV & Drone Flight Controllers',
+    cardName: 'UAV & Flight Controllers',
+    keyword: 'drone flight controller PCBA',
+    image: '/assets/images/case-uav.webp',
+    imageAlt: 'Carbon-fibre quadcopter frame with the flight controller and its sensor stack exposed',
+    h1: 'Drone flight controller and ESC boards, where one sensor decides the build',
+    lede:
+      'A drone is a flight controller carrying an inertial sensor that has opinions, a power distribution or 4-in-1 ESC board moving the current, and often a payload or gimbal board. Two of those are ordinary assembly. The flight controller is not, because the part that keeps the aircraft level is also the part most easily altered by a process that looks perfect under AOI.',
+    facts: [
+      ['Boards per unit', '2 – 3 (flight controller, ESC, payload)'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Fine-pitch IMU, heavy-copper ESC'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'What a flight controller actually is',
+        paras: [
+          'A four to six layer board with the MCU, one or two inertial sensors, a barometer, a magnetometer, a GNSS input, a logging card and the output headers for ESCs or servos. Placement is dense but not unusual: QFN and LGA packages, passives down to 01005, and a lot of small nets that have to stay short.',
+          'The inertial sensor is why this family is quoted differently from any other fine-pitch board here. It is a MEMS part whose zero-g bias is fixed at the factory, and that bias moves when the package is stressed — by a warped panel, by a profile that soaks the part longer than the datasheet allows, or by a cleaning chemistry the part was not qualified for. A board that passed AOI can still drift in hover, and the drift looks like a firmware problem for a month.',
+          'So the process decisions on this board are made for the sensor rather than for the solder: panel support to keep the board flat through reflow, a profile agreed for that package, handling without vacuum pick-off on the sensor lid, and a stated cleaning process. None of that is visible on a capability table, and all of it is what you are actually buying.',
+        ],
+      },
+      {
+        heading: 'The ESC board is the opposite problem',
+        paras: [
+          'A 4-in-1 ESC is heavy copper, parallel MOSFETs, shunt resistors and phase traces sized for 20 to 40 A per motor as a pulsed load. The motor wires are usually soldered pads or through-hole, and the whole board runs hot inside a frame with no airflow at hover.',
+          'Here the failure is thermal rather than electrical. A void under a MOSFET or a shunt raises the junction temperature on exactly the duty cycle the aircraft is sold for, and it is invisible from the surface. X-ray on those joints is not a premium option on this family; it is the inspection that decides whether the batch is shippable.',
+          'We solder the motor leads and the power input in-house after reflow, on the same floor, so a board does not leave the building between the reflow profile and the joint that carries the current. Conformal coating is usual for field airframes and is also done here, with the barometer port and the connector shells masked by hand.',
+        ],
+      },
+      {
+        heading: 'What inspection proves, and what stays with the airframe',
+        paras: [
+          'SPI before reflow, AOI after it and X-ray on the power joints prove that the solder is where it should be. They prove nothing about behaviour: no inertial calibration, no vibration or thermal-drift test, no flight test, no radio or EMC approval. Those need the airframe, the firmware and a test house, and they belong to whoever owns the aircraft.',
+          'One boundary is worth stating plainly because it decides fit before price does: this is commercial IPC-A-610 workmanship inside the confirmed process window, not aerospace process control. No AS9100, no NADCAP special-process accreditation and no ITAR-registered handling is held here, and a programme that requires any of them is the wrong shop regardless of the batch size.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a drone programme',
+      items: [
+        'Inertial calibration, sensor-fusion tuning and flight test in the airframe — these belong to the aircraft maker, who owns the fixture.',
+        'Radio, EMC and any airworthiness or spectrum approval for the finished aircraft.',
+        'AS9100 process control, NADCAP special processes, or ITAR-registered and export-controlled programme handling — none of these are held here.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you assemble flight controller boards without disturbing the IMU bias?',
+        a: 'No assembler can promise that, and a supplier who does is describing a calibration they do not run. What is controlled here is what affects the part: panel support, an agreed reflow profile, handling off the sensor lid, a stated cleaning process and a first-article record. Verifying the bias afterwards needs the fixture and the firmware, which stay with the aircraft maker.',
+      },
+      {
+        q: 'Do you solder the motor leads on a 4-in-1 ESC?',
+        a: 'Yes, in-house after reflow, on the same floor, so the board is not shipped between the reflow profile and the high-current joint. It is quoted as its own line because the labour depends on wire gauge and connector type.',
+      },
+      {
+        q: 'What batch size makes sense for a drone build?',
+        a: 'One hundred to one thousand sets is the band that suits this floor. Below fifty the stencil, programme and first-article work dominate the unit price; above a few thousand a line built around one product will beat a high-mix floor on price.',
+      },
+    ],
+  },
+
+  'rugged-radio': {
+    slug: 'rugged-radio',
+    name: 'Rugged Handhelds, Radios & Field Terminals',
+    cardName: 'Rugged Handhelds & Radios',
+    keyword: 'rugged handheld PCBA assembly',
+    image: '/assets/images/case-rugged-radio.webp',
+    imageAlt: 'Rugged handheld terminal with the housing opened, showing coated boards and a shielding can',
+    h1: 'Rugged handheld and radio boards, where the coating is the product',
+    lede:
+      'A rugged handheld, a two-way radio or a field terminal is an ordinary radio board in an abnormal environment: rain, dust, a drop onto concrete and a temperature swing inside one shift. The electrical design is rarely the hard part. The assembly decisions that matter are the ones that survive that environment — coating, shielding, and how the board is held inside a machined housing.',
+    facts: [
+      ['Boards per unit', '2 – 3 (main, keypad / display, RF PA)'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Conformal coating, shield cans, press-fit'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Coating here is a specification, not a finish',
+        paras: [
+          'On a consumer board coating is often optional. On a field terminal it is the difference between a unit that survives a wet shift and one that comes back with corrosion under a shield can. That turns the masking drawing into the central document of the job: connectors, test points, pogo pads, antenna feeds, acoustic ports and any pressure-equalisation vent are defined as keep-outs before the first board is coated.',
+          'The work itself is two passes over the field side with a cure between them for a specified thickness, then inspection under UV so a missed area is visible rather than assumed. It is hand labour with a mask, and it is quoted as its own line because a buyer comparing quotes across suppliers is usually comparing this line.',
+          'What coating does not do is make the product waterproof. Water ingress is decided by the housing gasket, the keypad seal and the connector boots. Coating decides whether condensation and humidity kill the board that is already inside a sealed shell.',
+        ],
+      },
+      {
+        heading: 'Shield cans decide the rework path',
+        paras: [
+          'The RF section is covered by shield cans reflowed on the same pass as everything else, which is efficient until a board needs rework: a can comes off, and the ground pads under it have to be dressed and resoldered without disturbing the parts beside them. That is why the quote depends on whether the design leaves test access outside the cans, and why a design review before the first run is worth more here than a rate negotiation.',
+          'Rugged products also carry press-fit or castellated module joints and spring contacts. Those are mechanical joints on an electrical board: the pad height, the solder volume and the coplanarity decide whether the module seats, and none of them can be judged from an AOI image alone.',
+          'Fine-pitch placement runs down to 01005 and 0.3 mm pitch where the design needs it, with SPI before reflow and AOI after it. On this family the inspection that gets the most attention is not the densest one — it is X-ray on the module and can pads, because those are the joints that fail in a pocket rather than on a bench.',
+        ],
+      },
+      {
+        heading: 'What stays with the buyer, without exception',
+        paras: [
+          'Radio alignment and calibration need a shielded room and the manufacturer’s service software. Protocol and waveform conformance need the network or the standard harness. Drop, vibration, ingress and salt-fog qualification need environmental chambers and a test house. Battery pack assembly, keypad overmoulding and housing sealing are mechanical work.',
+          'What this floor provides is the assembly, the coating to an agreed drawing, the inspection records and the first-article evidence those qualification submissions ask for. On a programme with an audit trail, that record set is worth more than a lower piece price, because a missing record turns a short qualification into a long one.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'What a rugged-device programme should not expect here',
+      items: [
+        'RF alignment, power calibration and waveform conformance — these need a shielded room and the OEM service software.',
+        'Drop, vibration, IP-rating and salt-fog qualification testing, which runs at an environmental test house.',
+        'AS9100 process control, NADCAP processing or ITAR-registered handling for defence programmes. ISO 9001 is what is held.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you coat boards to a drawing with defined keep-outs?',
+        a: 'Yes. The masking drawing is agreed before the first run, coating is applied in-house after inspection, and the coated board is checked under UV so a missed keep-out is visible. Potting and full encapsulation are not done here.',
+      },
+      {
+        q: 'Do you place shield cans on the same reflow pass?',
+        a: 'Yes, and that is the efficient choice until a board needs rework. The quote therefore depends on whether the design leaves test access outside the cans, which is worth agreeing at DFM rather than discovering after the first batch.',
+      },
+      {
+        q: 'Can you build a defence programme?',
+        a: 'Only at commercial standard. ISO 9001 is held; AS9100, NADCAP special processes and ITAR-registered handling are not, and export classification of the design stays with the buyer. Programmes that require any of those are outside scope here.',
+      },
+    ],
+  },
+
+  'thermal-imaging': {
+    slug: 'thermal-imaging',
+    name: 'Thermal & Night-Vision Imaging Cores',
+    cardName: 'Thermal & Night-Vision Cores',
+    keyword: 'thermal camera core PCBA',
+    image: '/assets/images/case-thermal-imaging.webp',
+    imageAlt: 'Thermal imaging core with the lens removed, showing the detector board and its shielded processing board',
+    h1: 'Thermal camera core boards, a low-noise analogue job in a small space',
+    lede:
+      'A thermal core is a detector interface board and a processing board joined by a flex and packed behind a lens. Nothing on it is high power. Everything on it is sensitive: microvolt signals out of the detector, a bias network that has to stay quiet, and an optical window that cannot be coated, touched or cleaned with the wrong solvent.',
+    facts: [
+      ['Boards per unit', '2 (detector interface, processing)'],
+      ['Typical batch', '50 – 500 sets'],
+      ['Characteristic', 'Fine-pitch BGA, rigid-flex, low-noise analogue'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Why this is a cleaning and masking problem before it is a placement problem',
+        paras: [
+          'The detector front end is a bias supply, a low-noise regulator chain, a high-resolution converter and a differential input that runs at microvolt levels. At those levels flux residue is not cosmetic: it is a leakage path and a noise source, and it shows up as fixed-pattern artefacts rather than as a dead board.',
+          'That makes ionic cleanliness part of the process rather than a housekeeping detail, and it makes the mask drawing the other half of the job. The detector window, the lens barrel interface and the connector contacts are hard keep-outs for coating; a coated window is a scrapped core, not a rework.',
+          'Placement density is real but familiar: fine-pitch BGA and QFN on a small board, with SPI before reflow and AOI after it. X-ray goes on the BGA and on the flex attach, where a partially soldered joint reads as an intermittent column defect in the image rather than as a failure.',
+        ],
+      },
+      {
+        heading: 'Rigid-flex and the mechanical interface',
+        paras: [
+          'The detector usually sits on its own small rigid section, connected through a flex to the processing board, with a stiffener behind the connector. Board flatness matters because focus is set by the lens mount: a board that bows during reflow moves the detector plane and the corners go soft, which no amount of image tuning recovers.',
+          'The flex attach is the single highest-risk joint on the assembly, and it is also the one most sensitive to handling after inspection. Support during reflow, a defined bend radius and a carrier that does not flex the joint are the three things that decide the yield, and all of them are agreed at DFM.',
+        ],
+      },
+      {
+        heading: 'What is not proven here',
+        paras: [
+          'Non-uniformity correction, radiometric calibration and noise-equivalent temperature difference all need the detector, a black-body source and the manufacturer’s calibration software. Image tuning needs the lens. Those are the buyer’s steps, and on a thermal product they are where most of the engineering time actually sits.',
+          'One more boundary belongs on the page because it decides the programme rather than the price: uncooled and cooled detector cores are frequently export-controlled, and the classification of the design, the detector and the end use is the buyer’s to establish. This floor assembles boards to commercial workmanship standards and does not handle export-controlled technical data.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where a thermal programme should look elsewhere',
+      items: [
+        'Non-uniformity correction, radiometric calibration and NETD measurement — these need a black-body source and the detector software.',
+        'Image tuning, lens focusing and optical alignment of the core.',
+        'Airborne, space or defence qualification and export-controlled programme handling — commercial workmanship only here.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you keep the detector window clean through coating?',
+        a: 'Yes. The window, the lens mount and the connector contacts are defined as masking keep-outs before the first run, and a coated window is treated as a scrapped part rather than reworked. The mask drawing is agreed with the buyer at DFM.',
+      },
+      {
+        q: 'Do you calibrate the thermal core?',
+        a: 'No. Non-uniformity correction, radiometric calibration and NETD measurement need the detector, a black-body source and the manufacturer’s software. Assembly, cleaning control and the inspection records are what this floor provides.',
+      },
+      {
+        q: 'What batch size suits a thermal core build?',
+        a: 'Fifty to five hundred sets. Detector cost and lead time usually set the real schedule, and the stencil, programme and first-article work dominate the unit price at the low end of that band.',
+      },
+    ],
+  },
+
+  humanoid: {
+    slug: 'humanoid',
+    name: 'Humanoid & Service Robot Joint Boards',
+    cardName: 'Robot Joint & Actuator Boards',
+    keyword: 'robot joint actuator PCBA',
+    image: '/assets/images/case-humanoid.webp',
+    imageAlt: 'Robot arm joint with the cover removed, showing the circular actuator driver board',
+    h1: 'Robot joint boards: many small identical boards, one revision at a time',
+    lede:
+      'A humanoid or a service robot does not have one control board. It has a driver board per joint, and the count runs from a dozen to forty. That changes the economics completely: the order is small in sets and large in identical pieces, every joint board has to match the last one, and the design changes faster than the batch does.',
+    facts: [
+      ['Boards per unit', '1 per joint, 12 – 40 per robot'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Circular boards, GaN or MOSFET bridges'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Identical is the actual requirement',
+        paras: [
+          'Every joint board carries the same bridge, the same shunt, the same encoder interface and the same MCU, because a robot with forty joints cannot debug forty different boards. That makes the order an exercise in repeatability rather than in density: one stencil, one programme, one profile, and paste-print data trended per panel so that a drift is caught before it becomes a joint with different torque behaviour from its neighbours.',
+          'A joint board that differs by a shifted component does not fail — it produces torque ripple, which reads as a firmware or a mechanical problem for weeks. That is why the first-article record on this family is worth more than the piece price, and why the revision discipline matters more here than on a consumer board that is replaced rather than repaired.',
+        ],
+      },
+      {
+        heading: 'Density and heat inside a 30 mm circle',
+        paras: [
+          'The board carries a GaN or MOSFET bridge, a current shunt, gate drive, the MCU and the encoder interface, sometimes with a magnetic encoder on the same side as the power stage. Fine pitch and 01005 passives are routine; what is not routine is the shape. A circular board wastes panel area, so the quoted price per board is higher than a rectangular board of the same area, and that arithmetic is worth showing before the layout is frozen.',
+          'Thermally, the joint is a small sealed volume with a gearbox beside it. The bridge devices sit on thermal pads to the housing, and voids under those pads show up as derating at the top of the duty cycle rather than as a failure on the bench. X-ray on the power joints and on the encoder package is part of the build, not an extra.',
+        ],
+      },
+      {
+        heading: 'What is not done here, and why that matters at prototype speed',
+        paras: [
+          'Joint calibration, torque-constant measurement, fieldbus conformance and any robot-level or safety test are outside this building. Those need the actuator, the gearbox and the control stack, and they belong to the robot maker. So does any certification of the finished machine.',
+          'What a robot programme needs from an assembler is different from what a consumer programme needs: shorter setup, faster revision turnaround, and the willingness to run a hundred identical boards rather than a thousand. Fifty pieces is normal work here, and three working days from kitted parts is what makes a weekly revision cycle possible at all.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong fit for a robot programme',
+      items: [
+        'Joint calibration, torque-constant measurement and encoder alignment — these need the actuator and the gearbox.',
+        'Robot-level functional and safety testing, and certification of the finished machine.',
+        'Volumes above roughly 5,000 joint boards a month, where a dedicated line beats a high-mix floor on unit price.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you run a hundred identical joint boards a week for a prototype programme?',
+        a: 'Yes. Fifty pieces is a normal order here and a repeat at an unchanged revision is three working days from kitted parts, which is what a weekly iteration cycle needs. The first run carries the stencil, programme and first-article cost.',
+      },
+      {
+        q: 'Do you assemble circular boards?',
+        a: 'Yes, with the caveat that a circular outline uses less of the panel, so the price per board is higher than a rectangular board of the same area. That is worth calculating before the layout is frozen rather than after the first quote.',
+      },
+      {
+        q: 'Do you calibrate the joint or test the actuator?',
+        a: 'No. Joint calibration, torque measurement and encoder alignment need the actuator and the gearbox, and they stay with the robot maker. Assembly and inspection are what this floor provides.',
+      },
+    ],
+  },
+
+  'smart-glasses': {
+    slug: 'smart-glasses',
+    name: 'AI / AR Smart Glasses Boards',
+    cardName: 'AI & AR Smart Glasses',
+    keyword: 'smart glasses PCBA',
+    image: '/assets/images/case-smart-glasses.webp',
+    imageAlt: 'Smart glasses on a bench with one temple opened, showing the rigid-flex board and camera module',
+    h1: 'AI glasses boards: a rigid-flex inside a five millimetre temple',
+    lede:
+      'Smart glasses are an assembly problem wearing a fashion product. The electronics live in a temple arm a few millimetres thick, split across a rigid main section, a flexible section that crosses the hinge, and a camera or display module at the front. Almost every tolerance is mechanical, and the board has to survive being folded shut a hundred thousand times.',
+    facts: [
+      ['Boards per unit', '2 – 3 (main, temple flex, camera)'],
+      ['Typical batch', '500 – 5,000 sets'],
+      ['Characteristic', '01005, HDI, rigid-flex through a hinge'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'The hinge is where the yield lives',
+        paras: [
+          'A rigid-flex that crosses a hinge is a fatigue part, not just an interconnect. Bend radius, stiffener length, coverlay openings and how the flex is routed inside the arm all decide whether it survives the fold cycle, and all of them are decided before a single board is placed.',
+          'On the assembly side the risk is the flex attach: a joint that is marginally soldered passes AOI, passes a bench test, and opens after twenty thousand cycles. X-ray on the attach, a carrier that does not flex the joint during handling, and panel support through reflow are the three controls, and on this family they matter more than placement speed.',
+        ],
+      },
+      {
+        heading: 'Small parts and unforgiving keep-outs',
+        paras: [
+          '01005 passives, HDI microvias and 0.3 mm pitch are the normal window. What is not normal is how much of the board is a keep-out: microphone ports, pressure vents, the camera window, the charging contacts and the antenna clearance all have to stay clear of coating and clear of solder splash, because a filled microphone port is a scrapped arm.',
+          'Warpage is the second constraint. The board sits in a thin shell with a battery beside it, so a board that bows sends the whole assembly out of tolerance. Copper balance and panel design decide that, which makes this a DFM conversation rather than a process-rate one.',
+        ],
+      },
+      {
+        heading: 'The commercial truth about this category',
+        paras: [
+          'Volume is real and the buyers are brand owners, solution houses and the accessory makers around them. The category leaders quote in the tens of thousands and buy on a dedicated line. The workable entry here is the second source, the pilot build before a brand commits a line, and the accessory or charging board around the main product.',
+          'That is judgement about where the work sits, not a forecast. If your first order is five thousand sets and the only open question is price per board, a dedicated high-volume house will beat this floor and the honest answer is to say so before a sample run rather than after it.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'What an AI-glasses programme should not expect here',
+      items: [
+        'Camera module alignment, image tuning and display calibration — these need the optics and the tuning rig.',
+        'Acoustic tuning, drop testing and IP-rating qualification for the finished frame.',
+        'Volumes above roughly ten thousand sets a month, where a dedicated line wins on unit price.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you assemble a rigid-flex that crosses the hinge?',
+        a: 'Yes, with the flex attach X-rayed and a carrier used so handling does not flex the joint. Bend radius, stiffener and coverlay are agreed at DFM, because those decide the fold-cycle life rather than the assembly process does.',
+      },
+      {
+        q: 'How do you keep coating out of the microphone port?',
+        a: 'The ports, vents, camera window and charging contacts are defined as keep-outs on a masking drawing agreed before the first run. A filled port is treated as a scrapped arm, so the drawing is reviewed rather than assumed.',
+      },
+      {
+        q: 'What batch size makes sense for smart glasses?',
+        a: 'Five hundred to five thousand sets suits this floor, and a pilot build below that is normal. Above ten thousand a month, a dedicated high-volume line will usually underquote a high-mix floor.',
+      },
+    ],
+  },
+
+  'ai-power': {
+    slug: 'ai-power',
+    name: 'AI Server Power Shelves & BBU Boards',
+    cardName: 'AI Server Power & BBU',
+    keyword: 'server power shelf PCBA',
+    image: '/assets/images/case-ai-power.webp',
+    imageAlt: 'Rack power shelf with one rectifier module withdrawn, showing the power board and busbar',
+    h1: 'Server power and BBU boards, where the busbar decides the build',
+    lede:
+      'A rack power shelf is a set of rectifier modules in parallel feeding a 48 V busbar, with a battery backup unit beside them. The boards are heavy-copper power conversion with metal bolted through them, and the step that decides the yield is not placement. It is the joint between the board and the busbar, and the thermal path under the devices that switch the current.',
+    facts: [
+      ['Boards per unit', '1 – 2 per module (rectifier, BBU control)'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Heavy copper, 48 V busbar, press-fit'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'What the module board has to carry',
+        paras: [
+          'A rectifier module is a power-factor front end followed by an LLC or phase-shifted bridge, delivering two to five kilowatts into a 48 V bus in a one-rack-unit height. Electrically that means paralleled MOSFETs, current sharing, output ORing and a control loop that has to stay stable with several modules in parallel.',
+          'Mechanically it means the output does not leave through an SMT pad. It leaves through a busbar or a screw terminal, often as a press-fit pin, and the board has to stay flat enough for the busbar to seat across several modules at once. Press-fit and selective solder are the processes that matter here; placement density is not the constraint.',
+          'The DC bus also brings creepage and clearance back into the layout, at a few hundred volts and with pollution degree expectations that come from the enclosure rather than from the board. Coating is common on the high-voltage side, with the busbar and connector areas masked.',
+        ],
+      },
+      {
+        heading: 'Voiding is the inspection target',
+        paras: [
+          'The failure mode on this family is thermal, not electrical. A void under a paralleled MOSFET, a bridge diode or a current shunt raises the junction temperature on exactly the load profile the shelf is sold for, and it reads as a module that derates at full rack load while passing every bench check.',
+          'That makes X-ray on the power joints the inspection that decides shipment, with SPI before reflow and AOI after it covering the rest. Copper distribution on these boards is uneven by design, so the reflow profile is developed per board rather than carried over from the previous module — one reason a second order at an unchanged revision is cheaper than the first.',
+        ],
+      },
+      {
+        heading: 'What is not done here, and where the volume actually goes',
+        paras: [
+          'No burn-in, no automated test with an electronic load, no efficiency or power-factor measurement, and no safety certification. Those produce the numbers a data-centre buyer asks for, and they need a rack, a load bank and a certified laboratory. A shelf that has not been run at load has not been proven.',
+          'Commercially, the module volume sits with plants that build in tens of thousands and test in line. The workable entry for a high-mix floor is the second-source run, the battery-backup control and monitoring board, the fan tray and shelf controller, and the pilot build before a brand commits a line.',
+          'What is changing in the racks is worth one sentence, offered as a description of the products rather than as a market forecast: 48 V DC distribution with battery backup inside the rack has moved from a proposal to a shipping architecture, which turns a power-supply purchase into a board-level one. That is the reason this family is on the site at all.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor cannot carry a power-shelf project',
+      items: [
+        'Burn-in and automated test with an electronic load, plus efficiency and power-factor measurement.',
+        'Safety certification (UL / EN 62368) and any data-centre qualification of the finished shelf.',
+        'Volumes above roughly five thousand modules a month, where in-line test and automated assembly decide the price.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you press-fit a busbar into a power board?',
+        a: 'Press-fit and selective soldering are part of the process here, and they are quoted as their own line because the tooling and the flatness requirement are the job. A board that bows will not seat a busbar across several modules.',
+      },
+      {
+        q: 'Do you test the module at load?',
+        a: 'No. Burn-in, electronic-load test, efficiency and power-factor measurement are not run in-house; they need a rack, a load bank and a laboratory. SPI, AOI and X-ray cover the joints, and that is what this floor certifies.',
+      },
+      {
+        q: 'What batch size makes sense for a power shelf?',
+        a: 'One hundred to one thousand modules. Below that the setup dominates; above a few thousand a month the order belongs on a line with automated test, which is a different business from this one.',
+      },
+    ],
+  },
+
+  bess: {
+    slug: 'bess',
+    name: 'Energy Storage (BESS) & PCS Control Boards',
+    cardName: 'Energy Storage (BESS)',
+    keyword: 'BESS BMS PCBA',
+    image: '/assets/images/case-bess.webp',
+    imageAlt: 'Rack battery module with the front panel removed, showing the BMS board and its sensing harness',
+    h1: 'Energy storage boards: one small BMU per module, one isolated master per rack',
+    lede:
+      'A battery energy storage cabinet is a lot of identical small boards and a few difficult ones. Each module has a BMU measuring its cells; each rack has a master with contactor drive, insulation monitoring and an isolated bus; the conversion side has its own control board. The assembly argument is the same for all three: the isolation gap is the product.',
+    facts: [
+      ['Boards per unit', '2 – 4 (BMU, rack master, PCS control)'],
+      ['Typical batch', '100 – 1,000 sets'],
+      ['Characteristic', 'Isolation spacing, THT contactors, coating'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'The BMU is small, numerous and identical',
+        paras: [
+          'A battery management unit measures twelve to sixteen cells, bleeds the high ones, watches temperature and reports up an isolated chain. A single cabinet needs dozens of them, so the order shape is many identical small boards rather than a few large ones — which is the opposite of most industrial work and suits a high-mix floor with a discipline for repeatability.',
+          'What matters commercially is not unit price but consistency and traceability: the same stencil, the same programme, per-lot inspection data, and a coating process that does not creep onto the sensing connector. A BMU that reads one cell two millivolts off is a warranty conversation six months later, and the board looks perfect.',
+        ],
+      },
+      {
+        heading: 'The rack master is an isolation board, not a computing board',
+        paras: [
+          'Contactor drive with pre-charge, insulation monitoring, isolated communication and the logic that decides when it is safe to close. That combination puts creepage and clearance back at the centre of the layout, with slots or cut-outs in the board and generous spacing across the sense side.',
+          'Assembly has to respect that gap: no solder splash across it, no coating bridging a masked area, no flux residue tracking between the field side and the logic side. Contactors and terminal blocks are through-hole and are soldered in-house, and the masking drawing for coating is part of the job rather than an afterthought.',
+        ],
+      },
+      {
+        heading: 'What stays with the buyer, and why the paperwork matters here',
+        paras: [
+          'Pack and cabinet assembly, high-voltage wiring, fire suppression, thermal management and every unit-level certification are outside this building. So is functional test with a real pack and a load bank, because the pass criteria live in the control firmware and the cell chemistry.',
+          'What a storage programme does ask for, more than most, is a record: first-article evidence, per-lot inspection data and a coating process defined well enough to survive an audit. That is what a certified assembler actually sells on this family, and it is why the DFM review before the first run is worth more than a rate discussion.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor cannot carry a storage project',
+      items: [
+        'Pack and container assembly, high-voltage wiring and fire-suppression integration.',
+        'Unit-level safety and grid-code certification, which belongs to the brand owner and a certified laboratory.',
+        'Functional test with a real pack and load bank, and any high-voltage dielectric test on the assembled cabinet.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you build dozens of identical BMU boards per order?',
+        a: 'Yes. Many identical small boards is a comfortable shape for this floor: one stencil, one programme, per-lot inspection data and coating done in-house, in batches from a hundred sets upward.',
+      },
+      {
+        q: 'How is the isolation gap protected during coating?',
+        a: 'It is a defined keep-out on the masking drawing agreed before the first run, checked at AOI for splash and residue, and inspected after coating. A bridged gap is a scrapped board rather than a rework.',
+      },
+      {
+        q: 'Do you test a BMS with a real pack?',
+        a: 'No. Pack-level test, high-voltage dielectric testing and grid-code conformance need the cells, the cabinet and a certified laboratory. Assembly and inspection records are what this floor provides.',
+      },
+    ],
+  },
+
 };
 
 export const FAMILY_SLUGS = Object.keys(FAMILIES);
+
+/* Every place that used to say "twelve" reads this instead, so adding a family
+ * cannot leave a stale count in a page title or a heading. */
+export const FAMILY_COUNT = FAMILY_SLUGS.length;
 
 export function familyBySlug(slug) {
   return FAMILIES[slug] || null;
 }
 
 /*
- * Read-next map. The index grid lists all twelve, which is right for the index
- * and wrong for a detail page: eleven equal links send a reader nowhere and
+ * Read-next map. The index grid lists every family, which is right for the index
+ * and wrong for a detail page: a dozen equal links send a reader nowhere and
  * dilute the one link that would actually help. Each family names three
  * neighbours and says why the neighbour is the next thing to read — either the
  * same stack at a different size, or the same process against a different
@@ -956,5 +1420,40 @@ export const RELATED = {
     ['vfd', 'The same through-hole power work without the certification burden.'],
     ['power-station', 'Portable energy conversion, where the buyer judges the thermal design by touch.'],
     ['led-driver', 'Mains conversion at a volume this floor rarely sees.'],
+  ],
+  uav: [
+    ['humanoid', 'The same buying pattern — small batches, a buyer who iterates weekly — without the airframe.'],
+    ['rugged-radio', 'Field hardware where the coating and the mechanical joint decide survival.'],
+    ['robot-vacuum', 'Dense consumer control electronics if the volume matters more than the environment.'],
+  ],
+  'rugged-radio': [
+    ['uav', 'The other deployable family here, where the sensor is the fragile part rather than the coat.'],
+    ['thermal-imaging', 'Optics and a coated board in one assembly, with the same keep-out discipline.'],
+    ['hmi', 'The non-rugged industrial version: same isolation thinking, indoor environment.'],
+  ],
+  'thermal-imaging': [
+    ['rugged-radio', 'The coating-and-shielding sibling, at a different frequency.'],
+    ['uav', 'Where the same small dense board has to survive vibration as well as temperature.'],
+    ['dashcam', 'The visible-light version of the same sensor-carrier problem, at a tenth of the price.'],
+  ],
+  humanoid: [
+    ['servo', 'The joint-drive stack at industrial scale, where the batch is smaller and the life longer.'],
+    ['uav', 'Many small identical boards again, in an airframe instead of an arm.'],
+    ['robot-vacuum', 'Consumer motion control at volumes this family never reaches.'],
+  ],
+  'smart-glasses': [
+    ['dashcam', 'Camera, fine pitch and a sealed housing, without the hinge.'],
+    ['robot-vacuum', 'The other dense consumer family bought by brands rather than by price alone.'],
+    ['thermal-imaging', 'Where a rigid-flex and an optical window make the same masking argument.'],
+  ],
+  'ai-power': [
+    ['bess', 'The other place where a board is bolted to a busbar and judged on isolation.'],
+    ['evse', 'Mains-facing power with a certification file attached.'],
+    ['power-station', 'The same conversion at consumer scale, where the buyer opens the case.'],
+  ],
+  bess: [
+    ['ai-power', 'The rack-mate: same busbar, same thermal argument, different load profile.'],
+    ['evse', 'Isolation and contactor drive on a product that is audited before it ships.'],
+    ['hmi', 'Isolation spacing as the design constraint, without the high voltage behind it.'],
   ],
 };

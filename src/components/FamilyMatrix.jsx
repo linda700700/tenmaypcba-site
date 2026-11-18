@@ -1,12 +1,12 @@
 import React from 'react';
 import { ArrowRight, Grid3x3 } from 'lucide-react';
-import { FAMILIES, FAMILY_SLUGS } from '../data/applicationFamilies';
+import { FAMILIES, FAMILY_SLUGS, FAMILY_COUNT } from '../data/applicationFamilies';
 
 /*
- * One picture across all twelve families: process class on one axis, batch band
- * on the other.
+ * One picture across every family: process class on one axis, batch band on the
+ * other.
  *
- * Why this exists: the twelve detail pages answer "what does this board take".
+ * Why this exists: the detail pages answer "what does this board take".
  * They do not answer the question a buyer asks before that one — "the process I
  * need is X, what batch size does that make sense at here?" Read down a column
  * and you see one process class at five different batch sizes; read across a row
@@ -54,6 +54,13 @@ const PROCESS_CLASS = {
   'parking-sensor': 'fine',
   'led-driver': 'mains',
   evse: 'mains',
+  'smart-glasses': 'fine',
+  'thermal-imaging': 'fine',
+  humanoid: 'power',
+  'rugged-radio': 'fine',
+  uav: 'fine',
+  'ai-power': 'power',
+  bess: 'power',
 };
 
 function batchOf(family) {
@@ -120,11 +127,11 @@ export default function FamilyMatrix() {
         <div className="flex items-start gap-2">
           <Grid3x3 className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
           <h2 className="text-[22px] font-bold leading-snug tracking-tight text-slate-900 sm:text-[26px]">
-            Twelve families on one page: process down, batch size across
+            {`${FAMILY_COUNT} families on one page: process down, batch size across`}
           </h2>
         </div>
         <p className="mt-3 max-w-[70ch] text-[15.5px] leading-[1.7] text-slate-600">
-          Read a column to see one process class at five different batch sizes — that is where the
+          Read a column to see one process class at every batch band — that is where the
           economics move. Read a row to see what else runs at the same batch band, which is what
           decides whether a job shares a setup or needs its own. Batch bands are the ones stated on
           each family page.
@@ -134,7 +141,7 @@ export default function FamilyMatrix() {
         <div className="mt-6 hidden overflow-x-auto rounded-xl border border-brand-200/60 md:block">
           <table className="w-full min-w-[820px] border-collapse text-left align-top">
             <caption className="sr-only">
-              The twelve board families by process class and stated batch band
+              {`The ${FAMILY_COUNT} board families by process class and stated batch band`}
             </caption>
             <thead>
               <tr className="bg-brand-50/70">

@@ -102,15 +102,18 @@ const NAV = [
           { label: 'E-bike controller & display', href: '/applications.html#ebike', kw: 'ebike scooter bms display' },
           { label: 'Portable power station', href: '/applications.html#power-station', kw: 'energy storage inverter bms' },
           { label: 'Robot vacuum mainboards', href: '/applications.html#robot-vacuum', kw: 'vacuum cleaner mainboard' },
+          { label: 'AI & AR smart glasses', href: '/applications.html#smart-glasses', kw: 'smart glasses ar rigid flex hdi camera' },
         ],
       },
       {
-        title: 'Industrial control',
+        title: 'Industrial & energy',
         items: [
           { label: 'VFD / inverter boards', href: '/applications.html#vfd', kw: 'vfd inverter frequency drive igbt' },
           { label: 'Servo drive & soft starter', href: '/applications.html#servo', kw: 'servo soft starter gate drive' },
           { label: 'HMI, gateways & PLC I/O', href: '/applications.html#hmi', kw: 'plc io hmi gateway fieldbus' },
           { label: 'LED drivers & PD chargers', href: '/applications.html#led-driver', kw: 'led driver pd charger acdc pfc' },
+          { label: 'AI server power & BBU', href: '/applications.html#ai-power', kw: 'server power shelf rectifier bbu 48v busbar' },
+          { label: 'Energy storage (BESS)', href: '/applications.html#bess', kw: 'bess bms pcs energy storage contactor' },
         ],
       },
       {
@@ -122,11 +125,20 @@ const NAV = [
           { label: 'EVSE charging control', href: '/applications.html#evse', kw: 'ev charger evse pilot signal' },
         ],
       },
+      {
+        title: 'Defence & robotics',
+        items: [
+          { label: 'UAV & flight controllers', href: '/applications.html#uav', kw: 'drone uav flight controller esc imu' },
+          { label: 'Rugged handhelds & radios', href: '/applications.html#rugged-radio', kw: 'rugged handheld radio field terminal coating shielding' },
+          { label: 'Thermal & night-vision cores', href: '/applications.html#thermal-imaging', kw: 'thermal imaging night vision detector core' },
+          { label: 'Robot joint & actuator boards', href: '/applications.html#humanoid', kw: 'humanoid robot joint actuator servo drive' },
+        ],
+      },
     ],
     promo: {
-      image: '/assets/images/case-vfd.webp',
-      title: 'Three boards per drive',
-      body: 'Control, IGBT power and keypad boards for variable frequency drives — fifty sets upward, conformal coating in-house.',
+      image: '/assets/images/case-uav.webp',
+      title: 'Commercial standard, said out loud',
+      body: 'Rugged, imaging and robotics boards with the coating, X-ray and isolation work they need. ISO 9001 is held; AS9100, NADCAP and ITAR-registered handling are not claimed.',
       cta: 'Open the application pages',
       href: '/applications.html',
     },

@@ -4,7 +4,7 @@ import {
   AlertTriangle, Quote, CheckCircle2,
 } from 'lucide-react';
 import { SECTORS } from '../data/useCases';
-import { FAMILIES } from '../data/applicationFamilies';
+import { FAMILIES, FAMILY_COUNT } from '../data/applicationFamilies';
 import { waLink, DEFAULT_WA_TEXT } from '../data/company';
 import FlipMedia from '../components/FlipMedia';
 import DragRail from '../components/DragRail';
@@ -12,10 +12,10 @@ import { imgAttrs } from '../lib/imageSize';
 import FamilyMatrix from '../components/FamilyMatrix';
 
 /*
- * Applications landing page. One page, twelve anchor targets — every product
- * family in the mega menu lands on its own card (#vfd, #treadmill, …) instead of
+ * Applications landing page. One page, one anchor target per product family —
+ * every family in the mega menu lands on its own card (#vfd, #uav, …) instead of
  * a generic section anchor. Sector ids match data/useCases.js: consumer,
- * industrial, aftermarket.
+ * industrial, aftermarket, defence.
  */
 
 const SEND_LIST = [
@@ -66,12 +66,13 @@ export default function ApplicationsPage({ initialHash = '' }) {
           </nav>
 
           <h1 className="mt-5 max-w-[900px] text-[32px] font-bold leading-[1.12] tracking-[-0.02em] text-white sm:text-[46px]">
-            Twelve board families we build, and where each one strains the line
+            {`${FAMILY_COUNT} board families we build, and where each one strains the line`}
           </h1>
           <p className="mt-4 max-w-[720px] text-[16.5px] leading-relaxed text-brand-100">
-            Every family below has been quoted, built and shipped from this floor. Each card states
-            what the board stack looks like, which process it leans on, and the batch size that
-            actually makes sense — including the ones where the answer is to walk away.
+            Every family below is one this floor is set up to build. Each card states what the board
+            stack looks like, which process it leans on, and the batch size that actually makes
+            sense — and the basis line says whether that judgement rests on jobs we have shipped or
+            on the process window alone. The ones where the answer is to walk away say so.
           </p>
 
           <div className="mt-7 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap sm:items-center">
@@ -100,10 +101,10 @@ export default function ApplicationsPage({ initialHash = '' }) {
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
           <div className="mb-4 flex flex-wrap items-end justify-between gap-2">
             <h2 className="text-[15px] font-bold uppercase tracking-[0.13em] text-slate-900">
-              Twelve families, twelve boards
+              {`${FAMILY_COUNT} families, one board each`}
             </h2>
             <p className="text-[12.5px] text-slate-500">
-              Photographed from jobs already built here — tap a tile to jump to its dossier.
+              One tile per family — tap to jump to its dossier.
             </p>
           </div>
           <DragRail ariaLabel="Board families" itemWidth={228}>
@@ -143,7 +144,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-end justify-between gap-2">
             <h2 className="text-[15px] font-bold uppercase tracking-[0.13em] text-slate-900">
-              All twelve have a page of their own
+              {`All ${FAMILY_COUNT} have a page of their own`}
             </h2>
             <p className="text-[12.5px] text-slate-500">
               Process detail, inspection call, batch economics and the cases where we are the wrong shop.
@@ -176,7 +177,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
         </div>
       </section>
 
-      {/* process x batch, all twelve at once */}
+      {/* process x batch, every family at once */}
       <FamilyMatrix />
 
       {/* sector tabs */}
@@ -359,7 +360,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
       <section className="border-y border-brand-200/50 bg-white py-12">
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
           <h2 className="text-[24px] font-bold tracking-tight text-slate-900 sm:text-[28px]">
-            What holds true across all twelve
+            What holds true across every family
           </h2>
           <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
             {[

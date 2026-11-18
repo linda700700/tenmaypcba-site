@@ -17,6 +17,14 @@ const SIZES = {
     1400,
     933
   ],
+  "/assets/images/case-ai-power.webp": [
+    1400,
+    934
+  ],
+  "/assets/images/case-bess.webp": [
+    1400,
+    934
+  ],
   "/assets/images/case-dashcam.webp": [
     1400,
     933
@@ -32,6 +40,10 @@ const SIZES = {
   "/assets/images/case-hmi.webp": [
     1400,
     933
+  ],
+  "/assets/images/case-humanoid.webp": [
+    1400,
+    934
   ],
   "/assets/images/case-jump-starter.webp": [
     1400,
@@ -53,13 +65,29 @@ const SIZES = {
     1400,
     933
   ],
+  "/assets/images/case-rugged-radio.webp": [
+    1400,
+    934
+  ],
   "/assets/images/case-servo.webp": [
     1400,
     933
   ],
+  "/assets/images/case-smart-glasses.webp": [
+    1400,
+    934
+  ],
+  "/assets/images/case-thermal-imaging.webp": [
+    1400,
+    934
+  ],
   "/assets/images/case-treadmill.webp": [
     1400,
     933
+  ],
+  "/assets/images/case-uav.webp": [
+    1400,
+    934
   ],
   "/assets/images/case-vfd.webp": [
     1400,

@@ -1,11 +1,11 @@
 import React from 'react';
 import { ArrowRight, ChevronRight, MessageCircle, AlertTriangle, CheckCircle2, ArrowLeftRight } from 'lucide-react';
-import { FAMILIES, FAMILY_SLUGS, RELATED, familyBySlug } from '../data/applicationFamilies';
+import { FAMILIES, FAMILY_SLUGS, RELATED, FAMILY_COUNT, familyBySlug } from '../data/applicationFamilies';
 import { waLink, DEFAULT_WA_TEXT } from '../data/company';
 import { imgAttrs } from '../lib/imageSize';
 
 /*
- * One board family, one URL. The index at /applications keeps the twelve cards;
+ * One board family, one URL. The index at /applications keeps the cards;
  * this page carries the depth for the family the card links to, so the two do
  * not compete for the same query. The visible FAQ block and the FAQPage markup
  * come from the same array — a question that is not on the page is not marked
@@ -244,7 +244,7 @@ export default function ApplicationFamilyPage({ slug }) {
           </div>
           <div className="mt-6 flex flex-wrap items-center gap-3 text-[14.5px]">
             <a href="/applications" className="font-bold text-brand-700 hover:underline">
-              All twelve board families
+              {`All ${FAMILY_COUNT} board families`}
             </a>
             <span className="text-slate-300">·</span>
             <a href="/capabilities" className="font-bold text-brand-700 hover:underline">

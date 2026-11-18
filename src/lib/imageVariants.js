@@ -14,6 +14,26 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-ai-power.webp": [
+    [
+      "/assets/images/case-ai-power-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-ai-power-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-bess.webp": [
+    [
+      "/assets/images/case-bess-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-bess-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-dashcam.webp": [
     [
       "/assets/images/case-dashcam-700w.webp",
@@ -51,6 +71,16 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/case-hmi-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-humanoid.webp": [
+    [
+      "/assets/images/case-humanoid-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-humanoid-900w.webp",
       900
     ]
   ],
@@ -104,6 +134,16 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-rugged-radio.webp": [
+    [
+      "/assets/images/case-rugged-radio-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-rugged-radio-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-servo.webp": [
     [
       "/assets/images/case-servo-700w.webp",
@@ -114,6 +154,26 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-smart-glasses.webp": [
+    [
+      "/assets/images/case-smart-glasses-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-smart-glasses-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-thermal-imaging.webp": [
+    [
+      "/assets/images/case-thermal-imaging-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-thermal-imaging-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-treadmill.webp": [
     [
       "/assets/images/case-treadmill-700w.webp",
@@ -121,6 +181,16 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/case-treadmill-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-uav.webp": [
+    [
+      "/assets/images/case-uav-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-uav-900w.webp",
       900
     ]
   ],
