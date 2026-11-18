@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  ArrowRight, Menu, X, Phone, Search, ChevronDown,
-  Upload, MapPin, Clock, MessageCircle, FileDown,
+  ArrowRight, Menu, X, Globe, Phone, Search, ChevronDown,
+  Upload, MapPin, Clock, MessageCircle,
 } from 'lucide-react';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 import { imgAttrs } from '../lib/imageSize';
@@ -132,6 +132,7 @@ const NAV = [
           { label: 'Rugged handhelds & radios', href: '/applications.html#rugged-radio', kw: 'rugged handheld radio field terminal coating shielding' },
           { label: 'Thermal & night-vision cores', href: '/applications.html#thermal-imaging', kw: 'thermal imaging night vision detector core' },
           { label: 'Robot joint & actuator boards', href: '/applications.html#humanoid', kw: 'humanoid robot joint actuator servo drive' },
+          { label: 'The standards question', href: '/defence-robotics.html', kw: 'as9100 nadcap itar defence aerospace standards' },
         ],
       },
     ],
@@ -237,7 +238,8 @@ const NAV = [
         title: 'Talk to an engineer',
         items: [
           { label: 'Request a quote', href: '/#rfq', kw: 'quote rfq upload gerber' },
-          { label: 'WhatsApp', href: 'wa', kw: 'whatsapp chat message chat contact' },
+          { label: 'WhatsApp', href: 'wa', kw: 'whatsapp chat message' },
+          { label: 'WhatsApp', href: 'wa', kw: 'whatsapp chat contact' },
         ],
       },
     ],
@@ -278,6 +280,7 @@ export default function Navbar({ currentPath = '/' }) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [openMobileGroup, setOpenMobileGroup] = useState(null);
   const headerRef = useRef(null);
+  const searchRef = useRef(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -380,23 +383,18 @@ export default function Navbar({ currentPath = '/' }) {
               WhatsApp
             </a>
             <span className="hidden sm:inline text-slate-600">|</span>
-            {/* This slot used to hold a dead <button> with a globe icon, a chevron and
-                an "EN" region label. No handler, no panel: nothing happened on click.
-                The site is English-only, so a real switcher would be a promise we
-                cannot keep yet. Replaced by a plain, non-interactive trust line. */}
-            <span className="hidden md:flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
-              ISO 9001 certified
-            </span>
+            <button type="button" className="flex items-center gap-1.5 hover:text-white transition-colors">
+              <Globe className="w-3 h-3 text-sky-400" />
+              EN / Global (USD)
+              <ChevronDown className="w-3 h-3" />
+            </button>
           </div>
         </div>
       </div>
 
       <header
         ref={headerRef}
-        className={`${
-          mobileOpen ? 'relative' : 'sticky top-0'
-        } z-50 bg-white/95 backdrop-blur-sm transition-shadow duration-300 ${
+        className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm transition-shadow duration-300 ${
           scrolled ? 'shadow-[0_10px_30px_-18px_rgba(6,41,26,0.55)] border-b border-brand-200/55' : 'border-b border-transparent'
         }`}
         data-component="navbar"
@@ -415,7 +413,7 @@ export default function Navbar({ currentPath = '/' }) {
               className="h-9 sm:h-10 w-auto object-contain"
             />
             <div>
-              <div translate="no" className="notranslate text-[15px] sm:text-[17px] font-bold tracking-[0.02em] text-slate-900 leading-none">
+              <div className="text-[15px] sm:text-[17px] font-bold tracking-[0.02em] text-slate-900 leading-none">
                 TENMAY
               </div>
               <div className="text-[8px] sm:text-[9px] tracking-[0.12em] sm:tracking-[0.14em] text-slate-500 font-semibold uppercase mt-1">
@@ -425,7 +423,7 @@ export default function Navbar({ currentPath = '/' }) {
           </a>
 
           {/* Search */}
-          <form onSubmit={submitSearch} className="relative flex-1 max-w-[460px] hidden md:block">
+          <form onSubmit={submitSearch} className="relative flex-1 max-w-[460px] hidden md:block" ref={searchRef}>
             <div className="flex items-stretch border border-slate-300/80 rounded focus-within:border-[#126B3F] focus-within:ring-2 focus-within:ring-blue-100 transition-all bg-white">
               <input
                 type="search"

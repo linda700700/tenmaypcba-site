@@ -20,7 +20,13 @@ function topicLastmod(topic) {
 function shareImage(path) {
   const m = /^\/applications\/([^/]+)$/.exec(path);
   const family = m && FAMILIES[m[1]];
-  return family ? { image: family.image, width: 1400, height: 933 } : null;
+  if (family) return { image: family.image, width: 1400, height: 933 };
+  // The defence index leads with the flight controller: it is the board most
+  // programme buyers recognise in a chat preview.
+  if (path === '/defence-robotics') {
+    return { image: '/assets/images/case-uav.webp', width: 1400, height: 933 };
+  }
+  return null;
 }
 
 export function render(path) {
@@ -50,7 +56,7 @@ export const routes = [
         ? '0.3'
         : // A hub sits just under a service page: it is a landing page for a
           // question, but it is not the page a buyer should quote from.
-        TOPIC_BY_PATH[path]
+        TOPIC_BY_PATH[path] || path === '/defence-robotics'
         ? '0.8'
         : '0.9',
   })),

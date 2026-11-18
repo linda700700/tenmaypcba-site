@@ -64,6 +64,11 @@ function breadcrumbsFor(path) {
      * trail follows the real navigation rather than the URL depth. */
     trail.push({ name: 'Insights', path: '/insights' });
     trail.push({ name: TOPIC_BY_PATH[path].navLabel, path });
+  } else if (path === '/defence-robotics') {
+    /* Sits under Applications in the navigation, so the trail follows the nav
+     * rather than the URL depth. */
+    trail.push({ name: 'Applications', path: '/applications' });
+    trail.push({ name: 'Defence & robotics', path });
   } else if (path === '/assembly') {
     trail.push({ name: 'Assembly', path });
   } else if (path === '/capabilities') {

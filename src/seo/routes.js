@@ -238,6 +238,17 @@ export const ROUTE_HEADS = {
     ogDescription:
       'One analytics tool, denied by default, no remarketing and no cross-site tracking. Change your choice at any time from this page.',
   },
+  /* A hub over four defence, aerospace and robotics families. Its head lives
+   * here rather than in data/topics.js because its members are family pages,
+   * not notes; the copy still sits with the page it describes. */
+  '/defence-robotics': {
+    title: 'Defence & Robotics PCBA — Standards, In Writing | TENMAY',
+    description:
+      'Flight controllers, rugged radios, thermal cores and robot joint boards. ISO 9001 held; AS9100, NADCAP special processes and ITAR registration are not, and each is named.',
+    ogTitle: 'Defence, Aerospace and Robotics PCBA',
+    ogDescription:
+      'What this floor holds, what it does not, and the four conditions that put a programme outside it — stated before the price.',
+  },
   '/capabilities': {
     title: 'PCBA Manufacturing Capabilities & Equipment | TENMAY',
     description:

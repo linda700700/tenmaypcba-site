@@ -12,6 +12,8 @@ import { imgAttrs } from '../lib/imageSize';
  * up, and a question on the page is never left out of the markup.
  */
 
+const DEFENCE_FAMILIES = ['uav', 'rugged-radio', 'thermal-imaging', 'humanoid'];
+
 function Section({ heading, paras }) {
   return (
     <section className="border-t border-brand-200/40 pt-8 first:border-0 first:pt-0">
@@ -250,6 +252,16 @@ export default function ApplicationFamilyPage({ slug }) {
             <a href="/capabilities" className="font-bold text-brand-700 hover:underline">
               Line capabilities and equipment
             </a>
+            {DEFENCE_FAMILIES.includes(family.slug) ? (
+              <>
+                <span className="text-slate-300">·</span>
+                {/* On these four, the standards question outranks the process
+                    question, so the index sits next to the capability link. */}
+                <a href="/defence-robotics" className="font-bold text-brand-700 hover:underline">
+                  Defence &amp; robotics: the standards question
+                </a>
+              </>
+            ) : null}
           </div>
         </div>
       </section>

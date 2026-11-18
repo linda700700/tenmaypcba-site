@@ -29,6 +29,7 @@ import ApplicationFamilyPage from './pages/ApplicationFamilyPage';
 import InsightsPage from './pages/InsightsPage';
 import ArticlePage from './pages/ArticlePage';
 import TopicPage from './pages/TopicPage';
+import DefenceRoboticsPage from './pages/DefenceRoboticsPage';
 import RfqPage from './pages/RfqPage';
 import PrivacyPage from './pages/PrivacyPage';
 import TermsPage from './pages/TermsPage';
@@ -88,6 +89,9 @@ export default function App({ path: pathProp }) {
   // Three curated hubs over the article set. Root-level paths, like the other
   // single-segment pages, so the static host serves them without a rewrite.
   const topic = TOPIC_BY_PATH[path] || null;
+  // The defence index is a hub over four family pages rather than over articles,
+  // so it has its own component instead of a TOPICS entry.
+  const isDefence = path === '/defence-robotics';
 
   // Anchor links from the mega menu land under the sticky header otherwise.
   useEffect(() => {
@@ -123,7 +127,9 @@ export default function App({ path: pathProp }) {
       <ScrollProgress />
       <Navbar currentPath={path} />
       <main className="flex-1">
-        {topic ? (
+        {isDefence ? (
+          <DefenceRoboticsPage />
+        ) : topic ? (
           <TopicPage topic={topic} />
         ) : article ? (
           <ArticlePage article={article} />

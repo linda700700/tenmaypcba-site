@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import {
   ArrowRight, ChevronRight, MessageCircle, Layers, Gauge, PackageCheck,
-  AlertTriangle, Quote, CheckCircle2,
+  AlertTriangle, Quote, CheckCircle2, ShieldCheck,
 } from 'lucide-react';
 import { SECTORS } from '../data/useCases';
 import { FAMILIES, FAMILY_COUNT } from '../data/applicationFamilies';
@@ -321,6 +321,25 @@ export default function ApplicationsPage({ initialHash = '' }) {
                     {s.blurb}
                   </p>
                 ))}
+                {/* Kept visible on every sector rather than only on the defence
+                    tab: the standards answer applies to the whole floor, and a
+                    link that exists only after hydration is a link a crawler
+                    never sees. */}
+                <a
+                  href="/defence-robotics.html"
+                  className="group mt-4 flex items-start gap-2.5 rounded-lg border border-brand-200 bg-brand-50/70 px-3.5 py-3 text-[13.5px] font-semibold leading-snug text-brand-900 transition-colors hover:border-brand-500"
+                >
+                  <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0 text-brand-700" />
+                  <span>
+                    Building for defence, aerospace or robotics? The standard question — ISO 9001
+                    held, AS9100 / NADCAP / ITAR not — answered once, with the four conditions that
+                    put a programme outside this floor.
+                    <span className="mt-1 flex items-center gap-1 text-[12.5px] font-bold text-brand-700">
+                      Defence &amp; robotics index
+                      <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" />
+                    </span>
+                  </span>
+                </a>
                 <div className="mt-5 flex items-center gap-2 border-t border-slate-100 pt-4 text-[13.5px] text-slate-600">
                   <Layers className="h-4 w-4 text-brand-600" />
                   Same floor, same inspection, every family
