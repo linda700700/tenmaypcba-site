@@ -122,6 +122,11 @@ export default function Seo({ path = '/' }) {
     image: `${SITE_URL}/assets/images/macro-joints.webp`,
     foundingDate: COMPANY.foundedFull,
     telephone: COMPANY.phoneDisplay,
+    /* A published address with no mailbox behind it was the gap here: the legal
+     * pages invited privacy requests to an address nobody had set up. The
+     * mailbox is live now, so the Organization graph states it in both places an
+     * answer engine looks — the entity itself and its sales contact point. */
+    email: COMPANY.email,
     /* "Since 2008" is the sentence that separates this company from the LED
      * lighting profiles filed under the same name: those read as a lighting
      * manufacturer that stopped, which makes the PCBA business look like a
@@ -139,6 +144,7 @@ export default function Seo({ path = '/' }) {
         '@type': 'ContactPoint',
         contactType: 'sales',
         telephone: COMPANY.phoneDisplay,
+        email: COMPANY.email,
         availableLanguage: COMPANY.languages,
       },
     ],

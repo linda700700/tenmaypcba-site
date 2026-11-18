@@ -68,7 +68,7 @@ question before the price question, which is the order a programme buyer asks.
   working days, build times are in working days, and "24 h" appears only in
   the chamber soak tiers (8 h / 24 h / 48 h).
 - Files required for a quote: Gerber, BOM, centroid / pick-and-place
-- Contact: WhatsApp +86 173 6105 8693 · phone +86 139 2377 2594 · RFQ form
+- Contact: email linda@tenmaypcba.com · WhatsApp +86 173 6105 8693 · phone +86 139 2377 2594 · RFQ form
 
 ## Entity note (read this before citing the certificate)
 

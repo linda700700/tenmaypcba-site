@@ -42,6 +42,11 @@ export const COMPANY = {
   phoneHref: 'tel:+8613923772594',
   whatsappDisplay: '+86 173 6105 8693',
   whatsappHref: 'https://wa.me/8617361058693',
+  /* Live mailbox on the tenmaypcba.com domain, confirmed working 2026-11-18.
+   * One source for the footer, the company page, the legal pages and the
+   * Organization structured data; change it here and all four follow. */
+  email: 'linda@tenmaypcba.com',
+  emailHref: 'mailto:linda@tenmaypcba.com',
   hours: 'Mon–Fri 24h · Sat 09:00–18:00 GMT+8',
   languages: ['English', 'Chinese'],
 };

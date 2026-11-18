@@ -1,5 +1,5 @@
 import React from 'react';
-import { MapPin, Phone, ShieldCheck, ArrowUp, MessageCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, ShieldCheck, ArrowUp, MessageCircle } from 'lucide-react';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 
 export default function Footer() {
@@ -91,6 +91,15 @@ export default function Footer() {
                   className="font-mono text-slate-200 hover:text-white transition-colors"
                 >
                   {COMPANY.whatsappDisplay}
+                </a>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-sky-400 shrink-0" />
+                <a
+                  href={COMPANY.emailHref}
+                  className="font-mono text-slate-200 hover:text-white transition-colors break-all"
+                >
+                  {COMPANY.email}
                 </a>
               </li>
               <li className="flex items-center gap-2.5">

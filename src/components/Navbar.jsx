@@ -257,6 +257,7 @@ const NAV = [
         title: 'Talk to an engineer',
         items: [
           { label: 'Request a quote', href: '/#rfq', kw: 'quote rfq upload gerber' },
+          { label: 'Email linda@tenmaypcba.com', href: 'mailto:linda@tenmaypcba.com', kw: 'email mail write send files' },
           { label: 'WhatsApp', href: 'wa', kw: 'whatsapp chat message chat contact' },
         ],
       },

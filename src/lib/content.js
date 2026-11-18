@@ -78,6 +78,8 @@ export async function loadContent() {
       'phoneHref',
       'whatsappDisplay',
       'whatsappHref',
+      'email',
+      'emailHref',
       'hours',
     ]);
 

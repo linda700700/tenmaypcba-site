@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, ClipboardCheck, Truck, MessageCircle } from 'lucide-react';
+import { FileText, ClipboardCheck, Truck, Mail, MessageCircle } from 'lucide-react';
 import RfqFunnel from '../components/RfqFunnel';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 
@@ -74,6 +74,13 @@ export default function RfqPage() {
             >
               <MessageCircle className="h-4 w-4" />
               Prefer WhatsApp? {COMPANY.whatsappDisplay}
+            </a>
+            <a
+              href={COMPANY.emailHref}
+              className="inline-flex items-center gap-2 font-semibold text-brand-700 hover:underline"
+            >
+              <Mail className="h-4 w-4" />
+              Or email the files to {COMPANY.email}
             </a>
             <span className="inline-flex items-center gap-2">
               <FileText className="h-4 w-4 text-brand-600" />

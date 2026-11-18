@@ -1,5 +1,5 @@
 import React from 'react';
-import { ChevronRight, ArrowRight, MessageCircle, FileCheck2, History, ShieldAlert } from 'lucide-react';
+import { ChevronRight, ArrowRight, Mail, MessageCircle, FileCheck2, History, ShieldAlert } from 'lucide-react';
 import { COMPANY, ISO_CERT, HISTORY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 
 /*
@@ -240,6 +240,13 @@ export default function CompanyPage() {
                 <MessageCircle className="h-4 w-4" />
                 Ask on WhatsApp
               </a>
+              <a
+                href={COMPANY.emailHref}
+                className="inline-flex items-center justify-center gap-2 rounded border border-white/35 px-5 py-3.5 font-mono text-[14.5px] font-semibold text-white transition-colors hover:border-white/70"
+              >
+                <Mail className="h-4 w-4" />
+                {COMPANY.email}
+              </a>
             </div>
           </div>
         </div>
@@ -390,6 +397,13 @@ export default function CompanyPage() {
               >
                 <MessageCircle className="h-4 w-4" />
                 Ask on WhatsApp
+              </a>
+              <a
+                href={COMPANY.emailHref}
+                className="inline-flex items-center justify-center gap-2 rounded border border-brand-300 px-5 py-3 font-mono text-[14px] font-semibold text-brand-800 transition-colors hover:border-brand-500"
+              >
+                <Mail className="h-4 w-4" />
+                {COMPANY.email}
               </a>
             </div>
           </div>

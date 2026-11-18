@@ -15,8 +15,11 @@ export const LEGAL = {
   version: '1.0',
 
   // Single contact point for privacy requests, data questions and legal notices.
-  // Change it here once and all three pages follow.
-  email: 'sales@tenmaypcba.com',
+  // Must be a mailbox that actually receives: a privacy request sent to an
+  // address nobody reads is a compliance defect, not a typo. If a dedicated
+  // sales@ is created later, change this one line and the footer follows from
+  // COMPANY.email separately.
+  email: 'linda@tenmaypcba.com',
 
   // Months of inactivity after which a quote request is deleted.
   retentionMonths: 24,
