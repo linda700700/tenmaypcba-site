@@ -321,20 +321,16 @@ export default function Navbar({ currentPath = '/' }) {
   const activeSection = NAV.find((s) => s.id === openMenu);
 
   return (
-    <header
-      ref={headerRef}
-      className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm transition-shadow duration-300 ${
-        scrolled ? 'shadow-[0_10px_30px_-18px_rgba(6,41,26,0.55)] border-b border-brand-200/55' : 'border-b border-transparent'
-      }`}
-      data-component="navbar"
-    >
-
-      {/* ── Row 1 · utility bar ─────────────────────────────────────────── */}
-      <div
-        className={`bg-brand-900 overflow-hidden transition-all duration-300 ${
-          scrolled ? 'max-h-0 opacity-0' : 'max-h-12 opacity-100'
-        }`}
-      >
+    <>
+      {/* ── Row 1 · utility bar — outside the sticky header on purpose ─────
+          Collapsing this bar inside the sticky header changed the document
+          height above the fold by 36px. Chrome's scroll anchoring then pulled
+          scrollY back under the threshold, the bar re-expanded, and the two
+          fought each other: measured drift of 70px across four scrolls, with
+          the header caught at 118/124/137/145/152/153px on the same two
+          positions. A bar that simply scrolls away costs no layout, so there
+          is nothing left to oscillate. */}
+      <div className="bg-brand-900" data-component="utility-bar">
         <div className="max-w-[1320px] mx-auto px-4 sm:px-6 lg:px-8 h-9 flex items-center justify-between text-[11.5px] text-slate-300">
           <div className="flex items-center gap-5">
             {UTILITY.map(({ icon: Icon, text }) => (
@@ -382,6 +378,14 @@ export default function Navbar({ currentPath = '/' }) {
           </div>
         </div>
       </div>
+
+      <header
+        ref={headerRef}
+        className={`sticky top-0 z-50 bg-white/95 backdrop-blur-sm transition-shadow duration-300 ${
+          scrolled ? 'shadow-[0_10px_30px_-18px_rgba(6,41,26,0.55)] border-b border-brand-200/55' : 'border-b border-transparent'
+        }`}
+        data-component="navbar"
+      >
 
       {/* ── Row 2 · brand + search + actions ───────────────────────────── */}
       <div className="border-b border-brand-200/50">
@@ -706,6 +710,7 @@ export default function Navbar({ currentPath = '/' }) {
           </div>
         </div>
       )}
-    </header>
+      </header>
+    </>
   );
 }
