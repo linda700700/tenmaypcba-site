@@ -58,6 +58,14 @@ const testTable = [
   ['Quality documentation', 'CoC + FAI report', 'Per-lot device history record', 'Retention period agreed per customer'],
 ];
 
+// Kept as three discrete tiers rather than "8 to 48 hours": a range invites the
+// buyer to assume the top of it, and invites us to quote whatever is convenient.
+const soakTiers = [
+  { hours: '8 h', note: 'One working shift. Quoted for pilot lots and second-source runs where the point is a first look at a new build.' },
+  { hours: '24 h', note: 'A full day and night at the quoted temperature. The tier most repeat orders are quoted at.' },
+  { hours: '48 h', note: 'Two full cycles, so a reflow-related intermittent has a second chance to show. Quoted when the order asks for it.' },
+];
+
 const sourcingTable = [
   ['Authorised channels', 'Franchised distributors and factory allocation', 'Second-source proposal in writing', 'No open-market brokers used'],
   ['Certificate of conformance', 'Retained for all active parts', 'Batch traceability to board serial', 'Available for customer audit'],
@@ -299,6 +307,22 @@ export default function CapabilitiesPage() {
                 Burn-in here means a chamber soak at a stated temperature and for a stated duration — not a run at
                 load, because there is no electronic load bank in this building. Efficiency, power-factor and
                 full-load figures therefore come from your own test house or lab, never from us.
+              </p>
+              {/* Three tiers, not a range: a soak nobody wrote down cannot be referenced
+                  when a field failure is argued about two years later. */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                {soakTiers.map((t) => (
+                  <div key={t.hours} className="border border-brand-200/50 rounded-sm p-4 bg-slate-50/60">
+                    <div className="font-mono text-[15px] font-bold text-[#126B3F]">{t.hours}</div>
+                    <p className="text-[12.5px] text-slate-600 mt-1.5 leading-relaxed">{t.note}</p>
+                  </div>
+                ))}
+              </div>
+              <p className="text-[13px] text-slate-500">
+                The tier and the temperature profile are two separate lines on the quotation, both copied onto the
+                process record. Ramp rate, dwell and board count are logged by the chamber, and the log is issued
+                with the lot. Nothing is soaked at a temperature or for a duration that is not on that record,
+                including a "usual" soak carried over from a previous order.
               </p>
             </div>
 
