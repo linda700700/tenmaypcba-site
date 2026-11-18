@@ -2,7 +2,7 @@ import React from 'react';
 import { imgAttrs } from '../lib/imageSize';
 import { ArrowLeft, ArrowRight, Clock } from 'lucide-react';
 import { Markdown } from '../lib/markdown.jsx';
-import { ARTICLES, formatDate } from '../lib/insights';
+import { ARTICLES, formatDate, bodyOf } from '../lib/insights';
 import { COMPANY, SITE_URL } from '../data/company';
 import { canonicalFor } from '../seo/routes';
 import { topicForArticle } from '../data/topics';
@@ -141,7 +141,7 @@ export default function ArticlePage({ article }) {
         ) : null}
 
         <div className="max-w-[720px]">
-          <Markdown source={article.body} />
+          <Markdown source={bodyOf(article)} />
         </div>
 
         <div className="mt-12 border-t border-slate-200 pt-8">

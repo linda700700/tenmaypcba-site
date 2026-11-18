@@ -4,12 +4,21 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { renderLlmsFull } from './tools/gen-llms-full.mjs';
+import { writeMeta } from './tools/insights-meta.mjs';
 import { dirname, join } from 'node:path';
 
 // Absolute origin used for og:image and canonical URLs in the prerendered HTML.
 const SITE_URL = 'https://tenmaypcba.com';
 
 const root = dirname(fileURLToPath(import.meta.url));
+
+/*
+ * Regenerated here rather than in a plugin hook: the client build imports this
+ * JSON through src/lib/insights.js, and the module graph is read before any
+ * closeBundle runs. Doing it while the config loads means the file on disk is
+ * always newer than the .md files it came from, on every build and in dev.
+ */
+writeMeta();
 
 function esc(value) {
   return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
