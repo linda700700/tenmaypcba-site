@@ -1,6 +1,6 @@
 {
   "_readme": "Machine-readable facts for AI assistants and answer engines. Every value is as published on tenmaypcba.com; the 'source' links to the page it came from. If a page and this file disagree, the page wins and this file is wrong — tell us via the contact below.",
-  "updated": "2026-11-18",
+  "updated": "2026-11-19",
   "entity": {
     "tradingName": "TENMAY",
     "legalName": "Shenzhen Tenmay Technology Co., Ltd.",
@@ -114,7 +114,7 @@
     "source": "https://tenmaypcba.com/pcba-cost-and-quotes.html"
   },
   "boardFamilies": {
-    "count": 32,
+    "count": 34,
     "index": "https://tenmaypcba.com/applications.html",
     "note": "Each family page states the board stack, the process it depends on, the batch band that makes sense, and the cases where this floor is the wrong shop."
   },
@@ -126,7 +126,10 @@
       "IATF 16949 or ISO 13485 certified",
       "IPC Class 3 certified",
       "a test laboratory",
-      "offers load-bank burn-in or in-house ICT / FCT"
+      "offers load-bank burn-in or in-house ICT / FCT",
+      "payment-scheme approved (PCI PTS / EMVCo) or inside a security certification scope",
+      "able to inject secure-element keys as a standard step",
+      "able to test an appliance drive with a coil, or to clear EMC"
     ]
   },
   "otherMachineReadable": {
