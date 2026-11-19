@@ -145,6 +145,14 @@ const SIZES = {
     1400,
     933
   ],
+  "/assets/images/case-induction-driver.webp": [
+    1400,
+    934
+  ],
+  "/assets/images/case-pos-terminal.webp": [
+    1400,
+    934
+  ],
   "/assets/images/conformal-coating.webp": [
     1400,
     933

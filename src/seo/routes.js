@@ -286,6 +286,22 @@ export const ROUTE_HEADS = {
     ogDescription:
       'Everything a buyer wants to know about a power module is measured on a load this floor does not have. What the assembly does control, and where the proof happens instead.',
   },
+  '/applications/pos-terminal': {
+    title: 'POS and Payment Terminal Board Assembly | TENMAY',
+    description:
+      'Payment terminal main boards with tamper mesh, secure element, printer and keypad boards. 500 to 5,000 pcs. No scheme approval, no key injection as standard, no card-reader testing.',
+    ogTitle: 'POS and Payment Terminal Board Assembly — TENMAY',
+    ogDescription:
+      'One trace that must never be nicked. Tamper mesh as an assembly feature, the parts that get abused, and the certification this floor does not hold.',
+  },
+  '/applications/induction-drive': {
+    title: 'Induction Cooker and Appliance Drive Board Assembly | TENMAY',
+    description:
+      'Resonant inverter boards with IGBT half-bridge, resonant capacitors and heavy copper, plus control and display boards. 1,000 to 10,000 pcs. No coil load, no EMC, no potting.',
+    ogTitle: 'Induction Cooker and Appliance Drive Board Assembly — TENMAY',
+    ogDescription:
+      'The resonant tank decides the cost and the failure. Tab flatness, thermal interface and creepage — and the three tests that need a pan, which this floor does not have.',
+  },
   '/applications/ip-camera': {
     title: 'IP Camera and Access Control Board Assembly | TENMAY',
     description:

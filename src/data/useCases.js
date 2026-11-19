@@ -137,6 +137,32 @@ export const SECTORS = [
         basis:
           'No market figure used. One platform ships as a dozen products, so the fit is the variant shape — provided each variant gets its own first article — while the image itself is proven by the brand, not here.',
       },
+      {
+        id: 'pos-terminal',
+        image: '/assets/images/case-pos-terminal.webp',
+        name: 'POS, Payment Terminals & Self-Service Boards',
+        keyword: 'POS terminal board PCBA assembly',
+        board:
+          'A dense main board with a secure element under a press-fit shield and a tamper-mesh loop routed around it, plus a keypad board with a bonded dome array, a printer driver board and a display board — two to four boards per terminal.',
+        fit: ['Tamper mesh as built', 'Press-fit shield', 'Keypad dome array', 'Fine pitch under X-ray'],
+        batch: '500 – 5,000',
+        heat: 'Certification boundary first',
+        basis:
+          'No market figure used. The band comes from the order shape: a terminal platform ships as a dozen variants and each needs its own first article, while the scheme approval and the key material stay with the brand.',
+      },
+      {
+        id: 'induction-drive',
+        image: '/assets/images/case-induction-driver.webp',
+        name: 'Induction Cooker & Appliance Inverter Drives',
+        keyword: 'induction cooker board PCBA assembly',
+        board:
+          'A resonant inverter board with an IGBT half-bridge on a heatsink, two resonant capacitors, heavy copper to the coil terminals and a small control and display board — one to three boards per appliance, with the same stack reused on heat pumps and cordless vacuum BLDC drives.',
+        fit: ['IGBT tab flatness', 'Thermal interface', 'Resonant caps', 'Heavy copper'],
+        batch: '1,000 – 10,000',
+        heat: 'BOM decides the price',
+        basis:
+          'No market figure used. The band comes from the order shape and from the BOM: the IGBT, the resonant capacitors and the heatsink decide the cost, and assembly content per board is small.',
+      },
     ],
   },
   {
@@ -530,6 +556,7 @@ export const PRIORITY = [
       'GNSS & Telemetry Modules',
       'Off-Highway & Agri Controllers',
       'DC Charging Power Modules',
+      'POS & Payment Terminals',
     ],
     why: 'Same board stacks and overlapping buyers, plus the newer power, imaging and robotics work. Worth a page each because they share keywords with tier A, but do not lead the homepage with them.',
   },
@@ -544,6 +571,7 @@ export const PRIORITY = [
       'LED Display & Receiver Cards',
       'Car Audio & Class-D Amps',
       'IP Camera & Access Control',
+      'Induction & Appliance Drives',
     ],
     why: 'High search interest, but volume buyers demand in-circuit test and judge on cents. Publish the page for search reach; expect few profitable RFQs.',
   },

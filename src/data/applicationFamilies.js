@@ -2373,6 +2373,170 @@ export const FAMILIES = {
       },
     ],
   },
+  'pos-terminal': {
+    slug: 'pos-terminal',
+    name: 'POS, Payment Terminals & Self-Service Boards',
+    cardName: 'POS & Payment Terminals',
+    keyword: 'POS terminal board PCBA assembly',
+    image: '/assets/images/case-pos-terminal.webp',
+    imageAlt:
+      'Payment terminal main board with secure element under a press-fit shield, tamper-mesh traces on the inner layers, a thermal printer connector and a keypad dome array, beside a detached card-reader slot',
+    h1: 'A payment terminal has one trace that must never be nicked, and nothing on this floor can prove it survived',
+    lede:
+      'Under the shield of a payment terminal there is a fine loop of copper that the secure element watches. Drill it, nick it, or let resin creep over it, and the terminal decides it has been opened and destroys its own keys. That loop is an assembly feature before it is a security feature — which is why this family is judged by what the floor cannot test, not by what it can place.',
+    facts: [
+      ['Boards per unit', '2 – 4 (main, keypad / reader, printer, display)'],
+      ['Typical batch', '500 – 5,000 pcs'],
+      ['Characteristic', 'Tamper mesh, secure element, dense fine pitch'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Start with the audit, because the buyer will',
+        paras: [
+          'Payment hardware carries a certification chain that belongs to the product and a set of scheme rules about who may build the security-relevant parts of it. Those rules are about the manufacturer of the secure module, not about the assembler of the board — but the conversation is easier to have at the start than in the middle. So: this floor holds ISO 9001 and nothing else in that chain. No PCI PTS approval, no EMVCo test report, no scheme audit, no secure facility.',
+          'That is not automatically disqualifying. Plenty of terminals are assembled by contract manufacturers outside the certification scope, with the security-relevant certification held by the brand or by the module vendor. But it does mean the boundary has to be written down before the first build, and it means a programme whose scheme approval depends on the assembler being inside that scope is the wrong programme for this shop. Saying so on page one is cheaper for both sides than discovering it at the audit.',
+          'What the floor does bring to this family is ordinary and checkable: in-line SPI before placement, AOI after reflow, X-ray on the fine-pitch and BGA joints, coating in-house, and a lot record that follows the lot. That is the evidence a payment buyer can actually use here.',
+        ],
+      },
+      {
+        heading: 'The tamper mesh is an assembly feature before it is a security feature',
+        paras: [
+          'The mesh is a continuous loop routed around the secure element, often on more than one layer, monitored by the element itself. Its continuity is not a design abstraction: every process decision that touches the board can break it or degrade it. Via fill and mask clearance where the mesh crosses a via field. The dam or resin that keeps conformal coating out from under a press-fit shield. Screw torque and board flatness where the housing presses down on the loop.',
+          'A hairline in a mesh trace under a shield is invisible to both tools that inspect this floor. AOI sees the top surface and the joints; X-ray sees solder. Neither of them sees a scratch left by a probe, a nick from depanelling, or resin that crept where it should not have. In the field that presents as a terminal that bricks itself — which reads to the customer as a security event, not a manufacturing defect.',
+          'So the design rules matter more on this family than on any other page here: keep mesh traces away from breakaway edges and from the test-pad layer, keep probes off the mesh, and specify the coating keep-out around the shield explicitly rather than leaving it to the applicator. Those are the brand’s decisions, and they are worth making early.',
+        ],
+      },
+      {
+        heading: 'The parts that get abused: printer, keypad, card slot',
+        paras: [
+          'The main board is the easy half. The rest of the terminal is a set of mechanical joints that are pulled, pressed and inserted thousands of times: a thermal printer connector on a flex, a dome array bonded to a keypad board, a card-slot head on its own small board, a display connector, a battery contact.',
+          'Those joints are soldered and then inspected as mechanical joints, because that is how they fail — a cracked fillet under a connector shell rather than a dry joint in the middle of a land. Through-hole and selective solder work is where a terminal programme spends its time, not on the SoC.',
+          'Fine pitch still applies, at the secure element and around it. That is where the 0.30 mm pitch floor and the X-ray call do their work, and where a first article is worth running before a batch rather than after one.',
+        ],
+      },
+      {
+        heading: 'Five hundred to five thousand, and one platform that ships as a dozen products',
+        paras: [
+          'Five hundred to five thousand pieces is the band, with fifty as the minimum. Below it, setup and NRE dominate; above it, the buyer is comparing against plants running one model continuously with in-circuit test at every step, and that is a different kind of supplier with a different cost structure.',
+          'A terminal platform is a variant family: the same main board with and without a printer, a keypad version and a touch version, contact and contactless readers, different regional radios. That is handled well here provided each variant gets its own first article instead of being patched on the line mid-batch.',
+          'The recurring engineering pressure in this family is the secure element and its firmware. Those parts go end-of-life on a shorter cycle than the terminal housing, and a replacement usually changes the mesh layout around it as well as the part itself — because a new package means new keep-outs. That is a redesign conversation worth starting before the stock runs out.',
+          'No market figure or shipment number is used on this page. The judgement is about the board and the order shape, not the size of the payments market.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a payment or self-service programme',
+      items: [
+        'Tamper-mesh continuity, tamper response and key destruction: the mesh is inspected as an assembly feature, but its behaviour is verified by you with the secure element in place.',
+        'Any payment-scheme approval or test: no PCI PTS approval, no EMVCo test report, no scheme audit, and no secure facility.',
+        'Secure-element provisioning and key injection are outside a standard build. Whether they happen on this floor or with the party that holds the key material is agreed in writing before the first build, never added mid-run.',
+        'Card-reader function: magstripe, contact and contactless reads are not exercised here, and there is no in-circuit or functional test of any kind.',
+        'Drop, ingress and EMC testing of the finished terminal, and any programme that expects the assembler to sit inside the security certification scope.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Do you inject keys into the secure element?',
+        a: 'Not as part of a standard build. Provisioning and key injection are settled per programme, in writing, before the first build — including which party performs them and who holds the key material. We do not add that step mid-run, and we do not claim it as a standard capability.',
+      },
+      {
+        q: 'Can you test the card reader or the tamper response?',
+        a: 'No. Magstripe, contact and contactless reads are proven by you, and there is no in-circuit or functional test here. The tamper mesh is handled as an assembly feature — via fill, mask clearance, coating keep-out, flatness under the shield — not verified as a working security loop.',
+      },
+      {
+        q: 'Is this shop inside the PCI or EMVCo certification scope?',
+        a: 'No. The floor holds ISO 9001 and nothing else in that chain. Many terminal brands keep the security certification with themselves or the module vendor and use contract assembly outside it; if your scheme approval depends on the assembler being inside the scope, this is the wrong shop and it is better to know now.',
+      },
+      {
+        q: 'What batch size fits a terminal programme?',
+        a: 'Five hundred to five thousand pieces, with fifty as the minimum. A platform shipping as a dozen variants is normal here, as long as each variant gets its own first article rather than being patched on the line.',
+      },
+    ],
+  },
+
+  'induction-drive': {
+    slug: 'induction-drive',
+    name: 'Induction Cooker & Appliance Inverter Drives',
+    cardName: 'Induction & Appliance Drives',
+    keyword: 'induction cooker board PCBA assembly',
+    image: '/assets/images/case-induction-driver.webp',
+    imageAlt:
+      'Induction cooker power board with an IGBT half-bridge on a heatsink, two resonant capacitors, heavy copper traces and coil terminals in a white plastic frame, beside a separate control and display board with a seven-segment readout',
+    h1: 'An induction board is judged at the pan, and the pan is the one thing this floor never connects',
+    lede:
+      'A resonant half-bridge into a coil is a simple circuit that behaves very differently depending on what is standing on it. Empty pan, full pan, pan slid half off the ring — the current through the same IGBTs differs by a multiple. Assembling the board is ordinary work. Deciding whether it survives those three states is not, and it does not happen here.',
+    facts: [
+      ['Boards per unit', '1 – 3 (resonant inverter, control / display, fan)'],
+      ['Typical batch', '1,000 – 10,000 pcs'],
+      ['Characteristic', 'IGBT half-bridge, resonant caps, heavy copper'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'The resonant tank is where the money and the failure both are',
+        paras: [
+          'When an induction board is quoted, the negotiation is almost never about placement points. It is about which IGBT and which resonant capacitors are on the BOM, because those two part families decide both the cost of the board and the shape of its failure. A cheaper IGBT with a narrower safe operating area turns a pan-slid-off event into a blown device.',
+          'Assembly decisions land directly on that: how flat the tab sits on the heatsink, whether the thermal interface is applied to a specified thickness or by eye, whether the device is held by a spring clip or a screw and at what torque, and whether the solder under the tab is voided. A voided tab joint raises the junction temperature for the same electrical work, and the margin the buyer paid for in the IGBT is spent on the joint instead.',
+          'Creepage between the half-bridge and the coil terminals is the other assembly-controlled property. It is set by layout, by coating, and by how much solder and flux residue is left around the terminals — which is a process question, not a design one.',
+        ],
+      },
+      {
+        heading: 'Coating is not potting, and a kitchen is a wet room',
+        paras: [
+          'Conformal coating is done in-house and applied after inspection to a documented masking drawing. On this family that matters, because a hob lives in steam, in condensation cycles, and in the occasional overflow, and a coated board is meaningfully more robust than a bare one.',
+          'It is not, however, encapsulation. Potting and full encapsulation are not done on this floor. If a design needs the board sealed against condensation rather than coated against it, that step belongs with the mechanical and enclosure side of the product, and it should be planned there rather than assumed here.',
+          'The practical consequence is about the terminals and the coil interface more than the SMT side: those are the places where moisture reaches a surface that coating cannot cover.',
+        ],
+      },
+      {
+        heading: 'What cannot be proven without a coil on the bench',
+        paras: [
+          'There is no resonant load here. No coil plate, no pan, no way to run the half-bridge into a real tank. Which means output power, efficiency, temperature rise under load, and the commutation boundary where the devices let go are all unmeasured on this floor — those are the numbers the buyer actually sells on, and they get established on the brand’s own bench.',
+          'EMC is the hard gate for appliance drives and it is not done here: no pre-compliance scan, no conducted or radiated measurement. A board that assembles perfectly and fails the scan is a real and common outcome in this family, and pretending otherwise would be the least useful thing this page could do.',
+          'Safety certification is the same boundary as everywhere on this site. CCC, CE, UL and the rest are granted to the appliance, not to the board inside it, and no part of that approval happens here. The glass panel, the coil plate, the fan shroud and the thermal design of the housing are outside this page entirely.',
+        ],
+      },
+      {
+        heading: 'One thousand to ten thousand, and a price fight',
+        paras: [
+          'One thousand to ten thousand pieces is the band, with fifty as the minimum. Below a thousand, setup and NRE dominate and the buyer is better served by a smaller shop; above ten thousand, the comparison is against plants running one model continuously with in-circuit test at every station, and the argument becomes cents per board rather than capability.',
+          'This is a price-driven family and it is worth being straight about that. The BOM is dominated by the IGBT, the resonant capacitors and the heatsink, none of which assembly can improve, and the labour content per board is small. The buyer who does well here is the one whose design is already settled and who needs a floor to build it consistently — not one still tuning the tank.',
+          'Volume brings one genuine advantage: a stable, repeated build is where the process controls that this family depends on actually get reliable. Tab flatness and thermal interface application are done by the same hands on the same fixture, and that consistency is worth more on a ten-thousand-piece run than on a hundred-piece one.',
+          'No market figure or shipment number is used on this page. The judgement is about the board stack and the order shape, not the size of the appliance market.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for an appliance drive programme',
+      items: [
+        'No resonant load and no coil plate, so output power, efficiency, temperature rise under load and the commutation boundary are all unmeasured here.',
+        'No EMC pre-compliance or compliance testing — the hard gate for this family, and not something this floor can clear for you.',
+        'No safety certification of any kind: CCC, CE and UL are granted to the appliance, not to the board.',
+        'Potting and full encapsulation are not done here; conformal coating is the only protection applied on this floor.',
+        'No glass panel, coil plate, fan shroud or enclosure work, and no programme that expects the assembler to prove the tank.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you test the board with a coil or a pan?',
+        a: 'No. There is no resonant load here, so output power, efficiency, temperature rise and the point where the IGBTs let go are established on your bench, not on ours. What leaves this floor is a verified assembly with its lot record.',
+      },
+      {
+        q: 'Do you do EMC testing?',
+        a: 'No. There is no conducted or radiated measurement here, not even pre-compliance. EMC is the gate that decides whether an appliance drive ships, so it needs a laboratory, and that is a separate supplier from the assembler.',
+      },
+      {
+        q: 'Is the board potted or only coated?',
+        a: 'Coated only. Conformal coating is applied in-house after inspection to a documented masking drawing. Potting and full encapsulation are not done here, so a design that needs sealing against condensation rather than coating needs that step on the enclosure side.',
+      },
+      {
+        q: 'What batch size fits?',
+        a: 'One thousand to ten thousand pieces, with fifty as the minimum. Below that, setup and NRE dominate; above it, you are comparing against plants with in-circuit test at every station, and the argument turns into cents.',
+      },
+    ],
+  },
+
 };
 
 export const FAMILY_SLUGS = Object.keys(FAMILIES);
@@ -2394,12 +2558,23 @@ export function familyBySlug(slug) {
  * quantity. The remaining families stay reachable from the chip row beneath.
  */
 export const RELATED = {
+  'pos-terminal': [
+    ['rugged-radio', 'The other family where a shield can and coating decide whether the product survives its owner.'],
+    ['ip-camera', 'The access-control reader board on that page is the same kind of small through-hole board as a keypad.'],
+    ['hmi', 'The display and keypad half of a terminal, at industrial rather than payment tolerances.'],
+  ],
+  'induction-drive': [
+    ['led-driver', 'The nearest mains-conversion neighbour, and a warning about what a cent-per-board argument does to a page like this.'],
+    ['power-tool', 'A bridge driving a motor instead of a coil, at the same consumer volumes.'],
+    ['vfd', 'The same IGBT half-bridge when the buyer will pay for headroom and a service life measured in years.'],
+  ],
   vfd: [
     ['off-highway', 'The same coated power stage on a machine that is driven rather than installed.'],
 
     ['servo', 'The same three-board stack, smaller frame and tighter gate-drive timing.'],
     ['hmi', 'The display and keypad board that usually ships in the same cabinet as a drive.'],
     ['evse', 'Another heavy-copper, through-hole power stage, but mains-facing and coated.'],
+    ['induction-drive', 'A half-bridge driving a coil instead of a motor, where the load is a pan and the margin is thinner.'],
   ],
   'jump-starter': [
     ['power-station', 'Same lithium pack and boost stage, in a bigger case with an AC output.'],
@@ -2438,6 +2613,7 @@ export const RELATED = {
     ['vfd', 'The drive this panel controls, including the keypad board inside it.'],
     ['servo', 'The other drive family a panel is usually sold alongside.'],
     ['dashcam', 'Display, camera and connector assembly at a much higher volume.'],
+    ['pos-terminal', 'The terminal version of an operator panel, where the keypad has a security loop under it.'],
   ],
   'led-driver': [
     ['led-display', 'The other LED board on this site, where the joint rather than the isolation decides.'],
@@ -2445,6 +2621,7 @@ export const RELATED = {
     ['evse', 'Mains-facing conversion with a real safety case instead of a cost target.'],
     ['power-station', 'The same AC-DC problem where the buyer will open the case.'],
     ['jump-starter', 'High-volume consumer assembly with a battery on the same board.'],
+    ['induction-drive', 'Mains conversion at volume again, but the failure mode is the resonant tank rather than the electrolytic.'],
   ],
   dashcam: [
     ['ip-camera', 'More of the same image chain, one enclosure further out.'],
@@ -2475,6 +2652,7 @@ export const RELATED = {
     ['uav', 'The other deployable family here, where the sensor is the fragile part rather than the coat.'],
     ['thermal-imaging', 'Optics and a coated board in one assembly, with the same keep-out discipline.'],
     ['hmi', 'The non-rugged industrial version: same isolation thinking, indoor environment.'],
+    ['pos-terminal', 'A terminal is a rugged handheld with a security loop in it: same shields, same coating, different reason.'],
   ],
   'thermal-imaging': [
     ['rugged-radio', 'The coating-and-shielding sibling, at a different frequency.'],
@@ -2509,6 +2687,7 @@ export const RELATED = {
     ['ebike', 'The same MOSFET bridge and sealed housing, on a vehicle rather than in a hand.'],
     ['treadmill', 'A larger version of the same through-hole power stage, at a much smaller batch.'],
     ['evse', 'Mains-facing switching where the isolation requirement replaces the battery one.'],
+    ['induction-drive', 'Another bridge into a load, in a product that gets switched on and off all day.'],
   ],
   'amr-agv': [
     ['humanoid', 'The joint-level version of the same argument, with more identical boards per unit.'],
@@ -2569,5 +2748,6 @@ export const RELATED = {
     ['dashcam', 'The same image-sensor carrier and SoC problem, in a smaller housing.'],
     ['robot-vacuum', 'Dense consumer boards where the sensor stack decides which assembler can quote.'],
     ['rugged-radio', 'Small dense boards behind a connector set, judged in the field.'],
+    ['pos-terminal', 'The reader board on this page leads to the terminal it is wired into, where the mesh takes over.'],
   ],
 };

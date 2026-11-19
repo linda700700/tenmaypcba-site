@@ -192,7 +192,7 @@ load-bank burn-in, as an approved test laboratory, or as issuing an AS9102 repor
 - [Home](https://tenmaypcba.com/): what the floor does, the three order models, quality stations, FAQ and the RFQ form.
 - [Assembly services](https://tenmaypcba.com/assembly.html): the three process routes — surface mount, through-hole and mechanical, inspection and finishing — step by step, with what the buyer supplies and receives.
 - [Capabilities](https://tenmaypcba.com/capabilities.html): placement, inspection, coating and bare-board limits as they run today, including the operations not held in-house.
-- [Applications](https://tenmaypcba.com/applications.html): thirty-two board families across industrial, power, mobility, consumer, the defence / imaging / robotics group and a medical / telecom / test group, each with the board stack, the process it leans on, the batch size that makes sense, and a basis line saying whether that judgement rests on shipped jobs or on the process window alone.
+- [Applications](https://tenmaypcba.com/applications.html): thirty-four board families across industrial, power, mobility, consumer, the defence / imaging / robotics group and a medical / telecom / test group, each with the board stack, the process it leans on, the batch size that makes sense, and a basis line saying whether that judgement rests on shipped jobs or on the process window alone.
 - [Insights](https://tenmaypcba.com/insights.html): process notes written for engineers and buyers.
 - [Request a quote](https://tenmaypcba.com/rfq.html): the form that takes Gerber, BOM and centroid to an assembly engineer.
 
@@ -230,10 +230,12 @@ load-bank burn-in, as an approved test laboratory, or as issuing an AS9102 repor
 - [Car audio, DSP and Class-D amplifier boards](https://tenmaypcba.com/applications/car-audio.html): boost converter and switching bridge on one board with heavy copper, bus bars, snap-in electrolytics and clamped power devices. 500–5,000 pcs. No audio measurement, no thermal verification under load, no EMC testing and no potting.
 - [DC charging power modules](https://tenmaypcba.com/applications/dc-charger.html): PFC, isolated DC-DC and control boards for 20–40 kW modules, with laminated bus bars, power devices on a cold plate and a stack of magnetics. 100–1,000 modules. No load bank, so efficiency, harmonics and thermal behaviour are NOT measured here; no hipot or dielectric-strength test; cold plate is not leak-tested; no EMC and no certification.
 - [IP cameras, NVR and access-control boards](https://tenmaypcba.com/applications/ip-camera.html): camera main boards with a BGA SoC, PoE magnetics, RJ45 and sensor connectors, plus access-control reader boards with relays and antenna coils. 500–5,000 pcs. No image tuning or lens alignment, no in-circuit or functional test, no ONVIF conformance work, no IP or IK testing and no EMC testing.
+- [POS, payment terminal and self-service boards](https://tenmaypcba.com/applications/pos-terminal.html): a main board with a secure element under a press-fit shield and a tamper-mesh loop routed around it, plus keypad, printer and display boards. 500–5,000 pcs. The tamper mesh is handled as an assembly feature and its behaviour is not verified here; no PCI PTS, EMVCo or scheme audit; secure-element key injection is outside a standard build and is agreed per programme in writing; no card-reader testing and no functional test.
+- [Induction cooker and appliance inverter drives](https://tenmaypcba.com/applications/induction-drive.html): resonant inverter boards with an IGBT half-bridge on a heatsink, resonant film capacitors and heavy copper to the coil terminals, plus control and display boards. 1,000–10,000 pcs. There is no coil or pan here, so output power, efficiency, temperature rise and the commutation boundary are unmeasured; no EMC of any kind; no safety certification; potting and encapsulation are NOT done — conformal coating only.
 
 ## Decision guides by board family
 
-One article for each of the twelve families that has one so far, written for the buyer who has to choose a supplier rather than a process setting. The other twenty families are covered on their own pages.
+One article for each of the twelve families that has one so far, written for the buyer who has to choose a supplier rather than a process setting. The other twenty-two families are covered on their own pages.
 
 - [Quote the three VFD boards, or the whole set?](https://tenmaypcba.com/insights/vfd-three-boards-one-quote.html): why the set is the real unit, what the through-hole content does to price, and why first order and reorder are priced differently.
 - [One assembler for a jump starter's two boards?](https://tenmaypcba.com/insights/jump-starter-safety-liability.html): allocating risk on a product that connects a lithium pack to a vehicle, and who certifies what.
@@ -288,7 +290,8 @@ joint boards, rugged handhelds, smart glasses, AI server power shelves, BESS
 control boards, power tool controllers, AMR and AGV drives, medical and diagnostic
 boards, telecom and edge equipment, instruments, industrial sensors, wearables,
 GNSS modules, LED display receiver cards, off-highway controllers, car audio
-amplifiers, DC charging power modules and IP camera boards. Poor fits are
+amplifiers, DC charging power modules, IP camera boards, induction cooker and
+appliance drives, and payment terminal boards. Poor fits are
 programmes needing automotive or medical certification, boards that require
 in-house in-circuit or functional test, and builds where the mechanical assembly
 rather than the board carries the risk.

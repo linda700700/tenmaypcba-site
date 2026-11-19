@@ -107,6 +107,8 @@ const NAV = [
           { label: 'Wearables & hearables', href: '/applications.html#wearables', kw: 'wearable watch earbud rigid flex 01005 sensor' },
           { label: 'LED display & receiver cards', href: '/applications.html#led-display', kw: 'led display receiver card sending card hub75 ribbon header cabinet' },
           { label: 'IP camera & access control', href: '/applications.html#ip-camera', kw: 'ip camera nvr poe access control reader rfid board' },
+          { label: 'POS & payment terminals', href: '/applications.html#pos-terminal', kw: 'pos payment terminal secure element tamper mesh keypad printer card reader board' },
+          { label: 'Induction & appliance drives', href: '/applications.html#induction-drive', kw: 'induction cooker inverter igbt resonant capacitor appliance bldc drive board' },
         ],
       },
       {

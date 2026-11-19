@@ -124,6 +124,16 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-induction-driver.webp": [
+    [
+      "/assets/images/case-induction-driver-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-induction-driver-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-instruments.webp": [
     [
       "/assets/images/case-instruments-700w.webp",
@@ -201,6 +211,16 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/case-parking-sensor-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-pos-terminal.webp": [
+    [
+      "/assets/images/case-pos-terminal-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-pos-terminal-900w.webp",
       900
     ]
   ],
