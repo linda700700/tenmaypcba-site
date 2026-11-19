@@ -75,7 +75,8 @@ export default function CoreServices() {
               href={s.href}
               className="group flex h-full flex-col overflow-hidden rounded-xl border border-brand-200/50 bg-white transition-all hover:-translate-y-0.5 hover:border-brand-300 hover:shadow-[0_20px_44px_-30px_rgba(10,61,38,0.5)]"
             >
-              <div className="h-[136px] overflow-hidden bg-slate-100">
+              {/* 136 px on a 280 px card left 27 % of the photo outside the frame. */}
+              <div className="aspect-[16/10] overflow-hidden bg-slate-100">
                 <img
                   src={s.image}
                   {...imgAttrs(s.image)}

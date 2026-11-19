@@ -396,7 +396,9 @@ export default function CapabilitiesPage() {
                             {...imgAttrs(img)}
                             alt={title}
                             loading="lazy"
-                            className="w-full h-[110px] object-cover rounded-sm border border-brand-200/50 bg-slate-100"
+                            /* One column below sm: a fixed 110 px on a 298 px card kept 56 % of
+                               the photo. Ratio on phone, fixed strip from sm up. */
+                            className="w-full aspect-[16/10] h-auto object-cover rounded-sm border border-brand-200/50 bg-slate-100 sm:aspect-auto sm:h-[110px]"
                           />
                         )}
                       </div>

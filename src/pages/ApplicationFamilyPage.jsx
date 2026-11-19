@@ -261,7 +261,9 @@ export default function ApplicationFamilyPage({ slug }) {
                 href={`/applications/${s.slug}.html`}
                 className="group flex flex-col rounded-xl border border-brand-200/60 bg-white p-4 transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
               >
-                <span className="h-28 w-full overflow-hidden rounded bg-slate-100">
+                {/* A fixed 112 px on a 347 px card showed 48 % of a 3:2 photograph.
+                      Ratio instead, so the tile shows the subject at any card width. */}
+                <span className="aspect-[16/10] w-full overflow-hidden rounded bg-slate-100">
                   <img
                     src={s.image}
                     {...imgAttrs(s.image, '(max-width: 1024px) 100vw, 360px')}

@@ -434,7 +434,8 @@ export default function DefenceRoboticsPage() {
                       href={`/applications/${f.slug}.html`}
                       className="group flex flex-col overflow-hidden rounded-xl border border-brand-200/60 bg-white transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
                     >
-                      <span className="block h-32 w-full overflow-hidden bg-slate-100">
+                      {/* Same fix as the related-family tiles: 128 px on a 375 px card was 51 %. */}
+                      <span className="block aspect-[16/10] w-full overflow-hidden bg-slate-100">
                         <img
                           src={f.image}
                           {...imgAttrs(f.image, '(max-width: 640px) 100vw, 360px')}
