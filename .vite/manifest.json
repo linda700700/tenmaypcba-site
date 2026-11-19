@@ -1,0 +1,588 @@
+{
+  "_LegalShell-BbI0xY7X.js": {
+    "file": "assets/LegalShell-BbI0xY7X.js",
+    "name": "LegalShell",
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "_applicationFamilies-BhvqvaY3.js": {
+    "file": "assets/applicationFamilies-BhvqvaY3.js",
+    "name": "applicationFamilies"
+  },
+  "_icons-DQw3Jp1J.js": {
+    "file": "assets/icons-DQw3Jp1J.js",
+    "name": "icons",
+    "imports": [
+      "_react-BFDfz19Z.js"
+    ]
+  },
+  "_react-BFDfz19Z.js": {
+    "file": "assets/react-BFDfz19Z.js",
+    "name": "react"
+  },
+  "index.html": {
+    "file": "assets/index-DEX_SavK.js",
+    "name": "index",
+    "src": "index.html",
+    "isEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "_icons-DQw3Jp1J.js"
+    ],
+    "dynamicImports": [
+      "src/content/insights/01005-placement-what-limits-yield.md?raw",
+      "src/content/insights/01005-vs-0201.md?raw",
+      "src/content/insights/1u-rectifier-thermal-joint.md?raw",
+      "src/content/insights/amr-connector-is-the-failure-point.md?raw",
+      "src/content/insights/bom-substitution-checklist.md?raw",
+      "src/content/insights/car-amplifier-voids-not-watts.md?raw",
+      "src/content/insights/consigned-vs-turnkey-pcba.md?raw",
+      "src/content/insights/dashcam-optics-not-an-assembly-step.md?raw",
+      "src/content/insights/dc-charger-built-vs-bought.md?raw",
+      "src/content/insights/dfm-review-before-the-stencil.md?raw",
+      "src/content/insights/ebike-controller-display-split-sourcing.md?raw",
+      "src/content/insights/evse-audit-record-set.md?raw",
+      "src/content/insights/fifty-piece-pcba-order.md?raw",
+      "src/content/insights/fifty-piece-run-cost.md?raw",
+      "src/content/insights/flight-controller-imu-calibration-boundary.md?raw",
+      "src/content/insights/four-clocks-in-a-pcba-lead-time.md?raw",
+      "src/content/insights/gnss-rf-section-keep-out.md?raw",
+      "src/content/insights/hmi-module-or-bare-board.md?raw",
+      "src/content/insights/home-battery-microamp-standby.md?raw",
+      "src/content/insights/in-circuit-test-outsourcing.md?raw",
+      "src/content/insights/induction-tank-never-connected.md?raw",
+      "src/content/insights/instrument-front-end-noise-floor.md?raw",
+      "src/content/insights/ip-camera-proof-is-an-image.md?raw",
+      "src/content/insights/jump-starter-safety-liability.md?raw",
+      "src/content/insights/led-driver-quote-reality-check.md?raw",
+      "src/content/insights/led-receiver-card-ribbon-headers.md?raw",
+      "src/content/insights/medical-board-ordinary-record-is-not.md?raw",
+      "src/content/insights/no-iatf-16949.md?raw",
+      "src/content/insights/off-highway-coating-in-a-casting.md?raw",
+      "src/content/insights/parking-sensor-potting-before-test.md?raw",
+      "src/content/insights/payment-terminal-tamper-mesh.md?raw",
+      "src/content/insights/pcba-cost-per-board.md?raw",
+      "src/content/insights/pcba-quote-what-it-should-contain.md?raw",
+      "src/content/insights/pcba-since-2008.md?raw",
+      "src/content/insights/pcba-supplier-audit-checklist.md?raw",
+      "src/content/insights/power-station-three-board-supplier.md?raw",
+      "src/content/insights/power-tool-motor-tabs-soldered.md?raw",
+      "src/content/insights/rack-bms-high-voltage-build-risk.md?raw",
+      "src/content/insights/robot-joint-many-identical-boards.md?raw",
+      "src/content/insights/robot-vacuum-ict-decision.md?raw",
+      "src/content/insights/rugged-radio-coating-is-the-product.md?raw",
+      "src/content/insights/servo-drive-shared-stack-with-vfd.md?raw",
+      "src/content/insights/shenzhen-pcba-factory-guide.md?raw",
+      "src/content/insights/smart-glasses-hinge-yield.md?raw",
+      "src/content/insights/telecom-impedance-and-shield-cans.md?raw",
+      "src/content/insights/thermal-core-cleaning-and-masking.md?raw",
+      "src/content/insights/transmitter-board-seal-not-opamp.md?raw",
+      "src/content/insights/treadmill-large-board-mechanics.md?raw",
+      "src/content/insights/vfd-three-boards-one-quote.md?raw",
+      "src/content/insights/virtual-factory-audit.md?raw",
+      "src/content/insights/wearable-no-room-for-a-second-attempt.md?raw",
+      "src/content/insights/what-aoi-xray-cannot-catch.md?raw",
+      "src/content/insights/what-is-hmlv-pcba.md?raw",
+      "src/content/insights/what-is-pcba.md?raw",
+      "src/content/insights/why-the-second-run-costs-less.md?raw",
+      "src/pages/ArticlePage.jsx",
+      "src/pages/ApplicationFamilyPage.jsx",
+      "src/pages/ApplicationsPage.jsx",
+      "src/pages/AssemblyPage.jsx",
+      "src/pages/CapabilitiesPage.jsx",
+      "src/pages/CompanyPage.jsx",
+      "src/pages/CookiePage.jsx",
+      "src/pages/DefenceRoboticsPage.jsx",
+      "src/pages/InsightsPage.jsx",
+      "src/pages/PrivacyPage.jsx",
+      "src/pages/RfqPage.jsx",
+      "src/pages/TermsPage.jsx",
+      "src/pages/TopicPage.jsx"
+    ],
+    "css": [
+      "assets/index-BRKYzfa3.css"
+    ]
+  },
+  "src/content/insights/01005-placement-what-limits-yield.md?raw": {
+    "file": "assets/01005-placement-what-limits-yield-BQKq0nFv.js",
+    "name": "01005-placement-what-limits-yield",
+    "src": "src/content/insights/01005-placement-what-limits-yield.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/01005-vs-0201.md?raw": {
+    "file": "assets/01005-vs-0201-DCiTKH5c.js",
+    "name": "01005-vs-0201",
+    "src": "src/content/insights/01005-vs-0201.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/1u-rectifier-thermal-joint.md?raw": {
+    "file": "assets/1u-rectifier-thermal-joint-CVUSNbxP.js",
+    "name": "1u-rectifier-thermal-joint",
+    "src": "src/content/insights/1u-rectifier-thermal-joint.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/amr-connector-is-the-failure-point.md?raw": {
+    "file": "assets/amr-connector-is-the-failure-point-BNbCRLJj.js",
+    "name": "amr-connector-is-the-failure-point",
+    "src": "src/content/insights/amr-connector-is-the-failure-point.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/bom-substitution-checklist.md?raw": {
+    "file": "assets/bom-substitution-checklist-D7ECFY8y.js",
+    "name": "bom-substitution-checklist",
+    "src": "src/content/insights/bom-substitution-checklist.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/car-amplifier-voids-not-watts.md?raw": {
+    "file": "assets/car-amplifier-voids-not-watts-DSUgsZDr.js",
+    "name": "car-amplifier-voids-not-watts",
+    "src": "src/content/insights/car-amplifier-voids-not-watts.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/consigned-vs-turnkey-pcba.md?raw": {
+    "file": "assets/consigned-vs-turnkey-pcba-4f1f2peu.js",
+    "name": "consigned-vs-turnkey-pcba",
+    "src": "src/content/insights/consigned-vs-turnkey-pcba.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/dashcam-optics-not-an-assembly-step.md?raw": {
+    "file": "assets/dashcam-optics-not-an-assembly-step-CLR1mcNd.js",
+    "name": "dashcam-optics-not-an-assembly-step",
+    "src": "src/content/insights/dashcam-optics-not-an-assembly-step.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/dc-charger-built-vs-bought.md?raw": {
+    "file": "assets/dc-charger-built-vs-bought-C3i6qGB2.js",
+    "name": "dc-charger-built-vs-bought",
+    "src": "src/content/insights/dc-charger-built-vs-bought.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/dfm-review-before-the-stencil.md?raw": {
+    "file": "assets/dfm-review-before-the-stencil-CXp5xqn6.js",
+    "name": "dfm-review-before-the-stencil",
+    "src": "src/content/insights/dfm-review-before-the-stencil.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/ebike-controller-display-split-sourcing.md?raw": {
+    "file": "assets/ebike-controller-display-split-sourcing-CfvJ1gCD.js",
+    "name": "ebike-controller-display-split-sourcing",
+    "src": "src/content/insights/ebike-controller-display-split-sourcing.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/evse-audit-record-set.md?raw": {
+    "file": "assets/evse-audit-record-set-D9j1moGz.js",
+    "name": "evse-audit-record-set",
+    "src": "src/content/insights/evse-audit-record-set.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/fifty-piece-pcba-order.md?raw": {
+    "file": "assets/fifty-piece-pcba-order-B3dclbJU.js",
+    "name": "fifty-piece-pcba-order",
+    "src": "src/content/insights/fifty-piece-pcba-order.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/fifty-piece-run-cost.md?raw": {
+    "file": "assets/fifty-piece-run-cost-BSga9K95.js",
+    "name": "fifty-piece-run-cost",
+    "src": "src/content/insights/fifty-piece-run-cost.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/flight-controller-imu-calibration-boundary.md?raw": {
+    "file": "assets/flight-controller-imu-calibration-boundary-CG9wKAKj.js",
+    "name": "flight-controller-imu-calibration-boundary",
+    "src": "src/content/insights/flight-controller-imu-calibration-boundary.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/four-clocks-in-a-pcba-lead-time.md?raw": {
+    "file": "assets/four-clocks-in-a-pcba-lead-time-Dkv1E-uT.js",
+    "name": "four-clocks-in-a-pcba-lead-time",
+    "src": "src/content/insights/four-clocks-in-a-pcba-lead-time.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/gnss-rf-section-keep-out.md?raw": {
+    "file": "assets/gnss-rf-section-keep-out-DABHcmbX.js",
+    "name": "gnss-rf-section-keep-out",
+    "src": "src/content/insights/gnss-rf-section-keep-out.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/hmi-module-or-bare-board.md?raw": {
+    "file": "assets/hmi-module-or-bare-board-Bmip_ABb.js",
+    "name": "hmi-module-or-bare-board",
+    "src": "src/content/insights/hmi-module-or-bare-board.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/home-battery-microamp-standby.md?raw": {
+    "file": "assets/home-battery-microamp-standby-C-DxrMzA.js",
+    "name": "home-battery-microamp-standby",
+    "src": "src/content/insights/home-battery-microamp-standby.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/in-circuit-test-outsourcing.md?raw": {
+    "file": "assets/in-circuit-test-outsourcing-BdyjPROl.js",
+    "name": "in-circuit-test-outsourcing",
+    "src": "src/content/insights/in-circuit-test-outsourcing.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/induction-tank-never-connected.md?raw": {
+    "file": "assets/induction-tank-never-connected-CX-wjJd4.js",
+    "name": "induction-tank-never-connected",
+    "src": "src/content/insights/induction-tank-never-connected.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/instrument-front-end-noise-floor.md?raw": {
+    "file": "assets/instrument-front-end-noise-floor-B-Oy-ejZ.js",
+    "name": "instrument-front-end-noise-floor",
+    "src": "src/content/insights/instrument-front-end-noise-floor.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/ip-camera-proof-is-an-image.md?raw": {
+    "file": "assets/ip-camera-proof-is-an-image-CGSrNW5c.js",
+    "name": "ip-camera-proof-is-an-image",
+    "src": "src/content/insights/ip-camera-proof-is-an-image.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/jump-starter-safety-liability.md?raw": {
+    "file": "assets/jump-starter-safety-liability-DWBQE__j.js",
+    "name": "jump-starter-safety-liability",
+    "src": "src/content/insights/jump-starter-safety-liability.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/led-driver-quote-reality-check.md?raw": {
+    "file": "assets/led-driver-quote-reality-check-Q-0-U_yR.js",
+    "name": "led-driver-quote-reality-check",
+    "src": "src/content/insights/led-driver-quote-reality-check.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/led-receiver-card-ribbon-headers.md?raw": {
+    "file": "assets/led-receiver-card-ribbon-headers-Du03MVzX.js",
+    "name": "led-receiver-card-ribbon-headers",
+    "src": "src/content/insights/led-receiver-card-ribbon-headers.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/medical-board-ordinary-record-is-not.md?raw": {
+    "file": "assets/medical-board-ordinary-record-is-not-DqEmcCiD.js",
+    "name": "medical-board-ordinary-record-is-not",
+    "src": "src/content/insights/medical-board-ordinary-record-is-not.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/no-iatf-16949.md?raw": {
+    "file": "assets/no-iatf-16949-bq97314T.js",
+    "name": "no-iatf-16949",
+    "src": "src/content/insights/no-iatf-16949.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/off-highway-coating-in-a-casting.md?raw": {
+    "file": "assets/off-highway-coating-in-a-casting-D9v4_7Al.js",
+    "name": "off-highway-coating-in-a-casting",
+    "src": "src/content/insights/off-highway-coating-in-a-casting.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/parking-sensor-potting-before-test.md?raw": {
+    "file": "assets/parking-sensor-potting-before-test-Bg8doLBk.js",
+    "name": "parking-sensor-potting-before-test",
+    "src": "src/content/insights/parking-sensor-potting-before-test.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/payment-terminal-tamper-mesh.md?raw": {
+    "file": "assets/payment-terminal-tamper-mesh-IwvnEbAr.js",
+    "name": "payment-terminal-tamper-mesh",
+    "src": "src/content/insights/payment-terminal-tamper-mesh.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/pcba-cost-per-board.md?raw": {
+    "file": "assets/pcba-cost-per-board-CRN6UIQa.js",
+    "name": "pcba-cost-per-board",
+    "src": "src/content/insights/pcba-cost-per-board.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/pcba-quote-what-it-should-contain.md?raw": {
+    "file": "assets/pcba-quote-what-it-should-contain-CsP6KoD8.js",
+    "name": "pcba-quote-what-it-should-contain",
+    "src": "src/content/insights/pcba-quote-what-it-should-contain.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/pcba-since-2008.md?raw": {
+    "file": "assets/pcba-since-2008-DWNxPFsC.js",
+    "name": "pcba-since-2008",
+    "src": "src/content/insights/pcba-since-2008.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/pcba-supplier-audit-checklist.md?raw": {
+    "file": "assets/pcba-supplier-audit-checklist-BMt53fwV.js",
+    "name": "pcba-supplier-audit-checklist",
+    "src": "src/content/insights/pcba-supplier-audit-checklist.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/power-station-three-board-supplier.md?raw": {
+    "file": "assets/power-station-three-board-supplier-liMEqRbz.js",
+    "name": "power-station-three-board-supplier",
+    "src": "src/content/insights/power-station-three-board-supplier.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/power-tool-motor-tabs-soldered.md?raw": {
+    "file": "assets/power-tool-motor-tabs-soldered-cNmls-8o.js",
+    "name": "power-tool-motor-tabs-soldered",
+    "src": "src/content/insights/power-tool-motor-tabs-soldered.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/rack-bms-high-voltage-build-risk.md?raw": {
+    "file": "assets/rack-bms-high-voltage-build-risk-DGkzmooW.js",
+    "name": "rack-bms-high-voltage-build-risk",
+    "src": "src/content/insights/rack-bms-high-voltage-build-risk.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/robot-joint-many-identical-boards.md?raw": {
+    "file": "assets/robot-joint-many-identical-boards-B5yexyr7.js",
+    "name": "robot-joint-many-identical-boards",
+    "src": "src/content/insights/robot-joint-many-identical-boards.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/robot-vacuum-ict-decision.md?raw": {
+    "file": "assets/robot-vacuum-ict-decision-DnQxUgEW.js",
+    "name": "robot-vacuum-ict-decision",
+    "src": "src/content/insights/robot-vacuum-ict-decision.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/rugged-radio-coating-is-the-product.md?raw": {
+    "file": "assets/rugged-radio-coating-is-the-product-D9PxJIHy.js",
+    "name": "rugged-radio-coating-is-the-product",
+    "src": "src/content/insights/rugged-radio-coating-is-the-product.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/servo-drive-shared-stack-with-vfd.md?raw": {
+    "file": "assets/servo-drive-shared-stack-with-vfd-gsPRwo5c.js",
+    "name": "servo-drive-shared-stack-with-vfd",
+    "src": "src/content/insights/servo-drive-shared-stack-with-vfd.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/shenzhen-pcba-factory-guide.md?raw": {
+    "file": "assets/shenzhen-pcba-factory-guide-vjL0-5pR.js",
+    "name": "shenzhen-pcba-factory-guide",
+    "src": "src/content/insights/shenzhen-pcba-factory-guide.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/smart-glasses-hinge-yield.md?raw": {
+    "file": "assets/smart-glasses-hinge-yield-LESBy7II.js",
+    "name": "smart-glasses-hinge-yield",
+    "src": "src/content/insights/smart-glasses-hinge-yield.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/telecom-impedance-and-shield-cans.md?raw": {
+    "file": "assets/telecom-impedance-and-shield-cans-CRneM4h-.js",
+    "name": "telecom-impedance-and-shield-cans",
+    "src": "src/content/insights/telecom-impedance-and-shield-cans.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/thermal-core-cleaning-and-masking.md?raw": {
+    "file": "assets/thermal-core-cleaning-and-masking-CFgwnphQ.js",
+    "name": "thermal-core-cleaning-and-masking",
+    "src": "src/content/insights/thermal-core-cleaning-and-masking.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/transmitter-board-seal-not-opamp.md?raw": {
+    "file": "assets/transmitter-board-seal-not-opamp-oSjgqQst.js",
+    "name": "transmitter-board-seal-not-opamp",
+    "src": "src/content/insights/transmitter-board-seal-not-opamp.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/treadmill-large-board-mechanics.md?raw": {
+    "file": "assets/treadmill-large-board-mechanics-CC3exMwo.js",
+    "name": "treadmill-large-board-mechanics",
+    "src": "src/content/insights/treadmill-large-board-mechanics.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/vfd-three-boards-one-quote.md?raw": {
+    "file": "assets/vfd-three-boards-one-quote-DO4BbT9m.js",
+    "name": "vfd-three-boards-one-quote",
+    "src": "src/content/insights/vfd-three-boards-one-quote.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/virtual-factory-audit.md?raw": {
+    "file": "assets/virtual-factory-audit-D2w42nf_.js",
+    "name": "virtual-factory-audit",
+    "src": "src/content/insights/virtual-factory-audit.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/wearable-no-room-for-a-second-attempt.md?raw": {
+    "file": "assets/wearable-no-room-for-a-second-attempt-DY88Fbe2.js",
+    "name": "wearable-no-room-for-a-second-attempt",
+    "src": "src/content/insights/wearable-no-room-for-a-second-attempt.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/what-aoi-xray-cannot-catch.md?raw": {
+    "file": "assets/what-aoi-xray-cannot-catch-Cdx8nFRu.js",
+    "name": "what-aoi-xray-cannot-catch",
+    "src": "src/content/insights/what-aoi-xray-cannot-catch.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/what-is-hmlv-pcba.md?raw": {
+    "file": "assets/what-is-hmlv-pcba-Bw-RDhOK.js",
+    "name": "what-is-hmlv-pcba",
+    "src": "src/content/insights/what-is-hmlv-pcba.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/what-is-pcba.md?raw": {
+    "file": "assets/what-is-pcba-C9pU5nBY.js",
+    "name": "what-is-pcba",
+    "src": "src/content/insights/what-is-pcba.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/content/insights/why-the-second-run-costs-less.md?raw": {
+    "file": "assets/why-the-second-run-costs-less-BgUemL6P.js",
+    "name": "why-the-second-run-costs-less",
+    "src": "src/content/insights/why-the-second-run-costs-less.md?raw",
+    "isDynamicEntry": true
+  },
+  "src/pages/ApplicationFamilyPage.jsx": {
+    "file": "assets/ApplicationFamilyPage-BgDrkWJR.js",
+    "name": "ApplicationFamilyPage",
+    "src": "src/pages/ApplicationFamilyPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "_applicationFamilies-BhvqvaY3.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/ApplicationsPage.jsx": {
+    "file": "assets/ApplicationsPage-B4OlDLsY.js",
+    "name": "ApplicationsPage",
+    "src": "src/pages/ApplicationsPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "index.html",
+      "_applicationFamilies-BhvqvaY3.js",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/ArticlePage.jsx": {
+    "file": "assets/ArticlePage-dNzHdU5k.js",
+    "name": "ArticlePage",
+    "src": "src/pages/ArticlePage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/AssemblyPage.jsx": {
+    "file": "assets/AssemblyPage-BMKfuQd3.js",
+    "name": "AssemblyPage",
+    "src": "src/pages/AssemblyPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/CapabilitiesPage.jsx": {
+    "file": "assets/CapabilitiesPage-BFj_w3FW.js",
+    "name": "CapabilitiesPage",
+    "src": "src/pages/CapabilitiesPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/CompanyPage.jsx": {
+    "file": "assets/CompanyPage-m6YEgg5e.js",
+    "name": "CompanyPage",
+    "src": "src/pages/CompanyPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/CookiePage.jsx": {
+    "file": "assets/CookiePage-CNGgXGB9.js",
+    "name": "CookiePage",
+    "src": "src/pages/CookiePage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "_LegalShell-BbI0xY7X.js",
+      "_icons-DQw3Jp1J.js",
+      "index.html"
+    ]
+  },
+  "src/pages/DefenceRoboticsPage.jsx": {
+    "file": "assets/DefenceRoboticsPage-DHq0jldo.js",
+    "name": "DefenceRoboticsPage",
+    "src": "src/pages/DefenceRoboticsPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "_applicationFamilies-BhvqvaY3.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/InsightsPage.jsx": {
+    "file": "assets/InsightsPage-BDiAR6r2.js",
+    "name": "InsightsPage",
+    "src": "src/pages/InsightsPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/PrivacyPage.jsx": {
+    "file": "assets/PrivacyPage-D1YRv_vp.js",
+    "name": "PrivacyPage",
+    "src": "src/pages/PrivacyPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "_LegalShell-BbI0xY7X.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/RfqPage.jsx": {
+    "file": "assets/RfqPage-CClfAyxj.js",
+    "name": "RfqPage",
+    "src": "src/pages/RfqPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/TermsPage.jsx": {
+    "file": "assets/TermsPage-DUhMJcBQ.js",
+    "name": "TermsPage",
+    "src": "src/pages/TermsPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "_LegalShell-BbI0xY7X.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  },
+  "src/pages/TopicPage.jsx": {
+    "file": "assets/TopicPage-Cs56DFqD.js",
+    "name": "TopicPage",
+    "src": "src/pages/TopicPage.jsx",
+    "isDynamicEntry": true,
+    "imports": [
+      "_react-BFDfz19Z.js",
+      "index.html",
+      "_icons-DQw3Jp1J.js"
+    ]
+  }
+}
