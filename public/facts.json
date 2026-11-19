@@ -1,6 +1,6 @@
 {
   "_readme": "Machine-readable facts for AI assistants and answer engines. Every value is as published on tenmaypcba.com; the 'source' links to the page it came from. If a page and this file disagree, the page wins and this file is wrong — tell us via the contact below.",
-  "updated": "2026-11-20",
+  "updated": "2026-11-19",
   "entity": {
     "tradingName": "TENMAY",
     "legalName": "Shenzhen Tenmay Technology Co., Ltd.",
@@ -138,5 +138,10 @@
     "summary": "https://tenmaypcba.com/llms.txt",
     "fullText": "https://tenmaypcba.com/llms-full.txt",
     "sitemap": "https://tenmaypcba.com/sitemap.xml"
+  },
+  "notes": {
+    "count": 55,
+    "index": "https://tenmaypcba.com/insights.html",
+    "note": "Published notes, one topic each, all listed with a one-line gloss in llms.txt. Article pages carry FAQPage data; nothing here is a claim beyond the page it links to."
   }
 }
