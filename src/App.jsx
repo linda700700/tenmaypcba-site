@@ -13,7 +13,6 @@ import AboutCompany from './components/AboutCompany';
 import IndustryUseCases from './components/IndustryUseCases';
 import Seo from './components/Seo';
 import { resolveHead, canonicalFor } from './lib/head';
-import { articleBySlug } from './lib/insights';
 import FactoryGallery from './components/FactoryGallery';
 import QualitySystem from './components/QualitySystem';
 import PricingLogic from './components/PricingLogic';
@@ -22,23 +21,9 @@ import RfqFunnel from './components/RfqFunnel';
 import FaqSection from './components/FaqSection';
 import Footer from './components/Footer';
 import ScrollProgress from './components/ScrollProgress';
-import CapabilitiesPage from './pages/CapabilitiesPage';
-import AssemblyPage from './pages/AssemblyPage';
-import ApplicationsPage from './pages/ApplicationsPage';
-import ApplicationFamilyPage from './pages/ApplicationFamilyPage';
-import InsightsPage from './pages/InsightsPage';
-import ArticlePage from './pages/ArticlePage';
-import TopicPage from './pages/TopicPage';
-import DefenceRoboticsPage from './pages/DefenceRoboticsPage';
-import RfqPage from './pages/RfqPage';
-import PrivacyPage from './pages/PrivacyPage';
-import TermsPage from './pages/TermsPage';
-import CookiePage from './pages/CookiePage';
-import CompanyPage from './pages/CompanyPage';
 import CookieConsent from './components/CookieConsent';
 import MobileQuoteBar from './components/MobileQuoteBar';
-import { TOPIC_BY_PATH } from './data/topics';
-
+import { resolvePage, normalizePath } from './lib/routePage';
 function HomePage() {
   return (
     <>
@@ -61,37 +46,40 @@ function HomePage() {
   );
 }
 
-export default function App({ path: pathProp }) {
+/*
+ * `page` is the component for this URL, and it is handed in rather than imported
+ * here. That is the whole point of the split: this file, the header, the footer
+ * and the homepage are what every visitor downloads, and the fourteen page
+ * components are not part of it.
+ *
+ *   - the browser entry resolves the URL, fetches that one chunk and passes the
+ *     component in (main.jsx);
+ *   - the prerender passes the statically imported component instead, because
+ *     renderToString cannot wait for a promise (entry-server.jsx).
+ *
+ * Both callers use resolvePage() to decide which name a URL is, so they cannot
+ * disagree. Nothing in the page set can leak back into this bundle, because this
+ * bundle no longer names any of them.
+ */
+export default function App({ path: pathProp, page = null }) {
   // content.json loads after first paint; bump to re-render with the overrides.
   const [, bumpContent] = useReducer((n) => n + 1, 0);
   useEffect(() => subscribeContent(bumpContent), []);
 
-  const path =
-    (pathProp ?? (typeof window !== 'undefined' ? window.location.pathname : '/'))
-      .replace(/\/+$/, '')
-      .replace(/\.html$/, '') || '/';
+  const path = normalizePath(
+    pathProp ?? (typeof window !== 'undefined' ? window.location.pathname : '/')
+  );
   const hash = typeof window !== 'undefined' ? window.location.hash : '';
-  const isCapabilities = path === '/capabilities';
-  const isAssembly = path === '/assembly';
-  const isApplications = path === '/applications';
-  const isInsights = path === '/insights';
-  const isRfq = path === '/rfq';
-  const isPrivacy = path === '/privacy';
-  const isTerms = path === '/terms';
-  const isCookies = path === '/cookies';
-  const isCompany = path === '/company';
-  const articleSlug = path.startsWith('/insights/') ? path.slice('/insights/'.length) : null;
-  const article = articleSlug ? articleBySlug(articleSlug) : null;
-  // /applications/<family> — the three in-depth family pages. The index stays at
-  // /applications, so the prefix match must not swallow it.
-  const familyMatch = /^\/applications\/([^/]+)$/.exec(path);
-  const familySlug = familyMatch ? familyMatch[1] : null;
-  // Three curated hubs over the article set. Root-level paths, like the other
-  // single-segment pages, so the static host serves them without a rewrite.
-  const topic = TOPIC_BY_PATH[path] || null;
-  // The defence index is a hub over four family pages rather than over articles,
-  // so it has its own component instead of a TOPICS entry.
-  const isDefence = path === '/defence-robotics';
+
+  /* Which component this URL gets. The same function decides it in main.jsx, so
+   * the browser knows which chunk to fetch before it mounts anything, and the two
+   * can never disagree about what this URL is. */
+  const { name: pageName, props: pageProps } = resolvePage(path, hash);
+  /* Home needs no component from outside: its sections are already in this file. */
+  const Page = pageName === 'Home' ? null : page;
+
+  /* /applications wants no anchor jump: it has its own in-page tab handling. */
+  const isApplications = pageName === 'ApplicationsPage';
 
   // Anchor links from the mega menu land under the sticky header otherwise.
   useEffect(() => {
@@ -127,35 +115,7 @@ export default function App({ path: pathProp }) {
       <ScrollProgress />
       <Navbar currentPath={path} />
       <main className="flex-1">
-        {isDefence ? (
-          <DefenceRoboticsPage />
-        ) : topic ? (
-          <TopicPage topic={topic} />
-        ) : article ? (
-          <ArticlePage article={article} />
-        ) : isInsights ? (
-          <InsightsPage />
-        ) : isAssembly ? (
-          <AssemblyPage />
-        ) : isCapabilities ? (
-          <CapabilitiesPage />
-        ) : isRfq ? (
-          <RfqPage />
-        ) : isPrivacy ? (
-          <PrivacyPage />
-        ) : isTerms ? (
-          <TermsPage />
-        ) : isCookies ? (
-          <CookiePage />
-        ) : isCompany ? (
-          <CompanyPage />
-        ) : familySlug ? (
-          <ApplicationFamilyPage slug={familySlug} />
-        ) : isApplications ? (
-          <ApplicationsPage initialHash={hash} />
-        ) : (
-          <HomePage />
-        )}
+        {Page ? <Page {...pageProps} /> : <HomePage />}
       </main>
       <Footer />
       <MobileQuoteBar path={path} />

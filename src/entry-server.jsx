@@ -5,6 +5,53 @@ import { ROUTE_HEADS, canonicalFor } from './seo/routes';
 import { ARTICLES, articleHead } from './lib/insights';
 import { FAMILIES } from './data/applicationFamilies';
 import { TOPIC_BY_PATH, topicSlugs } from './data/topics';
+import { resolvePage } from './lib/routePage';
+import ArticlePage from './pages/ArticlePage';
+import ApplicationFamilyPage from './pages/ApplicationFamilyPage';
+import ApplicationsPage from './pages/ApplicationsPage';
+import AssemblyPage from './pages/AssemblyPage';
+import CapabilitiesPage from './pages/CapabilitiesPage';
+import CompanyPage from './pages/CompanyPage';
+import CookiePage from './pages/CookiePage';
+import DefenceRoboticsPage from './pages/DefenceRoboticsPage';
+import InsightsPage from './pages/InsightsPage';
+import PrivacyPage from './pages/PrivacyPage';
+import RfqPage from './pages/RfqPage';
+import TermsPage from './pages/TermsPage';
+import TopicPage from './pages/TopicPage';
+
+/*
+ * The prerender's copy of the page set.
+ *
+ * These imports live here and nowhere else, which is what keeps them out of the
+ * browser bundle: entry-server is built into .ssr-tmp, never shipped, and
+ * main.jsx reaches the same components through a dynamic import instead. If a
+ * page is added, it is added in two places — pageChunks.js for the browser and
+ * this map for the build — and the build fails loudly if the two disagree.
+ */
+const PAGES = {
+  ArticlePage,
+  ApplicationFamilyPage,
+  ApplicationsPage,
+  AssemblyPage,
+  CapabilitiesPage,
+  CompanyPage,
+  CookiePage,
+  DefenceRoboticsPage,
+  InsightsPage,
+  PrivacyPage,
+  RfqPage,
+  TermsPage,
+  TopicPage,
+};
+
+function pageComponent(path) {
+  const { name } = resolvePage(path);
+  if (name === 'Home') return null;
+  const Page = PAGES[name];
+  if (!Page) throw new Error(`no page component for "${name}" (${path})`);
+  return Page;
+}
 
 /* A family page shares its hero photograph, not the generic factory card every
  * other route uses: the image is what a buyer sees in a chat preview, and it is
@@ -30,8 +77,14 @@ function shareImage(path) {
 }
 
 export function render(path) {
-  return renderToString(<App path={path} />);
+  return renderToString(<App path={path} page={pageComponent(path)} />);
 }
+
+/* The build needs the same route-to-page answer the browser uses, so the
+ * modulepreload it writes into each HTML file points at the chunk that page will
+ * actually ask for. Re-exported rather than reimplemented: a second copy of the
+ * mapping is a second thing to forget when a page is added. */
+export { resolvePage };
 
 /*
  * The build reads this list to decide what to prerender and what to put in the

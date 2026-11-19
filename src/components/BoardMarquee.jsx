@@ -1,6 +1,6 @@
 import React from 'react';
 import { SECTORS } from '../data/useCases';
-import { FAMILY_COUNT } from '../data/applicationFamilies';
+import { FAMILY_COUNT } from '../data/applicationFamilyIndex';
 import { imgAttrs } from '../lib/imageSize';
 
 /*
