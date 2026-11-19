@@ -20,11 +20,13 @@ export const FOUNDER = {
    * carried as alternateName so registry and certificate checks still match. */
   name: 'Debin Qin',
   alternateName: ['秦德斌'],
-  jobTitle: 'Owner',
+  jobTitle: 'Founder',
   /* Twenty years in the trade, stated as the buyer would say it. No start year
-   * is given because none was confirmed — a guessed date is worse than none. */
+   * is given because none was confirmed — a guessed date is worse than none.
+   * The role is not repeated here: jobTitle says it, worksFor says where, and
+   * the footer prints all three on one line. */
   description:
-    'Owner of Shenzhen Tenmay Technology (秦德斌). Twenty years in PCB assembly and electronics manufacturing in Shenzhen.',
+    'Twenty years in PCB assembly and electronics manufacturing.',
   worksFor: { '@id': `${SITE_URL}/#organization` },
   knowsAbout: [
     'PCB assembly',
