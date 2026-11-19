@@ -1,6 +1,6 @@
 {
-  "_LegalShell-BbI0xY7X.js": {
-    "file": "assets/LegalShell-BbI0xY7X.js",
+  "_LegalShell-DbUKhI1N.js": {
+    "file": "assets/LegalShell-DbUKhI1N.js",
     "name": "LegalShell",
     "imports": [
       "_react-BFDfz19Z.js",
@@ -24,7 +24,7 @@
     "name": "react"
   },
   "index.html": {
-    "file": "assets/index-DEX_SavK.js",
+    "file": "assets/index-B2Gm3hur.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
@@ -437,7 +437,7 @@
     "isDynamicEntry": true
   },
   "src/pages/ApplicationFamilyPage.jsx": {
-    "file": "assets/ApplicationFamilyPage-BgDrkWJR.js",
+    "file": "assets/ApplicationFamilyPage-2FCSEQMv.js",
     "name": "ApplicationFamilyPage",
     "src": "src/pages/ApplicationFamilyPage.jsx",
     "isDynamicEntry": true,
@@ -449,7 +449,7 @@
     ]
   },
   "src/pages/ApplicationsPage.jsx": {
-    "file": "assets/ApplicationsPage-B4OlDLsY.js",
+    "file": "assets/ApplicationsPage-Dq1vWsEu.js",
     "name": "ApplicationsPage",
     "src": "src/pages/ApplicationsPage.jsx",
     "isDynamicEntry": true,
@@ -461,7 +461,7 @@
     ]
   },
   "src/pages/ArticlePage.jsx": {
-    "file": "assets/ArticlePage-dNzHdU5k.js",
+    "file": "assets/ArticlePage-BwHsI4zK.js",
     "name": "ArticlePage",
     "src": "src/pages/ArticlePage.jsx",
     "isDynamicEntry": true,
@@ -472,7 +472,7 @@
     ]
   },
   "src/pages/AssemblyPage.jsx": {
-    "file": "assets/AssemblyPage-BMKfuQd3.js",
+    "file": "assets/AssemblyPage-DQTklNjQ.js",
     "name": "AssemblyPage",
     "src": "src/pages/AssemblyPage.jsx",
     "isDynamicEntry": true,
@@ -483,7 +483,7 @@
     ]
   },
   "src/pages/CapabilitiesPage.jsx": {
-    "file": "assets/CapabilitiesPage-BFj_w3FW.js",
+    "file": "assets/CapabilitiesPage-BtdLvLRK.js",
     "name": "CapabilitiesPage",
     "src": "src/pages/CapabilitiesPage.jsx",
     "isDynamicEntry": true,
@@ -494,7 +494,7 @@
     ]
   },
   "src/pages/CompanyPage.jsx": {
-    "file": "assets/CompanyPage-m6YEgg5e.js",
+    "file": "assets/CompanyPage-C-QfZAkA.js",
     "name": "CompanyPage",
     "src": "src/pages/CompanyPage.jsx",
     "isDynamicEntry": true,
@@ -505,19 +505,19 @@
     ]
   },
   "src/pages/CookiePage.jsx": {
-    "file": "assets/CookiePage-CNGgXGB9.js",
+    "file": "assets/CookiePage-Ur9Tlwf_.js",
     "name": "CookiePage",
     "src": "src/pages/CookiePage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-BbI0xY7X.js",
+      "_LegalShell-DbUKhI1N.js",
       "_icons-DQw3Jp1J.js",
       "index.html"
     ]
   },
   "src/pages/DefenceRoboticsPage.jsx": {
-    "file": "assets/DefenceRoboticsPage-DHq0jldo.js",
+    "file": "assets/DefenceRoboticsPage-BWuZ-5Jv.js",
     "name": "DefenceRoboticsPage",
     "src": "src/pages/DefenceRoboticsPage.jsx",
     "isDynamicEntry": true,
@@ -529,7 +529,7 @@
     ]
   },
   "src/pages/InsightsPage.jsx": {
-    "file": "assets/InsightsPage-BDiAR6r2.js",
+    "file": "assets/InsightsPage-BFQlGshb.js",
     "name": "InsightsPage",
     "src": "src/pages/InsightsPage.jsx",
     "isDynamicEntry": true,
@@ -540,19 +540,19 @@
     ]
   },
   "src/pages/PrivacyPage.jsx": {
-    "file": "assets/PrivacyPage-D1YRv_vp.js",
+    "file": "assets/PrivacyPage-CtEwOq-b.js",
     "name": "PrivacyPage",
     "src": "src/pages/PrivacyPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-BbI0xY7X.js",
+      "_LegalShell-DbUKhI1N.js",
       "index.html",
       "_icons-DQw3Jp1J.js"
     ]
   },
   "src/pages/RfqPage.jsx": {
-    "file": "assets/RfqPage-CClfAyxj.js",
+    "file": "assets/RfqPage-BzmnTmCO.js",
     "name": "RfqPage",
     "src": "src/pages/RfqPage.jsx",
     "isDynamicEntry": true,
@@ -563,19 +563,19 @@
     ]
   },
   "src/pages/TermsPage.jsx": {
-    "file": "assets/TermsPage-DUhMJcBQ.js",
+    "file": "assets/TermsPage-IQaAR8DA.js",
     "name": "TermsPage",
     "src": "src/pages/TermsPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-BbI0xY7X.js",
+      "_LegalShell-DbUKhI1N.js",
       "index.html",
       "_icons-DQw3Jp1J.js"
     ]
   },
   "src/pages/TopicPage.jsx": {
-    "file": "assets/TopicPage-Cs56DFqD.js",
+    "file": "assets/TopicPage-BMKNcl72.js",
     "name": "TopicPage",
     "src": "src/pages/TopicPage.jsx",
     "isDynamicEntry": true,
