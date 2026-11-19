@@ -1,17 +1,27 @@
 # ============================================================
 # tenmaypcba.com  robots.txt
-# Updated: 2026-11-18
+# Updated: 2026-11-19
 #
 # Policy: allow all crawling, block parameterized URLs only.
 #
-# All AI and search crawlers are covered by the single wildcard
-# group below. Do NOT add a named User-agent group unless that
-# crawler genuinely needs rules different from the wildcard.
+# Two layers:
+#   1. User-agent: *  -- the actual permission grant. Every crawler
+#      that is not named below is allowed here and nowhere else.
+#   2. Named groups   -- for the answer-engine crawlers we want to
+#      be explicit about. A named group grants nothing extra; it
+#      states the same policy in a way the crawler's operator can
+#      point at, which is what Anthropic means when it says a rule
+#      naming ClaudeBot takes priority over a general preference
+#      signal.
 #
-# Why: robots groups are independent. A named group does not
-# inherit anything from User-agent: *. Adding a Disallow here
-# therefore applies to every crawler listed at the bottom of
-# this file automatically -- no per-crawler duplication needed.
+# Why each named group repeats both directives: robots groups are
+# independent. A named group does not inherit anything from
+# User-agent: *, so every named group must restate
+# "Disallow: /*?*" or that crawler would regain access to the
+# parameterized URLs the wildcard blocks.
+#
+# Reverting is safe: deleting the named groups changes nothing,
+# because the wildcard group already allows the same paths.
 # ============================================================
 
 User-agent: *
@@ -19,13 +29,58 @@ Allow: /
 Disallow: /*?*
 
 # ------------------------------------------------------------
-# Crawlers covered by the wildcard group above.
+# Answer-engine crawlers, named explicitly.
+#
+# Perplexity needs both halves to work: a robots.txt allow AND a
+# request that survives the CDN/WAF in front of it. Their docs
+# also warn that Cloudflare Bot Fight Mode cannot be skipped by a
+# WAF rule, so this file alone cannot guarantee delivery.
+#
+# Perplexity-User fetches a page because a real user asked for it
+# and generally ignores robots.txt, so listing it is a statement
+# of intent rather than a control.
+# ------------------------------------------------------------
+
+# Perplexity -- builds the index Perplexity answers from
+User-agent: PerplexityBot
+Allow: /
+Disallow: /*?*
+
+# Perplexity -- user-initiated page fetch
+User-agent: Perplexity-User
+Allow: /
+Disallow: /*?*
+
+# Anthropic -- crawls for search result quality (the index side)
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /*?*
+
+# Anthropic -- user-initiated page fetch
+User-agent: Claude-User
+Allow: /
+Disallow: /*?*
+
+# ------------------------------------------------------------
+# Deliberately NOT named: ClaudeBot (Anthropic's training crawler).
+# It therefore falls under the wildcard group and is allowed.
+# Anthropic gives a rule naming ClaudeBot priority over the general
+# training-preference signal, so naming it with "Allow: /" would
+# explicitly opt this site into model training. If that is ever
+# unwanted, add the two lines below and nothing else changes for
+# search and user fetches, which use Claude-SearchBot / Claude-User:
+#
+#   User-agent: ClaudeBot
+#   Disallow: /
+# ------------------------------------------------------------
+
+# ------------------------------------------------------------
+# Other crawlers covered by the wildcard group above.
 # Listed for reference only -- these are NOT separate groups.
 # ------------------------------------------------------------
 # OpenAI        GPTBot, OAI-SearchBot, ChatGPT-User
-# Anthropic     ClaudeBot, Claude-SearchBot, Claude-User
+# Anthropic     ClaudeBot (training) -- see note above
 #               (anthropic-ai is a legacy token, also covered)
-# Perplexity    PerplexityBot, Perplexity-User
 # Google        Googlebot, Google-Extended
 # Apple         Applebot-Extended
 # Meta          meta-externalagent
