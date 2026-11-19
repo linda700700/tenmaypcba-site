@@ -456,6 +456,20 @@ export const ARTICLE_FAQ = {
       a: 'Three things in writing: whether the stencil is still in usable condition, whether the programme and profile are the current revision, and whether any line on the BOM has moved to allocation since the last run.',
     },
   ],
+  'pcba-since-2008': [
+    {
+      q: 'What does a founding date actually prove about a PCBA supplier?',
+      a: 'That the legal entity has existed since that date, and nothing more. It is printed on the business licence by the registry, so it is checkable — but no registry records when a particular SMT line was installed, and an old company can be a young assembler.',
+    },
+    {
+      q: 'What is the single check that separates an old company from a long-running assembler?',
+      a: 'Name a year and ask for a first-article report, job traveller or inspection record from that year. Letting the supplier choose its oldest document lets it choose the best-looking one; naming the year does not.',
+    },
+    {
+      q: 'Which documents should be checked against each other?',
+      a: 'The registered name, the ISO 9001 certificate holder, the bank beneficiary and the quotation header. If the certificate holder and the beneficiary are different companies, you are talking to a trading company.',
+    },
+  ],
   'rack-bms-high-voltage-build-risk': [
     {
       q: 'Can an assembler build a rack BMS to IEC 62619 or UL 1973?',
@@ -496,6 +510,286 @@ export const ARTICLE_FAQ = {
     {
       q: 'Can the assembler supply the efficiency figures for the build lot?',
       a: 'No. Efficiency, hold-up time, inrush and emissions are measured on a load bank with power analysers at temperature. The build scope is placed, reflowed, X-rayed on the thermal joints, inspected and recorded — characterised is a different party.',
+    },
+  ],
+  'flight-controller-imu-calibration-boundary': [
+    {
+      q: 'Can a PCBA supplier tell whether a flight controller will fly well?',
+      a: 'No. Inertial calibration, sensor fusion and flight test happen in the airframe with the aircraft maker\'s fixture and firmware. Assembly can build a board that calibrates cleanly and cannot tell you whether it did.',
+    },
+    {
+      q: 'Why does the ESC board need different attention from the flight controller?',
+      a: 'They fail for unrelated reasons. The flight controller is a fine-pitch sensor board where strain and paste volume matter; the ESC is a heavy-copper power board where voiding under the FETs and the thermal path into a carbon arm decide it.',
+    },
+    {
+      q: 'Does inspection prove the IMU is straight?',
+      a: 'No. SPI, AOI and X-ray prove the board was built to the drawing and that hidden joints are formed. A tilt of a fraction of a degree is invisible to X-ray and readable only by the airframe calibration routine.',
+    },
+  ],
+  'rugged-radio-coating-is-the-product': [
+    {
+      q: 'Why is conformal coating a specification on a rugged handheld?',
+      a: 'Because the device is sold on the environment it survives, and on the board that survival is the coating plus the connectors. What is masked, which material, what thickness and how it is re-coated after rework all have to be written down, or the coating becomes decoration.',
+    },
+    {
+      q: 'How does the shield can decide the rework path?',
+      a: 'A soldered can over a section that fails means desoldering, repairing and re-cannning, so the shield land takes the thermal cycle twice. A clip-on lid is faster but adds its own contact resistance question. The choice is a design decision with a service cost attached.',
+    },
+    {
+      q: 'Is potting or housing assembly included on a rugged radio build?',
+      a: 'No. Coating is applied here; potting, overmoulding and closing the housing are not done on this floor, and the drop, vibration, IP and salt-fog qualification runs at an environmental test house.',
+    },
+  ],
+  'thermal-core-cleaning-and-masking': [
+    {
+      q: 'What actually ruins a thermal camera core board?',
+      a: 'Not the BGA reflow. Flux residue, ionic contamination and handling dust show up as leakage and noise — a slightly worse NETD that gets blamed on the detector. Cleanliness and masking outrank placement on this family.',
+    },
+    {
+      q: 'Why does the wash decision have to be consistent?',
+      a: 'A no-clean process is fine when the whole build including rework is no-clean. The failure is a mixed process where one repair uses activated flux and is never washed, leaving a leakage path across a fine-pitch analogue front end.',
+    },
+    {
+      q: 'Can the assembler measure NETD or do non-uniformity correction?',
+      a: 'No. Those need a black-body source and the detector vendor\'s software. Assembly delivers boards with per-lot inspection records; image quality is measured by the optics partner.',
+    },
+  ],
+  'robot-joint-many-identical-boards': [
+    {
+      q: 'What is the real requirement on a robot joint board?',
+      a: 'Sameness across twelve to forty units. The board is not hard to build; board thirty-seven has to behave like board one, or the machine walks differently on one side and the software team spends a month on it.',
+    },
+    {
+      q: 'Why does voiding matter twice on a joint board?',
+      a: 'The joint under a GaN or MOSFET bridge is both the electrical path and the thermal path, in a 30 mm circle with nowhere to put a heatsink. X-ray on those joints is the inspection that decides shipment.',
+    },
+    {
+      q: 'When does a robot programme outgrow a high-mix floor?',
+      a: 'Above roughly 5,000 joint boards a month, where a dedicated line wins on unit price. Below that, changeover costs less than a dedicated line\'s idle time.',
+    },
+  ],
+  'smart-glasses-hinge-yield': [
+    {
+      q: 'Where does yield go on AI glasses?',
+      a: 'The rigid-flex through the hinge. It is a fatigue part with traces in it, bent every time the glasses are put on, and the bend radius, stiffener placement and trace direction across the bend decide whether it lasts months or years.',
+    },
+    {
+      q: 'Is 01005 necessary on smart glasses?',
+      a: 'Only where the space forces it. 01005 is a yield cost paid for a space problem: where the layout allows 0201, 0201 is cheaper and yields better, and where it does not, the process has to be built for 01005 rather than borrowed.',
+    },
+    {
+      q: 'Does the assembler tune the camera or the display?',
+      a: 'No. Camera module alignment, image tuning and display calibration need the optics and the tuning rig, and acoustic tuning, drop testing and IP qualification belong to the product team or a test house.',
+    },
+  ],
+  'power-tool-motor-tabs-soldered': [
+    {
+      q: 'What are the hardest joints on a brushless tool controller?',
+      a: 'The motor tabs. They carry the full phase current, they are through-hole with large thermal mass, and they are soldered by hand or selective solder rather than placed — so they are the joints an AOI screen never judges.',
+    },
+    {
+      q: 'Why is voiding the yield number on a tool board?',
+      a: 'A voided joint under a bridge FET raises the junction temperature in a handle with no airflow, so the tool derates in the user\'s hand. Paste volume and a documented reflow profile for the heavy-copper board are what control it.',
+    },
+    {
+      q: 'Is potting or housing assembly part of the build?',
+      a: 'No. Coating is applied with masking; potting, overmoulding and closing the handle around the board are the tool brand\'s operations, and motor and gearbox testing under load belongs at their end-of-line station.',
+    },
+  ],
+  'amr-connector-is-the-failure-point': [
+    {
+      q: 'What fails first on an AMR or AGV board?',
+      a: 'The connector, not the solder joint. Robot boards are unplugged far more often than consumer boards, so mating-cycle rating, latching, keying and strain relief at the board edge decide field life.',
+    },
+    {
+      q: 'Does a coating protect an AMR board from wash-down?',
+      a: 'No. Coating buys tolerance to dust and condensation; it does nothing for a housing that takes water. On a warehouse floor that distinction is the whole reliability question.',
+    },
+    {
+      q: 'Can per-serial electrical test be included?',
+      a: 'Not as standard — there is no in-circuit test and no functional test on this floor. If the fleet needs per-serial proof, the fixture and the programme are yours to specify, and the arrangement has to be agreed before the first build.',
+    },
+  ],
+  'home-battery-microamp-standby': [
+    {
+      q: 'Can a PCBA supplier measure standby current on a home battery board?',
+      a: 'No. There is no microamp-level bench and no long-duration logging on this floor, so a self-consumption figure has to come from your own measurement. What assembly controls is cleanliness, thermal symmetry and the coating callout.',
+    },
+    {
+      q: 'Is a home stack tested against a real battery pack here?',
+      a: 'No. There are no cells and no pack on site, so balancing, state-of-charge accuracy and protection thresholds are proven by the system designer. Assembly delivers boards built and recorded to a drawing.',
+    },
+    {
+      q: 'Which approvals are outside the build?',
+      a: 'Grid-code and interconnection approval such as UL 1741 or VDE-AR-N 4105 including anti-islanding, and system-level storage safety certification such as UL 9540 or 9540A. Neither is tested nor held here.',
+    },
+  ],
+  'medical-board-ordinary-record-is-not': [
+    {
+      q: 'Is ISO 13485 held for medical device assembly?',
+      a: 'No. ISO 9001 is held. A device that needs its contract manufacturer inside a medical quality system needs a different counterpart, and finding that out during an audit is expensive.',
+    },
+    {
+      q: 'What does a medical programme actually buy from an assembler?',
+      a: 'A per-lot record that survives a question two years later: first-article photographs with the drawing revision, SPI and AOI results, X-ray images, the coating mask list, and traceability to component date codes.',
+    },
+    {
+      q: 'Where does assembly change an analogue front-end reading?',
+      a: 'Residue across a guard ring, coating bridging a guarded area, and boards sitting open on a bench. None of it looks like a failure at inspection; it shows up as a channel that drifts and then as a service visit.',
+    },
+  ],
+  'telecom-impedance-and-shield-cans': [
+    {
+      q: 'Can an assembler change the impedance of a controlled stackup?',
+      a: 'Not the stackup itself, but the surface around it: excess paste near an impedance-critical net, rework beside an RF launch, coating where the callout said mask, and press-fit force that bows the board.',
+    },
+    {
+      q: 'Why does the order of operations matter on a line card?',
+      a: 'Ground pads under shield cans must be X-rayed before the can is fitted, coax and press-fit operations move the board and must come before final inspection, and coating has to be last with masking respected.',
+    },
+    {
+      q: 'Is in-circuit or RF test available for a line card?',
+      a: 'No. There is no in-circuit test, no functional test and no RF alignment or calibration, and carrier qualification or NEBS testing is not performed here.',
+    },
+  ],
+  'instrument-front-end-noise-floor': [
+    {
+      q: 'Why is a fifty-piece instrument order normal rather than small?',
+      a: 'An instrument programme is low volume, revision-heavy and long-lived, which is the shape a high-mix floor is built for. Fifty pieces with four revisions a year costs less than living with a design you cannot afford to change.',
+    },
+    {
+      q: 'What decides the noise floor on an instrument front end?',
+      a: 'Cleanliness across the guard ring, thermal symmetry between the two halves of a differential input, the coating callout over a sensitive divider, and the quality of the through-hole joints on range-switching relays and BNCs.',
+    },
+    {
+      q: 'Does the assembler calibrate the instrument?',
+      a: 'No. Calibration and any accuracy or uncertainty statement need a traceable reference chain, and there is no in-circuit or functional test of the finished instrument here. The build delivers boards with first-article and per-lot records.',
+    },
+  ],
+  'transmitter-board-seal-not-opamp': [
+    {
+      q: 'Is potting included on a pressure transmitter board?',
+      a: 'No. Potting, encapsulation and overmoulding are not done here. A transmitter whose design depends on a potted cavity depends on a process this floor does not run, and that partner belongs in the plan from the first prototype.',
+    },
+    {
+      q: 'Can drift be guaranteed by the assembler?',
+      a: 'No. Drift is a cell, design and calibration question. What can be stated is that every board in a lot was built to the same written process — same paste, profile, wash and coat — and that the record shows it.',
+    },
+    {
+      q: 'What happens to ingress and hazardous-area approval?',
+      a: 'Ingress, burst and leak testing of the housing, the resulting IP rating, and ATEX or IECEx certification are all outside the build. Assembly controls the board, not the seal or the certificate.',
+    },
+  ],
+  'wearable-no-room-for-a-second-attempt': [
+    {
+      q: 'Why is a wearable board hard to build when it has so few parts?',
+      a: 'Because there is no recovery path. A 01005-populated board in a case smaller than a watch is often not reworkable, so the process has to be right the first time rather than inspected and corrected.',
+    },
+    {
+      q: 'What sets the yield ceiling on 01005 wearables?',
+      a: 'Stencil aperture, paste type and reflow profile, plus support during depanelisation. The placement head is rarely the constraint, which is why the useful question is what 01005 process the line ran last.',
+    },
+    {
+      q: 'Is underfill applied as standard?',
+      a: 'No. Underfill is agreed per design at DFM because it removes the repair option — a board that is underfilled cannot be reworked, only replaced, and that changes stencil, handling and inspection together.',
+    },
+  ],
+  'gnss-rf-section-keep-out': [
+    {
+      q: 'What can assembly do to a GNSS RF front end?',
+      a: 'Leave a void under a shield-can ground pad, let coating or residue sit across the antenna feed and matching network, or add metal in the antenna keep-out. None of it is visible to any test on this floor.',
+    },
+    {
+      q: 'Why must the ground pads be X-rayed before the can goes on?',
+      a: 'Because after the can is fitted the joint is unreachable. A void under a can land is an RF ground that is not a ground, and the only chance to see it is before the shield is closed.',
+    },
+    {
+      q: 'Can position accuracy or time-to-first-fix be measured here?',
+      a: 'No. RF alignment, antenna characterisation, accuracy and TTFF need a test range or a surveyed site, and there is no functional test of any kind on this floor — EMC and environmental qualification are also outside.',
+    },
+  ],
+  'led-receiver-card-ribbon-headers': [
+    {
+      q: 'What fails on an LED receiver card?',
+      a: 'A ribbon header, years later. It is through-hole on a thin long board, it gets mated and re-mated during installation, and insufficient fill or a header seated off-square puts tension on the joints at both ends.',
+    },
+    {
+      q: 'Why does panelisation matter more on this family?',
+      a: 'Long thin boards with eight or more headers want a panel that carries them flat through reflow and depanelisation. A card packed with the headers taking the load arrives pre-stressed.',
+    },
+    {
+      q: 'Is colour or brightness calibrated before shipping?',
+      a: 'No. Colour, brightness, gamma and refresh calibration at cabinet level, wall-level tests and EMC or IP testing are all outside this build. The assembler is bought for consistency, not for proof of the picture.',
+    },
+  ],
+  'off-highway-coating-in-a-casting': [
+    {
+      q: 'Why is coating the product on an off-highway controller?',
+      a: 'The board lives in dust, oil mist, condensation and wash-down spray. What is masked, which material, what thickness, and how it is re-coated after rework decide whether the controller survives, not the schematic.',
+    },
+    {
+      q: 'Which joints on a controller are inspected rather than assumed?',
+      a: 'The valve driver tabs and the power FETs. Through-hole fill and pull are checked on the first article, voiding under the FETs is X-rayed per lot, and coating bridging the isolation gap is photographed under magnification.',
+    },
+    {
+      q: 'Are IP rating, EMC and functional safety certified here?',
+      a: 'No. There is no ingress or leak-down test of the sealed casting, no EMC, load-dump, vibration or salt-spray qualification, and no ISO 13849 or IEC 61508 certification. Those belong to a test house and the machine builder.',
+    },
+  ],
+  'car-amplifier-voids-not-watts': [
+    {
+      q: 'Why is voiding the yield number on a car amplifier board?',
+      a: 'Because the pad under a Class-D or supply device is its only path into the case, and a partially voided pad means a device running hotter in a box that is already hot — so it derates or trips protection, and the failure gets blamed on the design.',
+    },
+    {
+      q: 'Can the thermal path be verified here?',
+      a: 'No. Thermal verification needs a chamber, thermocouple instrumentation and measurement under load. What assembly controls is the pad or paste, the board flatness and the mounting torque, all of which come from the drawing.',
+    },
+    {
+      q: 'Are output power, distortion and efficiency measured before shipping?',
+      a: 'No. Audio measurement of any kind — power, distortion, noise, efficiency, DSP tuning — is outside this build, as are EMC testing, potting and chassis assembly.',
+    },
+  ],
+  'ip-camera-proof-is-an-image': [
+    {
+      q: 'What is the inspection that matters on an IP camera board?',
+      a: 'X-ray on the SoC and the power joints. The SoC ground pad is its heatsink inside a sealed dome, so a void raises the junction temperature and the symptom is a camera that drops frames rather than one that fails on the bench.',
+    },
+    {
+      q: 'Does the gland seal the board?',
+      a: 'No. The gland seals the housing, not the board. Conformal coating protects the board from condensation; it does not make the camera waterproof, and an enclosure that takes water at the gasket takes it regardless.',
+    },
+    {
+      q: 'Is image tuning or ONVIF conformance part of the build?',
+      a: 'No. There is no image tuning, lens focusing, IR-cut alignment, low-light measurement, functional test or ONVIF/RTSP work here, and no IP, IK, salt-fog or EMC testing.',
+    },
+  ],
+  'payment-terminal-tamper-mesh': [
+    {
+      q: 'Is this floor inside a payment security certification?',
+      a: 'No. There is no PCI PTS approval, no EMVCo test report, no scheme audit and no secure facility. What is available is boards built and recorded to a drawing with per-lot traceability, with security verification on the buyer\'s side.',
+    },
+    {
+      q: 'Can tamper-mesh continuity be verified during assembly?',
+      a: 'It is inspected as a physical feature — no scratch, no solder splash, no coating bridging two traces — and photographed. Whether the detection circuit behaves is verified by the buyer with the secure element in place.',
+    },
+    {
+      q: 'Who does secure-element provisioning and key injection?',
+      a: 'It is decided in writing before the first build, never added mid-run. Injection is not a standard step on this floor, and if the key material sits with another party the boards ship uninjected.',
+    },
+  ],
+  'induction-tank-never-connected': [
+    {
+      q: 'Can an induction cooker board be tested without a coil?',
+      a: 'Not meaningfully. Output power, efficiency, temperature rise and the commutation boundary all need a resonant load and a coil plate, and the pan is the one thing this floor never connects.',
+    },
+    {
+      q: 'Is coating enough protection for a kitchen appliance board?',
+      a: 'Coating is what is applied here, with masking, and it does real work on the control side. It is not potting, and potting is not done here — the mains-side protection usually relies on creepage, potting or a sealed enclosure decided by the appliance owner.',
+    },
+    {
+      q: 'Which approvals are outside the build?',
+      a: 'EMC pre-compliance and compliance testing, and appliance safety certification such as CCC, CE or UL — those are granted to the appliance, not to the board. Glass panel, coil plate and enclosure work are also outside.',
     },
   ],
 };
