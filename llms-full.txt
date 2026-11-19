@@ -1,11 +1,246 @@
 # TENMAY — full text of every published note
 
-> 32 notes, latest revision 2026-11-18. Generated from the same Markdown the
+> 35 notes, latest revision 2026-11-19. Generated from the same Markdown the
 > pages are built from, so this file and the site cannot disagree. Every note is reproduced
 > in full, in plain text, with its canonical URL. Index and collections: https://tenmaypcba.com/insights.html
 >
 > TENMAY is Shenzhen Tenmay Technology Co., Ltd. (深圳腾镁科技有限公司), a PCBA contract
 > manufacturer in Shenzhen since 2008. An assembly house, not a PCB fabricator.
+
+---
+
+## A 1U rectifier board is a thermal part with a circuit attached
+
+Source: https://tenmaypcba.com/insights/1u-rectifier-thermal-joint.html
+Published: 2026-11-19
+Summary: A rack rectifier is a PFC stage and a DC-DC stage on one heatsink, and the failure that matters is invisible from above. Where the build risk sits on a 1U power board.
+
+A 1U rectifier module is usually described by its output — 3 kW, 48 V, 97 % efficient. Almost none of that is decided on the assembly floor. What is decided on the assembly floor is whether the joint under the switching devices and the thermal pad between the board and the heatsink is continuous, because that joint is what the efficiency figure quietly depends on.
+
+This is the one board family where the inspection step, not the placement step, is the interesting part of the quotation.
+
+### What is on the board
+
+Two power stages and a control section, usually on one board:
+
+- PFC front end. Boost stage, bridge or bridgeless, with the inductor and the current sense. This is the part that decides input current shape and therefore whether the unit passes harmonic limits.
+- DC-DC stage. Isolated converter producing the 48 V or 12 V bus, with synchronous rectification on the secondary.
+- Auxiliary supply. The small converter that keeps the control alive when the main stage is off. Cheap, hot, and the usual cause of a unit that will not start.
+- Control and telemetry. The MCU, the PMBus or CAN interface, and the fan and hot-swap logic that makes a shelf of these behave.
+
+Dense, double-sided, heavy copper on the power side, and fine-pitch on the control side. Both extremes on one panel is what makes the stencil and the reflow profile a compromise rather than an optimisation.
+
+### The void you cannot see
+
+Under a power MOSFET or a rectifier in a QFN or LFPAK, the thermal pad is the only path to the copper. If the paste coverage under that pad is 60 % instead of 90 %, the board passes every electrical test at room temperature and runs twenty degrees hotter in a shelf. Nothing on the top side shows it. AOI sees the fillet, not the void.
+
+X-ray is how that joint is judged, and on this product it is read by an operator against a limit rather than accepted on a green light. That is the one inspection step on this family that a buyer should ask about by name, because a line that has X-ray and a line that reads X-ray are not the same supplier.
+
+The same reasoning applies to the interface between the board and the heatsink: the pad or the paste, the flatness of the board, and the torque on the mounting screws. A warped board with a good pad still leaves an air gap in the middle.
+
+### Thick copper changes the reflow profile, not the placement
+
+Power boards carry 2 to 4 oz copper on the power side and 1 oz on the control side. The thermal mass difference across one panel means the profile has to be developed for that board, not reused from the previous job. That is one honest reason a first run is more expensive than the second: the profile work happens once, and it happens properly or it happens again.
+
+On this floor the profile is developed per board and the first article is X-rayed and photographed before the lot proceeds.
+
+### Where the high-current path lands
+
+The 48 V output leaves the board through busbar tabs, press-fit pins, or screw terminals. All three are mechanical joints with an electrical job:
+
+- Press-fit needs the right hole tolerance and the right insertion tool; a reamed hole gives you a joint that passes and later opens.
+- Screw terminals need a specified torque and a washer that does not cold-flow.
+- Solder tabs on thick copper need enough heat and enough time, and both are limited by what the parts nearby will survive.
+
+These are specified on your drawing and executed here. If the drawing does not specify the torque or the press-fit force, the build will use a house default, and a house default is not a design decision.
+
+### Coating on a rack power board
+
+Most 1U rectifiers are not coated. The airflow through the shelf is the environmental control, and coating the power side adds thermal resistance exactly where the design cannot afford it. Where coating does appear is on the control and telemetry side, or on units sold into humid or coastal sites.
+
+That is a callout to make deliberately: what is coated, what is masked, and why the power side is excluded. A blanket "conformal coat, whole board" on a 3 kW module is a thermal decision made by accident.
+
+Potting is not done here, and on this family that is rarely a loss — the enclosure and the airflow are doing the work.
+
+### What an assembler cannot measure for you
+
+The number on the datasheet is efficiency at a defined load, and it is measured on a load bank with power analysers, at temperature, over time. That measurement happens at the module designer, not here.
+
+So the honest scope line on a rectifier enquiry is: placed, reflowed, X-rayed on the thermal joints, inspected, recorded. Not characterised. If your qualification plan needs the efficiency curve from the build lot rather than the design, that is a test house or your own bench, and it is worth saying so before the order rather than after.
+
+The same applies to hold-up time, inrush, conducted emissions and transient response. All of them are properties of the design, exercised on equipment this floor does not have.
+
+### What records matter here
+
+- X-ray images of the thermal-pad joints, per device type, filed against the lot
+- The reflow profile used, with the board revision it was developed for
+- First-article photographs of the busbar or press-fit joints before and after insertion
+- SPI results on the fine-pitch side, since a thin print there is a separate failure from a void
+
+### What to send for a quote
+
+The BOM with the power devices named by package and not just by part number, the copper weights per layer, the stack-up, the drawing showing the thermal interface and the mounting torque, the connector and busbar list, and the quantity per variant.
+
+The family page for this product is AI and data centre power boards (/applications/ai-power.html). For the inspection question in general, what AOI and X-ray still cannot catch (/insights/what-aoi-xray-cannot-catch.html) is the companion note, and what a PCBA quote should contain (/insights/pcba-quote-what-it-should-contain.html) covers the scope lines that keep this kind of order honest.
+
+---
+
+## On a DC fast charger the power modules are bought — the control board is what you are specifying
+
+Source: https://tenmaypcba.com/insights/dc-charger-built-vs-bought.html
+Published: 2026-11-19
+Summary: The conversion stage arrives as a module with somebody else's name on it. What a contract assembler actually contributes to a DC charger, and the three places the build can still go wrong.
+
+A DC fast charger is often described as if it were one product built in one place. It is not. The conversion stage — the AC-to-DC power modules that make the cabinet a charger — arrives as a sealed module with a datasheet, a manufacturer and its own certification. What is left, and what a contract assembler actually builds, is the control board, the metering board and the interface board, plus the harness and the high-current path that join them.
+
+Understanding that split is the difference between specifying a buildable order and discovering at type test that nobody owned the interface.
+
+### What the cabinet is made of
+
+Four groups of parts, four different owners:
+
+Part: Who supplies it · What that means for your order
+Power modules: A module vendor, certified as a unit · Not assembled here; their efficiency and safety claims are theirs
+Control board: Assembled here to your design · Runs the state machine, the insulation monitoring inputs, the lock and the session
+Metering board: Assembled here, calibrated and certified elsewhere · Accuracy is a certification question, not an assembly one
+Interface and HMI: Assembled here, or bought as a module · Often the cheapest thing to buy whole and the easiest to build badly
+
+If your supplier quotes you "a charger", ask which of those four lines they are actually performing.
+
+### The control board is where the integration risk lands
+
+The control board is the one part of the cabinet that has to talk to everything the buyer did not design: the module vendor's CAN protocol, the vehicle over the charging standard, the site over the network, and the safety chain over discrete inputs.
+
+That is a firmware integration job with an assembly job underneath it. What arrives at an assembler is the finished design; what leaves is a board that has been placed, reflowed, coated, inspected and recorded. The protocol conformance is a test the charger builder runs, and no assembler can substitute for it.
+
+Where the assembly does affect the outcome is signal integrity on the isolated interfaces, connector quality on the harness side, and whether the coating callout survives an outdoor cabinet. Those are the three we can speak to.
+
+### The high-current path is a mechanical problem wearing an electrical costume
+
+The DC output path — busbars, terminal blocks, contactor lugs — is through-hole and heavy copper. On this floor that is selective or hand solder with the thermal mass managed per joint, and the first article is inspected by cross-section and pull rather than by a green light on an AOI screen.
+
+Three things go wrong here repeatedly:
+
+- Insufficient fill on a lug. Looks soldered, measures cold, heats under load.
+- Torque applied to a joint instead of a stud. The joint survives the build and fails in service.
+- Plating and paste mismatch on a thick terminal. No amount of reflow tuning fixes a surface that will not wet.
+
+None of these is caught by AOI. They are caught by specifying the joint, then inspecting it the way the specification says.
+
+### Metering is a certificate, not a calibration step
+
+A charger that bills for energy carries a meter that has to be accurate to a defined class, and that accuracy is certified by a body against a standard. Assembling the metering board is not the same as certifying the meter, and no contract assembler should let a buyer believe otherwise.
+
+The practical consequence: the metering board is usually bought as a certified sub-assembly, or assembled and then sent for certification by the charger builder. If a quotation offers you "metering included" without naming who issues the certificate, that is the question to ask.
+
+### Coating on an outdoor cabinet
+
+Chargers live outdoors, often at the coast, and conformal coating is standard on the control and interface boards. It is done here with the connectors and the test points masked by hand.
+
+What coating buys is tolerance to condensation and pollution on a board inside an enclosure that breathes. What it does not buy is an enclosure rating. A cabinet that takes water at the door gasket will take it regardless of what is on the board, and the coating callout should be written for the environment the board sees, not as a substitute for sealing the box.
+
+Potting is the other option and it is not done here. A control board potted into an enclosure is a different process with a different repair story, and it belongs with whoever owns the enclosure.
+
+### What records matter on this product
+
+Because the failure modes are thermal and mechanical rather than electronic, the records that matter are the ones that show a joint was made properly:
+
+- First-article cross-section on the DC output lugs and the contactor joints
+- The selective-solder program revision and the nozzle set used
+- Coating record with the mask list, and where the mask was verified
+- SPI and AOI results per lot, filed rather than summarised
+
+On a charger these are worth more than a functional pass count, because the board can pass at room temperature and fail at the output current it was designed for.
+
+### Where this floor stops
+
+- No type test, no EMC test, no safety certification. Those run at an accredited laboratory against the charging standard the market requires, on the finished cabinet.
+- No efficiency or thermal measurement of the conversion stage. The modules are the vendor's; the load bank that would measure them is not here.
+- No metering certification. See above.
+- No enclosure assembly or sealing. We build and coat boards and see them into the box; the box is the charger builder's.
+
+### What to send for a quote
+
+Board drawings with the current-carrying joints called out, the stack-up, the connector and terminal list with the mating half named, the coating callout and mask list, and the quantity per variant. If the metering board is supplied by you as a certified assembly, say so and we will quote it as a handled item rather than a build.
+
+The AC side of the same story is in the EVSE audit record set (/insights/evse-audit-record-set.html), and the family pages are DC charger boards (/applications/dc-charger.html) and AC wallbox boards (/applications/evse.html). For why a first run costs more than the second, see why the second run costs less (/insights/why-the-second-run-costs-less.html).
+
+---
+
+## The rack BMS board spends its life at high voltage and nobody ever looks at it
+
+Source: https://tenmaypcba.com/insights/rack-bms-high-voltage-build-risk.html
+Published: 2026-11-19
+Summary: The boards in a battery cabinet are judged years after they are built, by something nobody on the assembly floor can run. What that changes about spacing, connectors, contactors and records.
+
+A battery cabinet is the one product family where the board is expected to do nothing for years and then work exactly once, under fault conditions, with somebody's insurance looking at the result. That changes what a buyer should be checking at the assembly stage, and it changes what an assembler can honestly claim. The energy storage family page (/applications/bess.html) carries the process side of that argument; this note is about where the build risk sits.
+
+The three boards in the cabinet are the BMU on each pack, the rack BMS that aggregates them, and the cluster controller that talks to the PCS and the site. The contactor driver and the sensing head that decide whether the cabinet isolates sit on one of those three or on a fourth board of their own.
+
+### What is actually on each board
+
+The BMU measures cell voltages and pack temperature, balances, and reports upward over an isolated bus. It is a small board, repeated sixteen to twenty-four times per rack, and it is the one board where a single assembly defect is multiplied by the count.
+
+The rack BMS aggregates the BMUs, drives the contactors, reads current, and holds the state machine that decides when the cabinet is allowed to close. It carries the isolated sense front end, the contactor driver and the interlock inputs.
+
+The cluster controller is the communication and coordination board — CAN to the PCS, Modbus or Ethernet to the site SCADA, and the logging that somebody will read after an event.
+
+None of these is a difficult board to place. The difficulty is that all three live in a cabinet where the working voltage is hundreds of volts, and every one of them is only as good as the spacing and the connector it was built with.
+
+### Creepage is your certifier's number, not ours
+
+The sense lines that run from a 1000 V stack down to a 5 V ADC need spacing that comes from the standard your pack is certified against — IEC 62619 for industrial storage, UL 1973 in North America — and from your certifier's reading of it. That number belongs on your drawing and in your stack-up.
+
+We build to that drawing, and we will tell you when a spacing looks unbuildable on this floor — 0.30 mm is the finest IC pitch we place, and a coated high-voltage gap is a different constraint from a pitch. What we cannot do is certify the clearance. A certificate on a cabinet is issued against a design, by a body, and an assembler is not that body.
+
+This is the single most common misunderstanding in storage enquiries: the buyer asks whether we can build a board to IEC 62619, and the honest answer is that we can build a board that your certifier will accept, if the drawing already carries their numbers. Asking an assembler to supply the numbers is how a design gets to type test and comes back.
+
+### The connector is where these cabinets actually fail
+
+A rack BMS with twenty BMU drops has a twenty-way harness landing on it. Three things matter more than the board itself:
+
+- Keyed and latched. A sense connector that can be plugged in one position off, or that backs out under vibration, is a fault that appears in year three, not at first power-on.
+- Strain relief at the board edge. The harness in a cabinet is heavy and it hangs. A connector held only by its solder joints is a cold joint waiting for a service visit.
+- Masking during coating. Coating a connector body instead of masking it is worse than not coating at all: the contact resistance changes and nobody knows.
+
+All three are process decisions that have to be written into the build, not discovered at final inspection.
+
+### THT, contactors and thermal mass
+
+The contactor driver and the pre-charge path are through-hole and heavy copper. Reflow alone does not do this well; it is selective solder or hand solder with the thermal mass managed, and the joints are inspected visually and by pull on the first article.
+
+The reason it matters here rather than on a consumer board is that these joints carry the current that opens the cabinet under fault. A joint that is 80 % filled is a joint that heats. On this floor that work runs in-house — it is one of the reasons a storage board is a comfortable fit rather than a favour.
+
+### Coating: what it does, and what it does not
+
+Conformal coating is standard on storage boards, and it is done here with connectors and test points masked by hand. It buys you condensation and pollution tolerance on a board that sits in a cabinet with a thermal management system that is not perfect.
+
+It does not buy you an IP rating. A coated board in a flooded cabinet is a wet board. If your enclosure design depends on the coating for water ingress, the coating is being asked to do a job it was never specified for.
+
+Potting and encapsulation are the other half of this conversation, and they are not done here. A BMU that has to survive pack-level vibration in a potted module is a different process, and it belongs with the module builder.
+
+### What records we keep, and what they are worth later
+
+Per lot: first-article photographs, SPI results before reflow, AOI results after, X-ray images on the power and QFN joints, and the coating record with the masking set used. Those are filed against the lot and stay retrievable.
+
+Their value is entirely in the year-three question. When a cabinet trips and the investigation reaches the boards, "we built it and here is the X-ray of that joint" is a different conversation from "we have no record".
+
+### Where this floor stops
+
+Say it before the enquiry, not after the type test:
+
+- No high-voltage functional test. We do not have a test bench that takes a rack BMS to working voltage and exercises the contactor sequence. That belongs to the cabinet builder, whose firmware defines pass.
+- No pack-level thermal or vibration qualification. The chamber here takes boards, not modules, and it soaks rather than cycles.
+- No BMS firmware validation. Balancing behaviour and state-of-charge accuracy are software and cell chemistry questions.
+- No IEC 62619 or UL 1973 certification. See above.
+
+### What to send for a quote
+
+The BOM with the DNP and alternate parts marked, the board drawings with your creepage and clearance values on them, the stack-up if you have controlled impedance, the connector list with the mating half named, the coating callout including the mask list, and the quantity.
+
+The scope line on the quote says what is and is not done here. If you need the high-voltage test as part of the order, tell us at enquiry and we will say so plainly rather than at the tooling stage.
+
+For the cabinet-level companion board, the sensing head and trigger driver on the suppression panel, see storage safety boards (/applications/storage-safety.html). The general question of what inspection actually proves is in what AOI and X-ray still cannot catch (/insights/what-aoi-xray-cannot-catch.html), and the test-step decision is in what to do when your assembler has no in-circuit test (/insights/in-circuit-test-outsourcing.html).
 
 ---
 

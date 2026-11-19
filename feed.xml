@@ -6,7 +6,7 @@
     <description>Process limits, quoting arithmetic and BOM problems, written from a high-mix PCBA floor in Shenzhen.</description>
     <language>en</language>
     <atom:link href="https://tenmaypcba.com/feed.xml" rel="self" type="application/rss+xml" />
-    <lastBuildDate>Wed, 18 Nov 2026 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 19 Nov 2026 00:00:00 GMT</lastBuildDate>
     <item>
       <title>How to Choose a PCBA Supplier — Board by Board</title>
       <link>https://tenmaypcba.com/choose-a-pcba-supplier.html</link>
@@ -29,11 +29,32 @@
       <description>What SPI, AOI and X-ray each prove and still cannot prove, what limits 01005 yield, which limits are worth paying for, and the four clocks inside a lead time.</description>
     </item>
     <item>
+      <title>A 1U rectifier board is a thermal part with a circuit attached</title>
+      <link>https://tenmaypcba.com/insights/1u-rectifier-thermal-joint.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/1u-rectifier-thermal-joint.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>On a server power shelf the joint under the power device decides the life of the unit, and AOI cannot see it. What to specify, and what cannot be measured.</description>
+    </item>
+    <item>
+      <title>On a DC fast charger the power modules are bought — the control board is what you are specifying</title>
+      <link>https://tenmaypcba.com/insights/dc-charger-built-vs-bought.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/dc-charger-built-vs-bought.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A charger is purchased power modules plus the control, metering and interface boards. Which of those an assembler builds, and where the risk moves.</description>
+    </item>
+    <item>
+      <title>The rack BMS board spends its life at high voltage and nobody ever looks at it</title>
+      <link>https://tenmaypcba.com/insights/rack-bms-high-voltage-build-risk.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/rack-bms-high-voltage-build-risk.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A storage cabinet is a BMU per pack, a rack BMS and a cluster controller. Where build risk sits, and the four things an assembler cannot certify for you.</description>
+    </item>
+    <item>
       <title>PCBA since 2008: what a founding date proves, and what it does not</title>
       <link>https://tenmaypcba.com/insights/pcba-since-2008.html</link>
       <guid isPermaLink="true">https://tenmaypcba.com/insights/pcba-since-2008.html</guid>
       <pubDate>Wed, 18 Nov 2026 00:00:00 GMT</pubDate>
-      <description>A founding date is the cheapest question you can ask a PCBA supplier and the easiest to check. What it establishes, the three ways an old company can still be a young assembler, and how to separate them in an hour.</description>
+      <description>A founding date is the cheapest question to ask a PCBA supplier, and the easiest to check. What it proves, and three ways an old firm stays a young assembler.</description>
     </item>
     <item>
       <title>Who owns the optics on a dashcam build?</title>

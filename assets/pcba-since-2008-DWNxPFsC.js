@@ -1,7 +1,7 @@
 const e=`---
 title: "PCBA since 2008: what a founding date proves, and what it does not"
 seoTitle: "PCBA Since 2008: What a Founding Date Proves"
-description: "A founding date is the cheapest question you can ask a PCBA supplier and the easiest to check. What it establishes, the three ways an old company can still be a young assembler, and how to separate them in an hour."
+description: "A founding date is the cheapest question to ask a PCBA supplier, and the easiest to check. What it proves, and three ways an old firm stays a young assembler."
 date: 2026-11-18
 tags: Sourcing, Audit, Company
 summary: "The date proves the legal entity persisted. It says nothing about whether the SMT floor existed then. Three checks separate an old company from a long-running assembly operation — and one of them is asking for a record from a year you choose."
