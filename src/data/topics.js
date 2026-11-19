@@ -1,15 +1,24 @@
 /*
- * Three curated hubs over the thirty-two notes in src/content/insights/.
+ * Four curated hubs over the fifty-five notes in src/content/insights/.
  *
- * Why this file exists instead of tag pages: "Sourcing" appears on eleven
- * articles, and eleven auto-generated tag pages would be eleven thin pages
- * competing with each other for the same query. Three hand-written hubs — each
+ * Why this file exists instead of tag pages: "Sourcing" appears on forty-two
+ * articles, and forty-two auto-generated tag pages would be forty-two thin pages
+ * competing with each other for the same query. Four hand-written hubs — each
  * answering a different question, each carrying a table that exists nowhere
  * else — give a crawler a hierarchy and give a buyer an entry point.
  *
+ * The four questions, because a note is filed by the question it answers:
+ *   choose-a-pcba-supplier   one assembler or two, and who owns the gap
+ *   pcba-cost-and-quotes     what is inside the number on the quotation
+ *   pcba-process-limits      what this floor can and cannot do, and on which line
+ *   where-build-risk-sits    which step of the build decides whether it survives
+ *
  * Rules for editing:
  *  - Every article slug appears in exactly one hub. An article that seems to
- *    belong to two belongs to the hub whose *question* it answers.
+ *    belong to two belongs to the hub whose *question* it answers. This is not
+ *    a convention: tools/insights-meta.mjs throws at build time when a note is
+ *    in no hub or in two, because the previous version of this rule drifted to
+ *    twenty-three notes with no hub at all and nothing noticed for months.
  *  - Each hub has one summary line, five 60-second assertions and one or two
  *    tables. The tables are the reason the hub earns a visit; do not let them
  *    become a restatement of the articles.
@@ -625,6 +634,345 @@ export const TOPICS = [
       { label: "Capabilities and equipment", href: "/capabilities.html" },
     ],
   },
+  {
+    slug: "where-build-risk-sits",
+    path: "/where-build-risk-sits",
+    href: "/where-build-risk-sits.html",
+    navLabel: "Where build risk sits",
+    blurb: "which step of the build decides whether the board survives",
+    h1: "Where the build risk sits, board by board",
+    lede:
+      "Twenty-three notes, one question each: on this family, which step of the build decides whether the product survives in the field? The answer is almost never placement. On a 1U rectifier it is a void under a power device that only X-ray shows; on an LED receiver card a ribbon header; on a rugged handheld the coat. Reading the step first changes what you put in the drawing and what you ask a supplier to prove.",
+    title: "Where PCBA Build Risk Sits: 23 Board Families",
+    description:
+      "On twenty-three board families the step that decides field life is not placement. What decides each one, and the question to put to a supplier before quoting.",
+    ogTitle: "Where the Build Risk Sits — 23 Board Families",
+    ogDescription:
+      "The joint you cannot see, the header that gets cycled, the coat that is the specification. One step per family decides it, and it is rarely the placement step.",
+    quick: [
+      "On most of these families the inspection step, not the placement step, is the part of the quotation worth reading.",
+      "A joint that is invisible from above is the whole yield number. AOI sees the fillet, X-ray sees the void, and owning X-ray is not the same claim as reading it against a limit.",
+      "Where the failure is mechanical — a connector, a ribbon header, a motor tab, a flex through a hinge — assembly executes a drawing that was decided earlier, so the decision to argue about is the drawing.",
+      "A coating, a masking or a potting step added after the build can make a board unrepairable and can detune an RF section. The order of the last two operations is a design decision.",
+      "On six families the acceptance measurement does not exist in the assembler's building at all, and the arrangement for it has to be written down before the first build rather than discovered after it.",
+    ],
+    firstRead: {
+      slug: "payment-terminal-tamper-mesh",
+      why:
+        "Because it is the family where a silent failure has an audit answer, and the note puts the audit before the price — the order most buyers get wrong, and the order that decides whether the rest of this hub is useful to you.",
+    },
+    tables: [
+      {
+        caption:
+          "Twenty-three families. The middle column is this site's own reading of the linked note, not a quotation, and the rows are grouped by question rather than ranked.",
+        columns: ["Board family", "Where the risk sits", "The note"],
+        linkColumn: 2,
+        rows: [
+          {
+            cells: [
+              "1U rectifier / server power shelf",
+              "The void under the power device and the pad to the heatsink: invisible from above, read by X-ray against a limit",
+            ],
+            slug: "1u-rectifier-thermal-joint",
+          },
+          {
+            cells: [
+              "Car audio / Class-D amplifier",
+              "Voiding under the power devices first, then a board-to-case path that is half mechanical and unmeasured here",
+            ],
+            slug: "car-amplifier-voids-not-watts",
+          },
+          {
+            cells: [
+              "Telecom line card",
+              "Controlled impedance from the stackup, plus shield cans and edge-launched coax: two places the build can undo the design",
+            ],
+            slug: "telecom-impedance-and-shield-cans",
+          },
+          {
+            cells: [
+              "AMR / AGV",
+              "The connector, not the solder joint: mating cycles, strain relief, and a technician unplugging it at eleven at night",
+            ],
+            slug: "amr-connector-is-the-failure-point",
+          },
+          {
+            cells: [
+              "LED display receiver card",
+              "Long cheap boards covered in ribbon headers that get cycled during install: connector and through-hole fill, not placement",
+            ],
+            slug: "led-receiver-card-ribbon-headers",
+          },
+          {
+            cells: [
+              "Power tool controller",
+              "Motor tabs carrying twenty amps inside a sealed handle: through-hole fill and coating decide field life",
+            ],
+            slug: "power-tool-motor-tabs-soldered",
+          },
+          {
+            cells: [
+              "AI / smart glasses",
+              "The flex through the hinge, folded daily for two years: a design decision that arrives as a yield number",
+            ],
+            slug: "smart-glasses-hinge-yield",
+          },
+          {
+            cells: [
+              "Off-highway controller",
+              "Coating sealed inside a casting, judged in a field six months after the machine left",
+            ],
+            slug: "off-highway-coating-in-a-casting",
+          },
+          {
+            cells: [
+              "Rugged radio / handheld",
+              "The box and the conformal coat are the specification, and the shield can dictates the rework path",
+            ],
+            slug: "rugged-radio-coating-is-the-product",
+          },
+          {
+            cells: [
+              "Pressure transmitter",
+              "The seal into the housing, and where potting and calibration sit relative to the build",
+            ],
+            slug: "transmitter-board-seal-not-opamp",
+          },
+          {
+            cells: [
+              "Thermal camera core",
+              "Flux, dust and a window that should have been masked before the board was assembled",
+            ],
+            slug: "thermal-core-cleaning-and-masking",
+          },
+          {
+            cells: [
+              "Flight controller / UAV",
+              "Sensor alignment, which is not an assembly step, on a board whose hardest requirement is done elsewhere",
+            ],
+            slug: "flight-controller-imu-calibration-boundary",
+          },
+          {
+            cells: [
+              "GNSS receiver",
+              "An RF front end nobody here can measure, plus a coating callout that can detune it",
+            ],
+            slug: "gnss-rf-section-keep-out",
+          },
+          {
+            cells: [
+              "Bench instruments",
+              "The noise floor at the front end, and a calibration that never happens in this building",
+            ],
+            slug: "instrument-front-end-noise-floor",
+          },
+          {
+            cells: [
+              "IP camera",
+              "An acceptance criterion that is an image, so the proof is a measurement the assembler cannot make",
+            ],
+            slug: "ip-camera-proof-is-an-image",
+          },
+          {
+            cells: [
+              "DC fast charger",
+              "The control board carrying the integration, and the high-current lugs: fill, torque, plating",
+            ],
+            slug: "dc-charger-built-vs-bought",
+          },
+          {
+            cells: [
+              "Induction drive",
+              "The resonant tank: it decides both the money and the failure, and it lives outside this building",
+            ],
+            slug: "induction-tank-never-connected",
+          },
+          {
+            cells: [
+              "Medical device",
+              "Documents and revision control rather than placement: an ordinary board with an extraordinary record",
+            ],
+            slug: "medical-board-ordinary-record-is-not",
+          },
+          {
+            cells: [
+              "Rack BMS / BESS",
+              "High voltage for years, judged by something nobody on the assembly floor can run",
+            ],
+            slug: "rack-bms-high-voltage-build-risk",
+          },
+          {
+            cells: [
+              "Payment terminal",
+              "One trace wrapped in a tamper mesh whose failure is silent, so the audit comes before the price",
+            ],
+            slug: "payment-terminal-tamper-mesh",
+          },
+          {
+            cells: [
+              "Home battery",
+              "Standby current measured in microamps: what the build touches, and what the approval file never does",
+            ],
+            slug: "home-battery-microamp-standby",
+          },
+          {
+            cells: [
+              "Humanoid robot joint",
+              "Sameness across dozens of units: panelisation, test coverage and heat, not difficulty",
+            ],
+            slug: "robot-joint-many-identical-boards",
+          },
+          {
+            cells: [
+              "Wearable",
+              "No room for a second attempt: tiny parts, near-impossible rework, so everything is decided before the build",
+            ],
+            slug: "wearable-no-room-for-a-second-attempt",
+          },
+        ],
+      },
+    ],
+    steps: [
+      {
+        heading: "First: the joint under the part",
+        intro:
+          "Three families where the electrical result depends on a thermal or impedance joint that the top side does not reveal, and where the inspection is the interesting part of the quote.",
+        items: [
+          {
+            slug: "1u-rectifier-thermal-joint",
+            why: "Paste coverage under a power device decides the efficiency figure, and AOI cannot see it.",
+          },
+          {
+            slug: "car-amplifier-voids-not-watts",
+            why: "A Class-D board is judged on heat before sound, in a box that already runs hot.",
+          },
+          {
+            slug: "telecom-impedance-and-shield-cans",
+            why: "The impedance comes from the stackup and the cans, and assembly is where both can be lost.",
+          },
+        ],
+      },
+      {
+        heading: "Second: the joint that moves",
+        intro:
+          "Four families where the failure is mechanical — a connector, a header, a tab, a flex — and where the build executes a drawing rather than making a decision.",
+        items: [
+          {
+            slug: "amr-connector-is-the-failure-point",
+            why: "A robot board is unplugged for a living; mating cycles and strain relief are warranty terms with part numbers.",
+          },
+          {
+            slug: "led-receiver-card-ribbon-headers",
+            why: "The header is cycled at install, so the joint that fails is three years downstream of the placement.",
+          },
+          {
+            slug: "power-tool-motor-tabs-soldered",
+            why: "Twenty amps through a soldered tab inside a sealed handle: fill and coating, not placement.",
+          },
+          {
+            slug: "smart-glasses-hinge-yield",
+            why: "The electronics are ordinary; the flex folded every day for two years is not.",
+          },
+        ],
+      },
+      {
+        heading: "Third: the surface",
+        intro:
+          "Four families where a coating, a masking or a seal is the specification, and where doing it late makes the board unrepairable.",
+        items: [
+          {
+            slug: "off-highway-coating-in-a-casting",
+            why: "Coating inside a casting is judged in a field, six months after the machine left the line.",
+          },
+          {
+            slug: "rugged-radio-coating-is-the-product",
+            why: "The product survives because of the box and the coat, and the shield can sets the rework path.",
+          },
+          {
+            slug: "transmitter-board-seal-not-opamp",
+            why: "The op-amp is the easy part; the seal into the housing is the drift figure.",
+          },
+          {
+            slug: "thermal-core-cleaning-and-masking",
+            why: "Flux, dust and an unmasked window ruin a low-noise analogue board before it is tested.",
+          },
+        ],
+      },
+      {
+        heading: "Fourth: the measurement that happens elsewhere",
+        intro:
+          "Six families where the acceptance test does not exist on the assembler's floor, so the arrangement has to be written before the first build.",
+        items: [
+          {
+            slug: "flight-controller-imu-calibration-boundary",
+            why: "Sensor alignment is not an assembly step, and the boundary is worth drawing on paper.",
+          },
+          {
+            slug: "gnss-rf-section-keep-out",
+            why: "Fifty to five hundred boards a year, an RF front end nobody here measures, and a coating that can detune it.",
+          },
+          {
+            slug: "instrument-front-end-noise-floor",
+            why: "Bench instruments are analogue, low volume and revision-heavy, and the calibration lives with you.",
+          },
+          {
+            slug: "ip-camera-proof-is-an-image",
+            why: "When acceptance is an image, the assembler's job is narrow and the proof has to live somewhere else.",
+          },
+          {
+            slug: "dc-charger-built-vs-bought",
+            why: "The conversion stage arrives as somebody else's certified module; the integration lands on the control board.",
+          },
+          {
+            slug: "induction-tank-never-connected",
+            why: "The resonant tank decides the money and the failure, and it is never connected on this floor.",
+          },
+        ],
+      },
+      {
+        heading: "Fifth: the record",
+        intro:
+          "Four families where the question a buyer ends up answering years later is documentary: which serial, which lot, which revision, which certificate.",
+        items: [
+          {
+            slug: "medical-board-ordinary-record-is-not",
+            why: "An ordinary board with an extraordinary record, in a device that lives a decade.",
+          },
+          {
+            slug: "rack-bms-high-voltage-build-risk",
+            why: "Spacing, connectors, contactors and records, all judged long after the cabinet shipped.",
+          },
+          {
+            slug: "payment-terminal-tamper-mesh",
+            why: "A silent failure with an audit answer: ask for the audit before you ask for the price.",
+          },
+          {
+            slug: "home-battery-microamp-standby",
+            why: "The number the product is judged on is measured in microamps, and half the approval file never enters this building.",
+          },
+        ],
+      },
+      {
+        heading: "Sixth: sameness, and no second attempt",
+        intro:
+          "Two families where the requirement is not difficulty but repeatability — one because the unit count is high, one because the board cannot be reworked.",
+        items: [
+          {
+            slug: "robot-joint-many-identical-boards",
+            why: "A joint board is built twelve to forty times per unit; panelisation and test coverage decide whether the robot walks smoothly.",
+          },
+          {
+            slug: "wearable-no-room-for-a-second-attempt",
+            why: "Tiny parts and near-impossible rework: what has to be settled before the build rather than during it.",
+          },
+        ],
+      },
+    ],
+    up: [
+      { label: "One supplier or several, board by board", href: "/choose-a-pcba-supplier.html" },
+      { label: "Board families by application", href: "/applications.html" },
+    ],
+  },
 ];
 
 export const TOPIC_BY_PATH = Object.fromEntries(TOPICS.map((t) => [t.path, t]));
@@ -635,9 +983,9 @@ export function topicForArticle(slug) {
   return TOPICS.find((t) => t.steps.some((s) => s.items.some((i) => i.slug === slug))) || null;
 }
 
-/* Every hub lists every member article exactly once. Nothing enforces that at
- * build time, so when a note is added, add it here in the same commit — a note
- * that belongs to no hub is reachable from the index and from nowhere else. */
+/* Every hub lists every member article exactly once. assertTopicCoverage() in
+ * tools/insights-meta.mjs fails the build when a note is in no hub or in two,
+ * so adding a note means filing it in the same commit or the build stops. */
 export function topicSlugs(topic) {
   return topic.steps.flatMap((s) => s.items.map((i) => i.slug));
 }

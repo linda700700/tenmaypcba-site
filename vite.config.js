@@ -4,7 +4,12 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { renderLlmsFull } from './tools/gen-llms-full.mjs';
-import { writeMeta, writeFamilyLinks, writeNeighbours } from './tools/insights-meta.mjs';
+import {
+  writeMeta,
+  writeFamilyLinks,
+  writeNeighbours,
+  assertTopicCoverage,
+} from './tools/insights-meta.mjs';
 import { writeFamilyData } from './tools/family-index.mjs';
 import { dirname, join } from 'node:path';
 
@@ -22,6 +27,10 @@ const root = dirname(fileURLToPath(import.meta.url));
 writeMeta();
 /* The reverse index the family pages read: which notes discuss this family. */
 writeFamilyLinks();
+/* Every note in exactly one hub, or the build stops. Checked here rather than in
+ * topics.js because that module also ships to the browser, and a client bundle
+ * cannot read the content directory. */
+assertTopicCoverage();
 /* Which two notes each note points at under "More notes". Computed here for the
  * same reason: it depends on every note's tags, hub and family, and the answer
  * has to be the same in the prerendered HTML and in the browser. */

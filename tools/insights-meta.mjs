@@ -14,7 +14,7 @@
  */
 
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
-import { TOPICS, topicForArticle } from '../src/data/topics.js';
+import { TOPICS, topicForArticle, topicSlugs } from '../src/data/topics.js';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -23,6 +23,42 @@ const CONTENT = join(ROOT, 'src', 'content', 'insights');
 const OUT = join(ROOT, 'src', 'data', 'insights-meta.json');
 const OUT_FAMILIES = join(ROOT, 'src', 'data', 'article-families.json');
 const OUT_NEIGHBOURS = join(ROOT, 'src', 'data', 'note-neighbours.json');
+
+/* Every note belongs to exactly one hub.
+ *
+ * This is the invariant topics.js has always documented and never enforced. It
+ * drifted: twenty-three of fifty-five notes ended up in no hub at all, reachable
+ * only from the article index and from a family page, and nothing failed. A hub
+ * is the cluster a crawler reads to decide what this site is about, so a note
+ * outside every hub is a note outside the hierarchy. Failing the build is the
+ * only version of this rule that survives contact with a busy week. */
+export function assertTopicCoverage() {
+  const onDisk = readdirSync(CONTENT)
+    .filter((name) => name.endsWith('.md'))
+    .map((name) => name.slice(0, -3));
+
+  const seen = new Map();
+  const duplicated = [];
+  for (const topic of TOPICS) {
+    for (const slug of topicSlugs(topic)) {
+      if (seen.has(slug)) duplicated.push(`${slug} (${seen.get(slug)} and ${topic.slug})`);
+      seen.set(slug, topic.slug);
+    }
+  }
+
+  const unfiled = onDisk.filter((slug) => !seen.has(slug));
+  const dangling = [...seen.keys()].filter((slug) => !onDisk.includes(slug));
+
+  const problems = [];
+  if (unfiled.length) problems.push(`in no hub: ${unfiled.join(', ')}`);
+  if (duplicated.length) problems.push(`in two hubs: ${duplicated.join(', ')}`);
+  if (dangling.length) problems.push(`in a hub but not on disk: ${dangling.join(', ')}`);
+  if (problems.length) {
+    throw new Error(`topic coverage broken — ${problems.join('; ')}`);
+  }
+
+  return { notes: onDisk.length, hubs: TOPICS.length, filed: seen.size };
+}
 
 function parseFrontmatter(source) {
   const text = String(source).replace(/\r\n/g, '\n');
