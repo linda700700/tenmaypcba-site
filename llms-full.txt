@@ -1,11 +1,224 @@
-# TENMAY — full text of every published note
+# TENMAY — the four hubs, then the full text of every published note
 
-> 55 notes, latest revision 2026-11-19. Generated from the same Markdown the
-> pages are built from, so this file and the site cannot disagree. Every note is reproduced
-> in full, in plain text, with its canonical URL. Index and collections: https://tenmaypcba.com/insights.html
+> 55 notes across 4 hubs, latest revision 2026-11-19. Generated from
+> the same Markdown and the same hub data the pages are built from, so this file and
+> the site cannot disagree. Each hub opens with the question it answers and files its
+> notes under one heading; the full text of each note follows the hub section.
+> Index and collections: https://tenmaypcba.com/insights.html
 >
 > TENMAY is Shenzhen Tenmay Technology Co., Ltd. (深圳腾镁科技有限公司), a PCBA contract
 > manufacturer in Shenzhen since 2008. An assembly house, not a PCB fabricator.
+
+---
+
+## The four hubs, which are also the site index
+
+### How to Choose a PCBA Supplier: 11 Board Families
+
+Source: https://tenmaypcba.com/choose-a-pcba-supplier.html
+
+Seventeen notes on the decision that actually costs money: whether one assembler builds the whole product or the build splits. Eleven of them take one board family and ask that question again, because the answer changes with the board rather than with the price list. The other six cover the checks that decide whether a quote is worth reading at all — what you are buying, whether the seller is the plant, which certificate your programme actually requires, and whether the founding date means what it looks like.
+
+Stated on that page, one line each:
+
+- One assembler usually wins when the boards share a failure mode — the inverter and the BMS on a power station, the three boards of a VFD that must ship on one date.
+- Splitting is normal when the second board changes on a different clock: a console, a display, a keypad.
+- Some splits are not a choice. Active lens alignment on a dashcam is not an assembly step, so no assembler can keep it in one house.
+- On a safety-related board the first question is not unit price but whether one serial can be tied to one build lot.
+- On a dense consumer board the requirement that decides who can quote is test coverage, not placement capability.
+
+#### First: one supplier, two, or three?
+
+The unit you buy is usually the product, not the board. These four notes work out where the unit actually is.
+
+- Quoting a VFD as three boards or as one set. Why the set, not the board, is the unit — and why both pricing views are worth asking for. Source: https://tenmaypcba.com/insights/vfd-three-boards-one-quote.html
+- Sharing a build stack between servo drives and VFDs. When sharing a stack with a VFD is real leverage, and when it quietly hands your supplier pricing power. Source: https://tenmaypcba.com/insights/servo-drive-shared-stack-with-vfd.html
+- Should one assembler build all three portable power station boards. The inverter decides output quality, so it is the board worth keeping next to the BMS. Source: https://tenmaypcba.com/insights/power-station-three-board-supplier.html
+- Should you buy the e-bike controller and display from one assembler. Two boards on two revision clocks: split the build, but never split the harness drawing. Source: https://tenmaypcba.com/insights/ebike-controller-display-split-sourcing.html
+
+#### Second: who carries the risk?
+
+Once the build is split, something unowned is left in the gap. These four notes name what it is on each family.
+
+- Where liability sits on a jump starter with an air compressor. One failed switch can destroy a vehicle's electronics. That risk has to be written down, not assumed. Source: https://tenmaypcba.com/insights/jump-starter-safety-liability.html
+- What an EVSE control board audit actually asks for. On a safety-related board the first question is whether one serial can be tied to one lot. Source: https://tenmaypcba.com/insights/evse-audit-record-set.html
+- Who owns the optics on a dashcam build. Lens alignment is not assembly, so no choice of assembler can keep it in one house. Source: https://tenmaypcba.com/insights/dashcam-optics-not-an-assembly-step.html
+- Potting before test turns a defect into scrap. Cheap board, irreversible potting: the order of the last two operations sets the scrap rate. Source: https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html
+
+#### Third: what must stay with you?
+
+Three notes where the honest answer is that a step belongs inside your own building — or must be bought in, not assembled.
+
+- Do you actually need in-circuit test on a robot vacuum mainboard. Specify ICT and most high-mix floors are out of the running. Know what you are buying before you do. Source: https://tenmaypcba.com/insights/robot-vacuum-ict-decision.html
+- The 800 mm board is not the hard part of a treadmill build. The 800 mm board is the easy question; a console harness in a sealed housing is not. Source: https://tenmaypcba.com/insights/treadmill-large-board-mechanics.html
+- Buy a certified HMI module, or assemble the board yourself. The board is cheaper and the liability moves to you. On an isolation product that is the whole decision. Source: https://tenmaypcba.com/insights/hmi-module-or-bare-board.html
+
+#### And before all of it — is this a factory, and can it carry your programme?
+
+Six notes that come before a quote is worth comparing. One settles which half of the job you are even buying, two settle whether the seller is the plant, one says how to prove it without flying there, one settles which certificate your programme requires, and one takes the founding date apart.
+
+- PCBA since 2008: what a founding date proves, and what it does not. A founding date proves the entity persisted, not that the SMT floor existed then. What to ask for instead. Source: https://tenmaypcba.com/insights/pcba-since-2008.html
+- What is PCBA? PCB vs PCBA, and what the extra letter buys you. PCB or PCBA decides who can quote you at all — and which half of the job is yours to buy. Source: https://tenmaypcba.com/insights/what-is-pcba.html
+- Finding a real PCBA factory in Shenzhen, when half of them are trading offices. Three checks settle in under an hour whether a Shenzhen supplier is a factory or a trading office. Source: https://tenmaypcba.com/insights/shenzhen-pcba-factory-guide.html
+- How to audit a PCBA supplier in China without visiting the factory. Five documents settle most audits before anyone visits: licence, certificate holder, bank beneficiary, address, numbers. Source: https://tenmaypcba.com/insights/pcba-supplier-audit-checklist.html
+- A remote factory audit that actually proves something. A remote audit only proves something when it is unscripted — what a live walk can show, and what it cannot. Source: https://tenmaypcba.com/insights/virtual-factory-audit.html
+- Do you need IATF 16949 for an automotive aftermarket part. Where the certification line actually sits between a vehicle programme and a retail accessory. Source: https://tenmaypcba.com/insights/no-iatf-16949.html
+
+---
+
+### PCBA Cost and Quoting: 8 Notes That Move the Price
+
+Source: https://tenmaypcba.com/pcba-cost-and-quotes.html
+
+Eight notes on the arithmetic behind a PCBA price: which costs are fixed per job, how setup divides across a batch, where consigning flips, and why a second order costs less than the first. Written for the buyer who has a quote in hand and cannot tell what is inside it.
+
+Stated on that page, one line each:
+
+- Two quotes for the same board are rarely the same offer. The difference is what each one leaves unsaid: test, yield, material ownership, and what happens when a part is short.
+- Fixed cost divided by quantity is most of the small-batch answer. Changeover, kitting and material minimums are the rest.
+- Consigning is cheaper only when you already own the parts. The flip point is driven by purchasing labour and shortage risk, not by the assembly unit price.
+- A reorder is cheaper because the fixed work is already done — and only while four things stay unchanged.
+- On a board everyone can quote, the price is the only visible variable, which is exactly why the invisible process steps decide who is cheaper in year two.
+
+#### Read the quote
+
+Build the structure before you compare a total, then use one simple board as a rehearsal for telling a real quote from a repriced one.
+
+- What is inside a PCBA price — the five lines, and which ones move with quantity. The five lines a PCBA price is made of, and the two that actually scale with quantity. Source: https://tenmaypcba.com/insights/pcba-cost-per-board.html
+- What a PCBA quote should contain — and what a bare number leaves out. The line-item skeleton: two quotes for one board are rarely the same offer. Source: https://tenmaypcba.com/insights/pcba-quote-what-it-should-contain.html
+- How to tell whether an LED driver PCBA quote is real. On a board everybody can quote, the invisible process steps decide who is cheaper in year two. Source: https://tenmaypcba.com/insights/led-driver-quote-reality-check.html
+
+#### Understand the quantity effect
+
+Why the per-board price falls, where it stops falling, and why the model is a production model rather than a batch size.
+
+- Why does a 50-piece PCBA run cost more per board than 5,000. Fixed cost divided by quantity is most of the answer; changeover, kitting and reel minimums are the rest. Source: https://tenmaypcba.com/insights/fifty-piece-run-cost.html
+- Ordering 50 pieces of PCBA — what is normal, what is not, and how to keep it cheap. Fifty pieces is a normal order rather than a favour, and setup is the line that makes it look expensive. Source: https://tenmaypcba.com/insights/fifty-piece-pcba-order.html
+- What is HMLV in PCBA — and when does it cost more than high volume. HMLV is a production model, not a batch size — and both of its costs can be measured. Source: https://tenmaypcba.com/insights/what-is-hmlv-pcba.html
+
+#### Decide who buys the parts
+
+The one decision that moves three different lines at once, in opposite directions.
+
+- Consigned vs turnkey PCBA at 50, 500 and 5,000 pieces. Where the answer flips between 500 and a few thousand pieces, and why it flips on labour rather than unit price. Source: https://tenmaypcba.com/insights/consigned-vs-turnkey-pcba.html
+
+#### Price the second order
+
+The note most buyers read too late, usually after a reorder has already been re-priced.
+
+- Why the second run costs less than the first — and where that stops. Four things must stay unchanged for a reorder to be cheaper; here is the list to keep. Source: https://tenmaypcba.com/insights/why-the-second-run-costs-less.html
+
+---
+
+### PCBA Process Limits: Yield, Inspection, DFM, Lead Time
+
+Source: https://tenmaypcba.com/pcba-process-limits.html
+
+Seven notes for the engineer still choosing footprints, panelisation and inspection. The subject is boundaries: what each inspection station actually proves, which limits are real, and the four different clocks hiding inside one lead time.
+
+Stated on that page, one line each:
+
+- SPI checks paste, AOI checks what is visible, X-ray checks what is hidden. None of them checks whether the board works.
+- The placer is rarely the limit at 01005. Stencil, paste, pad geometry and inspection are.
+- A DFM review is the last point where a change costs a file edit rather than a stencil, a scrap batch or a hand-rework line.
+- A BOM that reads correctly can still be unbuyable — eight checks decide which one you have.
+- Build time, material time, engineering time and transit time are four different waits. One number for four waits is how delivery promises break.
+
+#### Before the stencil is cut
+
+The two checks that decide whether the data you sent can be built at all — and whether it can be bought.
+
+- What a DFM review catches before the stencil is cut. The last point where a change costs a file edit rather than a stencil or a scrap batch. Source: https://tenmaypcba.com/insights/dfm-review-before-the-stencil.html
+- Which BOM problems force a re-quote — and how do you catch them first. Eight checks that decide whether the parts arrive as listed or the job stops for approval. Source: https://tenmaypcba.com/insights/bom-substitution-checklist.html
+
+#### Where the size limit really is
+
+Two notes on the smallest packages, which is where capability claims are most often repeated and least often assigned to a line.
+
+- 01005 vs 0201: which package should your design use. 0.2 mm in each direction and a measurable defect rate. Choose the package rather than inheriting it. Source: https://tenmaypcba.com/insights/01005-vs-0201.html
+- What actually limits 01005 placement yield. The placer is rarely the constraint; stencil, paste, pad geometry and inspection are. Source: https://tenmaypcba.com/insights/01005-placement-what-limits-yield.html
+
+#### What inspection is worth
+
+Two notes that convert a quality claim into a scope you can hold a supplier to: what the stations prove, and what to do when the test you need is not on the supplier's floor.
+
+- What SPI, AOI and X-ray can catch — and what they cannot. Three stations, three different proofs, and none of them says the board works. Source: https://tenmaypcba.com/insights/what-aoi-xray-cannot-catch.html
+- What to do when your PCBA supplier does not run in-circuit test. A fixture has to exist whether or not your assembler runs ICT. Three arrangements and what each costs you. Source: https://tenmaypcba.com/insights/in-circuit-test-outsourcing.html
+
+#### The clock you were actually quoted
+
+Because a lead time is four waits, and only one of them is under the assembler's control.
+
+- The four clocks inside a PCBA lead time. Build, material, engineering and transit: one number for four waits is how promises break. Source: https://tenmaypcba.com/insights/four-clocks-in-a-pcba-lead-time.html
+
+---
+
+### Where PCBA Build Risk Sits: 23 Board Families
+
+Source: https://tenmaypcba.com/where-build-risk-sits.html
+
+The build risk on a board family sits in one step, and naming that step changes what goes into the drawing and what a supplier is asked to prove. On a 1U rectifier it is the void under a power device, read on an X-ray image against a written limit. On an LED receiver card it is the ribbon header that gets cycled at install. On a rugged handheld it is the conformal coat that carries the IP rating. Twenty-three families, one step each, and the same question to put on the table before the price.
+
+Stated on that page, one line each:
+
+- On most of these families the inspection step carries more of the answer than the placement step, so it is the part of the quotation worth reading first.
+- A joint hidden under a power device decides the efficiency figure. AOI reads the fillet; X-ray reads the void against a written limit.
+- Where the failure is mechanical, a connector, a ribbon header, a motor tab or a flex through a hinge, assembly executes a drawing that was decided earlier, so that drawing is where the leverage sits.
+- A coating, a masking step or a potting step changes what the board survives, and it closes the rework path once it is applied. The order of the last two operations belongs in the design.
+- On six families the acceptance measurement happens in another building, and the arrangement for it belongs in writing before the first build.
+
+#### First: the joint under the part
+
+Three families where the electrical result depends on a joint underneath the part, and where the inspection step is the interesting part of the quote.
+
+- A 1U rectifier board is a thermal part with a circuit attached. Paste coverage under a power device decides the efficiency figure, and X-ray is how that joint gets read. Source: https://tenmaypcba.com/insights/1u-rectifier-thermal-joint.html
+- A car amplifier is a power supply with an audio problem, and the yield number is voiding. A Class-D board is judged on heat before sound, in a box that already runs hot. Source: https://tenmaypcba.com/insights/car-amplifier-voids-not-watts.html
+- On a telecom line card the impedance comes from the stackup and the shielding from the assembly floor. The impedance comes from the stackup and the cans, and assembly is where both can be lost. Source: https://tenmaypcba.com/insights/telecom-impedance-and-shield-cans.html
+
+#### Second: the joint that moves
+
+Four families where the failure is mechanical: a connector, a header, a tab, a flex. Assembly executes a drawing here, so the drawing is where the leverage sits.
+
+- On an AMR the connector fails before the solder joint does. A robot board is unplugged for a living; mating cycles and strain relief are warranty terms with part numbers. Source: https://tenmaypcba.com/insights/amr-connector-is-the-failure-point.html
+- On a receiver card the joint that fails is a ribbon header, three years later, on a wall nobody can reach. The header is cycled at install, so the joint that fails is three years downstream of the placement. Source: https://tenmaypcba.com/insights/led-receiver-card-ribbon-headers.html
+- The motor tabs on a power tool controller are soldered, and that is the whole job. Twenty amps through a soldered tab inside a sealed handle: the through-hole fill and the coating carry field life. Source: https://tenmaypcba.com/insights/power-tool-motor-tabs-soldered.html
+- On AI glasses the hinge is where the yield goes, and it is a board decision. The electronics are ordinary; the flex folded every day for two years is where the design gets tested. Source: https://tenmaypcba.com/insights/smart-glasses-hinge-yield.html
+
+#### Third: the surface
+
+Four families where a coating, a masking or a seal is the specification already, and where applying it late closes the rework path.
+
+- An off-highway controller is judged in a field six months after it left the line. Coating inside a casting is judged in a field, six months after the machine left the line. Source: https://tenmaypcba.com/insights/off-highway-coating-in-a-casting.html
+- On a rugged handheld the coating is not a finish, it is the specification. The product survives because of the box and the coat, and the shield can sets the rework path. Source: https://tenmaypcba.com/insights/rugged-radio-coating-is-the-product.html
+- On a pressure transmitter the op-amp is the easy part and the seal is not. The op-amp is the easy part; the seal into the housing is the drift figure. Source: https://tenmaypcba.com/insights/transmitter-board-seal-not-opamp.html
+- A thermal camera core board is a cleaning and masking problem before it is a placement problem. Flux, dust and an unmasked window ruin a low-noise analogue board before it is tested. Source: https://tenmaypcba.com/insights/thermal-core-cleaning-and-masking.html
+
+#### Fourth: the measurement that happens elsewhere
+
+Six families where the acceptance test belongs to another building, so the arrangement for it gets written before the first build.
+
+- A flight controller is one IMU away from being scrap, and nobody here can tell you which one. Sensor alignment sits with the aircraft maker, so the boundary is worth drawing on paper. Source: https://tenmaypcba.com/insights/flight-controller-imu-calibration-boundary.html
+- On a GNSS board the RF section is a keep-out, and assembly is what quietly breaks it. Fifty to five hundred boards a year, an RF front end measured elsewhere, and a coating callout that can detune it. Source: https://tenmaypcba.com/insights/gnss-rf-section-keep-out.html
+- An instrument board is fifty to five hundred pieces, and most of them are a revision. Bench instruments are analogue, low volume and revision-heavy, and the calibration lives with you. Source: https://tenmaypcba.com/insights/instrument-front-end-noise-floor.html
+- An IP camera board is easy to assemble and hard to prove, because the proof is an image. When acceptance is an image, the assembler's job is narrow and the proof has to live somewhere else. Source: https://tenmaypcba.com/insights/ip-camera-proof-is-an-image.html
+- On a DC fast charger the power modules are bought — the control board is what you are specifying. The conversion stage arrives as somebody else's certified module; the integration lands on the control board. Source: https://tenmaypcba.com/insights/dc-charger-built-vs-bought.html
+- An induction board is judged at the pan, and the pan is the one thing this floor never connects. The resonant tank decides the money and the failure, and it lives outside this floor. Source: https://tenmaypcba.com/insights/induction-tank-never-connected.html
+
+#### Fifth: the record
+
+Four families where the question a buyer ends up answering years later is documentary: which serial, which lot, which revision, which certificate.
+
+- On a medical device the board is ordinary and the record is not. An ordinary board with an extraordinary record, in a device that lives a decade. Source: https://tenmaypcba.com/insights/medical-board-ordinary-record-is-not.html
+- The rack BMS board spends its life at high voltage and nobody ever looks at it. Spacing, connectors, contactors and records, all judged long after the cabinet shipped. Source: https://tenmaypcba.com/insights/rack-bms-high-voltage-build-risk.html
+- A payment terminal has one trace that must never be nicked, and nothing here can prove it survived. A silent failure with an audit answer: ask for the audit before you ask for the price. Source: https://tenmaypcba.com/insights/payment-terminal-tamper-mesh.html
+- The number a home battery is judged on is measured in microamps, and there is no microamp bench here. The number the product is judged on is measured in microamps, and half the approval file is generated elsewhere. Source: https://tenmaypcba.com/insights/home-battery-microamp-standby.html
+
+#### Sixth: sameness, and no second attempt
+
+Two families where the requirement is repeatability: one because the unit count is high, one because the board has to work first time.
+
+- A robot joint board is a circular board built twelve to forty times per machine. A joint board is built twelve to forty times per unit; panelisation and test coverage decide whether the robot walks smoothly. Source: https://tenmaypcba.com/insights/robot-joint-many-identical-boards.html
+- A wearable board has almost nothing on it and almost no room for a second attempt. Tiny parts and near-impossible rework: everything gets settled before the build. Source: https://tenmaypcba.com/insights/wearable-no-room-for-a-second-attempt.html
 
 ---
 
