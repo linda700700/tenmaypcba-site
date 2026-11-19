@@ -394,7 +394,7 @@ export const ROUTE_HEADS = {
       'Placement, inspection, coating and board limits stated as they are, including what we do not do in-house.',
   },
 
-  /* The three topic hubs. Their heads live in data/topics.js so the page copy
+  /* The four topic hubs. Their heads live in data/topics.js so the page copy
    * and the <title> cannot drift apart; spreading them here keeps one map for
    * every route that is not generated from Markdown. */
   ...Object.fromEntries(
