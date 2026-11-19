@@ -23,7 +23,10 @@ const smtTable = [
   ['Changeover', 'Quoted per build', 'Feeder carts pre-kitted between jobs', 'High-mix scheduling is the default, not the exception'],
   ['Production lines', '8 lines', 'Yamaha YSM20 / YSM10', 'Eight lines in parallel, not one line with extra heads'],
   ['Minimum order quantity', '50 pieces', 'Smaller runs reviewed case by case', 'No tooling charge on an unchanged revision'],
-  ['Standard lead time', '3 working days', 'Standard build, parts in stock', 'Component lead time excluded and flagged at quote'],
+  // Scope is in the label because the THT table below carries a different
+  // number for a different scope. Two rows both called "Standard lead time"
+  // read as a contradiction to anyone who scrolls from one table to the next.
+  ['Standard lead time, SMT build', '3 working days', 'Standard build, parts in stock', 'Component lead time excluded and flagged at quote'],
 ];
 
 const thtTable = [
@@ -40,7 +43,7 @@ const thtTable = [
   ['Labels & serialisation', 'Printed label, manual application', 'Automated print-and-apply with serial binding', 'Serial linked to test log'],
   ['Retail packaging', 'Bulk ESD bag and carton', 'Custom insert, accessory kit, retail-ready pack', 'Drop test on request'],
   ['Sub-assembly test', 'Continuity check', 'Full functional test after box build', 'Firmware version recorded per unit'],
-  ['Standard lead time', '5 – 8 working days', '8 – 15 working days for box build', 'Depends on enclosure supply'],
+  ['Standard lead time, with through-hole', '5 – 8 working days', '8 – 15 working days for box build', 'Depends on enclosure supply'],
 ];
 
 const testTable = [

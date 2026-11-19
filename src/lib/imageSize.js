@@ -305,6 +305,10 @@ const SIZES = {
     1600,
     1066
   ],
+  "/assets/images/conformal-coating-thumb.webp": [
+    320,
+    213
+  ],
   "/assets/images/conformal-coating.webp": [
     1400,
     933
@@ -365,6 +369,10 @@ const SIZES = {
     1200,
     630
   ],
+  "/assets/images/tht-selective-solder-thumb.webp": [
+    320,
+    213
+  ],
   "/assets/images/tht-selective-solder.webp": [
     1400,
     933
@@ -390,8 +398,24 @@ const DEFAULT_SIZES = '(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 33vw';
  * The original is appended at its true width so a large screen still gets the
  * full-resolution file rather than the largest thumbnail.
  */
+/*
+ * A card sometimes points straight at a generated variant (`…-700w.webp`)
+ * rather than the original. That file is not a key in SIZES, so without this
+ * fallback the tag ships with no width or height and the card shifts when the
+ * bitmap lands. The width is in the filename; the height comes from the
+ * original's aspect ratio.
+ */
+function derivedSize(src) {
+  const m = /-(\d+)w\.webp$/.exec(src);
+  if (!m) return null;
+  const base = SIZES[src.replace(/-\d+w\.webp$/, '.webp')];
+  if (!base) return null;
+  const w = Number(m[1]);
+  return [w, Math.round((base[1] * w) / base[0])];
+}
+
 export function imgAttrs(src, sizes = DEFAULT_SIZES) {
-  const size = SIZES[src];
+  const size = SIZES[src] || derivedSize(src);
   if (!size) return {};
   const attrs = { width: size[0], height: size[1] };
   const set = variantSet(src);

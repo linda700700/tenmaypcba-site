@@ -329,10 +329,11 @@ export default function RfqFunnel() {
               {/* Step 3: Contact Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label htmlFor="tm-email" className="block text-xs font-semibold text-slate-700 mb-1">
                     Your Work Email * (For Quote Delivery)
                   </label>
                   <input
+                    id="tm-email"
                     type="email"
                     name="email"
                     autoComplete="email"
@@ -345,10 +346,11 @@ export default function RfqFunnel() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label htmlFor="tm-company" className="block text-xs font-semibold text-slate-700 mb-1">
                     Company / Organization (Optional)
                   </label>
                   <input
+                    id="tm-company"
                     type="text"
                     name="company"
                     autoComplete="organization"
@@ -361,10 +363,11 @@ export default function RfqFunnel() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label htmlFor="tm-notes" className="block text-xs font-semibold text-slate-700 mb-1">
                   Project Notes, Critical Tolerances or Special Requirements
                 </label>
                 <textarea
+                  id="tm-notes"
                   rows={2}
                   name="notes"
                   value={notes}
