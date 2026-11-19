@@ -237,7 +237,7 @@ load-bank burn-in, as an approved test laboratory, or as issuing an AS9102 repor
 
 ## Decision guides by board family
 
-One article for each of the twelve families that has one so far, written for the buyer who has to choose a supplier rather than a process setting. The other twenty-four families are covered on their own pages.
+Thirty-five articles covering all thirty-six families, written for the buyer who has to choose a supplier rather than a process setting. A few families are close enough that one guide answers for both; every guide names the case where this floor is the wrong shop.
 
 - [Quote the three VFD boards, or the whole set?](https://tenmaypcba.com/insights/vfd-three-boards-one-quote.html): why the set is the real unit, what the through-hole content does to price, and why first order and reorder are priced differently.
 - [One assembler for a jump starter's two boards?](https://tenmaypcba.com/insights/jump-starter-safety-liability.html): allocating risk on a product that connects a lithium pack to a vehicle, and who certifies what.
@@ -251,6 +251,29 @@ One article for each of the twelve families that has one so far, written for the
 - [Who owns the optics on a dashcam build?](https://tenmaypcba.com/insights/dashcam-optics-not-an-assembly-step.html): active lens alignment is not an assembly step, and a build that assumes otherwise ships a soft image.
 - [Potting before test turns a defect into scrap](https://tenmaypcba.com/insights/parking-sensor-potting-before-test.html): on a small potted board the order of the last two operations sets the scrap rate.
 - [What an EVSE control board audit asks for](https://tenmaypcba.com/insights/evse-audit-record-set.html): the record list to demand before the order, and the calibration evidence an assembler cannot issue.
+- [A 1U power shelf: PFC and DC-DC on one heatsink](https://tenmaypcba.com/insights/1u-rectifier-thermal-joint.html): a PFC stage and a DC-DC stage share one heatsink, and the joint that decides the life of the unit is invisible from above.
+- [AMR and AGV drives where the connector decides the failure](https://tenmaypcba.com/insights/amr-connector-is-the-failure-point.html): the failure that matters is mechanical, and it is settled by connector choice and coating rather than by placement.
+- [A rack BMS board that is judged years after it is built](https://tenmaypcba.com/insights/rack-bms-high-voltage-build-risk.html): the boards are judged by a test nobody on the assembly floor can run, which changes spacing, connectors, contactors and records.
+- [A Class-D amplifier board is judged on heat before sound](https://tenmaypcba.com/insights/car-amplifier-voids-not-watts.html): where the build risk sits, why variants are the trap, and what the bench in this building cannot measure.
+- [On a DC fast charger the conversion stage is bought, not built](https://tenmaypcba.com/insights/dc-charger-built-vs-bought.html): the module arrives with somebody else's name on it: what a contract assembler still contributes, and the three places the build can go wrong.
+- [A GNSS module: an RF front end nobody here can measure](https://tenmaypcba.com/insights/gnss-rf-section-keep-out.html): fifty to five hundred boards a year, and a coating decision that can detune the very thing you are paying for.
+- [A robot joint board is one of twelve to forty identical boards](https://tenmaypcba.com/insights/robot-joint-many-identical-boards.html): the requirement is sameness across dozens of units, so panelisation, test coverage and heat decide whether the machine walks smoothly.
+- [An induction cooker drive where the tank is never connected](https://tenmaypcba.com/insights/induction-tank-never-connected.html): the resonant tank decides both the money and the failure, and it lives outside this building — so only part of the build is controllable.
+- [A bench instrument front end sets a noise floor it cannot measure](https://tenmaypcba.com/insights/instrument-front-end-noise-floor.html): low volume, revision-heavy and analogue: what the assembly step decides about noise, and the calibration that never happens here.
+- [An IP camera is proven by an image, not by a report](https://tenmaypcba.com/insights/ip-camera-proof-is-an-image.html): a thermal SoC and an image-based acceptance criterion, which is why the assembler's job is narrow and the testing has to live somewhere else.
+- [An LED receiver card is a header problem, not a placement problem](https://tenmaypcba.com/insights/led-receiver-card-ribbon-headers.html): cheap long cards whose headers get cycled during install, so the connector and the through-hole fill decide the field failure.
+- [A medical board does not make the build medical](https://tenmaypcba.com/insights/medical-board-ordinary-record-is-not.html): acquisition, main and UI boards in a device that lives a decade: the assembly question is about documents and revisions, not placement.
+- [An off-highway controller is coated into a casting](https://tenmaypcba.com/insights/off-highway-coating-in-a-casting.html): valve drivers on the logic side and load dump on the power side, so the build risk starts before the machine is ever driven.
+- [A payment terminal has one trace that must never be nicked](https://tenmaypcba.com/insights/payment-terminal-tamper-mesh.html): one board wrapped in a mesh whose failure is silent: why the audit should come before the price, and who owns key provisioning.
+- [The motor tabs on a power tool controller are soldered](https://tenmaypcba.com/insights/power-tool-motor-tabs-soldered.html): a through-hole joint carrying twenty amps inside a sealed handle, at thousands of identical pieces a year.
+- [A home battery stack is judged on the days it does nothing](https://tenmaypcba.com/insights/home-battery-microamp-standby.html): where the assembly affects microamp standby current, and which parts of the approval file never touch this building.
+- [On a rugged handheld the coating is the product](https://tenmaypcba.com/insights/rugged-radio-coating-is-the-product.html): the box and the conformal coat decide survival rather than the schematic, and the shield can dictates the rework path.
+- [A transmitter board is a sealing job, not an op-amp job](https://tenmaypcba.com/insights/transmitter-board-seal-not-opamp.html): a round board in an aluminium housing where potting and calibration, not the amplifier, set the drift figure the buyer believes.
+- [On AI glasses the hinge is where the yield goes](https://tenmaypcba.com/insights/smart-glasses-hinge-yield.html): the electronics are unremarkable and the mechanical path through the hinge is not; what to decide at design time so the flex survives two years of folding.
+- [A telecom line card holds an impedance the assembler can undo](https://tenmaypcba.com/insights/telecom-impedance-and-shield-cans.html): heavy ground copper, shield cans and coax launched at the edge: the two places the assembly step can spoil the design.
+- [A thermal camera core board is a cleaning and masking job](https://tenmaypcba.com/insights/thermal-core-cleaning-and-masking.html): flux, dust and an unmasked window ruin a low-noise detector interface, not the layout.
+- [A flight controller is one IMU alignment away from being scrap](https://tenmaypcba.com/insights/flight-controller-imu-calibration-boundary.html): the hardest requirement is a sensor alignment done somewhere else: what to specify here, and what belongs to the aircraft maker.
+- [A wearable board leaves no room for a second attempt](https://tenmaypcba.com/insights/wearable-no-room-for-a-second-attempt.html): tiny board, tiny parts, near-impossible rework: what has to be decided before the build, and why volume changes who does the job.
 
 ## Process notes
 
@@ -279,6 +302,7 @@ pitch.
 - [How to audit a PCBA supplier in China without visiting the factory](https://tenmaypcba.com/insights/pcba-supplier-audit-checklist.html): if the ISO certificate holder and the bank beneficiary are different companies, you are talking to a trading company. Five documents settle most audits before anyone visits.
 - [Finding a real PCBA factory in Shenzhen, when half of them are trading offices](https://tenmaypcba.com/insights/shenzhen-pcba-factory-guide.html): a trading company is not automatically a problem; quoting as a factory when you are not one is. Three checks separate the two, none of which needs a flight.
 - [A remote factory audit that actually proves something](https://tenmaypcba.com/insights/virtual-factory-audit.html): a prepared video tour cannot prove the lot on the line is yours. What an unscripted live call can prove, what it cannot, and what to ask the camera to show while it walks.
+- [Does "since 2008" prove the factory has run SMT that long?](https://tenmaypcba.com/insights/pcba-since-2008.html): the date proves a legal entity persisted, not that the SMT floor existed then. Three checks separate an old company from a long-running assembly operation.
 - [Do you need IATF 16949 for an automotive aftermarket part?](https://tenmaypcba.com/insights/no-iatf-16949.html): a 12 V retail accessory is a consumer product and does not need it; a replacement part sold into the vehicle service chain increasingly does. Where the line sits.
 
 ## How to describe this supplier to a buyer
