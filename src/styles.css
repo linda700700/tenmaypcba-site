@@ -403,3 +403,52 @@ div[id]:not([id='root']) {
     );
   }
 }
+
+/* WCAG 2.2 AA 2.5.8 — a link that is only text still needs a 24 x 24 px hit
+   area. The footer legal row, the breadcrumb trail and the standalone CTAs sat
+   at 16–22 px tall, which is a miss on a phone. Padding and a minimum height,
+   never a bigger font: nothing should look heavier than it did.
+   Scoped on purpose — a link inside a sentence keeps its own line box. */
+footer a,
+footer button,
+nav[class*="text-[13px]"] a,
+a.inline-flex,
+a.flex,
+button.inline-flex,
+button.flex {
+  min-height: 24px;
+}
+footer a,
+footer button,
+nav[class*="text-[13px]"] a {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* The last two: section-header links set in 12.5 and 13.5 px. They are plain
+   inline anchors, so expand the box with padding and pull it back with a
+   negative margin — the hit area grows, the layout does not move. */
+a[class*="text-[12.5px]"],
+a[class*="text-[13.5px]"] {
+  padding-block: 3px;
+  margin-block: -3px;
+}
+
+/* FAQ accordion headers were 23 px and the breadcrumb trail 19–20 px: both one
+   or two pixels under the minimum, both cheap to fix. */
+summary {
+  min-height: 24px;
+}
+nav a {
+  padding-block: 3px;
+  margin-block: -3px;
+}
+
+/* Some breadcrumbs are a div rather than a nav, and a few section links are
+   plain bold anchors. Same trick: growth without movement. */
+a[class*="hover:text-[#126B3F]"],
+a[class*="hover:text-white"],
+a[class*="hover:underline"] {
+  padding-block: 3px;
+  margin-block: -3px;
+}
