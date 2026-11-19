@@ -642,19 +642,19 @@ export const TOPICS = [
     blurb: "which step of the build decides whether the board survives",
     h1: "Where the build risk sits, board by board",
     lede:
-      "Twenty-three notes, one question each: on this family, which step of the build decides whether the product survives in the field? The answer is almost never placement. On a 1U rectifier it is a void under a power device that only X-ray shows; on an LED receiver card a ribbon header; on a rugged handheld the coat. Reading the step first changes what you put in the drawing and what you ask a supplier to prove.",
+      "The build risk on a board family sits in one step, and naming that step changes what goes into the drawing and what a supplier is asked to prove. On a 1U rectifier it is the void under a power device, read on an X-ray image against a written limit. On an LED receiver card it is the ribbon header that gets cycled at install. On a rugged handheld it is the conformal coat that carries the IP rating. Twenty-three families, one step each, and the same question to put on the table before the price.",
     title: "Where PCBA Build Risk Sits: 23 Board Families",
     description:
-      "On twenty-three board families the step that decides field life is not placement. What decides each one, and the question to put to a supplier before quoting.",
+      "Twenty-three board families, the one build step that decides each one's field life, and the question to put to a supplier before the price.",
     ogTitle: "Where the Build Risk Sits — 23 Board Families",
     ogDescription:
-      "The joint you cannot see, the header that gets cycled, the coat that is the specification. One step per family decides it, and it is rarely the placement step.",
+      "A void under a power device, a header cycled at install, a coat that carries the IP rating. One step per family decides field life.",
     quick: [
-      "On most of these families the inspection step, not the placement step, is the part of the quotation worth reading.",
-      "A joint that is invisible from above is the whole yield number. AOI sees the fillet, X-ray sees the void, and owning X-ray is not the same claim as reading it against a limit.",
-      "Where the failure is mechanical — a connector, a ribbon header, a motor tab, a flex through a hinge — assembly executes a drawing that was decided earlier, so the decision to argue about is the drawing.",
-      "A coating, a masking or a potting step added after the build can make a board unrepairable and can detune an RF section. The order of the last two operations is a design decision.",
-      "On six families the acceptance measurement does not exist in the assembler's building at all, and the arrangement for it has to be written down before the first build rather than discovered after it.",
+      "On most of these families the inspection step carries more of the answer than the placement step, so it is the part of the quotation worth reading first.",
+      "A joint hidden under a power device decides the efficiency figure. AOI reads the fillet; X-ray reads the void against a written limit.",
+      "Where the failure is mechanical, a connector, a ribbon header, a motor tab or a flex through a hinge, assembly executes a drawing that was decided earlier, so that drawing is where the leverage sits.",
+      "A coating, a masking step or a potting step changes what the board survives, and it closes the rework path once it is applied. The order of the last two operations belongs in the design.",
+      "On six families the acceptance measurement happens in another building, and the arrangement for it belongs in writing before the first build.",
     ],
     firstRead: {
       slug: "payment-terminal-tamper-mesh",
@@ -664,7 +664,7 @@ export const TOPICS = [
     tables: [
       {
         caption:
-          "Twenty-three families. The middle column is this site's own reading of the linked note, not a quotation, and the rows are grouped by question rather than ranked.",
+          "Twenty-three families in the order the risk appears. The middle column is this site's own reading of the linked note. Rows are grouped by question.",
         columns: ["Board family", "Where the risk sits", "The note"],
         linkColumn: 2,
         rows: [
@@ -678,7 +678,7 @@ export const TOPICS = [
           {
             cells: [
               "Car audio / Class-D amplifier",
-              "Voiding under the power devices first, then a board-to-case path that is half mechanical and unmeasured here",
+              "Voiding under the power devices first, then a board-to-case path that is half mechanical, measured at your end of line",
             ],
             slug: "car-amplifier-voids-not-watts",
           },
@@ -692,14 +692,14 @@ export const TOPICS = [
           {
             cells: [
               "AMR / AGV",
-              "The connector, not the solder joint: mating cycles, strain relief, and a technician unplugging it at eleven at night",
+              "The connector: mating cycles, strain relief, and a technician unplugging it at eleven at night",
             ],
             slug: "amr-connector-is-the-failure-point",
           },
           {
             cells: [
               "LED display receiver card",
-              "Long cheap boards covered in ribbon headers that get cycled during install: connector and through-hole fill, not placement",
+              "Long cheap boards covered in ribbon headers that get cycled during install: the connector and the through-hole fill",
             ],
             slug: "led-receiver-card-ribbon-headers",
           },
@@ -748,28 +748,28 @@ export const TOPICS = [
           {
             cells: [
               "Flight controller / UAV",
-              "Sensor alignment, which is not an assembly step, on a board whose hardest requirement is done elsewhere",
+              "Sensor alignment, which sits with the aircraft maker, on a board whose hardest requirement is done elsewhere",
             ],
             slug: "flight-controller-imu-calibration-boundary",
           },
           {
             cells: [
               "GNSS receiver",
-              "An RF front end nobody here can measure, plus a coating callout that can detune it",
+              "An RF front end measured in another building, plus a coating callout that can detune it",
             ],
             slug: "gnss-rf-section-keep-out",
           },
           {
             cells: [
               "Bench instruments",
-              "The noise floor at the front end, and a calibration that never happens in this building",
+              "The noise floor at the front end, and a calibration that happens in another building",
             ],
             slug: "instrument-front-end-noise-floor",
           },
           {
             cells: [
               "IP camera",
-              "An acceptance criterion that is an image, so the proof is a measurement the assembler cannot make",
+              "An acceptance criterion that is an image, so the proof is a measurement taken at your end of line",
             ],
             slug: "ip-camera-proof-is-an-image",
           },
@@ -790,14 +790,14 @@ export const TOPICS = [
           {
             cells: [
               "Medical device",
-              "Documents and revision control rather than placement: an ordinary board with an extraordinary record",
+              "Documents and revision control: an ordinary board with an extraordinary record",
             ],
             slug: "medical-board-ordinary-record-is-not",
           },
           {
             cells: [
               "Rack BMS / BESS",
-              "High voltage for years, judged by something nobody on the assembly floor can run",
+              "High voltage for years, judged years later by a test the cabinet owner runs",
             ],
             slug: "rack-bms-high-voltage-build-risk",
           },
@@ -811,21 +811,21 @@ export const TOPICS = [
           {
             cells: [
               "Home battery",
-              "Standby current measured in microamps: what the build touches, and what the approval file never does",
+              "Standby current measured in microamps, where the build matters and the approval file is generated elsewhere",
             ],
             slug: "home-battery-microamp-standby",
           },
           {
             cells: [
               "Humanoid robot joint",
-              "Sameness across dozens of units: panelisation, test coverage and heat, not difficulty",
+              "Sameness across dozens of units: panelisation, test coverage and heat",
             ],
             slug: "robot-joint-many-identical-boards",
           },
           {
             cells: [
               "Wearable",
-              "No room for a second attempt: tiny parts, near-impossible rework, so everything is decided before the build",
+              "One attempt per board: tiny parts, near-impossible rework, so everything gets decided before the build",
             ],
             slug: "wearable-no-room-for-a-second-attempt",
           },
@@ -836,11 +836,11 @@ export const TOPICS = [
       {
         heading: "First: the joint under the part",
         intro:
-          "Three families where the electrical result depends on a thermal or impedance joint that the top side does not reveal, and where the inspection is the interesting part of the quote.",
+          "Three families where the electrical result depends on a joint underneath the part, and where the inspection step is the interesting part of the quote.",
         items: [
           {
             slug: "1u-rectifier-thermal-joint",
-            why: "Paste coverage under a power device decides the efficiency figure, and AOI cannot see it.",
+            why: "Paste coverage under a power device decides the efficiency figure, and X-ray is how that joint gets read.",
           },
           {
             slug: "car-amplifier-voids-not-watts",
@@ -855,7 +855,7 @@ export const TOPICS = [
       {
         heading: "Second: the joint that moves",
         intro:
-          "Four families where the failure is mechanical — a connector, a header, a tab, a flex — and where the build executes a drawing rather than making a decision.",
+          "Four families where the failure is mechanical: a connector, a header, a tab, a flex. Assembly executes a drawing here, so the drawing is where the leverage sits.",
         items: [
           {
             slug: "amr-connector-is-the-failure-point",
@@ -867,18 +867,18 @@ export const TOPICS = [
           },
           {
             slug: "power-tool-motor-tabs-soldered",
-            why: "Twenty amps through a soldered tab inside a sealed handle: fill and coating, not placement.",
+            why: "Twenty amps through a soldered tab inside a sealed handle: the through-hole fill and the coating carry field life.",
           },
           {
             slug: "smart-glasses-hinge-yield",
-            why: "The electronics are ordinary; the flex folded every day for two years is not.",
+            why: "The electronics are ordinary; the flex folded every day for two years is where the design gets tested.",
           },
         ],
       },
       {
         heading: "Third: the surface",
         intro:
-          "Four families where a coating, a masking or a seal is the specification, and where doing it late makes the board unrepairable.",
+          "Four families where a coating, a masking or a seal is the specification already, and where applying it late closes the rework path.",
         items: [
           {
             slug: "off-highway-coating-in-a-casting",
@@ -901,15 +901,15 @@ export const TOPICS = [
       {
         heading: "Fourth: the measurement that happens elsewhere",
         intro:
-          "Six families where the acceptance test does not exist on the assembler's floor, so the arrangement has to be written before the first build.",
+          "Six families where the acceptance test belongs to another building, so the arrangement for it gets written before the first build.",
         items: [
           {
             slug: "flight-controller-imu-calibration-boundary",
-            why: "Sensor alignment is not an assembly step, and the boundary is worth drawing on paper.",
+            why: "Sensor alignment sits with the aircraft maker, so the boundary is worth drawing on paper.",
           },
           {
             slug: "gnss-rf-section-keep-out",
-            why: "Fifty to five hundred boards a year, an RF front end nobody here measures, and a coating that can detune it.",
+            why: "Fifty to five hundred boards a year, an RF front end measured elsewhere, and a coating callout that can detune it.",
           },
           {
             slug: "instrument-front-end-noise-floor",
@@ -925,7 +925,7 @@ export const TOPICS = [
           },
           {
             slug: "induction-tank-never-connected",
-            why: "The resonant tank decides the money and the failure, and it is never connected on this floor.",
+            why: "The resonant tank decides the money and the failure, and it lives outside this floor.",
           },
         ],
       },
@@ -948,14 +948,14 @@ export const TOPICS = [
           },
           {
             slug: "home-battery-microamp-standby",
-            why: "The number the product is judged on is measured in microamps, and half the approval file never enters this building.",
+            why: "The number the product is judged on is measured in microamps, and half the approval file is generated elsewhere.",
           },
         ],
       },
       {
         heading: "Sixth: sameness, and no second attempt",
         intro:
-          "Two families where the requirement is not difficulty but repeatability — one because the unit count is high, one because the board cannot be reworked.",
+          "Two families where the requirement is repeatability: one because the unit count is high, one because the board has to work first time.",
         items: [
           {
             slug: "robot-joint-many-identical-boards",
@@ -963,7 +963,7 @@ export const TOPICS = [
           },
           {
             slug: "wearable-no-room-for-a-second-attempt",
-            why: "Tiny parts and near-impossible rework: what has to be settled before the build rather than during it.",
+            why: "Tiny parts and near-impossible rework: everything gets settled before the build.",
           },
         ],
       },
