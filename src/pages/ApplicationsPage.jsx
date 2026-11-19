@@ -241,8 +241,13 @@ export default function ApplicationsPage({ initialHash = '' }) {
                 id={c.id}
                 className="zoom-parent sheen scroll-mt-[calc(var(--hdr)_+_var(--tabs)_+_14px)] overflow-hidden rounded-xl border border-brand-200/50 bg-white transition-shadow hover:shadow-[0_18px_44px_-30px_rgba(10,61,38,0.6)]"
               >
+                 {/* A fixed 190/210 px band showed 41 % of a 3:2 photograph on a
+                     771 px card — top and bottom cropped away, so the scene read
+                     as a strip rather than a photo. A ratio instead keeps the same
+                     share of the picture visible at every card width: 94 % on a
+                     phone, 75 % on a desktop. */}
                  <FlipMedia
-                   className="h-[190px] sm:h-[210px]"
+                   className="aspect-[16/10] sm:aspect-[2/1]"
                    image={c.image}
                    alt={c.name}
                    index={i + 1}
@@ -252,6 +257,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
                      ['Demand', c.heat],
                      ['Process', c.fit.slice(0, 2).join(' · ')],
                    ]}
+                   chips={c.fit}
                  />
                 <div className="p-6 sm:p-7">
                 <div className="flex items-start gap-4">

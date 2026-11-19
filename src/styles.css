@@ -452,3 +452,9 @@ a[class*="hover:underline"] {
   padding-block: 3px;
   margin-block: -3px;
 }
+
+/* A touch screen has no hover: the "Hover to flip" strip is an instruction that
+ * cannot be followed there, so it is removed rather than left as noise. */
+@media (hover: none) {
+  .flip-hint { display: none; }
+}
