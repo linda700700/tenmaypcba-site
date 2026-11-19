@@ -122,7 +122,7 @@ Files worth knowing about:
 | File | Purpose |
 |---|---|
 | `public/llms.txt` | Structured summary of the site for language models |
-| `public/llms-full.txt` | Full text of every published note in one file, generated at build time by `tools/gen-llms-full.mjs` |
+| `dist/llms-full.txt` | The four hubs plus the full text of every published note in one file, generated at build time by `tools/gen-llms-full.mjs` |
 | `public/robots.txt` | Explicit allow rules for AI crawlers, with tracker parameters excluded |
 | `dist/sitemap.xml` | Canonical URL list, generated from the route table at build time |
 | `dist/feed.xml` | Atom feed of the notes, generated at build time |
