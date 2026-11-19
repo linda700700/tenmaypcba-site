@@ -252,6 +252,32 @@ export const SECTORS = [
           'Many identical small boards plus a few isolation-critical ones. The buying argument is consistency and a record set that survives an audit, not unit price — which is a fit for this floor rather than a volume claim.',
       },
       {
+        id: 'residential-storage',
+        image: '/assets/images/case-residential-storage.webp',
+        name: 'Residential & Stackable Storage (Hybrid and 48 V)',
+        keyword: 'residential energy storage PCBA',
+        board:
+          'A module BMU per battery, a hybrid inverter control board with contactor drive, a stack master that owns the meters, and a communication board for the stack.',
+        fit: ['Microamp standby', 'Isolated sensing', 'THT contactors', 'Conformal coating'],
+        batch: '200 – 2,000',
+        heat: 'Variant-heavy',
+        basis:
+          'Three or four different boards per unit at a few hundred units, and the number that decides the product is a standby current nobody here can measure. The buying argument is consistency across a variant family, not unit price.',
+      },
+      {
+        id: 'storage-safety',
+        image: '/assets/images/case-storage-safety.webp',
+        name: 'Storage Safety, Gas Detection & Suppression Control',
+        keyword: 'storage safety PCBA',
+        board:
+          'A detection head on a short cable, a latching controller with a supervised loop, and a driver board holding the stored energy for a one-shot actuator.',
+        fit: ['Sensor cavity masking', 'One-shot driver', 'Low-leakage assembly', 'Connector retention'],
+        batch: '300 – 3,000',
+        heat: 'Certification-gated',
+        basis:
+          'A board that has to do nothing for years and then act once, in a market where the certification and the fire test belong to the pack maker. Small boards, high consequence, and no functional test on this floor.',
+      },
+      {
         id: 'amr-agv',
         image: '/assets/images/case-amr-agv.webp',
         name: 'AMR & AGV Drive and Battery Boards',
@@ -543,6 +569,8 @@ export const PRIORITY = [
       'PLC I/O & Gateways',
       'AI Server Power & BBU',
       'Energy Storage (BESS)',
+      'Residential & Stackable Storage',
+      'Storage Safety & Detection',
       'UAV & Flight Controllers',
       'Rugged Handhelds & Radios',
       'Thermal & Night-Vision Cores',

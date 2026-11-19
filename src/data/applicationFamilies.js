@@ -1497,6 +1497,169 @@ export const FAMILIES = {
       },
     ],
   },
+  'residential-storage': {
+    slug: 'residential-storage',
+    name: 'Residential & Stackable Storage (Hybrid and 48 V)',
+    cardName: 'Residential Storage',
+    keyword: 'residential energy storage board PCBA assembly',
+    image: '/assets/images/case-residential-storage.webp',
+    imageAlt:
+      'Two stacked home-battery module boards with cell-sampling harness connectors, beside a hybrid inverter control board with its heatsink, contactor and current-sense shunt',
+    h1: 'A home battery is judged on the days it does nothing, and this floor cannot reach that state',
+    lede:
+      'A wall-mounted or stacked home battery is three or four boards that never stop talking: one small BMU per module, a hybrid inverter control board that also has to decide what the roof is doing, a master that owns the meters and the contactor, and a communication board for the stack. Almost none of the difficulty is in placing parts. It sits in standby for weeks, it has to still be telling the truth about state of charge years later, and the approval that lets it connect to a house belongs to the unit rather than to the assembler.',
+    facts: [
+      ['Boards per unit', '3 – 4 (module BMU, inverter control, stack master, communication)'],
+      ['Typical batch', '200 – 2,000 pcs'],
+      ['Characteristic', 'Microamp standby, isolated sensing, stack interconnect'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'Four boards, and only one of them is a power board',
+        paras: [
+          'The module BMU is a small board with a cell-sampling connector, a balancing resistor bank and a temperature chain. It is repetitive, it is identical across modules, and it is where the order volume actually is.',
+          'The hybrid inverter control board is the power one: an H-bridge for the AC side, a boost stage for the roof input, relay and contactor drive, and a current path that is measured rather than assumed. Heavy copper, thermal mass, and the isolation spacing between the DC side and the mains.',
+          'The stack master owns the meters, the contactor sequence and the CAN or RS-485 trunk; the communication board is the part the installer sees. Both are fine-pitch control work with a lot of connectors and a lot of through-hole, sitting between the two extremes.',
+          'That mix is why this family is not a copy of the cabinet family. A cabinet order is a few hard boards among many identical ones; a home stack is three different boards per unit at a few hundred units, and the variant count is higher.',
+        ],
+      },
+      {
+        heading: 'The number the buyer argues about is measured in microamps, and there is no microamp bench here',
+        paras: [
+          'A home battery spends most of its life asleep. What sells it is how little it takes out of its own pack while it waits, and what ruins a product review is a sleep current higher than the datasheet promised. That is a board-level number. It is set by the housekeeping supply, the sense dividers, the pull-ups on a bus that never sleeps, and whatever the communication board keeps alive.',
+          'It is also a number this floor cannot produce. There is no microamp-level current bench, no long-duration logging, nothing that would let anyone here stand behind a self-consumption figure. That number has to be your measurement, and saying so is cheaper than being asked for the evidence later.',
+          'What assembly does contribute is checkable instead. Leakage paths left by coating residue, flux not fully removed near a high-impedance node, a divider placed beside a switching node, contamination inside a connector. Those are the failures that turn a careful standby design into a product that flattens its own pack, and they are process control, not measurement.',
+        ],
+      },
+      {
+        heading: 'Sensing that has to stay honest for years',
+        paras: [
+          'Voltage and current sensing on a stack is a chain: shunt or current transformer, isolated amplifier, reference, converter. Calibration of that chain happens with the brand, not here — nothing on this floor calibrates — so no accuracy claim can start with us.',
+          'What happens on the board still decides whether the claim survives. A void under a shunt changes its effective resistance and its thermal behaviour. Kelvin connections routed with unequal copper carry a thermal EMF that arrives as an offset moving with load. An isolated amplifier placed close to the switching node picks up the edge it was meant to ignore.',
+          'Those are layout and process decisions, worth arguing about before the first article, because a drift complaint two years into a field population is not something either side can trace back to a solder joint.',
+        ],
+      },
+      {
+        heading: 'Two hundred to two thousand, and a grid-code file that is not ours',
+        paras: [
+          'Two hundred to two thousand pieces per board, with fifty as the minimum. Above that band the buyer is comparing against a plant running one model continuously with test at every station; below it, setup and first-article time dominate.',
+          'The variant pressure is real and it arrives faster than in the cabinet family: 48 V and high-voltage stacks, single-phase and three-phase, one version per interconnection rule, a version with and without a backup transfer switch. Each variant needs its own first article. Patching variants on the line mid-batch is how a stack ends up with two different boards under one part number.',
+          'And the approval that lets the product connect to a house belongs to the unit and the brand: UL 1741 in the United States, VDE-AR-N 4105 in Germany and the equivalent rule wherever it ships, plus the system-level safety certification. None of that is tested or held here.',
+          'No market figure or shipment number is used on this page. The judgement is about the boards and the order shape, not the size of the home storage market.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a home storage programme',
+      items: [
+        'Battery, pack and cell behaviour: there are no cells and no pack here, and no BMS-against-a-real-pack test. Balancing, state-of-charge accuracy and protection thresholds are proven by you.',
+        'Grid-code and interconnection approval — UL 1741, VDE-AR-N 4105 or the local equivalent — and anti-islanding: neither tested nor certified here.',
+        'System-level storage safety certification such as UL 9540 / 9540A or its local equivalent: not held, not tested, and the fire test is run on a pack this floor never sees.',
+        'Standby and sleep current: not measured here. There is no microamp-level bench and no long-duration logging, so a self-consumption figure has to come from your own measurement.',
+        'Calibration of the voltage and current sensing chain, outdoor ingress, drop testing, and any expectation of a pack-level or system-level end-of-line test.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you build the whole stack — modules, inverter control and communication?',
+        a: 'Yes, as separate part numbers with a first article each. Three or four boards per unit is ordinary here. What is not offered is testing them together as a system: there is no pack and no inverter on this floor.',
+      },
+      {
+        q: 'Do you measure standby or sleep current?',
+        a: 'No. There is no microamp-level current bench and no long-duration logging here. The self-consumption figure on your datasheet has to be your own measurement; what this floor controls is the leakage and contamination that quietly add to it.',
+      },
+      {
+        q: 'Can you test a module against a real battery?',
+        a: 'No. There are no cells and no pack here, so balancing, state of charge and protection behaviour are your end-of-line work. Inspection here is SPI, AOI and X-ray, plus a chamber soak when the specification asks for one.',
+      },
+      {
+        q: 'What batch band fits a home storage product?',
+        a: 'Two hundred to two thousand pieces per board, with fifty as the minimum. Each market or feature variant needs its own first article rather than being patched on the line mid-batch.',
+      },
+    ],
+  },
+  'storage-safety': {
+    slug: 'storage-safety',
+    name: 'Storage Safety, Gas Detection & Suppression Control',
+    cardName: 'Storage Safety & Detection',
+    keyword: 'energy storage safety detection board PCBA assembly',
+    image: '/assets/images/case-storage-safety.webp',
+    imageAlt:
+      'Storage safety controller board with a gas-sensor head on a short cable, a latching relay, a supercapacitor and a sealed trigger connector, mounted beside a cabinet backplate',
+    h1: 'A suppression board has one job in its life, and it has to still be able to do it the day it is asked',
+    lede:
+      'Pack-level safety electronics are the least glamorous boards in a storage system and the ones nobody wants to explain afterwards. A detection head watches gas, smoke or temperature; a controller latches the alarm and decides; a driver fires an aerosol or valve actuator exactly once. Between the day it is built and the day it is needed there may be years of doing nothing at all — and nothing on this floor can prove the board would still fire.',
+    facts: [
+      ['Boards per unit', '2 – 3 (detection head, controller, trigger driver)'],
+      ['Typical batch', '300 – 3,000 pcs'],
+      ['Characteristic', 'Dormant logic, one-shot output, sensor front end'],
+      ['Standard build', '3 working days from kitted parts'],
+    ],
+    sections: [
+      {
+        heading: 'It is a logic board that has to be boring until the one second it is not',
+        paras: [
+          'A storage safety set is small: a detection head that carries the gas, smoke or temperature sensor, a controller with the latching logic and the supervised loop, and a driver board holding the stored energy and the switch that fires the actuator. Add the ventilation and interlock outputs and the set is done.',
+          'Both failure directions are expensive and they pull in opposite ways. A false discharge empties a cabinet for no reason, triggers a recall and ends a supplier relationship. A failure to fire is the other kind of event entirely. So the assembly tolerance on this family is about the paths that create false triggers long before it is about the trigger itself: leakage, residue, tin whiskers, coating creeping into a sensor aperture, a floating input at the end of a long cable.',
+          'That is a different emphasis from every other page here. Most families are judged on whether the joint is good. This one is judged on whether anything on the board can quietly decide by itself.',
+        ],
+      },
+      {
+        heading: 'The output fires once, so the one thing worth testing is never tested',
+        paras: [
+          'The driver stage holds energy — a capacitor or a small pack — and a switch that dumps it into an actuator. Firing it requires the device itself, and the device does not live on this floor. So the board is assembled, inspected, coated and packed, and it is never fired. Not once, not as a sample.',
+          'The consequence is the honest core of this page. The mechanism that kills a dormant driver is the stored energy going away: capacitor leakage, electrolyte loss, a switch whose threshold drifted. All of it is invisible to SPI, to AOI and to X-ray, and none of it appears in a soak at temperature, because a soak does not hold the capacitor charged for two years.',
+          'A board on this family can pass every inspection this shop performs and still be incapable of its only job. That is not a reason to avoid the family; it is a reason to be explicit that the evidence has to be produced by the pack maker, on aged samples, with the device attached.',
+        ],
+      },
+      {
+        heading: 'Detection heads are a sensor problem wearing a fire problem’s clothes',
+        paras: [
+          'The sensing page on this site is about process transmitters, where the customer argues about absolute accuracy against a reference. A life-safety head is not that argument. Nobody asks whether the gas reading is within one percent; they ask how often it cries wolf, and whether the latch holds when the gas clears.',
+          'So the design priorities differ — hysteresis, supervision of the loop, tamper detection, a decision that survives a brown-out — and so does the assembly emphasis. The sensor cavity has to stay clean through coating, which means masking agreed on the drawing rather than improvised at the machine. The head is usually on a cable, so connector retention under vibration matters more than the joint under the sensor.',
+          'Calibration and response time still are not done here, and there is no gas bench to do them on. What is done here is keeping the cavity, the masking and the connector in a state where your calibration has a chance of meaning something.',
+        ],
+      },
+      {
+        heading: 'Three hundred to three thousand, and the fire test nobody on this floor runs',
+        paras: [
+          'Three hundred to three thousand pieces, with fifty as the minimum. The variants are real: aerosol, valve and clean-agent actuators; one zone and several; 24 V and 48 V cabinet rails; a version with a sounder and one without. Each gets its own first article.',
+          'The paperwork sits with the system. Detection certification follows the EN 54 series in Europe and its local equivalents elsewhere; the cell-level fire propagation test behind a storage safety claim — UL 9540A and its relatives — is run on a pack, by the pack maker, and never here; hazardous-area versions need their own approval that this floor does not hold.',
+          'Buyers in this family are the safety subsystem vendors and the suppression module makers who supply the cabinet integrators. They are not shopping for the cheapest assembly. They are shopping for a supplier who will not quietly change a masking drawing, because a masking change is a false-trigger change.',
+          'No market figure or shipment number is used on this page. The judgement is about the boards and the order shape, not the size of the storage safety market.',
+        ],
+      },
+    ],
+    limits: {
+      heading: 'Where this floor is the wrong shop for a life-safety programme',
+      items: [
+        'Firing the device: never done here. There is no live aerosol or valve actuator on site, no discharge test and no post-discharge inspection.',
+        'Dormancy and ageing: no accelerated ageing with the trigger capacitor held charged, and no years-at-temperature soak. Proof that a stored board still fires is yours to produce.',
+        'Gas and smoke sensor calibration, response time and cross-sensitivity: not done here, and there is no gas bench to do them on.',
+        'Certification: no EN 54 for detection, no UL 9540A cell-level fire test, no ATEX or Ex approval for hazardous-area versions. This floor holds ISO 9001 only.',
+        'End-to-end functional test of the chain from detector to controller to actuator to notification. There is no in-circuit or functional test of any kind here.',
+      ],
+    },
+    faq: [
+      {
+        q: 'Can you fire the suppression device to prove the board works?',
+        a: 'No. The actuator is not here and firing one is a destructive test on the device. The driver is assembled, X-rayed and coated, and then it is never fired — the evidence that it still fires after storage has to come from aged samples tested by you.',
+      },
+      {
+        q: 'Do you calibrate the gas sensor or verify response time?',
+        a: 'No. There is no gas bench here and no calibration of any kind. What this floor controls is the sensor cavity, the masking around it during coating, and the connector retention, so that your calibration has a stable board to sit on.',
+      },
+      {
+        q: 'Which certifications do you hold for life-safety boards?',
+        a: 'ISO 9001:2015, certificate 38822Q00487R0S, scope processing and assembly of digital electronics. That is all. No EN 54, no UL 9540A, and no Ex approval for hazardous-area versions.',
+      },
+      {
+        q: 'What batch band fits a suppression or detection programme?',
+        a: 'Three hundred to three thousand pieces, with fifty as the minimum. Actuator type, zone count and rail voltage each create a variant, and each variant needs its own first article.',
+      },
+    ],
+  },
   medical: {
     slug: 'medical',
     name: 'Medical Device & Diagnostic Instrument Boards',
@@ -2558,6 +2721,16 @@ export function familyBySlug(slug) {
  * quantity. The remaining families stay reachable from the chip row beneath.
  */
 export const RELATED = {
+  'residential-storage': [
+    ['bess', 'The cabinet version of the same stack, where the buyer is an integrator and the audit is harder.'],
+    ['power-station', 'The same three-board pattern in a case you can carry, with no grid to connect to.'],
+    ['evse', 'The other mains-facing board in a home energy installation, and the one with a safety case attached.'],
+  ],
+  'storage-safety': [
+    ['bess', 'The cells this family is protecting, and the isolation argument that keeps a cabinet safe.'],
+    ['residential-storage', 'A home stack carries the same detection problem at a much smaller scale.'],
+    ['sensors', 'The same analog front end, judged on drift instead of on the one decision it has to make.'],
+  ],
   'pos-terminal': [
     ['rugged-radio', 'The other family where a shield can and coating decide whether the product survives its owner.'],
     ['ip-camera', 'The access-control reader board on that page is the same kind of small through-hole board as a keypad.'],
@@ -2596,6 +2769,8 @@ export const RELATED = {
     ['jump-starter', 'The same pack architecture at a fifth of the power and a tenth of the price.'],
     ['evse', 'AC-DC conversion where the thermal design is inspected rather than assumed.'],
     ['led-driver', 'High-volume mains conversion, if the volume matters more than the wattage.'],
+
+    ['residential-storage', 'The same three-board pattern, permanently installed and tied to a house instead of carried outdoors.'],
   ],
   'robot-vacuum': [
     ['treadmill', 'Motor drive at appliance volumes, with a heavier power stage.'],
@@ -2641,6 +2816,7 @@ export const RELATED = {
     ['vfd', 'The same through-hole power work without the certification burden.'],
     ['power-station', 'Portable energy conversion, where the buyer judges the thermal design by touch.'],
     ['led-driver', 'Mains conversion at a volume this floor rarely sees.'],
+    ['residential-storage', 'The other half of a home energy installation, where the contactor and the meter live.'],
   ],
   uav: [
     ['humanoid', 'The same buying pattern — small batches, a buyer who iterates weekly — without the airframe.'],
@@ -2680,6 +2856,8 @@ export const RELATED = {
     ['ai-power', 'The rack-mate: same busbar, same thermal argument, different load profile.'],
     ['evse', 'Isolation and contactor drive on a product that is audited before it ships.'],
     ['hmi', 'Isolation spacing as the design constraint, without the high voltage behind it.'],
+    ['residential-storage', 'The same BMS and isolation argument at a few hundred units per order instead of a cabinet programme.'],
+    ['storage-safety', 'The boards that sit beside the same cells and only ever act once: detection, latch and trigger.'],
   ],
   'power-tool': [
     ['car-audio', 'Another twelve-volt board where voiding under the power devices is the yield number.'],
@@ -2713,6 +2891,7 @@ export const RELATED = {
     ['hmi', 'The other board that sits in a cabinet and has to make sense of a signal.'],
     ['instruments', 'The same guarded front end, in a box rather than on a bench.'],
     ['telecom', 'Small RF and analog boards behind a connector set, at a similar batch size.'],
+    ['storage-safety', 'A sensor front end whose wrong answer costs more than an offset: a latching alarm and a one-shot output.'],
   ],
   wearables: [
     ['smart-glasses', 'The larger wearable board, where the flex crosses a hinge instead of a case.'],

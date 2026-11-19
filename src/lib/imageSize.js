@@ -153,6 +153,14 @@ const SIZES = {
     1400,
     934
   ],
+  "/assets/images/case-residential-storage.webp": [
+    1400,
+    934
+  ],
+  "/assets/images/case-storage-safety.webp": [
+    1400,
+    934
+  ],
   "/assets/images/conformal-coating.webp": [
     1400,
     933

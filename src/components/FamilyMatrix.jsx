@@ -61,6 +61,8 @@ const PROCESS_CLASS = {
   uav: 'fine',
   'ai-power': 'power',
   bess: 'power',
+  'residential-storage': 'power',
+  'storage-safety': 'fine',
   'power-tool': 'power',
   'amr-agv': 'power',
   medical: 'fine',

@@ -244,6 +244,16 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/case-residential-storage.webp": [
+    [
+      "/assets/images/case-residential-storage-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-residential-storage-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/case-robot-vacuum.webp": [
     [
       "/assets/images/case-robot-vacuum-700w.webp",
@@ -291,6 +301,16 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/case-smart-glasses-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/case-storage-safety.webp": [
+    [
+      "/assets/images/case-storage-safety-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/case-storage-safety-900w.webp",
       900
     ]
   ],

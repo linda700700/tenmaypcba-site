@@ -190,6 +190,22 @@ export const ROUTE_HEADS = {
     ogDescription:
       'Many identical BMUs and a few isolation-critical masters. Why the assembly argument on storage is a record set, not a unit price.',
   },
+  '/applications/residential-storage': {
+    title: 'Residential and Stackable Storage Board Assembly | TENMAY',
+    description:
+      'Home battery boards: module BMU, hybrid inverter control, stack master and communication. 200 to 2,000 pcs. No pack test, no grid-code approval, no standby-current measurement.',
+    ogTitle: 'Residential Storage Board Assembly — TENMAY',
+    ogDescription:
+      'A home battery is judged on the days it does nothing. Microamp standby, sensing that has to stay honest, and the grid-code file that belongs to the brand.',
+  },
+  '/applications/storage-safety': {
+    title: 'Storage Safety and Suppression Control Board Assembly | TENMAY',
+    description:
+      'Pack-level detection heads, latching controllers and one-shot trigger drivers for storage safety. 300 to 3,000 pcs. No live-actuator firing, no ageing test, no EN 54 or UL 9540A.',
+    ogTitle: 'Storage Safety and Suppression Control Boards — TENMAY',
+    ogDescription:
+      'A board that has to be boring until the one second it is not: dormant logic, a one-shot output, and the evidence that has to come from aged samples.',
+  },
   '/applications/power-tool': {
     title: 'Brushless Power Tool Controller PCBA Assembly | TENMAY',
     description:
