@@ -31,18 +31,20 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      {/* Three routes in. The list below is an archive; these are the entry
-          points, each answering a question the archive cannot. */}
+      {/* Four routes in, one per hub. The list below is an archive; these are the
+          entry points, each answering a question the archive cannot. Counted from
+          TOPICS rather than typed, so adding a fifth hub cannot leave this line
+          claiming three again — which is what it said until now. */}
       <section className="mx-auto max-w-[1100px] px-4 pt-12 sm:px-6 lg:px-8">
         <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-slate-200 pb-3">
           <h2 className="text-[13px] font-bold uppercase tracking-[0.14em] text-[#126B3F]">
             Start with a question
           </h2>
           <span className="text-[12.5px] text-slate-500">
-            {ARTICLES.length} notes, grouped three ways
+            {ARTICLES.length} notes, grouped {TOPICS.length} ways
           </span>
         </div>
-        <div className="mt-5 grid gap-5 md:grid-cols-3">
+        <div className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           {TOPICS.map((t) => (
             <a
               key={t.slug}
