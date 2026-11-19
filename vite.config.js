@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { renderLlmsFull } from './tools/gen-llms-full.mjs';
 import { writeMeta, writeFamilyLinks } from './tools/insights-meta.mjs';
-import { writeFamilyIndex } from './tools/family-index.mjs';
+import { writeFamilyData } from './tools/family-index.mjs';
 import { dirname, join } from 'node:path';
 
 // Absolute origin used for og:image and canonical URLs in the prerendered HTML.
@@ -22,10 +22,12 @@ const root = dirname(fileURLToPath(import.meta.url));
 writeMeta();
 /* The reverse index the family pages read: which notes discuss this family. */
 writeFamilyLinks();
-/* The short family fields, so the 261 kB of applications prose stops being part
- * of every URL's bundle. Generated here for the same reason as the meta above:
- * the client build imports the JSON, so it has to be on disk first. */
-const familyCount = writeFamilyIndex();
+/* The family fields, split four ways so the 261 kB of applications prose stops
+ * being part of every URL's bundle: the shared index, the card fields, the "read
+ * next" reasoning, and one file per family. Generated here for the same reason as
+ * the meta above: the client build imports and globs these files, so they have to
+ * be on disk before the module graph is read. */
+const familyCount = writeFamilyData();
 
 function esc(value) {
   return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -108,6 +110,18 @@ function routePrerender() {
       const entryHref = manifest['index.html'] ? hrefFor(manifest['index.html'].file) : null;
       if (entryHref) already.add(entryHref);
 
+      /* A family page fetches two files: its component and its own prose. The
+       * prose is a dynamic import, so without a hint it would not start until the
+       * entry had executed — a third round trip after the component's. Declaring
+       * it here puts both in flight during the head. Missing is not fatal: the
+       * page still works one round trip later. */
+      const familyBodyHref = (name, routePath) => {
+        if (name !== 'ApplicationFamilyPage') return [];
+        const slug = /\/applications\/([^/]+)$/.exec(routePath)?.[1];
+        const entry = slug && manifest[`src/data/families/${slug}.json`];
+        return entry ? [hrefFor(entry.file)] : [];
+      };
+
       const preloadFor = (routePath) => {
         const name = resolvePage(routePath).name;
         if (name === 'Home') return '';
@@ -115,7 +129,9 @@ function routePrerender() {
         if (!href) {
           throw new Error(`route ${routePath} resolves to page "${name}" with no chunk in the manifest`);
         }
-        const wanted = [href, ...importsOf(name)].filter((h) => !already.has(h));
+        const wanted = [href, ...importsOf(name), ...familyBodyHref(name, routePath)].filter(
+          (h) => !already.has(h)
+        );
         return [...new Set(wanted)]
           .map((h) => `\n    <link rel="modulepreload" crossorigin href="${h}" />`)
           .join('');
@@ -272,7 +288,7 @@ ${feedItems}
       writeFileSync(join(root, 'dist/sw.js'), swSource.replace('__CACHE_VERSION__', entry));
 
       this.warn(
-        `prerendered ${routes.length} routes (${familyCount} families indexed), sitemap written, service worker v${entry}`
+        `prerendered ${routes.length} routes (${familyCount.families} families, ${familyCount.bodies} bodies), sitemap written, service worker v${entry}`
       );
     },
   };

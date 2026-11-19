@@ -9,7 +9,8 @@ import {
   Table2,
   ArrowLeftRight,
 } from 'lucide-react';
-import { FAMILIES, familyBySlug } from '../data/applicationFamilies';
+import { FAMILIES, familyBySlug } from '../data/applicationFamilyIndex';
+import { familyFacts, familyFirstHeading } from '../data/familyCards';
 import { ISO_CERT, waLink, DEFAULT_WA_TEXT } from '../data/company';
 import { SITE_URL, canonicalFor } from '../seo/routes';
 import { articleBySlug } from '../lib/insights';
@@ -449,12 +450,12 @@ export default function DefenceRoboticsPage() {
                           {f.name}
                         </span>
                         <span className="mt-1.5 flex-1 text-[13.5px] leading-snug text-slate-600">
-                          {f.sections[0] ? f.sections[0].heading : f.keyword}
+                          {familyFirstHeading(f.slug) || f.keyword}
                         </span>
                         {/* Batch sits on its own line: side by side with the link
                             it wrapped to three lines on the longest family. */}
                         <span className="mt-3 block font-mono text-[11px] uppercase tracking-[0.09em] text-slate-500">
-                          {f.facts[1] ? `Batch ${f.facts[1][1]}` : ''}
+                          {familyFacts(f.slug)[1] ? `Batch ${familyFacts(f.slug)[1][1]}` : ''}
                         </span>
                         <span className="mt-1.5 inline-flex items-center gap-1 text-[13px] font-bold text-brand-700">
                           Read the page

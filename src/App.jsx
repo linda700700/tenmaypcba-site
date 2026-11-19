@@ -61,7 +61,7 @@ function HomePage() {
  * disagree. Nothing in the page set can leak back into this bundle, because this
  * bundle no longer names any of them.
  */
-export default function App({ path: pathProp, page = null }) {
+export default function App({ path: pathProp, page = null, family = null }) {
   // content.json loads after first paint; bump to re-render with the overrides.
   const [, bumpContent] = useReducer((n) => n + 1, 0);
   useEffect(() => subscribeContent(bumpContent), []);
@@ -74,7 +74,14 @@ export default function App({ path: pathProp, page = null }) {
   /* Which component this URL gets. The same function decides it in main.jsx, so
    * the browser knows which chunk to fetch before it mounts anything, and the two
    * can never disagree about what this URL is. */
-  const { name: pageName, props: pageProps } = resolvePage(path, hash);
+  const { name: pageName, props: resolvedProps } = resolvePage(path, hash);
+  /* The family page is the one route that needs data as well as a component: its
+   * prose is a separate file, so it arrives the same way the component does —
+   * fetched by main.jsx in the browser, read synchronously by entry-server. */
+  const pageProps =
+    pageName === 'ApplicationFamilyPage'
+      ? { slug: resolvedProps.slug, family }
+      : resolvedProps;
   /* Home needs no component from outside: its sections are already in this file. */
   const Page = pageName === 'Home' ? null : page;
 

@@ -3,7 +3,7 @@ import { renderToString } from 'react-dom/server';
 import App from './App';
 import { ROUTE_HEADS, canonicalFor } from './seo/routes';
 import { ARTICLES, articleHead } from './lib/insights';
-import { FAMILIES } from './data/applicationFamilies';
+import { FAMILIES } from './data/applicationFamilyIndex';
 import { TOPIC_BY_PATH, topicSlugs } from './data/topics';
 import { resolvePage } from './lib/routePage';
 import ArticlePage from './pages/ArticlePage';
@@ -19,6 +19,23 @@ import PrivacyPage from './pages/PrivacyPage';
 import RfqPage from './pages/RfqPage';
 import TermsPage from './pages/TermsPage';
 import TopicPage from './pages/TopicPage';
+
+/*
+ * The prerender's copy of every family's prose.
+ *
+ * Same files the browser fetches one at a time through lib/familyContent.js, read
+ * eagerly here because renderToString is synchronous: a component that awaited
+ * its own body would render the loading state into the HTML and post it. This file
+ * is built into .ssr-tmp and never shipped, so inlining all thirty-six costs disk
+ * and nothing a visitor downloads.
+ */
+const FAMILY_BODIES = import.meta.glob('./data/families/*.json', { eager: true, import: 'default' });
+
+function familyBody(slug, path) {
+  const body = FAMILY_BODIES[`./data/families/${slug}.json`];
+  if (!body) throw new Error(`no family body for "${slug}" (${path})`);
+  return body;
+}
 
 /*
  * The prerender's copy of the page set.
@@ -76,8 +93,16 @@ function shareImage(path) {
   return null;
 }
 
+/* The family page is the one route that also needs data, not just a component. */
+function familyFor(path) {
+  const { name, props } = resolvePage(path);
+  return name === 'ApplicationFamilyPage' ? familyBody(props.slug, path) : null;
+}
+
 export function render(path) {
-  return renderToString(<App path={path} page={pageComponent(path)} />);
+  return renderToString(
+    <App path={path} page={pageComponent(path)} family={familyFor(path)} />
+  );
 }
 
 /* The build needs the same route-to-page answer the browser uses, so the
