@@ -4,7 +4,8 @@ import {
   AlertTriangle, Quote, CheckCircle2, ShieldCheck,
 } from 'lucide-react';
 import { SECTORS } from '../data/useCases';
-import { FAMILIES, FAMILY_COUNT } from '../data/applicationFamilies';
+import { FAMILIES, FAMILY_COUNT } from '../data/applicationFamilyIndex';
+import { familyFacts } from '../data/familyCards';
 import { waLink, DEFAULT_WA_TEXT } from '../data/company';
 import FlipMedia from '../components/FlipMedia';
 import DragRail from '../components/DragRail';
@@ -190,7 +191,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
                 </span>
                 <span className="min-w-0">
                   <span className="block text-[14px] font-bold leading-snug text-slate-900">{f.cardName}</span>
-                  <span className="mt-0.5 block text-[12.5px] text-slate-500">{f.facts[1][1]}</span>
+                  <span className="mt-0.5 block text-[12.5px] text-slate-500">{familyFacts(f.slug)[1][1]}</span>
                 </span>
                 <ArrowRight className="ml-auto h-4 w-4 shrink-0 text-brand-600 transition-transform group-hover:translate-x-0.5" />
               </a>

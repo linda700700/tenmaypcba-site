@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, Grid3x3 } from 'lucide-react';
-import { FAMILIES, FAMILY_SLUGS, FAMILY_COUNT } from '../data/applicationFamilies';
+import { FAMILIES, FAMILY_SLUGS, FAMILY_COUNT } from '../data/applicationFamilyIndex';
+import { familyFacts } from '../data/familyCards';
 
 /*
  * One picture across every family: process class on one axis, batch band on the
@@ -81,7 +82,7 @@ const PROCESS_CLASS = {
 };
 
 function batchOf(family) {
-  const row = (family.facts || []).find((f) => /batch/i.test(f[0]));
+  const row = familyFacts(family.slug).find((f) => /batch/i.test(f[0]));
   return row ? row[1] : '';
 }
 

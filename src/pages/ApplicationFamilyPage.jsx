@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowRight, ChevronRight, MessageCircle, AlertTriangle, CheckCircle2, ArrowLeftRight } from 'lucide-react';
-import { FAMILIES, FAMILY_SLUGS, RELATED, FAMILY_COUNT, familyBySlug } from '../data/applicationFamilies';
+import { FAMILIES, FAMILY_SLUGS, FAMILY_COUNT } from '../data/applicationFamilyIndex';
+import { RELATED } from '../data/familyRelated';
 import { waLink, DEFAULT_WA_TEXT } from '../data/company';
 import { imgAttrs } from '../lib/imageSize';
 import ARTICLE_FAMILIES from '../data/article-families.json';
@@ -32,9 +33,19 @@ function Section({ heading, paras }) {
   );
 }
 
-export default function ApplicationFamilyPage({ slug }) {
-  const family = familyBySlug(slug);
-  if (!family) return null;
+/*
+ * `family` is this family's own record, handed in rather than looked up here.
+ * The browser fetches it as its own chunk before mounting (main.jsx); the
+ * prerender reads its eager copy synchronously (entry-server.jsx). Both pass the
+ * same shape, and neither will render the page without it — see the guard below.
+ */
+export default function ApplicationFamilyPage({ slug, family }) {
+  if (!family) {
+    /* Unreachable from either entry: main.jsx refuses to mount without the body,
+     * and entry-server throws before it renders. Kept loud rather than silent so
+     * a future third caller does not ship a blank family page. */
+    throw new Error(`ApplicationFamilyPage rendered without the body for "${slug}"`);
+  }
 
   // Three reasoned neighbours first, then the rest as plain chips: eleven equal
   // cards help nobody and bury the link a reader would actually follow.

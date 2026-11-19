@@ -14,6 +14,7 @@
  */
 
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
+import { TOPICS, topicForArticle, topicSlugs } from '../src/data/topics.js';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -21,6 +22,43 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT = join(ROOT, 'src', 'content', 'insights');
 const OUT = join(ROOT, 'src', 'data', 'insights-meta.json');
 const OUT_FAMILIES = join(ROOT, 'src', 'data', 'article-families.json');
+const OUT_NEIGHBOURS = join(ROOT, 'src', 'data', 'note-neighbours.json');
+
+/* Every note belongs to exactly one hub.
+ *
+ * This is the invariant topics.js has always documented and never enforced. It
+ * drifted: twenty-three of fifty-five notes ended up in no hub at all, reachable
+ * only from the article index and from a family page, and nothing failed. A hub
+ * is the cluster a crawler reads to decide what this site is about, so a note
+ * outside every hub is a note outside the hierarchy. Failing the build is the
+ * only version of this rule that survives contact with a busy week. */
+export function assertTopicCoverage() {
+  const onDisk = readdirSync(CONTENT)
+    .filter((name) => name.endsWith('.md'))
+    .map((name) => name.slice(0, -3));
+
+  const seen = new Map();
+  const duplicated = [];
+  for (const topic of TOPICS) {
+    for (const slug of topicSlugs(topic)) {
+      if (seen.has(slug)) duplicated.push(`${slug} (${seen.get(slug)} and ${topic.slug})`);
+      seen.set(slug, topic.slug);
+    }
+  }
+
+  const unfiled = onDisk.filter((slug) => !seen.has(slug));
+  const dangling = [...seen.keys()].filter((slug) => !onDisk.includes(slug));
+
+  const problems = [];
+  if (unfiled.length) problems.push(`in no hub: ${unfiled.join(', ')}`);
+  if (duplicated.length) problems.push(`in two hubs: ${duplicated.join(', ')}`);
+  if (dangling.length) problems.push(`in a hub but not on disk: ${dangling.join(', ')}`);
+  if (problems.length) {
+    throw new Error(`topic coverage broken — ${problems.join('; ')}`);
+  }
+
+  return { notes: onDisk.length, hubs: TOPICS.length, filed: seen.size };
+}
 
 function parseFrontmatter(source) {
   const text = String(source).replace(/\r\n/g, '\n');
@@ -133,5 +171,97 @@ export function buildFamilyLinks() {
 export function writeFamilyLinks() {
   const map = buildFamilyLinks();
   writeFileSync(OUT_FAMILIES, `${JSON.stringify(map, null, 0)}\n`);
+  return map;
+}
+
+/* Which two notes each note points at as "More notes".
+ *
+ * Why this is computed here rather than in the page: the page used to pick the
+ * first two notes sharing any tag, and with "Sourcing" on forty-two notes and
+ * "Decision" on thirty-five, the first two always won. The consequence was
+ * measurable — two notes had forty-odd inbound links from siblings and
+ * twenty-five notes had none at all, so the section read as a sidebar but
+ * behaved as a fixed list of the same two pages on every URL.
+ *
+ * Three changes, all decided at build time so the prerendered HTML and the
+ * client cannot disagree:
+ *
+ *   weight tags by rarity   a shared tag that four notes carry says more than a
+ *                           shared tag that forty-two carry. Weight 1/count.
+ *   read the family link    a note that links to /applications/bess is about the
+ *                           BESS board, so the other notes about that board are
+ *                           its real neighbours. Derived from the Markdown, the
+ *                           same way buildFamilyLinks does it.
+ *   balance the graph       a candidate already carrying many inbound links is
+ *                           worth less than one carrying none. Without this the
+ *                           order of the loop decides the answer.
+ *
+ * Deterministic in every input: notes sorted by date then slug for scoring,
+ * ties broken by slug, and the deficit counter walks a fixed slug order. No
+ * Math.random, no Date.now, so `npm run build` twice gives the same file.
+ */
+export function buildNeighbours() {
+  const notes = buildMeta();
+  const families = buildFamilyLinks();
+
+  const noteFamilies = {};
+  for (const [family, list] of Object.entries(families)) {
+    for (const item of list) {
+      if (!noteFamilies[item.slug]) noteFamilies[item.slug] = [];
+      if (!noteFamilies[item.slug].includes(family)) noteFamilies[item.slug].push(family);
+    }
+  }
+
+  const tagCount = {};
+  for (const note of notes) for (const tag of note.tags) tagCount[tag] = (tagCount[tag] || 0) + 1;
+
+  /* The hub a note belongs to, where it belongs to one. topics.js says every note
+   * is in exactly one hub; notes that are in none still have to be recommended
+   * something, so they fall through to the tag signal. */
+  const noteTopic = Object.fromEntries(notes.map((n) => [n.slug, topicForArticle(n.slug)?.slug || null]));
+
+  const bySlug = Object.fromEntries(notes.map((n) => [n.slug, n]));
+  const inbound = Object.fromEntries(notes.map((n) => [n.slug, 0]));
+  const out = {};
+
+  /* A fixed order, independent of the file dates, so the deficit counter cannot
+   * be steered by whichever note happened to be published last. */
+  for (const slug of Object.keys(bySlug).sort()) {
+    const note = bySlug[slug];
+    const mine = new Set(noteFamilies[slug] || []);
+    const scored = [];
+    for (const other of notes) {
+      if (other.slug === slug) continue;
+      let score = 0;
+      /* Same board family is the strongest honest signal: both notes are about
+       * the same product being built. */
+      for (const family of noteFamilies[other.slug] || []) if (mine.has(family)) score += 8;
+      /* Same hub is next: the two notes answer the same buyer question from
+       * different angles, which is what "read this next" is for. */
+      if (noteTopic[slug] && noteTopic[slug] === noteTopic[other.slug]) score += 3;
+      let tagScore = 0;
+      for (const tag of other.tags) {
+        if (!note.tags.includes(tag)) continue;
+        /* 1/count: a tag four notes carry is a real neighbourhood, a tag
+         * forty-two carry is the site's own vocabulary and says nothing. */
+        tagScore += tagCount[tag] <= 6 ? 2 : 0.1;
+      }
+      score += Math.min(tagScore, 4);
+      /* Recency breaks ties only — it is a nudge, not a reason to recommend. */
+      score += other.date > note.date ? 0.01 : 0;
+      score -= 0.4 * inbound[other.slug];
+      scored.push([score, other.slug]);
+    }
+    scored.sort((a, b) => b[0] - a[0] || a[1].localeCompare(b[1]));
+    const picked = scored.slice(0, 2).map(([, s]) => s);
+    for (const s of picked) inbound[s] += 1;
+    out[slug] = picked;
+  }
+  return out;
+}
+
+export function writeNeighbours() {
+  const map = buildNeighbours();
+  writeFileSync(OUT_NEIGHBOURS, `${JSON.stringify(map, null, 0)}\n`);
   return map;
 }

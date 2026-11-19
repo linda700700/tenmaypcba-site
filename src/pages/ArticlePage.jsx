@@ -2,12 +2,13 @@ import React from 'react';
 import { imgAttrs } from '../lib/imageSize';
 import { ArrowLeft, ArrowRight, Clock } from 'lucide-react';
 import { Markdown } from '../lib/markdown.jsx';
-import { ARTICLES, formatDate, bodyOf } from '../lib/insights';
+import { formatDate, bodyOf } from '../lib/insights';
 import { COMPANY, SITE_URL } from '../data/company';
 import { canonicalFor } from '../seo/routes';
 import { topicForArticle } from '../data/topics';
 import { ARTICLE_FAQ } from '../data/articleFaq';
 import { FOUNDER } from '../data/people';
+import { noteNeighbours } from '../data/noteNeighbours';
 
 /*
  * One article. The body arrives as Markdown and is rendered to React nodes, so
@@ -65,13 +66,15 @@ function ArticleJsonLd({ article, topic }) {
 
 export default function ArticlePage({ article }) {
   const topic = topicForArticle(article.slug);
-  /* Two neighbours, chosen by shared tag first and recency second. "More notes"
-   * that always shows the newest two is a feed, not a recommendation: a reader
-   * on the costing piece gets more from another costing piece than from whatever
-   * happens to be newest. */
-  const pool = ARTICLES.filter((a) => a.slug !== article.slug);
-  const tagged = pool.filter((a) => a.tags.some((t) => article.tags.includes(t)));
-  const others = [...tagged, ...pool.filter((a) => !tagged.includes(a))].slice(0, 2);
+  /* Two neighbours, decided once at build time rather than here.
+   *
+   * The version that lived here picked the first two notes sharing any tag. With
+   * "Sourcing" on forty-two notes that was the same two notes on every URL, which
+   * left twenty-five notes with no inbound link from a sibling at all. The
+   * scoring — shared board family, shared hub, tag rarity, and a penalty for
+   * candidates that are already well linked — is in tools/insights-meta.mjs, and
+   * it is computed from the notes so it cannot drift from them. */
+  const others = noteNeighbours(article.slug);
   /*
    * The pairs below are also emitted as FAQPage in Seo.jsx. They are printed
    * here, not only marked up, because structured data has to describe something
