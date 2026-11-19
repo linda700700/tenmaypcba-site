@@ -1505,6 +1505,13 @@ export const FAMILIES = {
     image: '/assets/images/case-residential-storage.webp',
     imageAlt:
       'Two stacked home-battery module boards with cell-sampling harness connectors, beside a hybrid inverter control board with its heatsink, contactor and current-sense shunt',
+    scene: {
+      image: '/assets/images/scene-residential-storage.webp',
+      imageAlt:
+        'Wall-mounted home battery and hybrid inverter side by side in a clean garage, with cable trunking down to a small distribution board',
+      caption:
+        'In the finished product: a wall-mounted battery is a module BMU per pack, a hybrid inverter control board and a stack master, all sitting in standby for most of the year and expected to report state of charge honestly at the end of it.',
+    },
     h1: 'A home battery is judged on the days it does nothing, and this floor cannot reach that state',
     lede:
       'A wall-mounted or stacked home battery is three or four boards that never stop talking: one small BMU per module, a hybrid inverter control board that also has to decide what the roof is doing, a master that owns the meters and the contactor, and a communication board for the stack. Almost none of the difficulty is in placing parts. It sits in standby for weeks, it has to still be telling the truth about state of charge years later, and the approval that lets it connect to a house belongs to the unit rather than to the assembler.',
@@ -1587,6 +1594,13 @@ export const FAMILIES = {
     image: '/assets/images/case-storage-safety.webp',
     imageAlt:
       'Storage safety controller board with a gas-sensor head on a short cable, a latching relay, a supercapacitor and a sealed trigger connector, mounted beside a cabinet backplate',
+    scene: {
+      image: '/assets/images/scene-storage-safety.webp',
+      imageAlt:
+        'Interior of a battery storage cabinet with racked modules behind and a safety control panel with sensor head on the open door',
+      caption:
+        'In the finished product: the panel on that door is the detection head, the latching controller and the trigger driver. It sits there for years doing nothing, and it is expected to work once.',
+    },
     h1: 'A suppression board has one job in its life, and it has to still be able to do it the day it is asked',
     lede:
       'Pack-level safety electronics are the least glamorous boards in a storage system and the ones nobody wants to explain afterwards. A detection head watches gas, smoke or temperature; a controller latches the alarm and decides; a driver fires an aerosol or valve actuator exactly once. Between the day it is built and the day it is needed there may be years of doing nothing at all — and nothing on this floor can prove the board would still fire.',
@@ -2544,6 +2558,13 @@ export const FAMILIES = {
     image: '/assets/images/case-pos-terminal.webp',
     imageAlt:
       'Payment terminal main board with secure element under a press-fit shield, tamper-mesh traces on the inner layers, a thermal printer connector and a keypad dome array, beside a detached card-reader slot',
+    scene: {
+      image: '/assets/images/scene-pos-terminal.webp',
+      imageAlt:
+        'Payment terminal on a cafe counter with a contactless card at the reader, a receipt printer behind it and a self-order screen further back',
+      caption:
+        'In the finished product: a countertop terminal is the main board under the keypad, the reader board behind the slot, the printer board and the display — four boards inside one housing that gets tapped, dropped and left switched on all day.',
+    },
     h1: 'A payment terminal has one trace that must never be nicked, and nothing on this floor can prove it survived',
     lede:
       'Under the shield of a payment terminal there is a fine loop of copper that the secure element watches. Drill it, nick it, or let resin creep over it, and the terminal decides it has been opened and destroys its own keys. That loop is an assembly feature before it is a security feature — which is why this family is judged by what the floor cannot test, not by what it can place.',
@@ -2626,6 +2647,13 @@ export const FAMILIES = {
     image: '/assets/images/case-induction-driver.webp',
     imageAlt:
       'Induction cooker power board with an IGBT half-bridge on a heatsink, two resonant capacitors, heavy copper traces and coil terminals in a white plastic frame, beside a separate control and display board with a seven-segment readout',
+    scene: {
+      image: '/assets/images/scene-induction-drive.webp',
+      imageAlt:
+        'Induction hob built into a kitchen worktop with a steaming pot on the left cooking zone, daylight from a window above',
+      caption:
+        'In the finished product: the board sits under that black glass. A resonant inverter board and a control / display board, with the coil and the pan on the other side of the glass — the two things this floor never connects.',
+    },
     h1: 'An induction board is judged at the pan, and the pan is the one thing this floor never connects',
     lede:
       'A resonant half-bridge into a coil is a simple circuit that behaves very differently depending on what is standing on it. Empty pan, full pan, pan slid half off the ring — the current through the same IGBTs differs by a multiple. Assembling the board is ordinary work. Deciding whether it survives those three states is not, and it does not happen here.',

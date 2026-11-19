@@ -118,6 +118,28 @@ export default function ApplicationFamilyPage({ slug }) {
         </div>
       </section>
 
+      {/* where the board ends up */}
+      {family.scene ? (
+        <section className="bg-white pt-10 sm:pt-12">
+          <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
+            <figure>
+              <div className="overflow-hidden rounded-xl border border-brand-200/60 bg-slate-100">
+                <img
+                  src={family.scene.image}
+                  {...imgAttrs(family.scene.image, '(max-width: 1024px) 100vw, 1240px')}
+                  alt={family.scene.imageAlt}
+                  loading="lazy"
+                  className="aspect-[16/10] w-full object-cover sm:aspect-[16/9]"
+                />
+              </div>
+              <figcaption className="mt-3 max-w-[900px] text-[14.5px] leading-relaxed text-slate-600">
+                {family.scene.caption}
+              </figcaption>
+            </figure>
+          </div>
+        </section>
+      ) : null}
+
       {/* body */}
       <section className="bg-white py-12 sm:py-14">
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">

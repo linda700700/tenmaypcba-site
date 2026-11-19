@@ -424,6 +424,46 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/scene-induction-drive.webp": [
+    [
+      "/assets/images/scene-induction-drive-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-induction-drive-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-pos-terminal.webp": [
+    [
+      "/assets/images/scene-pos-terminal-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-pos-terminal-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-residential-storage.webp": [
+    [
+      "/assets/images/scene-residential-storage-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-residential-storage-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-storage-safety.webp": [
+    [
+      "/assets/images/scene-storage-safety-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-storage-safety-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/tht-selective-solder.webp": [
     [
       "/assets/images/tht-selective-solder-700w.webp",

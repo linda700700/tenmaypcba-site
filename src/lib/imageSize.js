@@ -161,6 +161,22 @@ const SIZES = {
     1400,
     934
   ],
+  "/assets/images/scene-pos-terminal.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-induction-drive.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-residential-storage.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-storage-safety.webp": [
+    1600,
+    1066
+  ],
   "/assets/images/conformal-coating.webp": [
     1400,
     933
