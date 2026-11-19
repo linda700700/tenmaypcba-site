@@ -4,32 +4,42 @@ import App from './App';
 import './styles.css';
 import { loadContent } from './lib/content';
 import { prefetchBody } from './lib/insights';
+import { resolvePage } from './lib/routePage';
+import { pageChunk } from './lib/pageChunks';
 
 // The prerendered markup exists for crawlers. The client takes over the
 // container from there, so no hydration mismatch can ship to users.
 // Not awaited: the compiled copy paints first, overrides land a moment later.
 loadContent();
 
-const boot = () => {
+const boot = (page) => {
   createRoot(document.getElementById('root')).render(
-    <App path={window.location.pathname} />
+    <App path={window.location.pathname} page={page} />
   );
 };
 
 /*
- * A note's Markdown is its own chunk, so on an article URL the text arrives one
- * round trip after this file. Mounting immediately would wipe the prerendered
- * article and leave a blank frame until that chunk landed.
+ * Two things can be missing when this file starts: the page component for this
+ * URL, and — on a note — the Markdown body. Mounting before either is in memory
+ * would wipe the prerendered page and leave a blank frame until it arrived, which
+ * is exactly the flash a fast first paint is supposed to avoid.
  *
- * So on an article route the first paint stays the prerendered one, and React
- * takes over once the body is in memory. Every other route mounts straight away,
- * because it needs no chunk. A failed fetch still boots — an empty note beats a
- * page with no header.
+ * So nothing mounts until they are in. The prerendered HTML stays on screen in the
+ * meantime, and it is already the same page: the chunk adds behaviour, not
+ * content.
+ *
+ * A failed fetch does not boot at all. The prerendered page stays readable and
+ * clickable — links and the quote form are plain HTML — and the visitor is better
+ * off with a page that does not react than with an empty shell where a page used
+ * to be. Swallowing the error is deliberate; there is nothing useful to say to
+ * someone who came here to read about conformal coating.
  */
-const article = /^\/insights\/([^/]+?)(?:\.html)?\/?$/.exec(window.location.pathname);
+const { name } = resolvePage(window.location.pathname, window.location.hash);
 
-if (article) {
-  prefetchBody(article[1]).then(boot, boot);
-} else {
-  boot();
-}
+const article = /^\/insights\/([^/]+?)(?:\.html)?\/?$/.exec(window.location.pathname);
+const body = article ? prefetchBody(article[1]).catch(() => null) : Promise.resolve(null);
+
+Promise.all([pageChunk(name).catch(() => undefined), body]).then(([page]) => {
+  if (name !== 'Home' && !page) return;
+  boot(page || null);
+});

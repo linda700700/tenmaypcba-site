@@ -2,7 +2,7 @@ import React from 'react';
 import { COMPANY, SITE_URL, ISO_CERT, SAME_AS } from '../data/company';
 import { FOUNDER } from '../data/people';
 import { USE_CASE_FAQ } from '../data/useCases';
-import { FAMILIES, FAMILY_SLUGS } from '../data/applicationFamilies';
+import { FAMILIES, FAMILY_SLUGS } from '../data/applicationFamilyIndex';
 import { TOPIC_BY_PATH } from '../data/topics';
 import { FAQS } from '../data/faq';
 import { canonicalFor, ROUTE_HEADS } from '../seo/routes';

@@ -5,6 +5,7 @@ import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { renderLlmsFull } from './tools/gen-llms-full.mjs';
 import { writeMeta, writeFamilyLinks } from './tools/insights-meta.mjs';
+import { writeFamilyIndex } from './tools/family-index.mjs';
 import { dirname, join } from 'node:path';
 
 // Absolute origin used for og:image and canonical URLs in the prerendered HTML.
@@ -21,6 +22,10 @@ const root = dirname(fileURLToPath(import.meta.url));
 writeMeta();
 /* The reverse index the family pages read: which notes discuss this family. */
 writeFamilyLinks();
+/* The short family fields, so the 261 kB of applications prose stops being part
+ * of every URL's bundle. Generated here for the same reason as the meta above:
+ * the client build imports the JSON, so it has to be on disk first. */
+const familyCount = writeFamilyIndex();
 
 function esc(value) {
   return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
@@ -54,12 +59,67 @@ function routePrerender() {
       // The route list comes from the SSR bundle, not from a hand-kept array, so
       // a new article in src/content/insights/ is prerendered without editing
       // this file.
-      const { render, routes: allRoutes } = await import(
+      const { render, routes: allRoutes, resolvePage } = await import(
         pathToFileURL(join(outDir, 'entry-server.js')).href
       );
 
       const template = readFileSync(join(root, 'dist/index.html'), 'utf8');
       const routes = allRoutes;
+
+      /* Page components are their own chunks now, fetched by main.jsx after this
+       * bundle has parsed. Left alone that is a second round trip on a phone: the
+       * entry arrives, runs, discovers it needs a chunk, and only then asks for it.
+       * Declaring the chunk in the head lets both downloads overlap, so the wait
+       * for a page component is the entry's own wait rather than one more.
+       *
+       * The filename carries a hash, so this cannot live in index.html: it is
+       * written per route here from the build manifest, and it fails the build
+       * rather than shipping a preload for a file that was not emitted. */
+      const manifestPath = join(root, 'dist/.vite/manifest.json');
+      const manifest = existsSync(manifestPath)
+        ? JSON.parse(readFileSync(manifestPath, 'utf8'))
+        : {};
+      /* A page chunk is not always the last thing that has to arrive: a family
+       * page imports the applications prose, which is a shared chunk of its own.
+       * Preloading only the page would leave that second request waiting for the
+       * first to parse — the waterfall this is meant to remove. So the imports
+       * the manifest records for that chunk are declared too, one level deep,
+       * which covers every route on the site today. */
+      const hrefFor = (file) => `/assets/${file.split('/').pop()}`;
+      const chunkFor = (name) => {
+        const entry = manifest[`src/pages/${name}.jsx`];
+        return entry ? hrefFor(entry.file) : null;
+      };
+      const importsOf = (name) => {
+        const entry = manifest[`src/pages/${name}.jsx`];
+        if (!entry || !entry.imports) return [];
+        return entry.imports
+          .map((key) => manifest[key])
+          .filter(Boolean)
+          .map((m) => hrefFor(m.file));
+      };
+      /* What the template already declares, plus the entry itself. Vite writes a
+       * modulepreload for the entry's own imports (react, icons) and the entry is
+       * loaded by the module script — repeating any of them is a duplicate tag
+       * for a request already in flight. */
+      const already = new Set(
+        [...template.matchAll(/rel="modulepreload"[^>]*href="([^"]+)"/g)].map((m) => m[1])
+      );
+      const entryHref = manifest['index.html'] ? hrefFor(manifest['index.html'].file) : null;
+      if (entryHref) already.add(entryHref);
+
+      const preloadFor = (routePath) => {
+        const name = resolvePage(routePath).name;
+        if (name === 'Home') return '';
+        const href = chunkFor(name);
+        if (!href) {
+          throw new Error(`route ${routePath} resolves to page "${name}" with no chunk in the manifest`);
+        }
+        const wanted = [href, ...importsOf(name)].filter((h) => !already.has(h));
+        return [...new Set(wanted)]
+          .map((h) => `\n    <link rel="modulepreload" crossorigin href="${h}" />`)
+          .join('');
+      };
 
       for (const route of routes) {
         const { path: routePath, head, url } = route;
@@ -89,6 +149,8 @@ function routePrerender() {
           /(<link rel="canonical" href=")[^"]*(")/,
           `$1${esc(url)}$2`
         );
+
+        html = html.replace('</head>', `${preloadFor(routePath)}\n  </head>`);
 
         // Every route gets a prerendered body, including the homepage. Leaving
         // "/" as an empty shell made the most-linked page read as zero bytes of
@@ -209,7 +271,9 @@ ${feedItems}
       const swSource = readFileSync(join(root, 'sw-template.js'), 'utf8');
       writeFileSync(join(root, 'dist/sw.js'), swSource.replace('__CACHE_VERSION__', entry));
 
-      this.warn(`prerendered ${routes.length} routes, sitemap written, service worker v${entry}`);
+      this.warn(
+        `prerendered ${routes.length} routes (${familyCount} families indexed), sitemap written, service worker v${entry}`
+      );
     },
   };
 }
@@ -248,6 +312,25 @@ function ssrBundle() {
 
 export default defineConfig({
   plugins: [react(), ssrBundle(), routePrerender(), llmsFullText()],
+  build: {
+    /* Writes dist/.vite/manifest.json. The prerender step reads it to find the
+     * hashed filename of each page chunk, which is what the per-route
+     * modulepreload in the head has to name. */
+    manifest: true,
+    rollupOptions: {
+      output: {
+        /* React and react-dom are the same bytes on every URL and change only
+         * when the framework is upgraded. Given their own chunk they stay in the
+         * browser cache across deploys while the site's own code is replaced. */
+        manualChunks(id) {
+          if (!id.includes('node_modules')) return undefined;
+          if (/node_modules\/(react|react-dom|scheduler)\//.test(id)) return 'react';
+          if (id.includes('node_modules/lucide-react/')) return 'icons';
+          return undefined;
+        },
+      },
+    },
+  },
   server: {
     host: '127.0.0.1',
   },

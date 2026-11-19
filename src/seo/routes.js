@@ -9,7 +9,7 @@
  */
 
 import { TOPICS } from '../data/topics';
-import { FAMILY_COUNT } from '../data/applicationFamilies';
+import { FAMILY_COUNT } from '../data/applicationFamilyIndex';
 
 export const SITE_URL = 'https://tenmaypcba.com';
 
