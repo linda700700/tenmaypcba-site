@@ -1,6 +1,7 @@
 import React from 'react';
-import { MapPin, Phone, Mail, ShieldCheck, ArrowUp, MessageCircle } from 'lucide-react';
+import { MapPin, Phone, Mail, ShieldCheck, ArrowUp, MessageCircle, ArrowRight } from 'lucide-react';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
+import { TOPICS } from '../data/topics';
 
 export default function Footer() {
   const scrollToTop = () => {
@@ -13,8 +14,11 @@ export default function Footer() {
     window.dispatchEvent(new Event('tm:open-consent'));
   };
 
+  // pb-20 on a phone, not pb-12: MobileQuoteBar is fixed to the bottom above md and is
+  // 62.6px tall, so the last line of the footer sat under it by about 10px at 390px
+  // wide. The extra 32px clears the bar with space to spare.
   return (
-    <footer className="bg-[#06291A] text-slate-300 border-t border-brand-800 pt-16 pb-12 text-xs" data-component="footer">
+    <footer className="bg-[#06291A] text-slate-300 border-t border-brand-800 pt-16 pb-20 md:pb-12 text-xs" data-component="footer">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Top 4-Column Grid */}
@@ -39,6 +43,17 @@ export default function Footer() {
             <div className="text-[12px] text-slate-300">
               <span className="text-emerald-400 font-semibold">● ISO 9001 certified</span>
             </div>
+            {/* The entity record. Until now /company.html carried the legal name, the
+                credit code, the certificate number and the plant address, and only seven
+                pages on the site linked to it. It answers "who is this supplier" before
+                any quote exists, so it belongs next to the brand, not in a legal strip. */}
+            <a
+              href="/company.html"
+              className="inline-flex items-center gap-1.5 text-[12px] text-slate-300 hover:text-white transition-colors"
+            >
+              <span>Who we are: entity, certificate, plant</span>
+              <ArrowRight className="w-3 h-3 shrink-0" />
+            </a>
           </div>
 
           {/* Col 2: Services */}
@@ -125,6 +140,35 @@ export default function Footer() {
             </ul>
           </div>
 
+        </div>
+
+        {/* The four hubs, on every page.
+            These are the pages that answer the question a buyer — or an answer engine
+            standing in for one — asks before any quote exists: should one assembler
+            build the whole product, what is actually inside a PCBA price, what the
+            process can and cannot hold, and which step decides whether the board
+            survives. They were reachable only from /insights.html, so the four pages
+            the site is organised around had 8 to 24 inbound links against 169 for the
+            capabilities page. Rendered from TOPICS, the same module the hub pages
+            render from, so labels and destinations cannot drift. */}
+        <div className="pt-8 pb-6">
+          <div className="text-xs font-bold uppercase tracking-wider text-white mb-4">
+            Guides
+          </div>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-3">
+            {TOPICS.map((hub) => (
+              <li key={hub.slug}>
+                <a href={hub.href} className="block group">
+                  <span className="block text-[13px] font-semibold text-slate-200 group-hover:text-white transition-colors">
+                    {hub.navLabel}
+                  </span>
+                  <span className="block text-[11px] leading-snug text-slate-400 mt-0.5">
+                    {hub.blurb}
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ul>
         </div>
 
         {/* Legal links. Kept under the columns rather than inside them: these are

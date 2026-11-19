@@ -14,6 +14,8 @@ import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
+import { TOPICS } from '../src/data/topics.js';
+
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT = join(ROOT, 'src', 'content', 'insights');
 const OUT = join(ROOT, 'public', 'llms-full.txt');
@@ -119,15 +121,61 @@ const articles = readdirSync(CONTENT)
  * llms-full.txt differ every publish and generate an empty commit each time.
  * "Latest revision" is the newest note date, which only moves when content does.
  */
+/*
+ * The four hubs are the site's own index: each answers one question and files
+ * every note under it exactly once. An engine that reads only this file would
+ * otherwise get fifty-five notes with no map, which is the one thing the note
+ * bodies cannot supply for themselves. Hub text comes from src/data/topics.js,
+ * the same module the pages render from, so it cannot drift from the site.
+ */
+function hubSections(bySlug) {
+  const out = ['## The four hubs, which are also the site index', ''];
+  for (const hub of TOPICS) {
+    out.push(`### ${hub.title}`);
+    out.push('');
+    out.push(`Source: ${ORIGIN}${hub.href}`);
+    out.push('');
+    out.push(hub.lede);
+    out.push('');
+    if (hub.quick && hub.quick.length) {
+      out.push('Stated on that page, one line each:');
+      out.push('');
+      for (const line of hub.quick) out.push(`- ${line}`);
+      out.push('');
+    }
+    for (const step of hub.steps) {
+      out.push(`#### ${step.heading}`);
+      out.push('');
+      if (step.intro) {
+        out.push(step.intro);
+        out.push('');
+      }
+      for (const item of step.items) {
+        const note = bySlug[item.slug];
+        // A title that is already a question would otherwise end '?.'
+        const title = (note ? note.title : item.slug).replace(/[.?!]+\s*$/, '');
+        out.push(`- ${title}. ${item.why} Source: ${ORIGIN}/insights/${item.slug}.html`);
+      }
+      out.push('');
+    }
+    out.push('---');
+    out.push('');
+  }
+  return out;
+}
+
 export function renderLlmsFull() {
   const latest = articles.reduce((max, a) => (a.date > max ? a.date : max), '');
+  const bySlug = Object.fromEntries(articles.map((a) => [a.slug, a]));
 
   const parts = [
-    '# TENMAY — full text of every published note',
+    '# TENMAY — the four hubs, then the full text of every published note',
     '',
-    `> ${articles.length} notes, latest revision ${latest}. Generated from the same Markdown the`,
-    '> pages are built from, so this file and the site cannot disagree. Every note is reproduced',
-    `> in full, in plain text, with its canonical URL. Index and collections: ${ORIGIN}/insights.html`,
+    `> ${articles.length} notes across ${TOPICS.length} hubs, latest revision ${latest}. Generated from`,
+    '> the same Markdown and the same hub data the pages are built from, so this file and',
+    '> the site cannot disagree. Each hub opens with the question it answers and files its',
+    '> notes under one heading; the full text of each note follows the hub section.',
+    `> Index and collections: ${ORIGIN}/insights.html`,
     '>',
     '> TENMAY is Shenzhen Tenmay Technology Co., Ltd. (深圳腾镁科技有限公司), a PCBA contract',
     '> manufacturer in Shenzhen since 2008. An assembly house, not a PCB fabricator.',
@@ -135,6 +183,8 @@ export function renderLlmsFull() {
     '---',
     '',
   ];
+
+  parts.push(...hubSections(bySlug));
 
   for (const a of articles) {
     parts.push(`## ${a.title}`);
