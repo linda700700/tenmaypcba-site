@@ -617,7 +617,7 @@ export default function Navbar({ currentPath = '/' }) {
                     <div className="relative w-[132px] shrink-0 bg-slate-100">
                       <img
                         src={activeSection.promo.image}
-                        {...imgAttrs(activeSection.promo.image)}
+                        {...imgAttrs(activeSection.promo.image, '132px')}
                         alt=""
                         className="absolute inset-0 w-full h-full object-cover"
                       />

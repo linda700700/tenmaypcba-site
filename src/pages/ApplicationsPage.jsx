@@ -144,7 +144,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
                 <span className="block h-[132px] overflow-hidden bg-slate-100">
                   <img
                     src={c.image}
-                    {...imgAttrs(c.image)}
+                    {...imgAttrs(c.image, '228px')}
                     alt={c.name}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"

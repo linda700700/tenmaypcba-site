@@ -271,7 +271,7 @@ export default function AssemblyPage() {
                 <div className="relative aspect-[16/10] overflow-hidden bg-slate-100">
                   <img
                     src={src}
-                    {...imgAttrs(src)}
+                    {...imgAttrs(src, '(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 390px')}
                     alt={line}
                     loading="lazy"
                     className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"

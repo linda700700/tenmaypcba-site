@@ -79,7 +79,7 @@ export default function CoreServices() {
               <div className="aspect-[16/10] overflow-hidden bg-slate-100">
                 <img
                   src={s.image}
-                  {...imgAttrs(s.image)}
+                  {...imgAttrs(s.image, '(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 300px')}
                   alt={s.alt}
                   loading="lazy"
                   className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"

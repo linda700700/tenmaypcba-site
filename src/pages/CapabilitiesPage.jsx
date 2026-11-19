@@ -393,7 +393,7 @@ export default function CapabilitiesPage() {
                         {img && (
                           <img
                             src={img}
-                            {...imgAttrs(img)}
+                            {...imgAttrs(img, '(max-width: 640px) 88vw, 200px')}
                             alt={title}
                             loading="lazy"
                             /* One column below sm: a fixed 110 px on a 298 px card kept 56 % of

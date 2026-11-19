@@ -7,7 +7,8 @@ import { imgAttrs } from '../lib/imageSize';
  * three numbers an engineer wants before reading the paragraph. Hover flips it
  * on desktop, the corner button flips it on touch.
  */
-export default function FlipMedia({ image, alt, index, title, lines, chips = [], className = '' }) {
+export default function FlipMedia({ image, alt, index, title, lines, chips = [], className = '',
+  sizes = '(max-width: 640px) 92vw, (max-width: 1024px) 46vw, 771px' }) {
   const [on, setOn] = useState(false);
 
   return (
@@ -27,7 +28,7 @@ export default function FlipMedia({ image, alt, index, title, lines, chips = [],
         {/* front — photograph */}
         <div className="flip-face bg-slate-100">
           <img src={image}
-          {...imgAttrs(image)} alt={alt} loading="lazy" className="h-full w-full object-cover" />
+          {...imgAttrs(image, sizes)} alt={alt} loading="lazy" className="h-full w-full object-cover" />
           <span className="absolute left-3 top-3 rounded bg-white/85 px-2 py-1 font-mono text-[11px] font-bold text-brand-800 backdrop-blur-sm">
             {String(index).padStart(2, '0')}
           </span>

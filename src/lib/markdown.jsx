@@ -176,7 +176,7 @@ export function Markdown({ source }) {
         <figure key={key} className="my-8">
           <img
             src={b.src}
-            {...imgAttrs(b.src)}
+            {...imgAttrs(b.src, '(max-width: 1024px) 92vw, 780px')}
             alt={b.alt}
             loading="lazy"
             decoding="async"

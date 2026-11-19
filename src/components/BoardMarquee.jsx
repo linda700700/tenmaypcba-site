@@ -21,7 +21,7 @@ function Tile({ b }) {
       <div className="zoom-parent overflow-hidden rounded-lg border border-brand-200/50 bg-white">
         <img
           src={b.image}
-          {...imgAttrs(b.image)}
+          {...imgAttrs(b.image, '(max-width: 640px) 196px, 232px')}
           alt={b.name}
           loading="lazy"
           className="h-[112px] w-full object-cover sm:h-[132px]"
