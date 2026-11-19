@@ -455,8 +455,8 @@ export const FAMILIES = {
       {
         heading: 'The commercial reality, stated plainly',
         paras: [
-          'This is the most-searched consumer board family and the least profitable per unit. Volume buyers judge on cents, already have a supplier, and switch when someone quotes three cents lower. Published search interest is not the same as winnable work.',
-          'It stays on this site because the process fit is real — dense SMT, double-sided, fine pitch is what eight Yamaha lines do well — and because a first order in the hundreds is normal business here rather than an exception. It is ranked tier C in our own list for a reason: expect enquiries, do not expect them to convert on price alone.',
+          'This is the highest-volume consumer family we quote, and the thinnest margin per unit. Volume buyers judge on cents, usually already have a supplier, and switch when someone quotes three cents lower. If that is how you buy, a dedicated high-volume line will beat this floor on price.',
+          'It stays on this site because the process fit is real — dense SMT, double-sided, fine pitch is what eight Yamaha lines do well — and because a first order in the hundreds is normal business here rather than an exception. If your board is dense and your runs are short, that is the work this floor is built for.',
         ],
       },
       {

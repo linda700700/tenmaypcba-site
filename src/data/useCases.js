@@ -551,16 +551,19 @@ export const USE_CASE_FAQ = [
   },
 ];
 
-/* Ranked shortlist: what to lead with on the site and in outreach. */
+/* Fit bands rendered on the homepage.
+   This copy is read by buyers, not by us: describe the fit, never the
+   editorial strategy behind the page. No grades, no keyword talk, no
+   funnel vocabulary. */
 export const PRIORITY = [
   {
-    tier: 'A · Lead with these',
+    tier: 'Where eight lines and a three-day build win',
     tone: 'blue',
     items: ['VFD / Inverter', 'Jump Starter with Air Compressor', 'Treadmill Control Boards'],
-    why: 'Small batches, through-hole power stages, conformal coating and fast turnaround all land inside the confirmed capability window. Each has a clear buyer and a repeat order rhythm.',
+    why: 'Small batches, through-hole power stages, conformal coating and a three-day standard build all sit inside what this floor is set up to do. Each of these has a repeat order rhythm, so the second run costs less than the first.',
   },
   {
-    tier: 'B · Support content',
+    tier: 'Where the board stack overlaps and a second source helps',
     tone: 'slate',
     items: [
       'Servo Drives',
@@ -586,10 +589,10 @@ export const PRIORITY = [
       'DC Charging Power Modules',
       'POS & Payment Terminals',
     ],
-    why: 'Same board stacks and overlapping buyers, plus the newer power, imaging and robotics work. Worth a page each because they share keywords with tier A, but do not lead the homepage with them.',
+    why: 'Same board stacks and overlapping buyers as the group above, plus the newer power, imaging and robotics work. If your current assembler is full, slow, or only quotes at volume, these are the families worth pricing as a second source.',
   },
   {
-    tier: 'C · Traffic only, low conversion',
+    tier: 'Where price decides and we are usually not the cheapest',
     tone: 'grey',
     items: [
       'Robot Vacuum Mainboards',
@@ -601,6 +604,6 @@ export const PRIORITY = [
       'IP Camera & Access Control',
       'Induction & Appliance Drives',
     ],
-    why: 'High search interest, but volume buyers demand in-circuit test and judge on cents. Publish the page for search reach; expect few profitable RFQs.',
+    why: 'High-volume, cost-driven consumer boards. If the decision is cents per unit at tens of thousands a month, a larger shop will usually beat us on price. If it is a hard board on a short run, that is the side of the fence we are on.',
   },
 ];
