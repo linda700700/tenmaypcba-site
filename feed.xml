@@ -36,6 +36,20 @@
       <description>On a server power shelf the joint under the power device decides the life of the unit, and AOI cannot see it. What to specify, and what cannot be measured.</description>
     </item>
     <item>
+      <title>On an AMR the connector fails before the solder joint does</title>
+      <link>https://tenmaypcba.com/insights/amr-connector-is-the-failure-point.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/amr-connector-is-the-failure-point.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Two to four boards per robot, a battery interface at 48 V and connectors that are unplugged during service. What an assembly floor decides on an AMR programme.</description>
+    </item>
+    <item>
+      <title>A car amplifier is a power supply with an audio problem, and the yield number is voiding</title>
+      <link>https://tenmaypcba.com/insights/car-amplifier-voids-not-watts.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/car-amplifier-voids-not-watts.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Heavy copper, snap-in capacitors and a thermal path that is half mechanical. What assembly decides on a car amplifier board, and the watts nobody here measures.</description>
+    </item>
+    <item>
       <title>On a DC fast charger the power modules are bought — the control board is what you are specifying</title>
       <link>https://tenmaypcba.com/insights/dc-charger-built-vs-bought.html</link>
       <guid isPermaLink="true">https://tenmaypcba.com/insights/dc-charger-built-vs-bought.html</guid>
@@ -43,11 +57,137 @@
       <description>A charger is purchased power modules plus the control, metering and interface boards. Which of those an assembler builds, and where the risk moves.</description>
     </item>
     <item>
+      <title>A flight controller is one IMU away from being scrap, and nobody here can tell you which one</title>
+      <link>https://tenmaypcba.com/insights/flight-controller-imu-calibration-boundary.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/flight-controller-imu-calibration-boundary.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Two or three boards per drone, one fine-pitch IMU, and a calibration step done after the board leaves. What assembly can and cannot decide for a UAV.</description>
+    </item>
+    <item>
+      <title>On a GNSS board the RF section is a keep-out, and assembly is what quietly breaks it</title>
+      <link>https://tenmaypcba.com/insights/gnss-rf-section-keep-out.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/gnss-rf-section-keep-out.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Shielded RF, coax pigtails and a coating callout that must respect the antenna path. What assembly can ruin, and the accuracy it cannot measure.</description>
+    </item>
+    <item>
+      <title>The number a home battery is judged on is measured in microamps, and there is no microamp bench here</title>
+      <link>https://tenmaypcba.com/insights/home-battery-microamp-standby.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/home-battery-microamp-standby.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Four boards in a home stack, and the figure buyers argue about is self-consumption. What assembly decides, and the measurements and approvals it cannot supply.</description>
+    </item>
+    <item>
+      <title>An induction board is judged at the pan, and the pan is the one thing this floor never connects</title>
+      <link>https://tenmaypcba.com/insights/induction-tank-never-connected.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/induction-tank-never-connected.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>An IGBT half-bridge, resonant capacitors and heavy copper, priced in thousands and fought over in cents. What cannot be proven without a coil on the bench.</description>
+    </item>
+    <item>
+      <title>An instrument board is fifty to five hundred pieces, and most of them are a revision</title>
+      <link>https://tenmaypcba.com/insights/instrument-front-end-noise-floor.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/instrument-front-end-noise-floor.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Front end, control and panel boards at fifty to five hundred sets, where assembly decides the noise floor and metrology decides the number on the datasheet.</description>
+    </item>
+    <item>
+      <title>An IP camera board is easy to assemble and hard to prove, because the proof is an image</title>
+      <link>https://tenmaypcba.com/insights/ip-camera-proof-is-an-image.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/ip-camera-proof-is-an-image.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A BGA SoC, PoE magnetics and a sealed gland, on a product judged by a picture nobody here can take. What assembly decides and what it deliberately does not.</description>
+    </item>
+    <item>
+      <title>On a receiver card the joint that fails is a ribbon header, three years later, on a wall nobody can reach</title>
+      <link>https://tenmaypcba.com/insights/led-receiver-card-ribbon-headers.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/led-receiver-card-ribbon-headers.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Long thin cards, eight ribbon headers, and thousands of pieces priced in cents. Where an LED display build loses money, and the calibration that is not ours.</description>
+    </item>
+    <item>
+      <title>On a medical device the board is ordinary and the record is not</title>
+      <link>https://tenmaypcba.com/insights/medical-board-ordinary-record-is-not.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/medical-board-ordinary-record-is-not.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A patient monitor board is buildable on any good line. What a medical programme needs instead is a lot record, and the certification behind it is not held here.</description>
+    </item>
+    <item>
+      <title>An off-highway controller is judged in a field six months after it left the line</title>
+      <link>https://tenmaypcba.com/insights/off-highway-coating-in-a-casting.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/off-highway-coating-in-a-casting.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A coated heavy-copper board in a sealed casting, on a machine that runs in dust. What assembly decides, and the sealing, EMC and safety files it cannot supply.</description>
+    </item>
+    <item>
+      <title>A payment terminal has one trace that must never be nicked, and nothing here can prove it survived</title>
+      <link>https://tenmaypcba.com/insights/payment-terminal-tamper-mesh.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/payment-terminal-tamper-mesh.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Tamper mesh, secure element and a security certification this floor is not inside. Where the build stops, and how key injection gets decided.</description>
+    </item>
+    <item>
+      <title>The motor tabs on a power tool controller are soldered, and that is the whole job</title>
+      <link>https://tenmaypcba.com/insights/power-tool-motor-tabs-soldered.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/power-tool-motor-tabs-soldered.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A heavy-copper bridge, through-hole tabs into a motor, and a handle with no airflow. Where a tool controller build actually fails, and what to specify.</description>
+    </item>
+    <item>
       <title>The rack BMS board spends its life at high voltage and nobody ever looks at it</title>
       <link>https://tenmaypcba.com/insights/rack-bms-high-voltage-build-risk.html</link>
       <guid isPermaLink="true">https://tenmaypcba.com/insights/rack-bms-high-voltage-build-risk.html</guid>
       <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
       <description>A storage cabinet is a BMU per pack, a rack BMS and a cluster controller. Where build risk sits, and the four things an assembler cannot certify for you.</description>
+    </item>
+    <item>
+      <title>A robot joint board is a circular board built twelve to forty times per machine</title>
+      <link>https://tenmaypcba.com/insights/robot-joint-many-identical-boards.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/robot-joint-many-identical-boards.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>One drive board per joint, twelve to forty per robot, each in a 30 mm circle with a GaN or MOSFET bridge. What repeatability means at this shape and count.</description>
+    </item>
+    <item>
+      <title>On a rugged handheld the coating is not a finish, it is the specification</title>
+      <link>https://tenmaypcba.com/insights/rugged-radio-coating-is-the-product.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/rugged-radio-coating-is-the-product.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Shield cans, press-fit pins and a coating that has to survive a field. What an assembly floor decides on a rugged radio, and the RF work that stays outside.</description>
+    </item>
+    <item>
+      <title>On AI glasses the hinge is where the yield goes, and it is a board decision</title>
+      <link>https://tenmaypcba.com/insights/smart-glasses-hinge-yield.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/smart-glasses-hinge-yield.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>A rigid-flex through a five millimetre temple, 01005 parts and keep-outs around the optics. Where an AI-glasses build loses yield, and what stays outside.</description>
+    </item>
+    <item>
+      <title>On a telecom line card the impedance comes from the stackup and the shielding from the assembly floor</title>
+      <link>https://tenmaypcba.com/insights/telecom-impedance-and-shield-cans.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/telecom-impedance-and-shield-cans.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Controlled impedance is fixed in the stackup; shield cans, coax and press-fit pins are fixed at assembly. Where a telecom build can still spoil a good design.</description>
+    </item>
+    <item>
+      <title>A thermal camera core board is a cleaning and masking problem before it is a placement problem</title>
+      <link>https://tenmaypcba.com/insights/thermal-core-cleaning-and-masking.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/thermal-core-cleaning-and-masking.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>Two boards, a fine-pitch BGA and a detector interface where residue shows up as noise. What assembly decides, and the calibration it cannot do.</description>
+    </item>
+    <item>
+      <title>On a pressure transmitter the op-amp is the easy part and the seal is not</title>
+      <link>https://tenmaypcba.com/insights/transmitter-board-seal-not-opamp.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/transmitter-board-seal-not-opamp.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>One small board, a low-drift analogue chain and a housing this floor never closes. What assembly decides on a transmitter, and what belongs to the sensor maker.</description>
+    </item>
+    <item>
+      <title>A wearable board has almost nothing on it and almost no room for a second attempt</title>
+      <link>https://tenmaypcba.com/insights/wearable-no-room-for-a-second-attempt.html</link>
+      <guid isPermaLink="true">https://tenmaypcba.com/insights/wearable-no-room-for-a-second-attempt.html</guid>
+      <pubDate>Thu, 19 Nov 2026 00:00:00 GMT</pubDate>
+      <description>01005 parts, a 0.30 mm pitch and a rigid-flex in a case smaller than a watch. What assembly decides on a wearable, and the test coverage it cannot provide.</description>
     </item>
     <item>
       <title>PCBA since 2008: what a founding date proves, and what it does not</title>

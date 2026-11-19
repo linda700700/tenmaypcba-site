@@ -1,6 +1,6 @@
 # TENMAY — full text of every published note
 
-> 35 notes, latest revision 2026-11-19. Generated from the same Markdown the
+> 55 notes, latest revision 2026-11-19. Generated from the same Markdown the
 > pages are built from, so this file and the site cannot disagree. Every note is reproduced
 > in full, in plain text, with its canonical URL. Index and collections: https://tenmaypcba.com/insights.html
 >
@@ -82,6 +82,121 @@ The same applies to hold-up time, inrush, conducted emissions and transient resp
 The BOM with the power devices named by package and not just by part number, the copper weights per layer, the stack-up, the drawing showing the thermal interface and the mounting torque, the connector and busbar list, and the quantity per variant.
 
 The family page for this product is AI and data centre power boards (/applications/ai-power.html). For the inspection question in general, what AOI and X-ray still cannot catch (/insights/what-aoi-xray-cannot-catch.html) is the companion note, and what a PCBA quote should contain (/insights/pcba-quote-what-it-should-contain.html) covers the scope lines that keep this kind of order honest.
+
+---
+
+## On an AMR the connector fails before the solder joint does
+
+Source: https://tenmaypcba.com/insights/amr-connector-is-the-failure-point.html
+Published: 2026-11-19
+Summary: Drive, battery and sensor boards in a vehicle that gets serviced. The failure that matters is mechanical, and it is decided by connector choice and coating, not by placement.
+
+An AMR or AGV carries two to four boards: a drive board per wheel pair or per motor, a battery interface board, and something that talks to the sensors. A fleet is a hundred robots; a hundred robots is four hundred boards, then another four hundred when the fleet doubles.
+
+The boards are not the hard part. The hard part is that every one of them is inside a vehicle that gets opened, serviced, unplugged and pushed by a technician in a warehouse at eleven at night. The joint that fails in that story is almost never a solder joint.
+
+### Two or four drives, one battery interface
+
+The drive boards are power boards with isolation between the control side and the motor side, current sense and a brake or enable path. The battery board is the interesting one: 48 V nominal, contactor or MOSFET disconnect, pre-charge if the design has it, and a sense chain that has to be accurate at both ends of the state of charge.
+
+That mix means one build carries three different risks at once:
+
+Board: Dominant risk · Where it is decided
+Drive: Thermal path under the bridge, isolation spacing · Stack-up, paste volume, reflow profile
+Battery interface: Creepage at 48–58 V, contactor joint quality · Drawing, through-hole fill, torque spec
+Sensor / comms: Connector integrity, EMI · Connector choice, shielding, coating
+
+A quote that prices all three as "boards" without separating them hides exactly the part you need to manage.
+
+### The connector is the failure point, not the placement
+
+A robot board gets unplugged far more often than a consumer board. Three consequences, all decided before the order:
+
+- Latched, keyed, and rated for cycles. A connector that is not rated for the number of mating cycles the service procedure implies is a warranty cost with a part number.
+- Strain relief at the board edge. A harness in a robot hangs and moves. A connector held only by its solder joints is a cold joint waiting for its third service visit.
+- Field-replaceable without a soldering iron. If a technician has to rework the board in the field, the design has already lost.
+
+Coating enters the same argument: it buys tolerance to dust and condensation, and it does nothing for a housing that takes water. On a warehouse floor with a wash-down next door, that distinction is the whole reliability question.
+
+### Prototype to fleet: what changes with volume
+
+At 100 to 1,000 sets, small-volume habits carry a programme a long way. What changes as the fleet grows is not the placement difficulty but the amount of information you need per unit — and that is where an assembler without in-circuit test becomes a problem you have to plan around rather than discover.
+
+There is no in-circuit test and no functional test on this floor. If the fleet needs per-serial electrical proof, the fixture and the programme are yours to specify, and the arrangement has to be in writing before the first build. That is a workable arrangement; an unstated one is not.
+
+### Where this floor stops
+
+- Vehicle-level safety certification and the standards file. That sits with the robot builder and a test house.
+- Motor-load test on a running chassis, and any in-house in-circuit or functional test.
+- Potting, encapsulation, or bonding the board to a thermal chassis.
+- Underfill or staking as a standard step. It is agreed per design at DFM, never assumed.
+
+### What to send for a quote
+
+Gerber with the stack-up and the isolation drawing, the BOM, the centroid, the connector list with mating halves and cycle ratings, the through-hole joint callouts with torque where relevant, the coating and mask list, and the quantity per board type. At 100 to 1,000 sets the build is three working days from kitted parts.
+
+The family page is AMR and AGV drive and battery boards (/applications/amr-agv.html). If per-serial electrical proof matters to your fleet, what to do when your assembler has no in-circuit test (/insights/in-circuit-test-outsourcing.html) is the note to read before the order, and what a PCBA quote should contain (/insights/pcba-quote-what-it-should-contain.html) covers the scope lines.
+
+---
+
+## A car amplifier is a power supply with an audio problem, and the yield number is voiding
+
+Source: https://tenmaypcba.com/insights/car-amplifier-voids-not-watts.html
+Published: 2026-11-19
+Summary: A Class-D amplifier board is judged on heat before it is judged on sound. Where the build risk sits, why variants are the trap, and what the bench here cannot tell you.
+
+An aftermarket car amplifier is a switching power supply feeding a Class-D output stage, in a box that lives in a boot, under a parcel shelf, in a car that gets to 60 °C in summer. The board is heavy copper, snap-in electrolytics, clamped power devices and a thermal path into a finned aluminium case.
+
+Buyers describe it in watts and distortion. The board does not know about either. What it knows about is heat, and the part of the heat path that assembly controls is the part nobody can inspect afterwards.
+
+### Voiding under the power devices is the whole yield number
+
+A Class-D output stage and the supply's switching devices are packaged to conduct their heat into the board, and then into the case. If the thermal pad under a device has 60 % coverage instead of 90 %, three things follow, in this order:
+
+- The device runs hotter than designed, in a box that is already hot.
+- It derates, or the protection trips earlier than the specification says.
+- In the worst case it fails, and the failure is attributed to the design rather than to a joint.
+
+None of that is visible. AOI sees the fillet, not the void. X-ray sees the void, which is why X-ray on the power joints is the inspection that decides shipment on this family — and why "we have X-ray" and "we read X-ray against a limit" are different claims.
+
+### The thermal path is half mechanical, and half of it is not measured here
+
+The board-to-case interface is a pad or a paste, a flatness requirement, and a torque specification on the mounting screws. All three are drawing items that get executed here. None of them can be verified here, because verification is a temperature measurement under load, and there is no chamber, no thermocouple instrumentation and no load measurement on this floor.
+
+That leaves the buyer with a practical choice: either the thermal design has margin that does not depend on measuring every unit, or the measurement happens at your end-of-line. Assuming the assembler measured it is the one option that does not exist.
+
+### What is not measured: watts, distortion, noise, efficiency
+
+The whole audio and power claim is outside this building:
+
+- Audio measurement of any kind — output power, distortion, noise, efficiency, DSP tuning, acoustic verification.
+- Thermal verification of the assembled amplifier.
+- EMC pre-compliance or compliance testing for a switching amplifier, and any certified report.
+- Potting or encapsulation, and ingress testing of the finished chassis.
+
+For a brand whose selling point is a number on a box, that means the acceptance plan is yours, and it is worth being explicit about which units get measured and what happens to the ones that are not.
+
+### Five hundred to five thousand pieces, and the variants are the trap
+
+At 500 to 5,000 pcs this family is comfortable for a high-mix floor. The trap is not volume, it is variety: one platform shipping as four power levels, two channel counts and three cosmetic variants, each with a different BOM and sometimes a different board.
+
+Two habits keep that manageable:
+
+- Keep the board revision count low and push variants into the BOM where the design allows it. Every board revision re-opens stencil, profile and first article.
+- Batch the variants rather than interleaving them. Changeover is the cost that gets hidden in a blended unit price and then discovered when the schedule compresses.
+
+### Where this floor stops
+
+- Any audio or thermal measurement.
+- EMC testing and certification.
+- Potting, encapsulation and chassis assembly.
+- Volumes far above five thousand a month, where a dedicated line wins on unit price.
+
+### What to send for a quote
+
+Gerber with copper weights and the stack-up, the BOM with the power devices named by package, the centroid, the thermal interface and mounting torque callout, the terminal and connector list, the coating callout if used, and the quantity per variant with the variant matrix. At 500 to 5,000 pcs a build is three working days from kitted parts.
+
+The family page is car audio, DSP and Class-D amplifier boards (/applications/car-audio.html). The same voiding argument on a denser power board is in the 1U rectifier thermal joint (/insights/1u-rectifier-thermal-joint.html), and the inspection limits are in what AOI and X-ray can and cannot catch (/insights/what-aoi-xray-cannot-catch.html).
 
 ---
 
@@ -167,6 +282,641 @@ The AC side of the same story is in the EVSE audit record set (/insights/evse-au
 
 ---
 
+## A flight controller is one IMU away from being scrap, and nobody here can tell you which one
+
+Source: https://tenmaypcba.com/insights/flight-controller-imu-calibration-boundary.html
+Published: 2026-11-19
+Summary: The flight controller is a small board whose hardest requirement is a sensor alignment done somewhere else. What to specify here, and what belongs to the aircraft maker.
+
+A drone programme usually arrives as three boards: a flight controller, an ESC or ESC-per-arm, and something for the payload. None of them is hard to place. What makes the flight controller different from every other fine-pitch board on this site is that its most important property — where the inertial sensor actually sits and which way it points — is fixed by a calibration step that happens in the airframe, long after the board was inspected and packed.
+
+That has a consequence buyers should hear before the order rather than after: this floor can build a board that calibrates cleanly, and cannot tell you whether it did.
+
+### What a flight controller is, physically
+
+A small board, usually four to six layers, with a fine-pitch IMU at the centre, a barometer, a magnetometer if the design carries one, and a connector set that has to survive being plugged and unplugged by somebody with cold hands in a field.
+
+Three things on it decide whether the build is repeatable:
+
+- The IMU's placement relative to the board datum. Not the absolute position — the consistency of it, board to board, so that the airframe calibration offsets stay in a narrow window.
+- Strain around the IMU. A board that flexes under a mounting screw transmits that flex into the sensor. Where the mounting holes sit relative to the part is a layout decision; how much paste and how much reflow stress land on the part is an assembly one.
+- The connector and pad finish. A USB or SWD connector that lifts a pad on the third reflash is a bricked board, and it happens after your test, not during it.
+
+### The ESC board is the opposite problem in the same airframe
+
+The ESC is heavy copper, big FETs, high current, and thermal management into an arm that is often carbon fibre with poor conductivity in the direction you need. It is a power board with a narrow margin in a very small volume.
+
+Board: What decides it · What assembly controls · What it cannot
+Flight controller: Sensor placement and firmware · Paste volume, reflow profile, strain around the IMU, connector integrity · Calibration, sensor fusion, flight behaviour
+ESC: Thermal path and current density · Voiding under the FETs, heavy-copper joint quality, coating if specified · Thrust, timing, motor compatibility
+Payload: Interface and power budget · The same as any mixed-signal board · Whatever the payload does
+
+The two boards fail for reasons that never overlap, which is why a single "drone PCBA" quote that does not separate them is a quote you cannot audit.
+
+### What inspection proves here, and what it does not
+
+SPI before reflow, AOI after, X-ray on the IMU and the ESC power joints, and first-article photographs. That set proves the board was assembled to the drawing and that the joints under the parts you cannot see are formed.
+
+It does not prove the IMU is straight in the way that matters. Tilt of a fraction of a degree is invisible to X-ray and readable only by the airframe calibration routine. If your yield model assumes the board is "good" because it passed inspection, the model is missing the step that actually decides it.
+
+This is also why a returned-board argument is worth settling in writing: if a drone flies badly, the board, the calibration and the airframe are three suspects, and only one of them was ever in this building.
+
+### Where this floor stops
+
+- Inertial calibration, sensor-fusion tuning and flight test. These belong to the aircraft maker, who owns the fixture and the firmware.
+- Radio, EMC, and any airworthiness or spectrum approval for the finished aircraft.
+- AS9100 process control, NADCAP special processes, ITAR-registered and export-controlled programme handling. None of these are held here, and a defence or restricted programme should not start with this floor.
+- Potting or encapsulation of a board. Coating is what happens here.
+
+### What to send for a quote
+
+Gerber with the stack-up, the BOM with the IMU and any alternate named exactly, the centroid, the connector list with the mating half, the coating callout if the ESC is coated, and the quantity split across the two or three boards. At 100 to 1,000 sets the build is three working days from kitted parts, so the clock that actually matters is component lead time, not the line.
+
+The family page is UAV and flight controller boards (/applications/uav.html). For what inspection genuinely covers, see what AOI and X-ray can and cannot catch (/insights/what-aoi-xray-cannot-catch.html); for the lead-time argument, the four clocks inside a PCBA lead time (/insights/four-clocks-in-a-pcba-lead-time.html).
+
+---
+
+## On a GNSS board the RF section is a keep-out, and assembly is what quietly breaks it
+
+Source: https://tenmaypcba.com/insights/gnss-rf-section-keep-out.html
+Published: 2026-11-19
+Summary: Fifty to five hundred boards a year, an RF front end nobody here can measure, and a coating decision that can detune it. Where the build risk actually sits.
+
+A GNSS receiver or telemetry board has an RF front end, a baseband or module, and an interface section, often with a shield can over the front end and a coax pigtail to the antenna connector on the enclosure. Volume is fifty to five hundred a year. The boards are not hard to place.
+
+What makes this family worth its own note is that the things assembly can do to an RF front end are invisible to every test on this floor, and that the buyer usually learns about them from a position accuracy complaint rather than from incoming inspection.
+
+### The RF section is a keep-out, not a component list
+
+Three areas need to be treated as protected rather than merely populated:
+
+- Under and around the shield can. Ground pads have to be fully formed before the can goes on; a void there is an RF ground that is not a ground. That is an X-ray check, done before the can is fitted, not after.
+- The antenna feed and matching network. Solder mask, coating and flux residue around the feed change impedance. The mask drawing should say what stays bare, and the process should respect it.
+- The keep-out around the antenna itself. Any metal added near the radiating element — a stray solder ball, a shield fence in the wrong place — detunes it, and the tuning was done by somebody else, at design time.
+
+The general rule for this family: everything near the RF section is either specified or it is a variable.
+
+### Coax pigtails, connectors and heat
+
+A board with a coax pigtail has a joint that is both electrical and mechanical, and it usually takes a small amount of heat in a small area:
+
+- Connector-to-board joints need the right amount of solder and the right amount of heat. Too little is intermittent; too much damages the dielectric inside the connector, which shows up as loss rather than as an open.
+- The pigtail is a handle. Whoever assembles the unit will lift the board by it at least once. Strain relief is a drawing item.
+- Sealing at the enclosure. The connector bulkhead seal belongs to the enclosure, not to the board, and the two need to be designed together.
+
+### What is not measured, and what that costs the buyer
+
+Nothing on this floor measures the RF chain. Specifically:
+
+- No RF alignment, antenna characterisation, or position accuracy and time-to-first-fix measurement.
+- No EMC pre-compliance, no environmental qualification such as MIL-STD-810 or IP ratings, and no certified test report.
+- No ITAR-registered handling, classified work, or cryptography approval / Type-1 requirements.
+- No functional test of any kind, including a simple "does it acquire satellites" check.
+
+For a buyer, the practical consequence is that the acceptance plan has to run somewhere else. Fifty boards a year is an awkward volume for a test house, which is exactly why the fixture question is worth settling at the quotation stage rather than after the first batch — the same economics that make a small-run fixture a fixed cost.
+
+### Fifty to five hundred a year, and that is the point
+
+This band is not a stepping stone for most GNSS programmes; it is the steady state, because the products are specialised instruments with long lives and few variants. The right supplier is one set up for a reorder that looks exactly like the previous one, with the records to prove it.
+
+At that cadence, the most valuable thing an assembler provides is continuity: the same stencil, the same profile, the same coating mask set, documented, so board nineteen matches board one.
+
+### Where this floor stops
+
+- RF characterisation in all its forms — alignment, antenna, accuracy, TTFF.
+- EMC, environmental and certified testing.
+- ITAR, classified and export-controlled programme handling.
+- Volumes above a few thousand a year where the assembler is expected to run functional test.
+
+### What to send for a quote
+
+Gerber with the stack-up and the RF region marked, the BOM with the front end and module named, the centroid, the can and ground-pad drawing, the coax pigtail and connector list, the coating and mask drawing with the keep-out areas explicit, and the quantity. At 50 to 500 sets a build is three working days from kitted parts.
+
+The family page is GNSS, telemetry and ground station boards (/applications/gnss.html). For the shield-can rework path in a rugged device, where the coating is the product (/insights/rugged-radio-coating-is-the-product.html); for the inspection order of operations, what AOI and X-ray can and cannot catch (/insights/what-aoi-xray-cannot-catch.html).
+
+---
+
+## The number a home battery is judged on is measured in microamps, and there is no microamp bench here
+
+Source: https://tenmaypcba.com/insights/home-battery-microamp-standby.html
+Published: 2026-11-19
+Summary: A home stack is judged on the days it does nothing. Where the assembly affects standby current, and which parts of the approval file never touch this building.
+
+A residential battery spends most of its life doing nothing. It charges in the morning, discharges in the evening, and then sits — for eighteen hours a day, for a decade — drawing a standby current that decides how much of the installed capacity the owner actually gets to use. Buyers argue about that number in datasheets and reviews. It is measured in microamps, and there is no microamp bench in this building.
+
+That is worth saying at the top, because the rest of the page is about the parts of a home stack that assembly genuinely decides.
+
+### Four boards, and only one is a power board
+
+A hybrid home system is typically a module BMU, an inverter control board, a stack master and a communication board.
+
+- The module BMU measures cell voltages and pack temperature and balances. It is repeated per module, so a defect is multiplied.
+- The inverter control board is the one that looks like a power board: gate drive, current sense, the isolated sensing chain that has to stay honest across a decade.
+- The stack master coordinates modules and enforces the disconnect logic. It is the board that has to be right when something else is wrong.
+- The communication board is the cheapest and the one most likely to be replaced mid-life, which is an argument for connectors that survive being unplugged ten times.
+
+### Sensing that has to stay honest for years
+
+The voltage and current sense chain is a low-drift analogue problem, and the assembly contribution is not glamorous:
+
+- Cleanliness. Leakage across residue shows up as drift, not as a dead board.
+- Thermal symmetry. Two sense paths in different thermal environments read differently, and the layout decides that.
+- Coating, with the sense area treated deliberately. Coating protects; coating over a humidity-sensitive divider without thought changes its behaviour.
+
+What assembly cannot do is calibrate. The trim and the accuracy statement belong to you or to a calibration lab, because both need references this floor does not hold.
+
+### Where this floor stops, and it stops early here
+
+This is the family where the list is longest, so it is worth being blunt:
+
+- No cells and no pack. Balancing, state-of-charge accuracy and protection thresholds are proven by you; there is no BMS-against-a-real-pack test here.
+- No grid-code or interconnection approval. UL 1741, VDE-AR-N 4105 or the local equivalent, plus anti-islanding: neither tested nor certified here.
+- No system-level storage safety certification. UL 9540 / 9540A or its local equivalent is not held, not tested, and the fire test runs on a pack this floor never sees.
+- No standby or sleep-current measurement. There is no microamp-level bench and no long-duration logging, so a self-consumption figure has to come from your own measurement.
+- No pack-level or system-level end-of-line test, no ingress testing, no drop testing.
+
+None of that makes the build worthless. It defines what you are buying: boards assembled and recorded to a drawing, not a storage system validated.
+
+### Two hundred to two thousand, and a grid-code file that is not ours
+
+The band is 200 to 2,000 pcs, which is high-mix territory: several boards, several variants, revision pressure from firmware and from certification. The practical advice is to keep the board count stable and put variant change in the BOM rather than in the layout, because a layout revision mid-certification restarts work you have already paid for.
+
+For the cabinet-scale version of the same argument, including the high-voltage spacing question, see the rack BMS note (/insights/rack-bms-high-voltage-build-risk.html).
+
+### What to send for a quote
+
+Gerber with the stack-up and the isolation drawing, the BOM with the sense chain parts named, the centroid, the connector list with mating halves, the coating and mask list, and the quantity per board and per system. At 200 to 2,000 pcs a build is three working days from kitted parts.
+
+The family page is residential and stackable storage boards (/applications/residential-storage.html). For the three-board question in a portable unit, should one assembler build all three power station boards (/insights/power-station-three-board-supplier.html).
+
+---
+
+## An induction board is judged at the pan, and the pan is the one thing this floor never connects
+
+Source: https://tenmaypcba.com/insights/induction-tank-never-connected.html
+Published: 2026-11-19
+Summary: The resonant tank decides both the money and the failure, and it lives outside this building. Where an appliance drive build can be controlled, and where it cannot.
+
+An induction hob board is a resonant inverter: a rectifier, an IGBT half-bridge, a resonant tank of capacitors and the coil, a control board and a display. One to three boards per appliance, a thousand to ten thousand pieces per order, and a market where a cent per board is a negotiation.
+
+The reason this family deserves its own note is that its performance and its failure both live in the tank — and the tank is a coil of wire that is never connected on this floor.
+
+### The resonant tank is where the money and the failure both are
+
+The board's job is to switch an IGBT into a resonant circuit at the right moment, with the right dead time, and survive the commutation boundary. Everything hard about it is at that boundary:
+
+- Commutation. If the switch is not soft at turn-on, losses and EMI spike together. That is a firmware and tank design problem, exercised at the pan.
+- Resonant capacitors. They carry high ripple current and they are the parts that age. Where they sit, how their joints are formed, and how hot they run are all assembly-relevant.
+- The IGBT's thermal path. Heavy copper, a heatsink or an aluminium substrate, and a joint whose voiding decides whether the device reaches its rated life.
+
+So the honest position is: assembly controls the joints and the thermal path, the design controls the boundary, and only the appliance with a coil verifies the result. Which is why "we can build it, we cannot prove the tank" is the sentence to keep in mind at quotation time.
+
+### Coating is not potting, and a kitchen is a wet room
+
+Hobs get steamed, wiped, occasionally flooded. Conformal coating is applied here, with masking, and it does real work on the control side and the low-voltage areas.
+
+It is not potting, and potting is not done here. The mains-side region usually relies on creepage, potting or a sealed enclosure, and the split has to be decided by whoever owns the appliance safety case. A board whose design assumes encapsulation is a board that needs a different supplier for the final step.
+
+The other half of the wet argument is the glass panel and the seal, and neither is ours. Every leak complaint in this category is an enclosure discussion.
+
+### What cannot be proven without a coil on the bench
+
+Nothing below happens here, and each of them is a number a buyer needs:
+
+- Output power, efficiency, temperature rise under load, and the commutation boundary — all need a resonant load and a coil plate.
+- EMC pre-compliance and compliance testing — the hard gate for this family. Not something this floor can clear for you, and the reason designs get re-spun after first certification.
+- Safety certification — CCC, CE, UL are granted to the appliance, not to the board.
+- Potting and full encapsulation.
+- Glass panel, coil plate, fan shroud and enclosure work.
+
+If the acceptance plan needs any of those before a batch ships, they belong at the appliance maker or a test house, and the shipment plan should reflect that.
+
+### One thousand to ten thousand, and a price fight
+
+At 1,000 to 10,000 pcs the family is in a genuine price fight, and it is worth understanding what is actually being negotiated. On a board this simple, the visible variable is price and the invisible one is process stability — the argument made in the LED driver quote reality check (/insights/led-driver-quote-reality-check.html), which is the same market with the same dynamic.
+
+Two levers that are real at this volume:
+
+- Panel design and depanelisation. Long thin boards and heavy copper want a panel that carries them flat.
+- One stencil, one profile, held across the year. The cheapest way to lose the cent you saved is a re-tooled batch that fails at the appliance line.
+
+### Where this floor stops
+
+- No resonant load, no coil plate — power, efficiency and commutation are unmeasured.
+- No EMC testing of any kind.
+- No appliance safety certification.
+- No potting or encapsulation; coating is the only protection applied.
+- No glass, coil, fan or enclosure assembly.
+
+### What to send for a quote
+
+Gerber with copper weights and the stack-up, the BOM with the IGBT and resonant capacitors named, the centroid, the heatsink or substrate interface, the coating and mask drawing, the connector and terminal list, and the quantity per variant. At 1,000 to 10,000 pcs a build is three working days from kitted parts.
+
+The family page is induction and appliance inverter drives (/applications/induction-drive.html). For the same half-bridge at industrial margins, a VFD quoted as three boards or one set (/insights/vfd-three-boards-one-quote.html); for the quote that survives a second batch, the LED driver reality check (/insights/led-driver-quote-reality-check.html).
+
+---
+
+## An instrument board is fifty to five hundred pieces, and most of them are a revision
+
+Source: https://tenmaypcba.com/insights/instrument-front-end-noise-floor.html
+Published: 2026-11-19
+Summary: Bench instruments are low volume, revision-heavy and analogue. What the assembly step decides about noise, and the calibration that never happens in this building.
+
+A bench instrument is the kind of product where the buyer is an engineer who will notice a 2 µV offset and write about it. The boards are two or three: a front end, a control board, and a panel with the encoder and the display. Volumes are fifty to five hundred sets, and a good share of those orders are revisions rather than repeats.
+
+That combination — low volume, high scrutiny, constant revision — decides what the supplier relationship has to look like, and it is not the same relationship that suits a consumer product.
+
+### Small batches are the product, not a phase before volume
+
+Instrument makers sometimes apologise for ordering fifty. There is nothing to apologise for: fifty pieces with four revisions a year is a normal instrument programme, and it is the shape this floor is built for. The cost structure is the one described in why fifty pieces cost more per board (/insights/fifty-piece-run-cost.html) — setup amortised over fifty, not over five thousand.
+
+What makes it work is that the revisions are cheap. A stencil change and a re-profile on a fifty-piece run is a few hundred dollars; the same change on a five-thousand-piece run with tooling and test fixtures is a different conversation. A supplier who cannot do a fifty-piece revision economically will make you live with the design you have, which is worse for the instrument than the unit price is good.
+
+### The front end is where assembly decides the noise floor
+
+The analogue front end is a guarded, high-impedance, low-noise circuit, and the assembly contribution is decided by four things:
+
+- Cleanliness. Residue across a guard ring is leakage, leakage is offset drift, and drift is a calibration failure six months later.
+- Thermal symmetry. Two halves of a differential front end in different thermal environments read differently; the layout decides, but the reflow and the coating can make it worse.
+- Coating callout. Coating over a sensitive divider changes its behaviour with humidity, sometimes for the better and sometimes for the worse — but never by accident.
+- Relay and switch joints. Range switching relays and BNC sockets are through-hole and mechanically loaded, and they are the parts that get replaced in a service life measured in decades.
+
+None of that appears on a placement report. All of it appears in a specification that says what is masked, what is washed, and how the joint is made.
+
+### Relays, BNCs and the hand-work instruments still need
+
+Instruments carry parts that no placer can handle: relays with large footprints, BNC and banana sockets, sometimes a rotary switch. Those are through-hole, often with a mechanical fixing to the panel, and the joint quality is inspected visually and by pull on the first article rather than by an AOI pass.
+
+Where this matters is repeatability across revisions. If the through-hole work is redone by hand each time without a written method, revision three and revision five are different products that share a Gerber. That is the kind of drift that shows up as "the new batch doesn't match the reference unit".
+
+### Calibration, accuracy and the parts that are not ours
+
+The number on the datasheet is a metrology claim. It is produced by a calibration chain with references traceable to a national standard, and it does not exist in this building:
+
+- No calibration, no accuracy or uncertainty statement.
+- No in-circuit or functional test of the finished instrument.
+- No EMC or safety qualification.
+- No potting or full encapsulation of the front end. Coating is what this floor does.
+
+What is delivered is boards assembled and recorded to a drawing, with first-article evidence and per-lot inspection data, so that your calibration step starts from a known build.
+
+### What to send for a quote
+
+Gerber with the stack-up, the BOM, the centroid, the through-hole parts list with the mechanical fixings, the coating and mask drawing with the guarded areas marked, and the quantity including the revision cadence if you want the reorder priced sensibly. At 50 to 500 sets a build is three working days from kitted parts.
+
+The family page is test and measurement instrument boards (/applications/instruments.html). For why a reorder prices differently, why the second run costs less (/insights/why-the-second-run-costs-less.html), and for the DFM check that saves a stencil, what a DFM review catches (/insights/dfm-review-before-the-stencil.html).
+
+---
+
+## An IP camera board is easy to assemble and hard to prove, because the proof is an image
+
+Source: https://tenmaypcba.com/insights/ip-camera-proof-is-an-image.html
+Published: 2026-11-19
+Summary: Five hundred to five thousand boards, a thermal SoC and an image-based acceptance criterion. Why the assembler's job is narrow and why the testing has to live somewhere else.
+
+A security camera is a BGA SoC, a sensor connector, PoE magnetics, an IR cut filter driver and a lens — plus, on the access-control side, a small reader board with a keypad and a relay. The main board is a dense mixed-signal board with a thermally significant processor, and at 500 to 5,000 pieces it is squarely in the range a high-mix floor builds well.
+
+The awkwardness is entirely in the acceptance criterion. A camera is judged by an image, and no image is produced in this building.
+
+### The SoC is a thermal and a reflow problem at once
+
+A camera SoC in a sealed dome is thermally constrained and electrically dense. Two consequences for the build:
+
+- Voiding under the thermal pad. The SoC's ground pad is its heatsink. A void there raises the junction temperature in a housing with almost no airflow, and the symptom is a camera that drops frames in the afternoon rather than one that fails on the bench.
+- Warpage and standoff. A large BGA on a board that also has a big sensor cutout and a gland hole is a board that wants to warp. Reflow profile and support during handling are the controls.
+
+X-ray on the SoC is the inspection that matters, and it is worth receiving the images rather than a pass rate.
+
+### PoE, connectors and the parts that get pulled
+
+An Ethernet camera gets its power over the same pair it communicates on, and the port is the part most likely to be abused — by installers, by weather, by a cable that gets yanked.
+
+- PoE magnetics and the isolation barrier need the creepage the drawing specifies, and assembly has to respect it through coating and mask decisions.
+- The RJ45 or the gland is the mechanical interface. The board side of it takes strain, and a connector held only by solder joints is a repair waiting to happen.
+- The IR LED ring and the light sensor are on the board but belong to the optics budget; position tolerance is set by the housing.
+
+There is one part of the sealing story that is easy to misread: the gland seals the housing, not the board. Coating protects the board from condensation; it does not make the camera waterproof.
+
+### What is not done here: the image, the protocol, the rating
+
+Stated plainly, because this is the part buyers most often assume is included:
+
+- No image tuning, lens focusing, IR-cut alignment, or any low-light, resolution or colour measurement.
+- No functional test of any kind — no in-circuit test, no functional test, and no ONVIF or RTSP conformance work.
+- No IP or IK testing, no salt-fog testing, no EMC pre-compliance or compliance testing.
+- No potting of the camera module.
+
+What is on offer is assembly, SPI, AOI, X-ray on the SoC and the power joints, coating with masking, and a lot record. If your acceptance plan assumes a picture is taken before shipping, that step is yours or your ODM's.
+
+### Five hundred to five thousand, and the variants multiply
+
+Cameras multiply variants faster than almost any family: lens options, IR or white light, PoE or 12 V, dome or bullet, reader or no reader. Each variant that changes the board is a new stencil-and-profile cycle; each variant that changes only the BOM is a changeover.
+
+The discipline that keeps this affordable is deciding early which variants live in the BOM and which live in the layout — and then keeping the latter to as few as the market will allow. That is also the argument for keeping the reader board separate from the camera board rather than integrating them.
+
+### What to send for a quote
+
+Gerber with the stack-up, the BOM with the SoC and PoE magnetics named, the centroid, the sensor connector and gland drawing, the coating and mask drawing, the variant matrix, and the quantity. At 500 to 5,000 pcs a build is three working days from kitted parts.
+
+The family page is IP cameras, NVR and access control boards (/applications/ip-camera.html). For the test-strategy question, what to do when your assembler has no in-circuit test (/insights/in-circuit-test-outsourcing.html); for how the record set is assembled on a safety-related board, the EVSE audit record set (/insights/evse-audit-record-set.html).
+
+---
+
+## On a receiver card the joint that fails is a ribbon header, three years later, on a wall nobody can reach
+
+Source: https://tenmaypcba.com/insights/led-receiver-card-ribbon-headers.html
+Published: 2026-11-19
+Summary: A cabinet card is cheap, long, and covered in headers that get cycled during install. Why the connector and the through-hole fill decide the field failure, not the placement.
+
+An LED display is a wall of identical cabinets, each with one or more receiver cards and a sender card upstream. The receiver card is long and narrow, usually with eight or more ribbon headers along its edge feeding hub boards, and it is ordered in thousands because the wall is measured in square metres.
+
+The card is simple and cheap. That is exactly the problem: on a part this cheap, the only visible variable is price, and the only invisible variable is the process — which is why the failure this family produces is almost always the same one.
+
+### Eight headers, and every one of them is a lever
+
+A ribbon header is a mechanical interface that gets mated during installation, possibly re-mated during service, and then left for years. Three things about it are decided at build:
+
+- Through-hole fill. These are through-hole parts on a thin board. Insufficient fill gives a joint that survives the factory and cracks on the third installation.
+- Header seating and coplanarity. A header that is a fraction off-square puts the ribbon under tension, and the tension lands on the solder joints at both ends.
+- Handing during packing. Long thin boards flex. A card that is packed with the headers taking the load arrives pre-stressed.
+
+An AOI pass rate says nothing about any of those three. A pull test on the first article and a written seating method do.
+
+### This family is priced in cents and ordered in thousands
+
+At 1,000 to 10,000 pcs, the economics are dominated by material and yield, not by setup. Which changes the honest advice: the lever here is not negotiation, it is the panel design and the process stability.
+
+- Panelisation matters more than on any other family. Long boards with a high header count want a panel that carries them flat through reflow and depanelisation.
+- One stencil revision, held. A card that is re-tooled between batches at this price point is a batch that will differ.
+- Coating, if specified, is a cost you should interrogate. Outdoor cabinets usually want it; indoor rental walls often do not. Coating eight headers correctly means masking eight headers, and that labour is real.
+
+The cent-per-board argument is worth reading before you buy on price: how to tell whether an LED driver quote is real (/insights/led-driver-quote-reality-check.html) makes the same case one step upstream in the same industry.
+
+### What is not measured here: the colour, the wall, the EMC
+
+Nothing on this floor produces a picture. Specifically not available:
+
+- Colour, brightness, gamma or refresh calibration at cabinet level, and any pixel-level or wall-level test.
+- EMC pre-compliance or compliance testing, ingress (IP) testing, salt-fog and UV ageing of the cabinet.
+- Cabinet mechanical assembly, power-supply integration, front-face lamination.
+- Any end-to-end proof that the finished screen works before it ships.
+
+So the acceptance plan is yours: a test jig on the hub interface, a burn-in rack, and a cabinet-level visual check at the integrator. That is normal for this industry — but it means the assembler is being bought for consistency, not for proof.
+
+### Where the board stops and somebody else starts
+
+A clean split looks like this: the card is assembled, inspected, and recorded here; the cabinet is built, powered, sealed and calibrated by the cabinet maker; the wall is commissioned on site with the control system. Almost every dispute in this product category comes from one of those three steps being assumed by the wrong party.
+
+### What to send for a quote
+
+Gerber with the panelisation, the stack-up, the BOM, the centroid, the header list with the seating and pull requirements, the coating and mask drawing if any, and the quantity with the variant count. At 1,000 to 10,000 pcs the build is three working days from kitted parts, and the through-hole operation is the rate limiter.
+
+The family page is LED display control and receiver cards (/applications/led-display.html). For the coating-versus-cost argument in this industry, the LED driver quote reality check (/insights/led-driver-quote-reality-check.html); for where a cheap board stops being cheap, what is inside a PCBA price (/insights/pcba-cost-per-board.html).
+
+---
+
+## On a medical device the board is ordinary and the record is not
+
+Source: https://tenmaypcba.com/insights/medical-board-ordinary-record-is-not.html
+Published: 2026-11-19
+Summary: Acquisition, main and UI boards in a device that lives a decade. Why the assembly question is about documents and revisions rather than about placement.
+
+Of all the families on this site, medical is the one where the assembly is least interesting and the paperwork is most. A patient monitor or a diagnostic instrument carries two or three boards: an acquisition board with a guarded analogue front end, a main board, and a UI or panel board. Fine pitch, sometimes BGA, sometimes a guarded ring on the analogue side. Most competent lines can build it.
+
+What most lines cannot do is answer a question two years later about which lot a serial came from, and that is the question a medical programme is actually buying.
+
+### What this floor can be to a device maker
+
+The honest description is: a competent contract assembler with ISO 9001:2015, working to your drawings, with a per-lot record you can retrieve. That is a real and useful role for a device company that owns its design, its firmware, its clinical validation and its regulatory submission.
+
+What it is not is a medical-certified manufacturer. ISO 13485 is not held here, and neither is the quality-system audit trail that comes with it. A device that needs its contract manufacturer inside the QMS scope needs a different counterpart, and finding that out during an audit is expensive.
+
+### Cleanliness and guarding: where assembly changes the reading
+
+The analogue front end on an acquisition board is guarded for a reason, and three assembly habits quietly defeat the guard:
+
+- Flux and residue across the guard ring. No-clean processes are fine when they are consistently no-clean; a repair with activated flux that is never washed is not.
+- Coating bridging a guarded area. The mask list is not optional on this family. Coat the ring and the leakage number moves.
+- Handling. Boards that sit open on a bench pick up what the room contains, and this family is low volume, so they sit longer.
+
+None of those shows up as a failure at inspection. They show up as a channel that drifts, and then as a service visit.
+
+### A lot record that survives a question two years later
+
+The record set worth agreeing in writing, because it is what a medical customer asks for:
+
+- First-article photographs and the drawing revision they were built to
+- SPI results before reflow and AOI results after, filed per lot rather than summarised
+- X-ray images for BGA and any guarded-joint area, per lot
+- The coating record with the mask list used
+- Traceability from lot to the component date codes that went in
+
+A record that exists is worth a great deal in a complaint. A record that was summarised into a pass percentage is worth nothing, because it cannot answer the only question being asked.
+
+### A device lives for a decade; the BOM does not
+
+Medical instruments stay in service far longer than the parts inside them stay in production. The substitution question therefore arrives on every programme sooner or later, and it needs a written process rather than a phone call: who may propose an alternate, what evidence comes with it, who signs, and whether the change requires re-verification on your side.
+
+That process is worth more than a lower unit price, and it is the point where a supplier who is honest about lifecycle becomes cheaper than one who is simply cheap.
+
+### Where this floor stops
+
+- ISO 13485 certification and any QMS audit trail under it. Not held.
+- Sterilisation, biocompatibility and packaging validation, and the regulatory submission itself.
+- In-circuit or functional test of the finished device, and any test that touches patient safety.
+- Volumes in the tens of thousands a year, where a medical-certified contract manufacturer is the right counterpart.
+
+### What to send for a quote
+
+Gerber with the stack-up and the guarding drawing, the BOM, the centroid, the coating and mask list including guarded areas, the record set you require, the substitution policy you want followed, and the quantity. At 100 to 1,000 sets the build is three working days from kitted parts.
+
+The family page is medical device and diagnostic instrument boards (/applications/medical.html). For the same argument applied to another certified industry, do you need IATF 16949 for an aftermarket part (/insights/no-iatf-16949.html); for what inspection actually proves, what AOI and X-ray can and cannot catch (/insights/what-aoi-xray-cannot-catch.html).
+
+---
+
+## An off-highway controller is judged in a field six months after it left the line
+
+Source: https://tenmaypcba.com/insights/off-highway-coating-in-a-casting.html
+Published: 2026-11-19
+Summary: One or two boards per machine, coated, with valve drivers on the logic side and load dump on the power side. Where the build risk sits before the machine is ever driven.
+
+A tractor or excavator controller is one or two boards inside a sealed cast aluminium housing bolted to a frame. It drives hydraulic valve solenoids, reads sensors, talks over CAN, and lives in dust, vibration, and a temperature range that a sealed casting makes worse rather than better.
+
+It is also the family where the gap between what assembly can prove and what the machine will experience is widest. That gap is not a defect; it is a boundary, and buyers who know where it sits make better decisions about price.
+
+### Coating is not a finish on this family, it is the product
+
+Every board here is conformal coated, and the coating is doing real work: condensation, dust, oil mist and the occasional pressure wash nearby.
+
+What that requires is a specification rather than a bottle:
+
+- Mask list. Sealed connector pins, test points, pressure-sensitive sensors, and any surface that must stay conductive. A coated connector pin is a fault that appears as a communication error on a cold morning.
+- Material and thickness. Polyurethane and silicone behave differently on thermal cycling; the callout should name one and say how the film is checked.
+- Cure before handling. Coated boards that are handled wet lose the coating exactly where the harness lands.
+- Rework sequence. Cut back, repair, re-coat, and record it. A reworked board without re-coating is a board with a hole in its protection.
+
+The rest of the family follows from this: a coated board forces you to think about what is masked, and what is masked forces you to think about what the housing has to seal.
+
+### Valve current, load dump, and the joints that carry both
+
+The power side is heavy copper driving inductive loads, and the failure modes are the classic ones:
+
+Risk: Where it is decided · What inspection proves
+Voiding under the FETs: Paste volume, reflow profile · X-ray on the power joints, per lot
+Solder fill on valve driver tabs: Through-hole method, thermal mass · First-article pull and cross-section
+Coating bridging the isolation gap: Mask drawing, coating method · Visual under magnification, photographed
+Connector strain: Connector choice, board edge design · Nothing — it is a design decision
+
+That last row is the honest one. Some of the most important decisions on this family cannot be inspected at all, because they were made on the drawing.
+
+### What is not proven here: sealing, EMC, vibration, functional safety
+
+The list is long and it is worth stating without softening:
+
+- No ingress (IP) testing, no burst or leak-down test of the sealed casting, and therefore no IP rating for the finished controller.
+- No EMC, load-dump, vibration, thermal-shock or salt-spray qualification, and no certified test report.
+- No functional safety certification — ISO 13849, IEC 61508, any PL or SIL claim — and no IATF 16949 work as a Tier supplier.
+- No hydraulic valve calibration or end-of-line actuator test.
+- No potting or encapsulation of the board. Coating is what this floor does.
+
+A machine programme that needs any of those is not being badly served by this floor; it is being served by the wrong party for those steps, which is a different and more fixable problem.
+
+### A hundred machines is a normal order, and it stays a hundred
+
+At 100 to 1,000 sets, this is a long-life, low-volume, revision-light family — the opposite of a consumer product. The right supplier is one whose process does not drift between orders two years apart, and whose record lets you prove it did not.
+
+That is why the useful question at quotation is not "what is your price at 500" but "what does your record look like, and can I have the first-article pack from the last time you built this".
+
+### What to send for a quote
+
+Gerber with copper weights and the stack-up, the BOM including the load-dump and protection parts, the centroid, the sealed connector list with the mating half and pin assignment, the coating and mask drawing with the isolation gap marked, the valve driver joint callout, and the quantity. At 100 to 1,000 sets a build is three working days from kitted parts.
+
+The family page is off-highway and agricultural controllers (/applications/off-highway.html). For the similar coating argument in a handheld, where the coating is the product (/insights/rugged-radio-coating-is-the-product.html); for the certification question in automotive work, do you need IATF 16949 (/insights/no-iatf-16949.html).
+
+---
+
+## A payment terminal has one trace that must never be nicked, and nothing here can prove it survived
+
+Source: https://tenmaypcba.com/insights/payment-terminal-tamper-mesh.html
+Published: 2026-11-19
+Summary: Two to four boards per terminal, one of them wrapped in a mesh whose failure is silent. Why the audit should come before the price, and who owns provisioning.
+
+A payment terminal is two to four boards: a main board, a keypad and reader board, a printer board, sometimes a display board. On the main board there is a tamper detection mesh — a fine, dense, deliberate pattern of traces whose whole purpose is to break in a way the secure element can detect.
+
+That mesh turns an ordinary assembly job into one with a single catastrophic failure mode that leaves no symptom at inspection. Which is why the security conversation belongs at the start of the programme rather than in the last week before certification.
+
+### Start with the audit, because the buyer will
+
+A terminal buyer eventually gets audited, and the audit reaches the manufacturing chain. What it looks for is not a claim of capability but evidence of control: who handled the boards, what the process was, what records exist, and what happens when a board fails.
+
+Two things are true and both need saying early:
+
+- This floor is not inside a payment-security certification. No PCI PTS approval, no EMVCo test report, no scheme audit, no secure facility.
+- This floor can build and record boards to a drawing, including the mesh as an assembly feature, with per-lot traceability.
+
+A programme that needs its manufacturer inside the security scope needs a different counterpart. A programme that needs boards built and recorded, with security verification on your side, is a fit — provided that split is agreed in writing.
+
+### The tamper mesh is an assembly feature before it is a security feature
+
+The mesh is inspected as a physical feature here: continuity of the pattern, no scratch, no solder splash, no coating bridging two traces that must stay separate.
+
+Three process realities:
+
+- Coating over a mesh is a decision, not a default. Coating can protect the mesh mechanically; it can also hide a bridge until the secure element reports tampering, at which point the unit is scrap.
+- Rework near the mesh is close to forbidden. A board that needs rework inside the mesh area is usually a board that should be scrapped, and the process should say so rather than leaving it to judgement at the station.
+- Handling. A dense fine-pitch board with a mesh on it does not want to be stacked, slid or squeezed, and at 500 to 5,000 pieces there are plenty of opportunities.
+
+Continuity testing of the mesh is yours. This floor can inspect it as a feature and photograph it; it cannot tell you whether the detection circuit behaves.
+
+### Secure-element provisioning and key injection
+
+The question that stops programmes is who holds the key material. It is not a manufacturing preference; it is a security architecture decision with a certificate attached.
+
+The rule that works: decide it in writing before the first build, never add it mid-run. If key injection happens at a party that holds the key material, the boards ship uninjected and the process after that belongs to them. If it happens here, the process, the environment and the audit trail all have to be agreed first — and this floor does not provision secure elements as a standard build step.
+
+The same reasoning applies to card-reader function: magstripe, contact and contactless reads are not exercised here. There is no in-circuit test and no functional test, so the first time a card is tapped is at your bench. That is workable; assuming otherwise is not.
+
+### The parts that get abused: printer, keypad, card slot
+
+Terminals are handled by the public, all day. The board-level consequences are mechanical:
+
+- Keypad and reader board joints take repeated force; through-hole and reinforced pads are drawing decisions.
+- The card slot is a lever into the housing; the board behind it should not be the thing limiting insertion depth.
+- The printer assembly is the highest-cycle mechanism in the product and is usually its own board for exactly that reason.
+
+### Where this floor stops
+
+- Tamper-mesh continuity, tamper response and key destruction. Verified by you with the secure element in place.
+- Any payment-scheme approval or test, and any secure facility.
+- Secure-element provisioning and key injection as a standard step.
+- Card-reader function of any kind, and any in-circuit or functional test.
+- Drop, ingress and EMC testing, and sitting inside the security certification scope.
+
+### What to send for a quote
+
+Gerber with the stack-up, the BOM with the secure element named, the centroid, the mesh drawing and the mask list, the keypad and reader connector list, the printer interface, and the quantity plus the variant matrix. At 500 to 5,000 pcs a build is three working days from kitted parts.
+
+The family page is POS and payment terminal boards (/applications/pos-terminal.html). For how the manufacturing audit actually runs, how to audit a PCBA supplier without visiting (/insights/pcba-supplier-audit-checklist.html); for the test question, what to do when your assembler has no in-circuit test (/insights/in-circuit-test-outsourcing.html).
+
+---
+
+## The motor tabs on a power tool controller are soldered, and that is the whole job
+
+Source: https://tenmaypcba.com/insights/power-tool-motor-tabs-soldered.html
+Published: 2026-11-19
+Summary: One or two boards, thousands of identical pieces, and a joint carrying twenty amps inside a sealed handle. Why the through-hole tabs and the coating decide field life.
+
+A brushless tool controller is a power board that lives inside a handle. No fan, no airflow, no service access, and a user who will run it until the battery is flat and then put it down hot. The circuit is a three-phase bridge, a gate driver, current sense and a microcontroller that reads a trigger. Simple.
+
+What is not simple is that the board's two hardest joints are the ones carrying the motor current, and they are made by hand or by selective solder rather than by the placer. On a tool, the assembly's job is those joints, the coating, and the fact that there are five thousand of them.
+
+### A power board, not a computing board
+
+Two or three ounces of copper on the power side, a heavy-copper bridge under a heatsink or a potted block, and a control section that could fit on a fingernail. Everything about the build follows from that split:
+
+- The bridge needs a documented reflow profile. Heavy copper on one side and fine traces on the other is a compromise, and a profile borrowed from another board is a latent void.
+- Voiding under the FETs is the yield number. Not the placement count, not the AOI pass rate. A voided joint on a 20 A bridge is a device that runs hot and derates in the user's hand.
+- The heatsink interface is mechanical. Pad or paste, flatness, and the torque on the mounting screws. All three belong on the drawing.
+
+### The motor tabs are soldered, not placed
+
+The motor connects to the board through tabs or a terminal block, and that joint carries the full phase current. It is through-hole, it is thermally massive, and it is done in-house here by selective or hand solder with the joint specified and inspected.
+
+Three failure modes are worth naming because none of them shows up on an AOI screen:
+
+- Insufficient fill. Looks soldered, measures cold, heats under load, fails in month four.
+- Cold joint on a plated tab. No amount of flux fixes a surface that will not wet; it needs the plating and the paste to be compatible.
+- Mechanical load applied to the joint. If the tab is also the mounting point, the solder is taking vibration, and the drawing should say what takes it instead.
+
+This is the single reason a tool controller is not a commodity assembly: the joints that decide the warranty are the ones a placer never touches.
+
+### Coating, and the housing that is not ours
+
+Most tool controllers are coated, because a tool gets rained on and put down in wet grass. It is applied here with connectors and the battery contacts masked.
+
+Two things coating is not: it is not potting, and it is not the housing seal. Potting is not done here, and closing the handle around the board is the tool brand's operation. A design that relies on the coating for water ingress is asking it to do a job it was not specified for — the same argument as on a storage board, at a much lower voltage.
+
+### Batch size, and why the volume argument turns early
+
+A tool programme is usually 1,000 to 5,000 sets, and above roughly 10,000 sets a month a dedicated high-volume line wins on unit price honestly. The reason is not mystery: at that volume the line is set once and run, and changeover stops being a share of the unit cost.
+
+Between those two points, a high-mix floor is the right counterpart, and the thing that decides your price is not the placement count but how many variants you have. A single controller in three firmware variants is one build; three power levels with different bridges is three.
+
+### Where this floor stops
+
+- Motor, gearbox and switch test under load. A dynamometer or torque rig belongs at the tool brand's end-of-line station.
+- Potting, overmoulding and closing the housing around the board.
+- Tool-level safety or regulatory testing — the certification belongs to the finished tool.
+- Volumes above roughly 10,000 sets a month, where a dedicated line wins.
+
+### What to send for a quote
+
+Gerber with copper weights per layer, the stack-up, the BOM with the FETs named by package, the motor tab and terminal drawing with the joint called out, the heatsink interface and torque, the coating and mask list, and the quantity per variant. At 1,000 to 5,000 sets a build is three working days from kitted parts.
+
+The family page is brushless power tool controllers (/applications/power-tool.html). For how the unit price is actually built up, see what is inside a PCBA price (/insights/pcba-cost-per-board.html), and for the inspection argument, what AOI and X-ray can and cannot catch (/insights/what-aoi-xray-cannot-catch.html).
+
+---
+
 ## The rack BMS board spends its life at high voltage and nobody ever looks at it
 
 Source: https://tenmaypcba.com/insights/rack-bms-high-voltage-build-risk.html
@@ -241,6 +991,369 @@ The BOM with the DNP and alternate parts marked, the board drawings with your cr
 The scope line on the quote says what is and is not done here. If you need the high-voltage test as part of the order, tell us at enquiry and we will say so plainly rather than at the tooling stage.
 
 For the cabinet-level companion board, the sensing head and trigger driver on the suppression panel, see storage safety boards (/applications/storage-safety.html). The general question of what inspection actually proves is in what AOI and X-ray still cannot catch (/insights/what-aoi-xray-cannot-catch.html), and the test-step decision is in what to do when your assembler has no in-circuit test (/insights/in-circuit-test-outsourcing.html).
+
+---
+
+## A robot joint board is a circular board built twelve to forty times per machine
+
+Source: https://tenmaypcba.com/insights/robot-joint-many-identical-boards.html
+Published: 2026-11-19
+Summary: The requirement on a joint board is not difficulty, it is sameness across dozens of units. Where panelisation, test coverage and heat decide whether a robot walks smoothly.
+
+A humanoid or service robot does not have one controller. It has a dozen to forty of the same small board, one per joint, each driving a motor through a gearbox and reading an encoder. The buyer's instinct is to ask whether the board is hard to build. It is not. The real requirement is that board number thirty-seven behaves like board number one, because a robot that walks slightly differently on its left side is a calibration problem that the software team will spend a month on before anyone admits it is a build problem.
+
+That is a different kind of question, and it is one an assembly floor can actually answer.
+
+### Identical is the requirement, not a nice-to-have
+
+Repeatability on this family is produced by four things, none of which is exotic:
+
+- One panel, many boards. Circular joint boards are usually panelised with breakaway tabs or routed with v-cuts. How they are depanelised — and how much stress that puts on the parts nearest the edge — varies by operator unless the method is written down.
+- Same paste, same print. A single stencil revision, printed with the same parameters, lot to lot. A print that drifts changes the fillet on the bridge devices and the thermal path under them.
+- Same reflow, measured. The profile is developed per board and recorded, so that a reorder six months later starts from a number rather than from memory.
+- Same inspection criteria. A board that passes on a Tuesday and would fail on a Friday is not a board; it is an opinion.
+
+At 100 to 1,000 sets, that is 1,200 to 40,000 joint boards. Small enough that the whole run can be one or two panels' worth per build, which makes consistency easier than it sounds — provided nobody re-panels mid-run.
+
+### Density and heat inside a 30 mm circle
+
+A GaN or MOSFET bridge, a gate driver, current sense and an encoder interface in a 30 mm circle with a motor connector on one edge. Three consequences:
+
+- Thermal mass is uneven. The bridge sits on heavy copper and the driver on thin traces. Reflow has to serve both in one pass, and the profile is a compromise that has to be documented.
+- Voids under the bridge matter twice over. The joint is the electrical path and the thermal path in a board that has nowhere to put a heatsink.
+- Connector landing takes the load. The motor and encoder connectors are the only mechanical interface, and they are what gets yanked during assembly of the joint.
+
+X-ray on the bridge joints is the inspection that matters on this family, and it is worth asking for the images rather than the pass rate.
+
+### What is not done here, and why it matters at prototype speed
+
+A humanoid programme moves quickly, and the temptation is to treat the assembler as a source of everything. It is not:
+
+- Joint calibration, torque-constant measurement and encoder alignment need the actuator and the gearbox. They belong to you.
+- Robot-level functional and safety testing and certification of the finished machine are outside this building.
+- Volumes above roughly 5,000 joint boards a month are where a dedicated line beats a high-mix floor on unit price. Below that, changeover is a smaller cost than a dedicated line's idle time.
+
+One practical note for a prototype programme: at these volumes, the cost of a revision is close to the cost of the boards. Getting the DFM review right before the stencil is cut is worth more here than on almost any other family, for the simple reason that a mistake is multiplied by the joint count.
+
+### What to send for a quote
+
+Gerber with the panelisation, the stack-up, the BOM with the bridge devices named by package, the centroid, the motor and encoder connector drawing, the inspection callout for the bridge joints, and the quantity in boards and in sets. Also say how the boards will be depanelised if you have a preference, because otherwise it will be decided here.
+
+The family page is robot joint and actuator boards (/applications/humanoid.html). For why a first run and a reorder price differently, see why the second run costs less (/insights/why-the-second-run-costs-less.html), and for the shape of a small-run quote, why fifty pieces cost more per board (/insights/fifty-piece-run-cost.html).
+
+---
+
+## On a rugged handheld the coating is not a finish, it is the specification
+
+Source: https://tenmaypcba.com/insights/rugged-radio-coating-is-the-product.html
+Published: 2026-11-19
+Summary: A rugged device survives because of the box and the conformal coat, not the schematic. Where the assembly decision actually lives, and why the shield can dictates the rework path.
+
+A rugged handheld is sold on the environment it survives. Almost none of that survival is electrical. It is the housing, the gasket, the keypad and — on the board — the coating, the shield cans and the connectors that take the abuse. That makes this one of the few families where the assembly step is the product, and where a buyer who treats coating as a cosmetic line item will get a device that passes the drop test once and corrodes on a dock in year two.
+
+Two or three boards typically: a main board, a keypad and display board, and an RF power amplifier board if the design separates it.
+
+### Coating here is a specification, not a finish
+
+Conformal coating is applied here by spray with hand masking. What makes it a specification rather than a finish is that four things have to be written down and then checked:
+
+- What is masked. Connectors, test points, press-fit pins, the antenna contact pads and any pressure-sensitive component. A masked pad that gets a film of acrylic is a contact resistance that drifts in the field, and nobody finds it on the bench.
+- What type and thickness. Acrylic, polyurethane and silicone behave differently on thermal cycling and on rework. The callout has to name one and say how it is verified.
+- The cure, before the next operation. Coating that is handled before it cures is coating that is scraped off at the next station.
+- What happens at rework. A coated board that needs a joint redone gets the coating cut back, the repair made, and the area re-coated — a sequence that has to be agreed or it gets skipped.
+
+The failure this prevents is not dramatic. It is a radio that works for two years in a wet climate and then develops an intermittent that nobody can reproduce in a workshop.
+
+### Shield cans decide the rework path
+
+A rugged device usually carries at least one shield can or a set of fences. The can is either clipped, soldered or a combination, and that choice decides what happens when a board fails at functional test three days into the build.
+
+A soldered can over a section that fails is a board that has to be desoldered, repaired and re-canned, with the shield land taking the thermal cycle twice. A clip-on lid is faster but adds a contact resistance question of its own. Neither is wrong; the mistake is choosing the can for RF reasons at design time and discovering the rework cost at first failure.
+
+This floor solders cans and fences as a standard operation. What it does not do is tell you which can style will cost you less over a product life — that is a decision to make with the RF engineer who knows how often that section is expected to change.
+
+### Press-fit, threads and the parts that get pulled
+
+Rugged devices use press-fit pins and threaded inserts because the buyer expects to open the device. Both are mechanical joints with an electrical job:
+
+- A press-fit pin needs the hole tolerance and the insertion tool specified; a reamed hole gives a joint that passes and later opens.
+- A threaded insert in a thin board needs a specified torque, or the insert spins on the second service.
+
+These are drawing decisions. They get executed here, and if the drawing is silent the build uses a house default, which is not the same as a design decision.
+
+### Where this floor stops
+
+- RF alignment, power calibration and waveform conformance. These need a shielded room and the OEM's service software.
+- Drop, vibration, IP-rating and salt-fog qualification. These run at an environmental test house against the finished device.
+- AS9100, NADCAP processing and ITAR-registered handling for defence programmes. ISO 9001 is what is held, and a programme that requires more should know that before the enquiry, not after.
+- Potting, overmoulding and closing the housing. Coating is applied here; the box is not assembled here.
+
+### What to send for a quote
+
+Gerber and stack-up, the BOM, the centroid, the full coating callout including the mask list, the shield-can and press-fit drawing, the connector list with mating halves, and the quantity split across boards. At 100 to 1,000 sets a build is three working days from kitted parts.
+
+The family page is rugged handheld and radio boards (/applications/rugged-radio.html). If you are auditing a new supplier for this kind of work, the five documents that settle an audit (/insights/pcba-supplier-audit-checklist.html) is the companion note, and the coating callout is covered again in what a quote should contain (/insights/pcba-quote-what-it-should-contain.html).
+
+---
+
+## On AI glasses the hinge is where the yield goes, and it is a board decision
+
+Source: https://tenmaypcba.com/insights/smart-glasses-hinge-yield.html
+Published: 2026-11-19
+Summary: The electronics are unremarkable; the mechanical path through the hinge is not. What to decide at design time so the flex survives being folded every day for two years.
+
+AI glasses are a small electronics problem inside a hard mechanical one. A main board in the temple, a flex that crosses the hinge to the front, a camera board behind the lens, a 01005-populated layout in a space measured in millimetres. Every one of those is buildable. What kills the product programme is the flex at the hinge, and that is decided on a drawing long before it reaches a line.
+
+### The hinge is a fatigue part with traces in it
+
+The flex crosses a joint that opens and closes every time the glasses are put on. The trace routing there is doing mechanical work: it is being bent, and it will eventually crack. Three design choices decide whether that happens in month three or year three:
+
+- Bend radius, stated and respected. A dynamic bend needs a larger radius than a fold-once flex, and the number belongs on the drawing so that the mechanical and electrical tolerances get resolved before tooling.
+- Stiffener placement, and where it stops. A stiffener that ends too close to the bend concentrates stress exactly where you do not want it.
+- Trace direction across the bend. Traces perpendicular to the bend line crack; the routing rule exists and gets ignored under space pressure.
+
+On the assembly side, the parts that matter are the connector-to-flex joints at both ends, the underfill decision at those joints, and handling after test — because a flex that is fine at pack-out can be creased by whoever folds it to fit the box.
+
+### Small parts and unforgiving keep-outs
+
+01005 passives, 0.30 mm pitch, and an optical keep-out that must stay flat, clean and uncoated. That combination makes three process steps decisive:
+
+Requirement: What it changes on the line · What it does not
+01005 population: Stencil aperture, paste type, placement accuracy, inspection method · Whether the design needed 01005 at all
+Optical keep-out: Masking before coating, handling discipline, no-wash chemistry · Lens alignment, which is the optics partner's step
+Rigid-flex: Panel support, depanelisation method, connector handling · Hinge life, which is a design margin question
+
+The honest observation about 01005 is that it is a yield cost paid for a space problem. Where the layout allows 0201, 0201 is cheaper and yields better; where it does not, the process has to be built for 01005 rather than borrowed from a 0201 job.
+
+### The commercial truth about this category
+
+Two things are worth saying plainly to anyone building AI glasses:
+
+- Above roughly ten thousand sets a month, this becomes a dedicated-line job. A high-mix floor at 500 to 5,000 sets is the right counterpart below that, and the crossover is real rather than a sales position.
+- The test you need is not the test on this floor. Bluetooth, antenna and RF validation, camera tuning, display calibration, acoustic tuning, drop and IP testing — all of it belongs to the product team or a test house. What happens here is assembly and inspection, and being clear about that early is cheaper than discovering it at certification.
+
+### Where this floor stops
+
+- Camera module alignment, image tuning and display calibration. These need the optics and the tuning rig.
+- Acoustic tuning, drop testing and IP-rating qualification for the finished frame.
+- Potting, overmoulding and final assembly of the temple. Coating is applied here; the frame is not assembled here.
+- Any Bluetooth, antenna or RF measurement.
+
+### What to send for a quote
+
+The rigid-flex construction with stiffener and bend callouts, the stack-up, the BOM with the 01005 passives named, the centroid, the connector list, the coating and masking drawing with the optical keep-out marked, and the quantity. At 500 to 5,000 sets the build is three working days from kitted parts; the flex tooling is the long pole.
+
+The family page is AI and AR smart glasses boards (/applications/smart-glasses.html). The package-size trade-off is set out in 01005 vs 0201 (/insights/01005-vs-0201.html), and the process ceilings in what limits 01005 placement yield (/insights/01005-placement-what-limits-yield.html).
+
+---
+
+## On a telecom line card the impedance comes from the stackup and the shielding from the assembly floor
+
+Source: https://tenmaypcba.com/insights/telecom-impedance-and-shield-cans.html
+Published: 2026-11-19
+Summary: A line card is a controlled-impedance board with heavy ground copper, shield cans and coax launched at the edge. The two places the assembly step can undo the design.
+
+A telecom line card arrives with the hard problems already solved. The impedance is designed, the stackup is specified, the ground is heavy, the shield fences are drawn. What is left at assembly is execution: build the stackup that was specified, put the cans on without cooking what is underneath, and get the coax and press-fit interfaces landed so they behave.
+
+That is a narrower job than on a power board, and it is more easily spoiled.
+
+### Where assembly can still spoil a controlled stackup
+
+A controlled-impedance design depends on the fabricator holding the stackup, and the assembler cannot change that. What the assembler can change is everything on the surface of it:
+
+- Paste volume on fine-pitch parts near an impedance-critical net. Excessive paste, a spread fillet, or a reflow profile that wicks solder toward a launch all shift local parasitics.
+- Rework near an RF launch. A hand-repaired joint beside a coax launch or a filter changes the geometry that was simulated.
+- Coating over or under a shielded section, where the callout said to mask it.
+- Press-fit insertion force. Too much force bows the board and the launch geometry goes with it; too little gives a joint that passes and later opens.
+
+None of these failures is detectable from the schematic; all of them are detectable from a build record and a first article.
+
+### Shield cans, coax and the order of operations
+
+The order of operations on this family is a genuine engineering decision, not a scheduling preference:
+
+Step: Why the order matters · What goes wrong if it slips
+SMT, then X-ray/AOI: Ground pads under cans must be verified before they are covered · A void under a can land is unreachable after assembly
+Coax and press-fit: Mechanical operations bend the board · Doing them before final inspection means inspecting a board that will move
+Cans and fences: Thermal mass next to sensitive parts · Rework heat near filters shifts their value
+Coating, last: Masking costs time and is skipped under pressure · Conductive or absorptive film where the design expects air
+
+A line that has built this family before asks about the can style and the press-fit tooling at quotation. A line that has not asks for the Gerber and nothing else.
+
+### Volume: a few hundred boards is the honest band
+
+Telecom programmes here run 100 to 1,000 sets, and that is deliberate rather than a limitation to apologise for. Carrier-grade volumes in the tens of thousands belong with a dedicated-line EMS, where the test strategy and the automation are built around one product.
+
+What an assembly floor cannot do at this band is substitute for a test house. There is no in-circuit test, no functional test, and no RF alignment or calibration here. Carrier qualification, NEBS or operator approval testing is not performed here either. If your acceptance plan assumes the assembler proves a line card works, the plan is mis-assigned and the fix is cheaper before the purchase order than after.
+
+### What a telecom buyer asks for, and what is on the shelf
+
+The questions that come with this family are consistent: can you hold 0.30 mm pitch, do you X-ray ground pads, do you keep the can and press-fit operation in-house, and what does your first-article pack contain. All four have answers here, and the fourth is the one worth reading carefully — a first-article pack without X-ray images of the ground pads is a pack that skips the part this family cares about.
+
+### Where this floor stops
+
+- Carrier qualification, NEBS or operator approval testing.
+- In-house in-circuit or functional test of a line card, including RF alignment and calibration.
+- Carrier-grade volumes in the tens of thousands, where a dedicated-line EMS is the right counterpart.
+- Enclosure assembly and system-level integration.
+
+### What to send for a quote
+
+Gerber with the stackup and the impedance table, the BOM, the centroid, the can and fence drawing with the ground-pad callout, the press-fit and coax list, the coating and mask drawing, and the quantity. At 100 to 1,000 sets a build is three working days from kitted parts, with the press-fit tooling as the long pole.
+
+The family page is telecom and 5G edge equipment boards (/applications/telecom.html). For the record set that makes this kind of build auditable, what a PCBA quote should contain (/insights/pcba-quote-what-it-should-contain.html), and for what inspection covers, what AOI and X-ray can and cannot catch (/insights/what-aoi-xray-cannot-catch.html).
+
+---
+
+## A thermal camera core board is a cleaning and masking problem before it is a placement problem
+
+Source: https://tenmaypcba.com/insights/thermal-core-cleaning-and-masking.html
+Published: 2026-11-19
+Summary: The detector interface is a low-noise analogue board in a small space, and the things that ruin it are flux, dust and a window that should have been masked. Where the build risk sits.
+
+A thermal camera core is two boards — a detector interface and a processing board — plus an optical path that costs more than both. The assembly is not the expensive part. What makes this family awkward is that the failure mode that hurts is invisible on a bench: leakage current and noise from flux residue, contamination on a detector contact, or an unmasked window that got a film of coating on it during a step that was supposed to protect everything else.
+
+Buyers tend to arrive at this page asking about BGA reflow. The BGA is the easy half.
+
+### Why cleanliness outranks placement
+
+The detector interface carries a very small signal from a very expensive sensor. Microamp leakage across a poorly cleaned flux residue, or an ionic contamination path between two fine-pitch pads, shows up not as a dead board but as noise — a slightly worse NETD, a slightly worse image that gets blamed on the detector.
+
+Three process decisions matter more than the placer here:
+
+- Wash or no-wash, and consistently. A no-clean process is fine if the whole build, including rework, is no-clean. The failure is a mixed process where one repair is done with an activated flux and never cleaned.
+- Handling between assembly and optics. A board that sits open on a bench collects what the room has in it. This is a small-volume family, 50 to 500 sets, so boards sit around longer than they would in a high-volume line.
+- Masking, before coating. The detector contact area, the optical window in a rigid-flex build, and any connector that will be mated in the field.
+
+### Rigid-flex and the mechanical interface
+
+A core that folds into a monocular or a weapon sight usually has a rigid-flex between the detector side and the processing side. That flex is a mechanical part as much as an electrical one: it has to survive being folded once, correctly, and then never again.
+
+What that means for the build:
+
+- The stiffener and the flex bend radius are drawing items. If they are not on the drawing, they get interpreted.
+- Connector-to-flex joints take repeated stress in service; the pad design and the soldering method are worth agreeing explicitly rather than leaving to habit.
+- The flex is also the thing most likely to be damaged in handling after test, which is why the final pack matters on this family more than most.
+
+### What a build record proves here
+
+Per lot: SPI, AOI, X-ray on the BGA and the detector-side joints, first-article photographs of the masked areas before and after coating, and the wash record if the process is aqueous. Those are the items an optics partner will ask about when an image is soft, because they are the only parts of the chain the board supplier can be held to.
+
+They do not prove the image. Nothing on this floor produces an image.
+
+### Where this floor stops
+
+- Non-uniformity correction, radiometric calibration and NETD measurement. These need a black-body source and the detector vendor's software.
+- Image tuning, lens focusing, optical alignment of the core. Optics partner work.
+- Airborne, space or defence qualification and export-controlled programme handling. Commercial workmanship only here.
+- Potting or full encapsulation. Coating is the only protection applied on this floor.
+
+### What to send for a quote
+
+Gerber with the rigid-flex construction and stiffener callouts, the stack-up including any controlled impedance on the detector side, the BOM with the detector part named and its handling notes, the centroid, the coating and masking drawing, and the quantity. At 50 to 500 sets this is a small-batch build and it is priced as one; the honest reason is in why a fifty-piece run costs more per board (/insights/fifty-piece-run-cost.html).
+
+The family page is thermal and night-vision cores (/applications/thermal-imaging.html). For the inspection argument in general, what AOI and X-ray can and cannot catch (/insights/what-aoi-xray-cannot-catch.html).
+
+---
+
+## On a pressure transmitter the op-amp is the easy part and the seal is not
+
+Source: https://tenmaypcba.com/insights/transmitter-board-seal-not-opamp.html
+Published: 2026-11-19
+Summary: A round board in an aluminium housing, two wires out, and a drift figure that decides whether the product is believed. Where potting and calibration sit relative to the build.
+
+A pressure transmitter is a small round board inside a sealed aluminium housing on a process pipe, with two wires leaving it. Inside: a ceramic or piezoresistive cell, a low-drift instrumentation amplifier, a 4–20 mA loop stage and a microcontroller. The board is small, the volume is modest, and the product is judged by a number it prints on a certificate.
+
+Assembly's share of that judgement is narrower than buyers expect and more decisive than they assume. Which is why the two failures to sort out before an order are the seal and the drift.
+
+### A small board with an unusually expensive defect
+
+The defect cost on this family is not the board. It is the labour to open a housing on a plant, the downtime of the line it was monitoring, and the credibility of the next shipment. That inverts the usual instinct to optimise unit price:
+
+- Board yield matters less than consistency. A 99 % yield with a drift distribution that moves between lots is worse than 97 % that does not move.
+- The analogue chain has to be built the same way every time. Same paste, same profile, same wash, same coat. A single board in a batch that skipped the wash is a service call in a year.
+- The housing interface is a drawing item. Board outline, mounting holes and the connector/terminal position determine whether the assembly seals. A board that is 0.2 mm off-centre in a potted cavity is a board that leaks.
+
+### Where the work stops: potting, sealing and calibration
+
+Three steps sit outside this building, and each of them is a place where a programme can quietly fail:
+
+- Potting, encapsulation and any overmoulding of the assembled board. Not done here. A transmitter that depends on a potted cavity is a design that depends on a process this floor does not run, and the partner who does it needs to be in the plan from the first prototype.
+- Pressure calibration, the 4–20 mA trim and any accuracy or drift statement. These need a pressure standard; they belong to the sensor maker or a calibration lab.
+- Ingress, burst and leak testing of the assembled housing, and the IP rating that comes out of it. Also hazardous-area certification such as ATEX or IECEx, and the documentation behind it.
+
+None of those three is a small omission, and all three are commonly assumed to be included in "PCB assembly".
+
+### What the process controls, and what it only records
+
+It is worth separating two things a supplier will describe in the same sentence:
+
+Controlled here: paste volume, placement, reflow profile, wash or no-wash chemistry, conformal coating with masking, through-hole joint quality on the terminal block, first-article inspection and per-lot records.
+
+Only recorded here: the component date codes and the lot they went into. Which is useful — a drift investigation starts with "which lot" — but is not the same as a measurement.
+
+If a buyer asks "can you guarantee drift under X", the honest answer is no: drift is a design, cell and calibration question. What can be guaranteed is that every board in the lot was built to the same written process, and that the record shows it.
+
+### Two hundred a year is a normal order, and it stays that way
+
+At 100 to 1,000 sets, this is high-mix work, and it stays that way because transmitters are a long-life product with slow model turnover. The practical consequence is that the relationship matters more than the price list: the same boards, built the same way, twice a year, for five years, with a record each time.
+
+### What to send for a quote
+
+Gerber with the board outline and mounting datum, the BOM with the cell and the amp named, the centroid, the terminal block and its torque, the coating and mask drawing, and the quantity with the expected reorder cadence. At 100 to 1,000 sets a build is three working days from kitted parts.
+
+The family page is industrial sensor and transmitter boards (/applications/sensors.html). The potting question in more detail is in potting before test turns a defect into scrap (/insights/parking-sensor-potting-before-test.html), and the record side is in what a PCBA quote should contain (/insights/pcba-quote-what-it-should-contain.html).
+
+---
+
+## A wearable board has almost nothing on it and almost no room for a second attempt
+
+Source: https://tenmaypcba.com/insights/wearable-no-room-for-a-second-attempt.html
+Published: 2026-11-19
+Summary: The board is tiny, the parts are tiny, and the rework is nearly impossible. What has to be decided before the build, and why volume changes who does the job.
+
+A smart watch or a pair of earbuds carries two or three boards: a main board, a case or charging board, and a sensor carrier. On them: 01005 passives, a 0.30 mm pitch device, a rigid-flex to the display or the button, and an antenna structure that is part of the mechanical design.
+
+Assembling one is not difficult in the way a 400-part server board is difficult. It is difficult because there is no recovery path. A board this small with a part this small is often not reworkable, so the process has to be right the first time rather than inspected and corrected.
+
+### What is actually on the board
+
+Three things set the yield ceiling, and none of them is the placement head:
+
+- Stencil aperture for 01005. A paste deposit that is a little large bridges; a little small leaves an open. The window is narrow and it is a stencil decision, not a machine setting.
+- Paste type and reflow. Fine-powder paste and a profile developed for that board. Reusing a profile from a 0402 product is the most common cause of a batch that "should have worked".
+- Support and depanelisation. Thin boards, often 0.6 mm or less, with a rigid-flex attached. Flexing during depanel is a cracked joint that passes inspection.
+
+That is why the sensible question to ask an assembler is not "what is your placement accuracy" but "what is your 01005 process, and show me the last board you ran with it".
+
+### Underfill is a design decision, never an assumption
+
+Wearables often need underfill at the rigid-flex joint and around a flip-chip or a fine-pitch package that will see drop energy. Underfill is not a standard step on this floor: it is agreed per design at DFM, because it changes the rework story completely — a board that is underfilled is a board that cannot be repaired, only replaced.
+
+The corollary is worth stating: if your design needs underfill, say so at the enquiry, because that decision affects stencil, handling and inspection, not just one extra operation at the end.
+
+### The tests this family usually needs and will not find here
+
+A wearable has an unusually test-hungry design and an unusually thin test story here. Not available on this floor:
+
+- In-circuit and functional test at volume. There is no ICT and no FCT.
+- Bluetooth, antenna or RF validation of the finished device.
+- Potting, overmoulding, IP-rating, drop and tumble testing.
+- Skin-contact biocompatibility, and battery-pack certification such as UN 38.3 or IEC 62133.
+
+What is available: assembly, SPI, AOI, X-ray where the design calls for it, coating with masking, and a lot record. For a programme whose acceptance criteria lean on functional test, that gap has to be closed with a fixture you own — the arrangement in what to do when your assembler has no in-circuit test (/insights/in-circuit-test-outsourcing.html).
+
+### Where volume turns this family into somebody else's job
+
+At 500 to 5,000 sets, a high-mix floor is the right counterpart and the price is mostly process and inspection. In the tens of thousands, the equation flips: the cost is no longer placement, it is test coverage and handling automation, and a consumer-electronics EMS with a dedicated line will beat a high-mix floor honestly rather than by cutting corners.
+
+Knowing that crossover in advance is what stops a programme from being moved mid-qualification, which is the most expensive way to learn it.
+
+### What to send for a quote
+
+Gerber with the stack-up and the rigid-flex construction, the BOM with the 01005 parts and the fine-pitch device named, the centroid, the underfill and coating callouts with the mask list, the depanelisation method if you have one, and the quantity. At 500 to 5,000 sets a build is three working days from kitted parts.
+
+The family page is wearables and hearables boards (/applications/wearables.html). For the package decision, 01005 vs 0201 (/insights/01005-vs-0201.html); for the process ceilings, what limits 01005 placement yield (/insights/01005-placement-what-limits-yield.html); and for the hinge-and-flex version of the same problem, AI glasses and the hinge (/insights/smart-glasses-hinge-yield.html).
 
 ---
 
