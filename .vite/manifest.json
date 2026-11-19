@@ -1,6 +1,6 @@
 {
-  "_LegalShell-DbUKhI1N.js": {
-    "file": "assets/LegalShell-DbUKhI1N.js",
+  "_LegalShell-hRTN40j8.js": {
+    "file": "assets/LegalShell-hRTN40j8.js",
     "name": "LegalShell",
     "imports": [
       "_react-BFDfz19Z.js",
@@ -8,9 +8,9 @@
       "_icons-DQw3Jp1J.js"
     ]
   },
-  "_applicationFamilies-BhvqvaY3.js": {
-    "file": "assets/applicationFamilies-BhvqvaY3.js",
-    "name": "applicationFamilies"
+  "_familyCards-B4y4PmlT.js": {
+    "file": "assets/familyCards-B4y4PmlT.js",
+    "name": "familyCards"
   },
   "_icons-DQw3Jp1J.js": {
     "file": "assets/icons-DQw3Jp1J.js",
@@ -24,7 +24,7 @@
     "name": "react"
   },
   "index.html": {
-    "file": "assets/index-B2Gm3hur.js",
+    "file": "assets/index-lz5yIX_E.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
@@ -100,7 +100,43 @@
       "src/pages/PrivacyPage.jsx",
       "src/pages/RfqPage.jsx",
       "src/pages/TermsPage.jsx",
-      "src/pages/TopicPage.jsx"
+      "src/pages/TopicPage.jsx",
+      "src/data/families/ai-power.json",
+      "src/data/families/amr-agv.json",
+      "src/data/families/bess.json",
+      "src/data/families/car-audio.json",
+      "src/data/families/dashcam.json",
+      "src/data/families/dc-charger.json",
+      "src/data/families/ebike.json",
+      "src/data/families/evse.json",
+      "src/data/families/gnss.json",
+      "src/data/families/hmi.json",
+      "src/data/families/humanoid.json",
+      "src/data/families/induction-drive.json",
+      "src/data/families/instruments.json",
+      "src/data/families/ip-camera.json",
+      "src/data/families/jump-starter.json",
+      "src/data/families/led-display.json",
+      "src/data/families/led-driver.json",
+      "src/data/families/medical.json",
+      "src/data/families/off-highway.json",
+      "src/data/families/parking-sensor.json",
+      "src/data/families/pos-terminal.json",
+      "src/data/families/power-station.json",
+      "src/data/families/power-tool.json",
+      "src/data/families/residential-storage.json",
+      "src/data/families/robot-vacuum.json",
+      "src/data/families/rugged-radio.json",
+      "src/data/families/sensors.json",
+      "src/data/families/servo.json",
+      "src/data/families/smart-glasses.json",
+      "src/data/families/storage-safety.json",
+      "src/data/families/telecom.json",
+      "src/data/families/thermal-imaging.json",
+      "src/data/families/treadmill.json",
+      "src/data/families/uav.json",
+      "src/data/families/vfd.json",
+      "src/data/families/wearables.json"
     ],
     "css": [
       "assets/index-BRKYzfa3.css"
@@ -436,32 +472,247 @@
     "src": "src/content/insights/why-the-second-run-costs-less.md?raw",
     "isDynamicEntry": true
   },
+  "src/data/families/ai-power.json": {
+    "file": "assets/ai-power-DegRSfFJ.js",
+    "name": "ai-power",
+    "src": "src/data/families/ai-power.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/amr-agv.json": {
+    "file": "assets/amr-agv-NYTH_nsx.js",
+    "name": "amr-agv",
+    "src": "src/data/families/amr-agv.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/bess.json": {
+    "file": "assets/bess-DH40w6LX.js",
+    "name": "bess",
+    "src": "src/data/families/bess.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/car-audio.json": {
+    "file": "assets/car-audio-buxCR7vt.js",
+    "name": "car-audio",
+    "src": "src/data/families/car-audio.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/dashcam.json": {
+    "file": "assets/dashcam-DsXQKADP.js",
+    "name": "dashcam",
+    "src": "src/data/families/dashcam.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/dc-charger.json": {
+    "file": "assets/dc-charger-DzN5gcpS.js",
+    "name": "dc-charger",
+    "src": "src/data/families/dc-charger.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/ebike.json": {
+    "file": "assets/ebike-ZxTQtUvk.js",
+    "name": "ebike",
+    "src": "src/data/families/ebike.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/evse.json": {
+    "file": "assets/evse-7MOBZteM.js",
+    "name": "evse",
+    "src": "src/data/families/evse.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/gnss.json": {
+    "file": "assets/gnss-CCPwgzXc.js",
+    "name": "gnss",
+    "src": "src/data/families/gnss.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/hmi.json": {
+    "file": "assets/hmi-BqT-HCVB.js",
+    "name": "hmi",
+    "src": "src/data/families/hmi.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/humanoid.json": {
+    "file": "assets/humanoid-KEBvqxe0.js",
+    "name": "humanoid",
+    "src": "src/data/families/humanoid.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/induction-drive.json": {
+    "file": "assets/induction-drive-DuWTlpLy.js",
+    "name": "induction-drive",
+    "src": "src/data/families/induction-drive.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/instruments.json": {
+    "file": "assets/instruments-DR_CEjeU.js",
+    "name": "instruments",
+    "src": "src/data/families/instruments.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/ip-camera.json": {
+    "file": "assets/ip-camera-BGWMmjQG.js",
+    "name": "ip-camera",
+    "src": "src/data/families/ip-camera.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/jump-starter.json": {
+    "file": "assets/jump-starter-CgeBfERg.js",
+    "name": "jump-starter",
+    "src": "src/data/families/jump-starter.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/led-display.json": {
+    "file": "assets/led-display-BeCKZZw3.js",
+    "name": "led-display",
+    "src": "src/data/families/led-display.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/led-driver.json": {
+    "file": "assets/led-driver-CET7Un6V.js",
+    "name": "led-driver",
+    "src": "src/data/families/led-driver.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/medical.json": {
+    "file": "assets/medical-D1zSqmsi.js",
+    "name": "medical",
+    "src": "src/data/families/medical.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/off-highway.json": {
+    "file": "assets/off-highway-DhKO_TEr.js",
+    "name": "off-highway",
+    "src": "src/data/families/off-highway.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/parking-sensor.json": {
+    "file": "assets/parking-sensor-zoAhKd8t.js",
+    "name": "parking-sensor",
+    "src": "src/data/families/parking-sensor.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/pos-terminal.json": {
+    "file": "assets/pos-terminal-IxVAQeAV.js",
+    "name": "pos-terminal",
+    "src": "src/data/families/pos-terminal.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/power-station.json": {
+    "file": "assets/power-station-DsBykiNm.js",
+    "name": "power-station",
+    "src": "src/data/families/power-station.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/power-tool.json": {
+    "file": "assets/power-tool-DBVvcnVO.js",
+    "name": "power-tool",
+    "src": "src/data/families/power-tool.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/residential-storage.json": {
+    "file": "assets/residential-storage-4dm4JuA2.js",
+    "name": "residential-storage",
+    "src": "src/data/families/residential-storage.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/robot-vacuum.json": {
+    "file": "assets/robot-vacuum-DRnb5Sqw.js",
+    "name": "robot-vacuum",
+    "src": "src/data/families/robot-vacuum.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/rugged-radio.json": {
+    "file": "assets/rugged-radio-BaRBsPT8.js",
+    "name": "rugged-radio",
+    "src": "src/data/families/rugged-radio.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/sensors.json": {
+    "file": "assets/sensors-BYjlr38V.js",
+    "name": "sensors",
+    "src": "src/data/families/sensors.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/servo.json": {
+    "file": "assets/servo-NIPVbD_S.js",
+    "name": "servo",
+    "src": "src/data/families/servo.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/smart-glasses.json": {
+    "file": "assets/smart-glasses-B5Wn0RJW.js",
+    "name": "smart-glasses",
+    "src": "src/data/families/smart-glasses.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/storage-safety.json": {
+    "file": "assets/storage-safety-Bfhlyszo.js",
+    "name": "storage-safety",
+    "src": "src/data/families/storage-safety.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/telecom.json": {
+    "file": "assets/telecom-D3uEwXiJ.js",
+    "name": "telecom",
+    "src": "src/data/families/telecom.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/thermal-imaging.json": {
+    "file": "assets/thermal-imaging-CWBlWUdH.js",
+    "name": "thermal-imaging",
+    "src": "src/data/families/thermal-imaging.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/treadmill.json": {
+    "file": "assets/treadmill-B9HhHUw6.js",
+    "name": "treadmill",
+    "src": "src/data/families/treadmill.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/uav.json": {
+    "file": "assets/uav-DV4f2mZD.js",
+    "name": "uav",
+    "src": "src/data/families/uav.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/vfd.json": {
+    "file": "assets/vfd-DXmH7d1A.js",
+    "name": "vfd",
+    "src": "src/data/families/vfd.json",
+    "isDynamicEntry": true
+  },
+  "src/data/families/wearables.json": {
+    "file": "assets/wearables-H0qZ59Bd.js",
+    "name": "wearables",
+    "src": "src/data/families/wearables.json",
+    "isDynamicEntry": true
+  },
   "src/pages/ApplicationFamilyPage.jsx": {
-    "file": "assets/ApplicationFamilyPage-2FCSEQMv.js",
+    "file": "assets/ApplicationFamilyPage-CAHSdnT1.js",
     "name": "ApplicationFamilyPage",
     "src": "src/pages/ApplicationFamilyPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_applicationFamilies-BhvqvaY3.js",
       "index.html",
       "_icons-DQw3Jp1J.js"
     ]
   },
   "src/pages/ApplicationsPage.jsx": {
-    "file": "assets/ApplicationsPage-Dq1vWsEu.js",
+    "file": "assets/ApplicationsPage-DCob3VxB.js",
     "name": "ApplicationsPage",
     "src": "src/pages/ApplicationsPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
       "index.html",
-      "_applicationFamilies-BhvqvaY3.js",
+      "_familyCards-B4y4PmlT.js",
       "_icons-DQw3Jp1J.js"
     ]
   },
   "src/pages/ArticlePage.jsx": {
-    "file": "assets/ArticlePage-BwHsI4zK.js",
+    "file": "assets/ArticlePage-q5Vtwi_b.js",
     "name": "ArticlePage",
     "src": "src/pages/ArticlePage.jsx",
     "isDynamicEntry": true,
@@ -472,7 +723,7 @@
     ]
   },
   "src/pages/AssemblyPage.jsx": {
-    "file": "assets/AssemblyPage-DQTklNjQ.js",
+    "file": "assets/AssemblyPage-Cl-9x7RS.js",
     "name": "AssemblyPage",
     "src": "src/pages/AssemblyPage.jsx",
     "isDynamicEntry": true,
@@ -483,7 +734,7 @@
     ]
   },
   "src/pages/CapabilitiesPage.jsx": {
-    "file": "assets/CapabilitiesPage-BtdLvLRK.js",
+    "file": "assets/CapabilitiesPage-C4zELEqr.js",
     "name": "CapabilitiesPage",
     "src": "src/pages/CapabilitiesPage.jsx",
     "isDynamicEntry": true,
@@ -494,7 +745,7 @@
     ]
   },
   "src/pages/CompanyPage.jsx": {
-    "file": "assets/CompanyPage-C-QfZAkA.js",
+    "file": "assets/CompanyPage-VIoXvSMB.js",
     "name": "CompanyPage",
     "src": "src/pages/CompanyPage.jsx",
     "isDynamicEntry": true,
@@ -505,31 +756,31 @@
     ]
   },
   "src/pages/CookiePage.jsx": {
-    "file": "assets/CookiePage-Ur9Tlwf_.js",
+    "file": "assets/CookiePage-GwymAJ3w.js",
     "name": "CookiePage",
     "src": "src/pages/CookiePage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-DbUKhI1N.js",
+      "_LegalShell-hRTN40j8.js",
       "_icons-DQw3Jp1J.js",
       "index.html"
     ]
   },
   "src/pages/DefenceRoboticsPage.jsx": {
-    "file": "assets/DefenceRoboticsPage-BWuZ-5Jv.js",
+    "file": "assets/DefenceRoboticsPage-B7hDYFob.js",
     "name": "DefenceRoboticsPage",
     "src": "src/pages/DefenceRoboticsPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_applicationFamilies-BhvqvaY3.js",
       "index.html",
+      "_familyCards-B4y4PmlT.js",
       "_icons-DQw3Jp1J.js"
     ]
   },
   "src/pages/InsightsPage.jsx": {
-    "file": "assets/InsightsPage-BFQlGshb.js",
+    "file": "assets/InsightsPage-DeV3kCc6.js",
     "name": "InsightsPage",
     "src": "src/pages/InsightsPage.jsx",
     "isDynamicEntry": true,
@@ -540,19 +791,19 @@
     ]
   },
   "src/pages/PrivacyPage.jsx": {
-    "file": "assets/PrivacyPage-CtEwOq-b.js",
+    "file": "assets/PrivacyPage-CRKiLecS.js",
     "name": "PrivacyPage",
     "src": "src/pages/PrivacyPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-DbUKhI1N.js",
+      "_LegalShell-hRTN40j8.js",
       "index.html",
       "_icons-DQw3Jp1J.js"
     ]
   },
   "src/pages/RfqPage.jsx": {
-    "file": "assets/RfqPage-BzmnTmCO.js",
+    "file": "assets/RfqPage-BBlM3Rv3.js",
     "name": "RfqPage",
     "src": "src/pages/RfqPage.jsx",
     "isDynamicEntry": true,
@@ -563,19 +814,19 @@
     ]
   },
   "src/pages/TermsPage.jsx": {
-    "file": "assets/TermsPage-IQaAR8DA.js",
+    "file": "assets/TermsPage-CPH_kP3J.js",
     "name": "TermsPage",
     "src": "src/pages/TermsPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-DbUKhI1N.js",
+      "_LegalShell-hRTN40j8.js",
       "index.html",
       "_icons-DQw3Jp1J.js"
     ]
   },
   "src/pages/TopicPage.jsx": {
-    "file": "assets/TopicPage-BMKNcl72.js",
+    "file": "assets/TopicPage-B-SjgiKw.js",
     "name": "TopicPage",
     "src": "src/pages/TopicPage.jsx",
     "isDynamicEntry": true,
