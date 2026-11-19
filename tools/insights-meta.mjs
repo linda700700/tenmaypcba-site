@@ -20,6 +20,7 @@ import { fileURLToPath } from 'node:url';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT = join(ROOT, 'src', 'content', 'insights');
 const OUT = join(ROOT, 'src', 'data', 'insights-meta.json');
+const OUT_FAMILIES = join(ROOT, 'src', 'data', 'article-families.json');
 
 function parseFrontmatter(source) {
   const text = String(source).replace(/\r\n/g, '\n');
@@ -81,4 +82,56 @@ export function writeMeta() {
   const list = buildMeta();
   writeFileSync(OUT, `${JSON.stringify(list, null, 0)}\n`);
   return list;
+}
+
+/* Reverse index: which notes point at which board family.
+ *
+ * Why generated rather than hand-kept: the family pages used to dead-end. A
+ * visitor who arrived on /applications/bess from a search query had no route to
+ * the notes that discuss that family, so the depth sat one click away and
+ * unlinked. The link already exists in the article body — every note that
+ * discusses a family links to it — so the reverse direction is derived from the
+ * Markdown rather than maintained as a second list that can drift.
+ *
+ * A note counts for a family only if it links to that family page in its own
+ * body. That keeps the block honest: no note is promoted onto a page it does not
+ * actually discuss. Families with no note simply render no block.
+ */
+export function buildFamilyLinks() {
+  const notes = buildMeta();
+  const map = {};
+  for (const file of readdirSync(CONTENT).filter((f) => f.endsWith('.md'))) {
+    const slug = file.replace(/\.md$/, '');
+    const note = notes.find((n) => n.slug === slug);
+    if (!note) continue;
+    const { body } = parseFrontmatter(readFileSync(join(CONTENT, file), 'utf8'));
+    const fams = new Set();
+    for (const m of String(body).matchAll(/\(\/applications\/([a-z0-9-]+)\.html\)/g)) {
+      fams.add(m[1]);
+    }
+    for (const fam of fams) {
+      if (!map[fam]) map[fam] = [];
+      map[fam].push({
+        slug: note.slug,
+        href: note.href,
+        title: note.title,
+        summary: note.summary,
+        minutes: note.minutes,
+      });
+    }
+  }
+  /* Newest first, and capped at three — a sidebar list is a next step, not an
+   * archive. The article's own date decides the order, not the file order. */
+  const dated = Object.fromEntries(notes.map((n) => [n.slug, n.date]));
+  for (const fam of Object.keys(map)) {
+    map[fam].sort((a, b) => (dated[a.slug] < dated[b.slug] ? 1 : -1));
+    map[fam] = map[fam].slice(0, 3);
+  }
+  return map;
+}
+
+export function writeFamilyLinks() {
+  const map = buildFamilyLinks();
+  writeFileSync(OUT_FAMILIES, `${JSON.stringify(map, null, 0)}\n`);
+  return map;
 }

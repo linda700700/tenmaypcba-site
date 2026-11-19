@@ -456,4 +456,46 @@ export const ARTICLE_FAQ = {
       a: 'Three things in writing: whether the stencil is still in usable condition, whether the programme and profile are the current revision, and whether any line on the BOM has moved to allocation since the last run.',
     },
   ],
+  'rack-bms-high-voltage-build-risk': [
+    {
+      q: 'Can an assembler build a rack BMS to IEC 62619 or UL 1973?',
+      a: 'An assembler builds the board to the drawing that carries your certifier\'s creepage and clearance values. The certificate is issued against a design by a body — assembly is not certification, and no assembler should let a storage buyer believe otherwise.',
+    },
+    {
+      q: 'Which joints in a storage cabinet are inspected rather than just passed?',
+      a: 'The through-hole current-carrying joints on the contactor and pre-charge path. They are selective or hand soldered with the thermal mass managed, then inspected visually and by pull on the first article, because AOI does not judge fill on a lug.',
+    },
+    {
+      q: 'Does conformal coating make a storage board waterproof?',
+      a: 'No. Coating buys tolerance to condensation and pollution inside a cabinet whose thermal management is imperfect. It is not an IP rating, and a coated board in a flooded cabinet is still a wet board.',
+    },
+  ],
+  'dc-charger-built-vs-bought': [
+    {
+      q: 'Which parts of a DC fast charger does a contract assembler actually build?',
+      a: 'The control board, the metering board and the interface board, plus the harness and the high-current path that join them. The AC-to-DC power modules arrive as sealed units with their own manufacturer and their own certification.',
+    },
+    {
+      q: 'Is metering certification part of the assembly step?',
+      a: 'No. A meter that bills for energy is certified to an accuracy class by a body. Assembling the metering board is not certifying the meter, so ask who issues the certificate before accepting a quote that says metering is included.',
+    },
+    {
+      q: 'What fails on a charger build that a functional test will not show?',
+      a: 'The heavy-current joints. Insufficient fill on a lug, torque applied to a joint instead of a stud, or a plating and paste mismatch on a thick terminal all pass at room temperature and heat under output load. They are caught by specifying the joint and inspecting it that way.',
+    },
+  ],
+  '1u-rectifier-thermal-joint': [
+    {
+      q: 'Why does a void under a power device matter more than a visible solder defect?',
+      a: 'The thermal pad under a QFN or LFPAK is the only path to the copper. If paste coverage there is short, the board passes every electrical test at room temperature and runs much hotter inside a power shelf. AOI sees the fillet, not the void — X-ray does.',
+    },
+    {
+      q: 'Should a 1U rectifier board be conformal coated?',
+      a: 'Usually only the control and telemetry side, if at all. The airflow through the shelf is the environmental control, and coating the power side adds thermal resistance exactly where a 3 kW module cannot afford it. A blanket whole-board coat is a thermal decision made by accident.',
+    },
+    {
+      q: 'Can the assembler supply the efficiency figures for the build lot?',
+      a: 'No. Efficiency, hold-up time, inrush and emissions are measured on a load bank with power analysers at temperature. The build scope is placed, reflowed, X-rayed on the thermal joints, inspected and recorded — characterised is a different party.',
+    },
+  ],
 };

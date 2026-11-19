@@ -33,7 +33,7 @@ export const ROUTE_HEADS = {
   '/applications': {
     title: `PCBA by Application — ${FAMILY_COUNT} Board Families | TENMAY`,
     description:
-      'VFD, servo, EV charger, jump starter, drone flight controller, rugged radio, thermal core, robot joint and AI server power boards: process and inspection for each.',
+      'VFD, servo, EV charger, jump starter, drone flight controller, rugged radio, thermal core, robot joint and AI server power boards: process for each.',
     ogTitle: `PCBA by Application — ${FAMILY_COUNT} Board Families`,
     ogDescription:
       'Board families this floor is set up for, grouped by sector, with the process fit, batch band, inspection call and the cases where we are the wrong shop.',
@@ -153,7 +153,7 @@ export const ROUTE_HEADS = {
   '/applications/thermal-imaging': {
     title: 'Thermal and Night-Vision Core Board Assembly | TENMAY',
     description:
-      'Detector interface and processing boards for thermal cores: low-noise analogue, fine-pitch BGA, rigid-flex to the detector, masked optical window, 50 to 500 sets.',
+      'Detector interface and processing boards for thermal cores: low-noise analogue, fine-pitch BGA, rigid-flex to the detector, masked window. 50-500 sets.',
     ogTitle: 'Thermal Imaging Core PCBA — TENMAY',
     ogDescription:
       'A microvolt front end makes cleanliness and masking part of the process. What is built here, and which calibration steps stay with the buyer.',
@@ -185,7 +185,7 @@ export const ROUTE_HEADS = {
   '/applications/bess': {
     title: 'BESS and PCS Control Board Assembly — BMS | TENMAY',
     description:
-      'Battery management unit, rack master and conversion control boards for energy storage: isolation spacing, THT contactors, coating, per-lot records, 100 to 1,000 sets.',
+      'Pack BMU, rack master and conversion control boards for energy storage: isolation spacing, THT contactors, coating, per-lot records. 100-1,000 sets.',
     ogTitle: 'Energy Storage (BESS) Board Assembly — TENMAY',
     ogDescription:
       'Many identical BMUs and a few isolation-critical masters. Why the assembly argument on storage is a record set, not a unit price.',
@@ -193,7 +193,7 @@ export const ROUTE_HEADS = {
   '/applications/residential-storage': {
     title: 'Residential and Stackable Storage Board Assembly | TENMAY',
     description:
-      'Home battery boards: module BMU, hybrid inverter control, stack master and communication. 200 to 2,000 pcs. No pack test, no grid-code approval, no standby-current measurement.',
+      'Home battery boards: module BMU, hybrid inverter control, stack master and comms. 200-2,000 pcs. No pack test, grid-code approval or standby-current test.',
     ogTitle: 'Residential Storage Board Assembly — TENMAY',
     ogDescription:
       'A home battery is judged on the days it does nothing. Microamp standby, sensing that has to stay honest, and the grid-code file that belongs to the brand.',
@@ -201,7 +201,7 @@ export const ROUTE_HEADS = {
   '/applications/storage-safety': {
     title: 'Storage Safety and Suppression Control Board Assembly | TENMAY',
     description:
-      'Pack-level detection heads, latching controllers and one-shot trigger drivers for storage safety. 300 to 3,000 pcs. No live-actuator firing, no ageing test, no EN 54 or UL 9540A.',
+      'Pack-level detection heads, latching controllers and one-shot trigger drivers for storage safety. 300-3,000 pcs. No live-actuator firing, no EN 54 or UL 9540A.',
     ogTitle: 'Storage Safety and Suppression Control Boards — TENMAY',
     ogDescription:
       'A board that has to be boring until the one second it is not: dormant logic, a one-shot output, and the evidence that has to come from aged samples.',
@@ -209,7 +209,7 @@ export const ROUTE_HEADS = {
   '/applications/power-tool': {
     title: 'Brushless Power Tool Controller PCBA Assembly | TENMAY',
     description:
-      'Brushless tool and garden tool controllers: heavy-copper bridge under a heatsink, through-hole motor tabs soldered in-house, X-ray on power joints, 1,000 to 5,000 sets.',
+      'Brushless tool and garden controllers: heavy-copper bridge under a heatsink, through-hole motor tabs soldered in-house, X-ray on power joints. 1,000-5,000 sets.',
     ogTitle: 'Brushless Power Tool Controller Assembly — TENMAY',
     ogDescription:
       'A power board that lives inside a handle: what the bridge and the motor tabs take, and why the tool test stays with the brand.',
@@ -225,7 +225,7 @@ export const ROUTE_HEADS = {
   '/applications/medical': {
     title: 'Medical Device PCBA Assembly Without ISO 13485 | TENMAY',
     description:
-      'Acquisition, main and panel boards for patient monitors and diagnostic instruments: guarded analog front ends, lot device records, 100 to 1,000 sets, ISO 9001 held.',
+      'Acquisition, main and panel boards for patient monitors and diagnostic instruments: guarded analog front ends, lot device records. 100-1,000 sets.',
     ogTitle: 'Medical Device Board Assembly — TENMAY',
     ogDescription:
       'The board is ordinary; the record is not. What this floor can be inside a medical programme, and the certification it does not hold.',
@@ -233,7 +233,7 @@ export const ROUTE_HEADS = {
   '/applications/telecom': {
     title: 'Telecom and 5G Edge Board Assembly | TENMAY',
     description:
-      'Line card and edge unit boards with controlled impedance, heavy ground copper, shield cans and coax connectors. 100 to 1,000 sets, 0.30 mm pitch, X-ray on ground pads.',
+      'Line card and edge unit boards with controlled impedance, heavy ground copper, shield cans and coax connectors. 100-1,000 sets at 0.30 mm pitch, X-ray on pads.',
     ogTitle: 'Telecom and 5G Edge Board Assembly — TENMAY',
     ogDescription:
       'Impedance is a stackup decision; shielding is an assembly one. Where this floor helps on a dense board, and where carrier volume goes elsewhere.',
@@ -249,7 +249,7 @@ export const ROUTE_HEADS = {
   '/applications/sensors': {
     title: 'Pressure Transmitter and Sensor PCBA Assembly | TENMAY',
     description:
-      'Round transmitter boards with low-drift analog front ends, ceramic cells and two-wire terminal blocks. 100 to 1,000 sets, coating with port masking. Potting and calibration are named as not held.',
+      'Low-drift analog transmitter boards with ceramic cells and two-wire terminal blocks. 100-1,000 sets, coating with port masking. No potting or calibration.',
     ogTitle: 'Sensor and Transmitter Board Assembly — TENMAY',
     ogDescription:
       'The op-amp is the easy part. Where the assembly stops, and why potting, sealing and calibration belong to the sensor maker.',
@@ -257,7 +257,7 @@ export const ROUTE_HEADS = {
   '/applications/wearables': {
     title: 'Wearable and Hearable PCBA Assembly | TENMAY',
     description:
-      'Miniature rigid-flex boards with 01005 passives and 0.30 mm pitch, charging-case boards and sensor carriers. 500 to 5,000 sets. No in-house ICT or RF test, stated up front.',
+      'Miniature rigid-flex boards with 01005 passives and 0.30 mm pitch, charging-case boards and sensor carriers. 500-5,000 sets. No in-house ICT or RF test.',
     ogTitle: 'Wearables and Hearables Board Assembly — TENMAY',
     ogDescription:
       'Almost nothing on the board, and almost no room for a second attempt. Underfill by DFM agreement, and the tests this floor does not run.',
@@ -265,7 +265,7 @@ export const ROUTE_HEADS = {
   '/applications/gnss': {
     title: 'GNSS and Telemetry Board Assembly | TENMAY',
     description:
-      'Receiver and ground-station boards with shielded RF sections, SMA and TNC coax pigtails and rugged connectors. 50 to 500 sets, coating with shield-land masking. No RF characterisation.',
+      'Receiver and ground-station boards with shielded RF sections, SMA and TNC pigtails and rugged connectors. 50-500 sets, coating with shield masking. No RF test.',
     ogTitle: 'GNSS and Telemetry Board Assembly — TENMAY',
     ogDescription:
       'The RF section is what assembly can quietly ruin. Shield seating, coax heat and coating masking — and the antenna work that happens elsewhere.',
@@ -273,7 +273,7 @@ export const ROUTE_HEADS = {
   '/applications/led-display': {
     title: 'LED Display Receiver Card PCBA Assembly | TENMAY',
     description:
-      'Long narrow receiver and sending cards with eight ribbon headers, through-hole fill control and panel-level pricing. 1,000 to 10,000 pcs. Colour calibration and the wall stay with the cabinet maker.',
+      'Long narrow receiver and sending cards with eight ribbon headers, through-hole fill control and panel pricing. 1,000-10,000 pcs. Colour calibration not held.',
     ogTitle: 'LED Display and Receiver Card Assembly — TENMAY',
     ogDescription:
       'The joint that fails is a connector, three years in, on a wall nobody can reach. What this floor controls, and the calibration it never does.',
@@ -281,7 +281,7 @@ export const ROUTE_HEADS = {
   '/applications/off-highway': {
     title: 'Off-Highway and Agricultural Controller PCBA | TENMAY',
     description:
-      'Coated control and power boards in sealed castings: CAN, hydraulic valve drivers, heavy copper and sealed connector tails. 100 to 1,000 sets. No IP, EMC or functional-safety certification.',
+      'Coated control and power boards in sealed castings: CAN, valve drivers, heavy copper, sealed tails. 100-1,000 sets. No IP, EMC or safety certification.',
     ogTitle: 'Off-Highway and Agricultural Controller Assembly — TENMAY',
     ogDescription:
       'Judged in a field six months later. Why coating under the power devices and the connector joints decide the field failure rate — and what is not proven here.',
@@ -289,7 +289,7 @@ export const ROUTE_HEADS = {
   '/applications/car-audio': {
     title: 'Car Audio Amplifier Board PCBA Assembly | TENMAY',
     description:
-      'Class-D car amplifier boards with heavy copper, bus bars, snap-in electrolytics and clamped power devices. 500 to 5,000 pcs, X-ray on the power joints. No audio or thermal measurement in-house.',
+      'Class-D car amplifier boards with heavy copper, bus bars, snap-in electrolytics and clamped power devices. 500-5,000 pcs, X-ray on power joints. No audio test.',
     ogTitle: 'Car Audio and Class-D Amplifier Board Assembly — TENMAY',
     ogDescription:
       'A power supply with an audio problem. Voiding under the power devices is the yield number, and the thermal path is half mechanical and half unmeasured.',
@@ -297,7 +297,7 @@ export const ROUTE_HEADS = {
   '/applications/dc-charger': {
     title: 'DC Charging Power Module PCBA Assembly | TENMAY',
     description:
-      'PFC, isolated DC-DC and control boards for 20 to 40 kW charging modules: heavy copper, laminated bus bars and cold-plate mounting. 100 to 1,000 modules. No load bank, no hipot, no certification.',
+      'PFC, isolated DC-DC and control boards for 20-40 kW charging modules: heavy copper, laminated bus bars, cold-plate mounting. 100-1,000 modules. No load bank.',
     ogTitle: 'DC Charging Power Module Assembly — TENMAY',
     ogDescription:
       'Everything a buyer wants to know about a power module is measured on a load this floor does not have. What the assembly does control, and where the proof happens instead.',
@@ -305,7 +305,7 @@ export const ROUTE_HEADS = {
   '/applications/pos-terminal': {
     title: 'POS and Payment Terminal Board Assembly | TENMAY',
     description:
-      'Payment terminal main boards with tamper mesh, secure element, printer and keypad boards. 500 to 5,000 pcs. No scheme approval, no key injection as standard, no card-reader testing.',
+      'Payment terminal main boards with tamper mesh, secure element, printer and keypad boards. 500-5,000 pcs. No scheme approval or key injection, no card test.',
     ogTitle: 'POS and Payment Terminal Board Assembly — TENMAY',
     ogDescription:
       'One trace that must never be nicked. Tamper mesh as an assembly feature, the parts that get abused, and the certification this floor does not hold.',
@@ -313,7 +313,7 @@ export const ROUTE_HEADS = {
   '/applications/induction-drive': {
     title: 'Induction Cooker and Appliance Drive Board Assembly | TENMAY',
     description:
-      'Resonant inverter boards with IGBT half-bridge, resonant capacitors and heavy copper, plus control and display boards. 1,000 to 10,000 pcs. No coil load, no EMC, no potting.',
+      'Resonant inverter boards with IGBT half-bridge, resonant capacitors and heavy copper, plus control and display boards. 1,000-10,000 pcs. No coil load or EMC.',
     ogTitle: 'Induction Cooker and Appliance Drive Board Assembly — TENMAY',
     ogDescription:
       'The resonant tank decides the cost and the failure. Tab flatness, thermal interface and creepage — and the three tests that need a pan, which this floor does not have.',
@@ -321,7 +321,7 @@ export const ROUTE_HEADS = {
   '/applications/ip-camera': {
     title: 'IP Camera and Access Control Board Assembly | TENMAY',
     description:
-      'Camera main boards with BGA SoC, PoE magnetics and sensor connectors, plus access-control reader boards. 500 to 5,000 pcs. No image tuning, no functional test, no IP or EMC testing.',
+      'Camera main boards with BGA SoC, PoE magnetics and sensor connectors, plus access-control readers. 500-5,000 pcs. No image tuning, functional or EMC testing.',
     ogTitle: 'IP Camera and Access Control Board Assembly — TENMAY',
     ogDescription:
       'Easy to assemble and hard to prove, because the proof is an image. SoC reflow, board flatness and the parts installers pull — and the tuning that is not done here.',
@@ -380,7 +380,7 @@ export const ROUTE_HEADS = {
   '/defence-robotics': {
     title: 'Defence & Robotics PCBA — Standards, In Writing | TENMAY',
     description:
-      'Flight controllers, rugged radios, thermal cores and robot joint boards. ISO 9001 held; AS9100, NADCAP special processes and ITAR registration are not, and each is named.',
+      'Flight controllers, rugged radios, thermal cores and robot joint boards. ISO 9001 held; AS9100, NADCAP and ITAR registration are not, and each is named.',
     ogTitle: 'Defence, Aerospace and Robotics PCBA',
     ogDescription:
       'What this floor holds, what it does not, and the four conditions that put a programme outside it — stated before the price.',

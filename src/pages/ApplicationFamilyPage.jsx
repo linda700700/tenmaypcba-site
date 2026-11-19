@@ -3,6 +3,7 @@ import { ArrowRight, ChevronRight, MessageCircle, AlertTriangle, CheckCircle2, A
 import { FAMILIES, FAMILY_SLUGS, RELATED, FAMILY_COUNT, familyBySlug } from '../data/applicationFamilies';
 import { waLink, DEFAULT_WA_TEXT } from '../data/company';
 import { imgAttrs } from '../lib/imageSize';
+import ARTICLE_FAMILIES from '../data/article-families.json';
 
 /*
  * One board family, one URL. The index at /applications keeps the cards;
@@ -41,6 +42,10 @@ export default function ApplicationFamilyPage({ slug }) {
   const siblings = FAMILY_SLUGS.filter(
     (s) => s !== family.slug && !(RELATED[family.slug] || []).some(([t]) => t === s)
   ).map((s) => FAMILIES[s]);
+
+  // Notes whose body links to this family page, newest first, capped at three by
+  // the generator. Generated, not hand-kept: see tools/insights-meta.mjs.
+  const notes = ARTICLE_FAMILIES[family.slug] || [];
 
   return (
     <div data-component="application-family-page" data-family={family.slug}>
@@ -166,6 +171,31 @@ export default function ApplicationFamilyPage({ slug }) {
                     ))}
                   </ul>
                 </div>
+
+                {/* Notes that discuss this family. Derived from the articles
+                    themselves, so a page never advertises a note it does not
+                    back, and a new note appears here without a second edit. */}
+                {notes.length ? (
+                  <div className="rounded-xl border border-brand-200/70 bg-white p-5">
+                    <div className="text-[11.5px] font-bold uppercase tracking-[0.16em] text-slate-500">
+                      Notes on this family
+                    </div>
+                    <ul className="mt-3 space-y-3">
+                      {notes.map((n) => (
+                        <li key={n.slug}>
+                          <a href={n.href} className="group block">
+                            <span className="block text-[14.5px] font-bold leading-snug text-slate-900 group-hover:text-brand-700">
+                              {n.title}
+                            </span>
+                            <span className="mt-1 block text-[13px] leading-snug text-slate-600">
+                              {n.minutes} min read
+                            </span>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ) : null}
 
                 <div className="rounded-xl bg-brand-900 p-6 text-white">
                   <div className="text-[11.5px] font-bold uppercase tracking-[0.16em] text-brand-300">

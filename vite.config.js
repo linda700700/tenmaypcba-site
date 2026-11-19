@@ -4,7 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { renderLlmsFull } from './tools/gen-llms-full.mjs';
-import { writeMeta } from './tools/insights-meta.mjs';
+import { writeMeta, writeFamilyLinks } from './tools/insights-meta.mjs';
 import { dirname, join } from 'node:path';
 
 // Absolute origin used for og:image and canonical URLs in the prerendered HTML.
@@ -19,6 +19,8 @@ const root = dirname(fileURLToPath(import.meta.url));
  * always newer than the .md files it came from, on every build and in dev.
  */
 writeMeta();
+/* The reverse index the family pages read: which notes discuss this family. */
+writeFamilyLinks();
 
 function esc(value) {
   return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
