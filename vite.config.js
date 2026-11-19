@@ -4,7 +4,7 @@ import { execFileSync } from 'node:child_process';
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { renderLlmsFull } from './tools/gen-llms-full.mjs';
-import { writeMeta, writeFamilyLinks } from './tools/insights-meta.mjs';
+import { writeMeta, writeFamilyLinks, writeNeighbours } from './tools/insights-meta.mjs';
 import { writeFamilyData } from './tools/family-index.mjs';
 import { dirname, join } from 'node:path';
 
@@ -22,6 +22,10 @@ const root = dirname(fileURLToPath(import.meta.url));
 writeMeta();
 /* The reverse index the family pages read: which notes discuss this family. */
 writeFamilyLinks();
+/* Which two notes each note points at under "More notes". Computed here for the
+ * same reason: it depends on every note's tags, hub and family, and the answer
+ * has to be the same in the prerendered HTML and in the browser. */
+writeNeighbours();
 /* The family fields, split four ways so the 261 kB of applications prose stops
  * being part of every URL's bundle: the shared index, the card fields, the "read
  * next" reasoning, and one file per family. Generated here for the same reason as
