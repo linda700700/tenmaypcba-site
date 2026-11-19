@@ -177,6 +177,134 @@ const SIZES = {
     1600,
     1066
   ],
+  "/assets/images/scene-vfd.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-jump-starter.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-treadmill.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-ebike.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-power-station.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-robot-vacuum.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-servo.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-hmi.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-led-driver.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-dashcam.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-parking-sensor.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-evse.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-uav.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-rugged-radio.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-thermal-imaging.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-humanoid.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-smart-glasses.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-ai-power.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-bess.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-power-tool.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-amr-agv.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-medical.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-telecom.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-instruments.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-sensors.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-wearables.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-gnss.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-led-display.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-off-highway.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-car-audio.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-dc-charger.webp": [
+    1600,
+    1066
+  ],
+  "/assets/images/scene-ip-camera.webp": [
+    1600,
+    1066
+  ],
   "/assets/images/conformal-coating.webp": [
     1400,
     933

@@ -424,6 +424,116 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/scene-ai-power.webp": [
+    [
+      "/assets/images/scene-ai-power-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-ai-power-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-amr-agv.webp": [
+    [
+      "/assets/images/scene-amr-agv-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-amr-agv-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-bess.webp": [
+    [
+      "/assets/images/scene-bess-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-bess-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-car-audio.webp": [
+    [
+      "/assets/images/scene-car-audio-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-car-audio-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-dashcam.webp": [
+    [
+      "/assets/images/scene-dashcam-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-dashcam-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-dc-charger.webp": [
+    [
+      "/assets/images/scene-dc-charger-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-dc-charger-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-ebike.webp": [
+    [
+      "/assets/images/scene-ebike-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-ebike-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-evse.webp": [
+    [
+      "/assets/images/scene-evse-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-evse-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-gnss.webp": [
+    [
+      "/assets/images/scene-gnss-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-gnss-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-hmi.webp": [
+    [
+      "/assets/images/scene-hmi-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-hmi-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-humanoid.webp": [
+    [
+      "/assets/images/scene-humanoid-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-humanoid-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/scene-induction-drive.webp": [
     [
       "/assets/images/scene-induction-drive-700w.webp",
@@ -431,6 +541,86 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/scene-induction-drive-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-instruments.webp": [
+    [
+      "/assets/images/scene-instruments-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-instruments-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-ip-camera.webp": [
+    [
+      "/assets/images/scene-ip-camera-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-ip-camera-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-jump-starter.webp": [
+    [
+      "/assets/images/scene-jump-starter-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-jump-starter-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-led-display.webp": [
+    [
+      "/assets/images/scene-led-display-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-led-display-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-led-driver.webp": [
+    [
+      "/assets/images/scene-led-driver-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-led-driver-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-medical.webp": [
+    [
+      "/assets/images/scene-medical-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-medical-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-off-highway.webp": [
+    [
+      "/assets/images/scene-off-highway-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-off-highway-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-parking-sensor.webp": [
+    [
+      "/assets/images/scene-parking-sensor-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-parking-sensor-900w.webp",
       900
     ]
   ],
@@ -444,6 +634,26 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/scene-power-station.webp": [
+    [
+      "/assets/images/scene-power-station-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-power-station-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-power-tool.webp": [
+    [
+      "/assets/images/scene-power-tool-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-power-tool-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/scene-residential-storage.webp": [
     [
       "/assets/images/scene-residential-storage-700w.webp",
@@ -454,6 +664,56 @@ export const VARIANTS = {
       900
     ]
   ],
+  "/assets/images/scene-robot-vacuum.webp": [
+    [
+      "/assets/images/scene-robot-vacuum-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-robot-vacuum-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-rugged-radio.webp": [
+    [
+      "/assets/images/scene-rugged-radio-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-rugged-radio-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-sensors.webp": [
+    [
+      "/assets/images/scene-sensors-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-sensors-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-servo.webp": [
+    [
+      "/assets/images/scene-servo-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-servo-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-smart-glasses.webp": [
+    [
+      "/assets/images/scene-smart-glasses-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-smart-glasses-900w.webp",
+      900
+    ]
+  ],
   "/assets/images/scene-storage-safety.webp": [
     [
       "/assets/images/scene-storage-safety-700w.webp",
@@ -461,6 +721,66 @@ export const VARIANTS = {
     ],
     [
       "/assets/images/scene-storage-safety-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-telecom.webp": [
+    [
+      "/assets/images/scene-telecom-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-telecom-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-thermal-imaging.webp": [
+    [
+      "/assets/images/scene-thermal-imaging-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-thermal-imaging-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-treadmill.webp": [
+    [
+      "/assets/images/scene-treadmill-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-treadmill-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-uav.webp": [
+    [
+      "/assets/images/scene-uav-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-uav-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-vfd.webp": [
+    [
+      "/assets/images/scene-vfd-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-vfd-900w.webp",
+      900
+    ]
+  ],
+  "/assets/images/scene-wearables.webp": [
+    [
+      "/assets/images/scene-wearables-700w.webp",
+      700
+    ],
+    [
+      "/assets/images/scene-wearables-900w.webp",
       900
     ]
   ],

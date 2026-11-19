@@ -27,6 +27,13 @@ export const FAMILIES = {
     keyword: 'VFD control board PCBA manufacturer',
     image: '/assets/images/case-vfd.webp',
     imageAlt: 'Variable frequency drive with the cover off, showing the assembled IGBT power board',
+    scene: {
+      image: '/assets/images/scene-vfd.webp',
+      imageAlt:
+        'Wall-mounted variable frequency drive cabinet in a factory equipment room, keypad and LCD on the door, motor cables running out to a centrifugal pump',
+      caption:
+        'In the finished product: the door carries the keypad board, the module on the heatsink is the IGBT power board and the control board sits beside it — three boards in one cabinet, and no load bank on this floor ever spins that pump.',
+    },
     h1: 'VFD and inverter board assembly, three boards at a time',
     lede:
       'A drive is three boards with three different process profiles: a control board with isolated gate drive, an IGBT power board carrying the DC bus and current sensors, and a keypad board. They are quoted as three lines and built as one set, because a drive that is missing one board is not shippable.',
@@ -99,6 +106,13 @@ export const FAMILIES = {
     keyword: 'jump starter PCBA with air compressor',
     image: '/assets/images/case-jump-starter.webp',
     imageAlt: 'Jump starter and air compressor with the service panel open, power board exposed',
+    scene: {
+      image: '/assets/images/scene-jump-starter.webp',
+      imageAlt:
+        'Portable 12 V jump starter and tyre compressor in a garage, clamps on the battery in an open engine bay',
+      caption:
+        'In the finished product: a portable jump starter is a battery-management board, a boost converter board and a small control and display board — and the clamps carry several hundred amps for a few seconds, which is the one condition this floor cannot reproduce.',
+    },
     h1: 'Jump starter and air compressor board assembly',
     lede:
       'A 12 V jump starter with a built-in compressor is two boards in one enclosure: a main board doing battery management, clamp switching, boost and display, and a motor-drive board for the compressor. Both are heavy-copper work where the solder joint, not the placement, decides whether the product survives its first winter.',
@@ -169,6 +183,13 @@ export const FAMILIES = {
     keyword: 'treadmill control board assembly',
     image: '/assets/images/case-treadmill.webp',
     imageAlt: 'Treadmill console beside its motor-drive board with heatsink and terminal blocks',
+    scene: {
+      image: '/assets/images/scene-treadmill.webp',
+      imageAlt:
+        'Home treadmill seen from the side in a home gym, motor cover in place and the console lit above the belt',
+      caption:
+        'In the finished product: the motor-control board sits under that cover with its bridge on a heatsink, and the console is a second board on a ribbon — two boards built here, and never run against a real belt load.',
+    },
     h1: 'Treadmill control board assembly, motor drive and console',
     lede:
       'A treadmill is two boards joined by a ribbon: a motor-drive power stage in the base and a console board in the mast. The power board is large, through-hole heavy and coated; the console board is the opposite. Quoting them as one assembly is how batches end up late, so they are quoted separately and built to one ship date.',
@@ -239,6 +260,13 @@ export const FAMILIES = {
     keyword: 'e-bike controller PCBA',
     image: '/assets/images/case-ebike.webp',
     imageAlt: 'E-bike controller with its housing open, showing the MOSFET power bridge on the assembled board',
+    scene: {
+      image: '/assets/images/scene-ebike.webp',
+      imageAlt:
+        'Electric mountain bike on a city street, display and thumb throttle on the handlebar, battery in the down tube',
+      caption:
+        'In the finished product: the display on the bar is one small board, the pack in the down tube carries a BMS board and the motor controller sits in the frame — three boards, all of them expected to survive rain.',
+    },
     h1: 'E-bike controller and display board assembly, built for export batches',
     lede:
       'An e-bike controller is two boards that fail in completely different ways: a power board in the frame that has to survive heat, vibration and a rider standing on the pedals, and a display board on the handlebar that has to survive rain. Both go through the same line here, quoted separately, because the display revision almost always arrives first.',
@@ -312,6 +340,13 @@ export const FAMILIES = {
     keyword: 'portable power station PCBA',
     image: '/assets/images/case-power-station.webp',
     imageAlt: 'Portable power station with the front panel open, showing the inverter control board inside',
+    scene: {
+      image: '/assets/images/scene-power-station.webp',
+      imageAlt:
+        'Portable power station on a folding camping table at dusk, DC cable running to a folding solar panel',
+      caption:
+        'In the finished product: a portable power station is a BMS board, an MPPT charge board and an inverter board stacked in one case — and the part where the three run together for eight hours is the part this floor cannot show you.',
+    },
     h1: 'Portable power station boards, three assemblies per unit',
     lede:
       'A power station is three boards that have to agree with each other: a BMS that decides whether the pack is safe, an inverter control board that turns DC into a sine wave, and a display board that tells the user how much is left. The inverter board is the one that decides whether the unit is quiet on a sensitive load, and it is the one most sensitive to assembly quality.',
@@ -385,6 +420,13 @@ export const FAMILIES = {
     keyword: 'robot vacuum mainboard assembly',
     image: '/assets/images/case-robot-vacuum.webp',
     imageAlt: 'Robot vacuum with its cover removed, showing the main control board and sensor board',
+    scene: {
+      image: '/assets/images/scene-robot-vacuum.webp',
+      imageAlt:
+        'Robot vacuum on a living room floor beside a sofa leg, lidar tower on top and its dock behind',
+      caption:
+        'In the finished product: the tower is the lidar board, the main board underneath drives the wheels and the fan, and the bumper carries the cliff and contact sensors — small dense boards where a bad stencil print is the whole failure.',
+    },
     h1: 'Robot vacuum mainboards, dense boards at compressed prices',
     lede:
       'A robot vacuum is three or four boards in a plastic shell: a main control board, a brush and pump motor drive, and sensor and charging boards. Technically this is the most demanding work in the consumer group — dense double-sided boards, fine pitch, tight clearance to the enclosure — and commercially the least forgiving, because the buyer is usually negotiating against a cents-per-board number.',
@@ -456,6 +498,13 @@ export const FAMILIES = {
     keyword: 'servo drive board assembly',
     image: '/assets/images/case-servo.webp',
     imageAlt: 'Servo drive with the cover removed, showing the gate-drive and power board assembly',
+    scene: {
+      image: '/assets/images/scene-servo.webp',
+      imageAlt:
+        'Open floor-standing control cabinet with servo drive modules, shielded motor cables running out to an indexing conveyor on packaging machinery',
+      caption:
+        'In the finished product: each module in that cabinet is a control board and a power board clamped to a heatsink — and the encoder feedback that decides whether the axis is right belongs to the machine builder, not to this floor.',
+    },
     h1: 'Servo drive and soft starter boards, the same stack as an inverter',
     lede:
       'A servo drive carries the same three-way split as an inverter — a control board with gate drive and current sensing, a power board with the output stage, and often an encoder or fieldbus interface — but at a smaller frame size and with tighter timing requirements. If you already build inverters, this is the neighbouring job; if you build consumer boards, it is a different discipline.',
@@ -529,6 +578,13 @@ export const FAMILIES = {
     keyword: 'PLC I/O module PCBA',
     image: '/assets/images/case-hmi.webp',
     imageAlt: 'Industrial HMI panel with the rear cover off, showing the carrier and I/O board',
+    scene: {
+      image: '/assets/images/scene-hmi.webp',
+      imageAlt:
+        'Panel-mounted HMI touchscreen lit on a stainless steel machine, emergency stop, signal tower and a PLC I/O rack beside it',
+      caption:
+        'In the finished product: behind that touchscreen is a display board and a CPU board, with the emergency stop and the signal tower wired back into the machine — the boards are built here, the panel sealing that makes the front washdown-rated is not.',
+    },
     h1: 'HMI, gateway and PLC I/O boards, where isolation sets the layout',
     lede:
       'These are the boards that sit between a machine and a network: a system-on-module carrier, isolated digital and analogue I/O, and a fieldbus interface. Search volume for this family is low and board value is not, which makes it the quietest and most comfortable industrial work on this floor.',
@@ -599,6 +655,13 @@ export const FAMILIES = {
     keyword: 'LED driver PCBA',
     image: '/assets/images/case-led-driver.webp',
     imageAlt: 'LED driver module on a bench beside its assembled AC-DC board',
+    scene: {
+      image: '/assets/images/scene-led-driver.webp',
+      imageAlt:
+        'Recessed LED panel light switched on in a shop ceiling, with the aluminium driver housing visible at the edge of the fixture',
+      caption:
+        'In the finished product: the aluminium box at the edge of that panel is a constant-current driver board — and the encapsulation that makes it last ten years in a ceiling is a step this floor hands back.',
+    },
     h1: 'LED driver and PD charger boards, high volume and thin margin',
     lede:
       'An LED driver or a PD fast charger is one small board carrying an AC-DC stage, power-factor correction and secondary-side regulation. It is the highest-volume family on this site and the least forgiving commercially: buyers switch over fractions of a cent, and the process that wins is the one that removes labour rather than the one that quotes lowest.',
@@ -671,6 +734,13 @@ export const FAMILIES = {
     keyword: 'dashcam PCBA assembly',
     image: '/assets/images/case-dashcam.webp',
     imageAlt: 'Dashcam with its housing open, showing the image-sensor board and encoder mainboard',
+    scene: {
+      image: '/assets/images/scene-dashcam.webp',
+      imageAlt:
+        'Dashcam on a windscreen behind the rear-view mirror, cable tucked along the headliner, sunny road ahead',
+      caption:
+        'In the finished product: the unit behind the mirror is a main board with the image sensor on its own board and a supercap holding the last file — and the heat of a windscreen in summer is the condition the design is really about.',
+    },
     h1: 'Dashcam and mirror display boards, two boards and a heat problem',
     lede:
       'A dashcam is an image-sensor carrier, an encoder mainboard and a display board in a housing that sits in direct sun behind glass. Technically it is dense double-sided work; commercially it is a mature category where the buyer is usually a Shenzhen solution house that already knows exactly what it wants.',
@@ -744,6 +814,13 @@ export const FAMILIES = {
     keyword: 'parking sensor PCBA',
     image: '/assets/images/case-parking-sensor.webp',
     imageAlt: 'Ultrasonic parking sensor beside its small round driver board',
+    scene: {
+      image: '/assets/images/scene-parking-sensor.webp',
+      imageAlt:
+        'Rear bumper of a car at dusk showing four round ultrasonic sensor pads, with the LED daytime running light lit at the edge',
+      caption:
+        'In the finished product: those four discs are transducers, and the board that times them sits inside the trim behind — a board that has to take the same water and road salt as the bumper it hides behind.',
+    },
     h1: 'Parking sensor and headlight driver boards, small boards in volume',
     lede:
       'Two aftermarket products that share a shape: a small round or narrow board, potted or coated, made in thousands of variants for different vehicles. The board is simple. The difficulty is that every model change is a new small order, and the coating has to survive a bumper.',
@@ -817,6 +894,13 @@ export const FAMILIES = {
     keyword: 'EV charger control board PCBA',
     image: '/assets/images/case-evse.webp',
     imageAlt: 'AC charging pile with the front cover removed, showing the control board and contactors',
+    scene: {
+      image: '/assets/images/scene-evse.webp',
+      imageAlt:
+        'White AC wallbox charger on a concrete pillar in a residential garage, charging cable running to a white electric car',
+      caption:
+        'In the finished product: that wallbox holds a control board, a pilot-signal board and a residual-current detection board — and the trip test that decides whether it is safe to touch is a type test, not an assembly step.',
+    },
     h1: 'EV charging control boards, where the assembly buys you paperwork',
     lede:
       'An AC charging pile control board generates the pilot signal, detects residual current, drives the contactor, meters energy and talks over a comms module. The board itself is not difficult. What makes this family slow is that the finished product has to be certified, and that certification needs assembly records you can hand to a test house.',
@@ -899,6 +983,13 @@ export const FAMILIES = {
     keyword: 'drone flight controller PCBA',
     image: '/assets/images/case-uav.webp',
     imageAlt: 'Carbon-fibre quadcopter frame with the flight controller and its sensor stack exposed',
+    scene: {
+      image: '/assets/images/scene-uav.webp',
+      imageAlt:
+        'Quadcopter drone in flight over farmland, carbon fibre arms, rotors and a gimbal camera, flight controller visible under the centre plate',
+      caption:
+        'In the finished product: the stack under the centre plate is a flight controller, one ESC board per arm and a gimbal board — boards measured in grams, and judged on whether they still work after the crash.',
+    },
     h1: 'Drone flight controller and ESC boards, where one sensor decides the build',
     lede:
       'A drone is a flight controller carrying an inertial sensor that has opinions, a power distribution or 4-in-1 ESC board moving the current, and often a payload or gimbal board. Two of those are ordinary assembly. The flight controller is not, because the part that keeps the aircraft level is also the part most easily altered by a process that looks perfect under AOI.',
@@ -964,6 +1055,13 @@ export const FAMILIES = {
     keyword: 'rugged handheld PCBA assembly',
     image: '/assets/images/case-rugged-radio.webp',
     imageAlt: 'Rugged handheld terminal with the housing opened, showing coated boards and a shielding can',
+    scene: {
+      image: '/assets/images/scene-rugged-radio.webp',
+      imageAlt:
+        'Gloved hand holding a rugged two-way radio on a construction site, antenna, channel knob and push-to-talk, water droplets on the housing',
+      caption:
+        'In the finished product: a radio like that is an RF board, a baseband and control board and a keypad board — and the RF side is quoted from your stack-up and your fab drawing rather than assumed.',
+    },
     h1: 'Rugged handheld and radio boards, where the coating is the product',
     lede:
       'A rugged handheld, a two-way radio or a field terminal is an ordinary radio board in an abnormal environment: rain, dust, a drop onto concrete and a temperature swing inside one shift. The electrical design is rarely the hard part. The assembly decisions that matter are the ones that survive that environment — coating, shielding, and how the board is held inside a machined housing.',
@@ -1029,6 +1127,13 @@ export const FAMILIES = {
     keyword: 'thermal camera core PCBA',
     image: '/assets/images/case-thermal-imaging.webp',
     imageAlt: 'Thermal imaging core with the lens removed, showing the detector board and its shielded processing board',
+    scene: {
+      image: '/assets/images/scene-thermal-imaging.webp',
+      imageAlt:
+        'Handheld thermal imaging monocular on a tripod head, germanium objective pointed at an electrical substation at dusk',
+      caption:
+        'In the finished product: the detector and its processing board sit behind that germanium window, with the shutter in front of them — the core belongs to the detector supplier, the assembly and the coating to this floor.',
+    },
     h1: 'Thermal camera core boards, a low-noise analogue job in a small space',
     lede:
       'A thermal core is a detector interface board and a processing board joined by a flex and packed behind a lens. Nothing on it is high power. Everything on it is sensitive: microvolt signals out of the detector, a bias network that has to stay quiet, and an optical window that cannot be coated, touched or cleaned with the wrong solvent.',
@@ -1093,6 +1198,13 @@ export const FAMILIES = {
     keyword: 'robot joint actuator PCBA',
     image: '/assets/images/case-humanoid.webp',
     imageAlt: 'Robot arm joint with the cover removed, showing the circular actuator driver board',
+    scene: {
+      image: '/assets/images/scene-humanoid.webp',
+      imageAlt:
+        'Robot joint housing with the bearing and a drive board visible behind a clear cover, harness looping to a blurred gripper',
+      caption:
+        'In the finished product: that joint is a driver board, an encoder board and a power board in one housing — and what matters is not how it looks assembled but whether it repeats to the same angle a million times.',
+    },
     h1: 'Robot joint boards: many small identical boards, one revision at a time',
     lede:
       'A humanoid or a service robot does not have one control board. It has a driver board per joint, and the count runs from a dozen to forty. That changes the economics completely: the order is small in sets and large in identical pieces, every joint board has to match the last one, and the design changes faster than the batch does.',
@@ -1156,6 +1268,13 @@ export const FAMILIES = {
     keyword: 'smart glasses PCBA',
     image: '/assets/images/case-smart-glasses.webp',
     imageAlt: 'Smart glasses on a bench with one temple opened, showing the rigid-flex board and camera module',
+    scene: {
+      image: '/assets/images/scene-smart-glasses.webp',
+      imageAlt:
+        'Black AR smart glasses on a concrete surface, electronics in the temples, front camera and a waveguide lens',
+      caption:
+        'In the finished product: the boards live in the arms — a main board, a camera board and a battery board inside a few millimetres of thickness, which is a placement problem before it is anything else.',
+    },
     h1: 'AI glasses boards: a rigid-flex inside a five millimetre temple',
     lede:
       'Smart glasses are an assembly problem wearing a fashion product. The electronics live in a temple arm a few millimetres thick, split across a rigid main section, a flexible section that crosses the hinge, and a camera or display module at the front. Almost every tolerance is mechanical, and the board has to survive being folded shut a hundred thousand times.',
@@ -1219,6 +1338,13 @@ export const FAMILIES = {
     keyword: 'server power shelf PCBA',
     image: '/assets/images/case-ai-power.webp',
     imageAlt: 'Rack power shelf with one rectifier module withdrawn, showing the power board and busbar',
+    scene: {
+      image: '/assets/images/scene-ai-power.webp',
+      imageAlt:
+        'Data centre rack with a 1U power shelf of rectifier modules, a copper busbar above and a battery backup unit below',
+      caption:
+        'In the finished product: each rectifier module in that shelf is a PFC board and a DC-DC board on a shared heatsink — and the efficiency figure a buyer asks for is measured on a load bank, not on this floor.',
+    },
     h1: 'Server power and BBU boards, where the busbar decides the build',
     lede:
       'A rack power shelf is a set of rectifier modules in parallel feeding a 48 V busbar, with a battery backup unit beside them. The boards are heavy-copper power conversion with metal bolted through them, and the step that decides the yield is not placement. It is the joint between the board and the busbar, and the thermal path under the devices that switch the current.',
@@ -1284,6 +1410,13 @@ export const FAMILIES = {
     keyword: 'BESS BMS PCBA',
     image: '/assets/images/case-bess.webp',
     imageAlt: 'Rack battery module with the front panel removed, showing the BMS board and its sensing harness',
+    scene: {
+      image: '/assets/images/scene-bess.webp',
+      imageAlt:
+        'Containerised battery energy storage system at a solar farm, doors open to show racked battery modules and orange high-voltage cabling',
+      caption:
+        'In the finished product: the modules behind that door are a BMU per pack, a rack BMS and a cluster controller — boards that spend their life at high voltage and are expected never to need anyone to open the door.',
+    },
     h1: 'Energy storage boards: one small BMU per module, one isolated master per rack',
     lede:
       'A battery energy storage cabinet is a lot of identical small boards and a few difficult ones. Each module has a BMU measuring its cells; each rack has a master with contactor drive, insulation monitoring and an isolated bus; the conversion side has its own control board. The assembly argument is the same for all three: the isolation gap is the product.',
@@ -1348,6 +1481,13 @@ export const FAMILIES = {
     image: '/assets/images/case-power-tool.webp',
     imageAlt:
       'Brushless cordless drill with the housing opened, showing the MOSFET bridge under its heatsink and the three-phase motor terminals',
+    scene: {
+      image: '/assets/images/scene-power-tool.webp',
+      imageAlt:
+        'Cordless drill driver standing on a scratched workbench with its battery pack fitted, chuck and bit in place, wood shavings around',
+      caption:
+        'In the finished product: the board in the handle is a small FET driver board carrying the trigger and the battery contacts — and it lives in a housing that gets dropped onto concrete, which is a test this floor does not run.',
+    },
     h1: 'Brushless tool controllers: a power board that lives inside a handle',
     lede:
       'A cordless tool is a battery, a switch, a motor and one small board with a lot of current through it. That board decides whether the tool stalls, cooks its bridge or feels soft on a cold pack — and it is built in thousands of identical pieces, so the argument here is consistency on a board that carries almost no logic.',
@@ -1426,6 +1566,13 @@ export const FAMILIES = {
     image: '/assets/images/case-amr-agv.webp',
     imageAlt:
       'Autonomous mobile robot chassis with its cover off, showing the drive board, battery connector and lidar connector',
+    scene: {
+      image: '/assets/images/scene-amr-agv.webp',
+      imageAlt:
+        'Low-profile AMR carrying a pallet of cartons along a warehouse aisle, lidar on top and a blue light strip across the front',
+      caption:
+        'In the finished product: the lidar on top and the scanners at the corners are separate boards, and the board underneath has to drive the wheels through an aisle full of people — the safety rating on those scanners is not something this floor can certify.',
+    },
     h1: 'AMR and AGV boards: a few difficult boards per robot, then a fleet',
     lede:
       'A mobile robot is a battery, two or four drives, a safety-rated stop path and a sensor head. The boards joining them are neither consumer boards nor cabinet boards: 48 V DC, tens of amps per wheel, encoders on one side of an isolation barrier and a compute module on the other — and they are built in tens before they are built in thousands.',
@@ -1682,6 +1829,13 @@ export const FAMILIES = {
     image: '/assets/images/case-medical.webp',
     imageAlt:
       'Patient monitor with the case opened, showing its acquisition board, guarded analog sections and sensor connectors',
+    scene: {
+      image: '/assets/images/scene-medical.webp',
+      imageAlt:
+        'Patient monitor on a rolling stand beside a hospital bed with ECG and SpO2 leads trailing, no patient present',
+      caption:
+        'In the finished product: the front end of that monitor is an isolated acquisition board, the display is a second board and the alarms sit on the main board — and the isolation that makes it safe to touch a patient is a certification this floor does not hold.',
+    },
     h1: 'Medical boards: the board is ordinary, the record is not',
     lede:
       'An acquisition board in a patient monitor is not exotic hardware. What separates it from a consumer board is the analog front end, the cleanliness behind it and a lot record that somebody may ask to see two years later — which is why the honest first question is not what we can build, but what we are not certified to be.',
@@ -1761,6 +1915,13 @@ export const FAMILIES = {
     image: '/assets/images/case-telecom.webp',
     imageAlt:
       'Line card slid out of a 1U chassis, showing shield cans, coax connectors and a dense fine-pitch board',
+    scene: {
+      image: '/assets/images/scene-telecom.webp',
+      imageAlt:
+        'Open telecom equipment shelf with dense shielded line cards, coaxial pigtails, SFP cages and fibre jumpers',
+      caption:
+        'In the finished product: each line card in that shelf is a dense multilayer board with impedance-controlled traces and press-fit connectors — the kind of stack-up that is quoted from your fab drawing, not from a default.',
+    },
     h1: 'Telecom boards: impedance is a stackup decision, shielding is an assembly one',
     lede:
       'A line card or an edge unit is dense, impedance-controlled and partly screened, and the parts that decide whether it works are shared between two suppliers: the bare board decides the impedance, and this floor decides whether the shield, the coax and the ground copper survive assembly.',
@@ -1839,6 +2000,13 @@ export const FAMILIES = {
     image: '/assets/images/case-instruments.webp',
     imageAlt:
       'Benchtop test instrument with the case open, showing guarded input sections, BNC connectors and sealed relays',
+    scene: {
+      image: '/assets/images/scene-instruments.webp',
+      imageAlt:
+        'Benchtop test instruments on a workbench, a waveform on the screen of the unit in front, knobs and BNC sockets with probes connected',
+      caption:
+        'In the finished product: a bench instrument is a front-panel board, a measurement board behind shielding and a power board — and the calibration that makes the reading true is done by the instrument maker, not here.',
+    },
     h1: 'Instrument boards: fifty to five hundred, and mostly revisions',
     lede:
       'A bench instrument is a low-volume product with a high-cost front end: guarded inputs, sealed relays, a shielding can over the sensitive part and an accuracy claim printed on the case. The board set is exactly the shape this floor is built around — small batches, many revisions and hand-work that a placement-only house will not quote.',
@@ -1918,6 +2086,13 @@ export const FAMILIES = {
     image: '/assets/images/case-sensors.webp',
     imageAlt:
       'Pressure transmitter with its stainless housing opened, showing the round sensing board, ceramic cell and two-wire terminal block',
+    scene: {
+      image: '/assets/images/scene-sensors.webp',
+      imageAlt:
+        'Pressure transmitter mounted on a stainless process pipe in a plant, round aluminium housing, two-wire cable running away in a tray',
+      caption:
+        'In the finished product: that housing holds a sensor-signal board and a loop-powered output board — and the drift that decides whether it is any good only shows up after months in the plant, not on a bench here.',
+    },
     h1: 'Transmitter boards: the op-amp is the easy part, the seal is not',
     lede:
       'A 4–20 mA transmitter is a round board, a ceramic cell and a housing that has to keep water out for ten years. The assembly is ordinary work. The three things that decide whether it lasts are the potting, the gasket and the calibration, and none of those three happens on this floor.',
@@ -1997,6 +2172,13 @@ export const FAMILIES = {
     image: '/assets/images/case-wearables.webp',
     imageAlt:
       'Round watch case opened on its rigid-flex board, sensor window and thin cell, beside an opened earbud charging case with its control board',
+    scene: {
+      image: '/assets/images/scene-wearables.webp',
+      imageAlt:
+        'Smart watch worn on a wrist with the screen lit, notebook and a cup of coffee on a wooden desk behind',
+      caption:
+        'In the finished product: a watch like that is a main board, a display board and a sensor board stacked into a case the size of a matchbox — and the microamp budget that decides battery life is set at design, not at assembly.',
+    },
     h1: 'Wearable boards: almost nothing on them, and almost no room for a second attempt',
     lede:
       'A watch or an earbud board carries a few hundred parts in the space of a fingernail, often on a rigid-flex that folds twice. Placement is the part this floor does well. Underfill, potting and the sealing test are the parts it does not — and a wearable programme usually asks for all four.',
@@ -2076,6 +2258,13 @@ export const FAMILIES = {
     image: '/assets/images/case-gnss.webp',
     imageAlt:
       'GNSS receiver in a die-cast housing with the lid off, showing the shielded RF section, SMA coax pigtails, module and terminal block, beside its magnetic antenna',
+    scene: {
+      image: '/assets/images/scene-gnss.webp',
+      imageAlt:
+        'GNSS RTK base station on a survey tripod in a harvested field, helical antenna, radio and a rugged data collector hanging from the legs',
+      caption:
+        'In the finished product: the receiver on that tripod is an RF board under the antenna and a processing board in the housing — and the centimetre accuracy it promises depends on the antenna and the fix, neither of which this floor tests.',
+    },
     h1: 'GNSS and telemetry boards: the RF section is what assembly can quietly ruin',
     lede:
       'An RTK receiver or a telemetry module is a small mixed board: an RF front end behind a shield, a module, and a rugged connector set. The placement is easy. What decides the fix time is whether the shield frame sits flat, whether the coax pigtail took too much heat, and whether anyone characterised the antenna — and that last one is not this floor.',
@@ -2156,6 +2345,13 @@ export const FAMILIES = {
     image: '/assets/images/case-led-display.webp',
     imageAlt:
       'LED display receiver card with eight ribbon headers along one edge, beside a sending card with a DVI connector and a coiled grey ribbon cable',
+    scene: {
+      image: '/assets/images/scene-led-display.webp',
+      imageAlt:
+        'Indoor LED video wall filling a mall atrium, cabinet grid visible across a blue and amber gradient, shoppers in silhouette below',
+      caption:
+        'In the finished product: every cabinet in that wall is a driver board and a receiving board, hundreds of them, all expected to match colour — which is why these boards are bought in volume and binned at the cabinet maker.',
+    },
     h1: 'Receiver cards: the joint that fails is a connector, and it fails in year three on a wall nobody can reach',
     lede:
       'A receiver card is a long, narrow board with eight ribbon headers down one edge and a power connector at the end. Placing it is routine work. What decides whether the cabinet survives is the solder volume in those headers and the flatness of a board that is not allowed to bow behind an LED wall — and the part buyers actually care about, the colour and the brightness, is not measured on this floor at all.',
@@ -2236,6 +2432,13 @@ export const FAMILIES = {
     image: '/assets/images/case-off-highway.webp',
     imageAlt:
       'Off-highway machine controller in a finned die-cast housing with the lid off, showing a conformal-coated board, sealed multi-pin connector and power devices bolted to the housing',
+    scene: {
+      image: '/assets/images/scene-off-highway.webp',
+      imageAlt:
+        'Front axle of a tractor with chevron tyres in a stubble field, a sealed cast aluminium controller and heavy connector bolted to the frame',
+      caption:
+        'In the finished product: that sealed aluminium box on the frame is the machine controller — potted, connectorised and vibration tested, and both of those steps happen elsewhere.',
+    },
     h1: 'An off-highway controller is judged in a field, six months after it left the line',
     lede:
       'A machine controller is a coated board in a sealed casting, fed by 12 or 24 V that is allowed to be ugly, driving hydraulic valves through a connector that has to stay dry under a jet wash. The assembly is ordinary. What decides the field failure rate is the coating under the power devices and the joints that carry the valve current through vibration.',
@@ -2317,6 +2520,13 @@ export const FAMILIES = {
     image: '/assets/images/case-car-audio.webp',
     imageAlt:
       'Car audio Class-D amplifier board with a tinned copper bus bar, large electrolytic capacitors, a toroidal inductor and a row of power MOSFETs beside its extruded heatsink and thermal pad',
+    scene: {
+      image: '/assets/images/scene-car-audio.webp',
+      imageAlt:
+        'Car boot with an aftermarket class-D amplifier under its finned top cover, power and speaker terminals in a row, subwoofer beside it',
+      caption:
+        'In the finished product: that amplifier is a class-D power board and a preamp board under the finned lid — and the thermal path from the FETs into that lid is the whole design, which is why mounting torque and interface material matter at assembly.',
+    },
     h1: 'A car amplifier is a power supply with an audio problem, and the board has to survive both',
     lede:
       'A Class-D car amplifier is a boost converter and a switching bridge on one board, with a bus bar, big electrolytics and a dozen or more power devices clamped to a heatsink. None of that is difficult to place. What decides the yield is voiding under the power devices, and what decides the field failure is the thermal path nobody on this floor can measure.',
@@ -2398,6 +2608,13 @@ export const FAMILIES = {
     image: '/assets/images/case-dc-charger.webp',
     imageAlt:
       'DC charging power module with the cover off, showing heavy-copper bus bars, power modules bolted to a cold plate, a planar transformer and vertical gate-driver boards',
+    scene: {
+      image: '/assets/images/scene-dc-charger.webp',
+      imageAlt:
+        'DC fast charger cabinet at a highway service area at dusk, large screen lit, liquid-cooled cable plugged into a car',
+      caption:
+        'In the finished product: a DC fast charger is a stack of power modules, a control board and a metering board — the modules are bought as modules, so what is assembled here is the control and the interface, not the conversion stage.',
+    },
     h1: 'A charging power module is argued over in efficiency points, and nobody here owns a load bank',
     lede:
       'A 20 to 40 kW module is two or three heavy boards, a laminated bus bar, power devices bolted to a cold plate and a stack of magnetics, inside a casting with coolant barbs on it. Placing it is not the hard part. The hard part is that everything a buyer wants to know about it — efficiency, thermals, harmonics — is measured on a load this floor does not have.',
@@ -2478,6 +2695,13 @@ export const FAMILIES = {
     image: '/assets/images/case-ip-camera.webp',
     imageAlt:
       'IP camera main board with SoC heatsink, RJ45 jack, PoE magnetics and sensor connector, beside an access-control reader board with relay, terminal block and RFID antenna coil, and a detached lens module',
+    scene: {
+      image: '/assets/images/scene-ip-camera.webp',
+      imageAlt:
+        'Security camera mounted under a roof eave at night, infrared ring around the lens and an Ethernet cable entering through a sealed gland',
+      caption:
+        'In the finished product: that dome is a sensor board, a main SoC board and a PoE board, and the sealed gland on the cable is what decides whether the whole unit survives a winter — a sealing step done here only to the board, not to the housing.',
+    },
     h1: 'An IP camera board is easy to assemble and hard to prove, because the proof is an image',
     lede:
       'A camera main board is a system-on-chip, a PoE front end, a sensor connector and a card slot on a dense square PCB. Nothing about placing it is unusual. What is unusual is how completely the product is judged by something this floor never looks at — a picture, in a room, at night, after two years on a wall.',
