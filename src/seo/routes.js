@@ -416,6 +416,12 @@ export function headFor(path) {
 
 // The static host only serves the prerendered file at a real file path, so the
 // canonical form of an inner page carries the .html extension.
+//
+// Every internal <a href> has to be written in this same form. The host answers
+// /rfq and /rfq.html with the same 200 body, so a link written without the
+// extension still lands on the right page — but it names a URL that the page it
+// lands on disowns in its own canonical. That leaves two URLs per inner page in
+// a crawler's graph, and the one the link names is the wrong one.
 export function canonicalFor(path) {
   return path === '/' ? `${SITE_URL}/` : `${SITE_URL}${path}.html`;
 }

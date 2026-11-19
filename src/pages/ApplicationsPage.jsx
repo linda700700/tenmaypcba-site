@@ -99,7 +99,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
 
           <div className="mt-7 grid grid-cols-1 gap-3 sm:flex sm:flex-wrap sm:items-center">
             <a
-              href="/rfq"
+              href="/rfq.html"
               className="inline-flex items-center justify-center gap-2 rounded bg-brand-500 px-6 py-3.5 text-[15.5px] font-bold text-white transition-colors hover:bg-brand-400"
             >
               Send files for a quote
@@ -310,7 +310,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
                         </a>
                       )}
                       <a
-                        href="/rfq"
+                        href="/rfq.html"
                         className="inline-flex items-center gap-1 text-[14.5px] font-bold text-brand-700 hover:underline"
                       >
                         Quote this board
@@ -390,7 +390,7 @@ export default function ApplicationsPage({ initialHash = '' }) {
                   ))}
                 </ul>
                 <a
-                  href="/rfq"
+                  href="/rfq.html"
                   className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded bg-brand-500 px-4 py-3 text-[15px] font-bold text-white transition-colors hover:bg-brand-400"
                 >
                   Send the pack

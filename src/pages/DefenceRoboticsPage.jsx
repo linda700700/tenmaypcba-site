@@ -217,7 +217,7 @@ export default function DefenceRoboticsPage() {
           <nav className="flex flex-wrap items-center gap-1.5 text-[13px] text-brand-200">
             <a href="/" className="hover:text-white">Home</a>
             <ChevronRight className="h-3.5 w-3.5 text-brand-400" />
-            <a href="/applications" className="hover:text-white">Applications</a>
+            <a href="/applications.html" className="hover:text-white">Applications</a>
             <ChevronRight className="h-3.5 w-3.5 text-brand-400" />
             <span className="text-white">Defence &amp; robotics</span>
           </nav>
@@ -239,7 +239,7 @@ export default function DefenceRoboticsPage() {
 
               <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <a
-                  href="/rfq"
+                  href="/rfq.html"
                   className="inline-flex items-center justify-center gap-2 rounded bg-brand-500 px-6 py-3.5 text-[15.5px] font-bold text-white transition-colors hover:bg-brand-400"
                 >
                   Send files for a quote
@@ -548,7 +548,7 @@ export default function DefenceRoboticsPage() {
                     ))}
                   </ul>
                   <a
-                    href="/rfq"
+                    href="/rfq.html"
                     className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded bg-brand-500 px-4 py-3 text-[15px] font-bold text-white transition-colors hover:bg-brand-400"
                   >
                     Send the pack
@@ -593,15 +593,15 @@ export default function DefenceRoboticsPage() {
       <section className="bg-white py-10">
         <div className="mx-auto max-w-[1240px] px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center gap-3 text-[14.5px]">
-            <a href="/applications" className="font-bold text-brand-700 hover:underline">
+            <a href="/applications.html" className="font-bold text-brand-700 hover:underline">
               All board families by application
             </a>
             <span className="text-slate-300">·</span>
-            <a href="/capabilities" className="font-bold text-brand-700 hover:underline">
+            <a href="/capabilities.html" className="font-bold text-brand-700 hover:underline">
               Line capabilities and equipment
             </a>
             <span className="text-slate-300">·</span>
-            <a href="/company" className="font-bold text-brand-700 hover:underline">
+            <a href="/company.html" className="font-bold text-brand-700 hover:underline">
               Company record and licence
             </a>
           </div>

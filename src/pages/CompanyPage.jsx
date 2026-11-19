@@ -225,7 +225,7 @@ export default function CompanyPage() {
 
             <div className="mt-7 flex flex-col gap-3 sm:flex-row sm:items-center">
               <a
-                href="/rfq"
+                href="/rfq.html"
                 className="inline-flex items-center justify-center gap-2 rounded bg-brand-500 px-6 py-3.5 text-[15.5px] font-bold text-white transition-colors hover:bg-brand-400"
               >
                 Request a quote
@@ -383,7 +383,7 @@ export default function CompanyPage() {
             </p>
             <div className="mt-4 flex flex-col gap-3 sm:flex-row">
               <a
-                href="/rfq"
+                href="/rfq.html"
                 className="inline-flex items-center justify-center gap-2 rounded bg-brand-600 px-5 py-3 text-[15px] font-semibold text-white transition-colors hover:bg-brand-700"
               >
                 Request a quote
