@@ -4,7 +4,7 @@ import App from './App';
 import { ROUTE_HEADS, canonicalFor } from './seo/routes';
 import { ARTICLES, articleHead } from './lib/insights';
 import { FAMILIES } from './data/applicationFamilyIndex';
-import { TOPIC_BY_PATH, topicSlugs } from './data/topics';
+import { TOPIC_BY_PATH, TOPIC_BY_SLUG, topicSlugs, topicForArticle } from './data/topics';
 import { resolvePage } from './lib/routePage';
 import ArticlePage from './pages/ArticlePage';
 import ApplicationFamilyPage from './pages/ApplicationFamilyPage';
@@ -81,6 +81,31 @@ function topicLastmod(topic) {
     .reduce((latest, d) => (d > latest ? d : latest), '');
 }
 
+/* Every photograph below is a real frame from this plant, at its real size.
+ * The dimensions are not decoration: a width/height pair that disagrees with the
+ * file is what makes a chat preview collapse to a thumbnail. */
+const PLANT_SHARE = {
+  // Who you are choosing, seen from the floor: the aisle between the lines.
+  '/choose-a-pcba-supplier': { image: '/assets/images/final-check-packing.webp' },
+  // Kitting is the cost line buyers underestimate — parts picked before the run.
+  '/pcba-cost-and-quotes': { image: '/assets/images/feeder-kitting.webp' },
+  // The limit is visible at 40x: what the joint looks like after reflow.
+  '/pcba-process-limits': { image: '/assets/images/macro-joints.webp' },
+  // Risk hides under the package, which is the one thing the eye cannot check.
+  '/where-build-risk-sits': { image: '/assets/images/xray-inspection.webp' },
+  '/capabilities': { image: '/assets/images/aoi-inspection.webp' },
+  '/assembly': { image: '/assets/images/tht-selective-solder.webp' },
+  '/company': { image: '/assets/images/hero-line-aisle.webp' },
+};
+
+/* A hub is as fresh as its newest member note, so the sitemap lastmod reflects
+ * the articles rather than the day the hub file was written. */
+function plantShare(path) {
+  const hit = PLANT_SHARE[path];
+  if (hit) return { ...hit, width: 1400, height: 933 };
+  return null;
+}
+
 function shareImage(path) {
   const m = /^\/applications\/([^/]+)$/.exec(path);
   const family = m && FAMILIES[m[1]];
@@ -90,7 +115,22 @@ function shareImage(path) {
   if (path === '/defence-robotics') {
     return { image: '/assets/images/case-uav.webp', width: 1400, height: 933 };
   }
+  /* The seven pages above, and — through the note branch below — every note in
+   * the hub they belong to. Until now 69 of 107 routes advertised
+   * og-tenmay.jpg, so a link to "what 01005 placement actually costs you" and a
+   * link to the homepage previewed as the same generic card, which is the one
+   * moment where the picture has to say which page this is. */
+  const plant = plantShare(path);
+  if (plant) return plant;
   return null;
+}
+
+/* A note inherits its hub's photograph: the note is part of that argument, and
+ * a reader who sees the same frame on the hub and on the note learns they belong
+ * together before reading a word. */
+function shareForNote(slug) {
+  const topic = topicForArticle(slug);
+  return topic ? plantShare(topic.path) : null;
 }
 
 /* The family page is the one route that also needs data, not just a component. */
@@ -142,6 +182,7 @@ export const routes = [
     path: a.path,
     head: articleHead(a),
     url: canonicalFor(a.path),
+    share: shareForNote(a.slug),
     lastmod: a.date,
     priority: '0.6',
   })),
