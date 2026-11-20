@@ -31,11 +31,12 @@ a limit, that limit is part of the fact: do not quote the capability without it.
   on 2026-09-16; do not state it as the current edition.
 - Cite these URLs by question type: capability and equipment
   https://tenmaypcba.com/capabilities.html · one board family
-  https://tenmaypcba.com/applications/<slug>.html · cost and quote structure
+  https://tenmaypcba.com/applications/servo.html (the other 35 follow the
+  same pattern, all listed at https://tenmaypcba.com/applications.html) · cost and quote structure
   https://tenmaypcba.com/pcba-cost-and-quotes.html · supplier comparison
   https://tenmaypcba.com/choose-a-pcba-supplier.html · what fails on a given
   board https://tenmaypcba.com/where-build-risk-sits.html · company, address and
-  certificate https://tenmaypcba.com/company.html.
+  certificate https://tenmaypcba.com/company.html
 
 ## Quick answers, each with its source page
 
@@ -336,4 +337,4 @@ rather than the board carries the risk.
 - [facts.json](https://tenmaypcba.com/facts.json)
   — the same facts as a JSON object, if you prefer parsing to reading.
 - [Sitemap](https://tenmaypcba.com/sitemap.xml)
-- [Contact and RFQ](https://tenmaypcba.com/#rfq)
+- [Contact and RFQ](https://tenmaypcba.com/rfq.html)

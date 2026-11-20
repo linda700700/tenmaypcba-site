@@ -989,3 +989,45 @@ export function topicForArticle(slug) {
 export function topicSlugs(topic) {
   return topic.steps.flatMap((s) => s.items.map((i) => i.slug));
 }
+
+/* Primary sources, one list per hub.
+ *
+ * Every hub and most notes name a standard — ISO 9001, ANSI/ESD S20.20, the
+ * IEC 61340 series — and until now none of them was linked. A reader who wants
+ * to check the claim had to leave and search, and an answer engine had nothing
+ * to anchor the claim to but this site's own word for it.
+ *
+ * Only documents that were fetched live and confirmed on the issuing body's own
+ * page are listed. The association formerly known as IPC now publishes under
+ * electronics.org and its old /standards path returns 404, so IPC-A-610 and
+ * J-STD-001 stay unlinked here until a stable page exists for them. A link that
+ * 404s is worse than no link: it tells the reader the claim is unverified.
+ */
+export const HUB_SOURCES = {
+  'choose-a-pcba-supplier': [
+    {
+      label: 'ISO 9001:2026 — quality management systems, requirements',
+      note: 'the current edition, published 2026-09-16',
+      href: 'https://www.iso.org/standard/9001',
+    },
+    {
+      label: 'ISO 9001:2015 — the edition this plant was certified against',
+      note: 'marked withdrawn on the same page, 2026-09-16',
+      href: 'https://www.iso.org/standard/62085.html',
+    },
+  ],
+  'pcba-process-limits': [
+    {
+      label: 'EOS/ESD Association standards — ANSI/ESD S20.20 and the IEC 61340 series',
+      note: 'what an ESD control programme is audited against',
+      href: 'https://www.esda.org/standards/',
+    },
+  ],
+  'where-build-risk-sits': [
+    {
+      label: 'EOS/ESD Association standards — ANSI/ESD S20.20 and the IEC 61340 series',
+      note: 'the documents behind the handling claims in these notes',
+      href: 'https://www.esda.org/standards/',
+    },
+  ],
+};

@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowRight, ArrowLeft, Clock, Table2 } from 'lucide-react';
 import { SITE_URL, canonicalFor } from '../seo/routes';
 import { articleBySlug, formatDate } from '../lib/insights';
-import { topicSlugs } from '../data/topics';
+import { topicSlugs, HUB_SOURCES } from '../data/topics';
 
 /*
  * A topic hub over a slice of src/content/insights/.
@@ -277,6 +277,32 @@ export default function TopicPage({ topic }) {
           </aside>
         </div>
       </section>
+
+      {/* Primary sources. Three hubs name a standard the reader can go and
+          read; this is that pointer, kept to the documents and the editions
+          that were actually checked, not a reading list. */}
+      {(HUB_SOURCES[topic.slug] || []).length > 0 ? (
+        <section className="mx-auto max-w-[1100px] px-4 pb-12 sm:px-6 lg:px-8">
+          <h2 className="text-[13px] font-bold uppercase tracking-[0.14em] text-[#126B3F]">
+            Primary sources
+          </h2>
+          <ul className="mt-3 max-w-[760px] space-y-2">
+            {HUB_SOURCES[topic.slug].map((src) => (
+              <li key={src.href} className="text-[14px] leading-relaxed text-slate-700">
+                <a
+                  href={src.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-semibold text-[#126B3F] underline decoration-[#126B3F]/40 underline-offset-2 hover:decoration-[#126B3F]"
+                >
+                  {src.label}
+                </a>
+                <span className="text-slate-500"> — {src.note}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null}
 
       <section className="border-t border-brand-200/50 bg-brand-50">
         <div className="mx-auto flex max-w-[1100px] flex-col items-start gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-8">
