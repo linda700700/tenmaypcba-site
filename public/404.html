@@ -62,19 +62,33 @@
       <div class="mark">Tenmay · PCBA</div>
       <h1>That page isn’t here.</h1>
       <p>
-        The address may be mistyped, or the page has moved. Everything on this site lives on
-        four entry points — the ones below all work.
+        The address may be mistyped, or the page has moved. Two ways forward: the closest matches
+        below, or the four guides that between them cover every question this site answers.
       </p>
+
+      <div id="hint" hidden>
+        <div class="sub">Closest matches</div>
+        <ul class="links" id="hint-list"></ul>
+      </div>
+
       <a class="btn" href="/">Back to the homepage</a>
       <a class="plain" href="/capabilities.html">Capabilities</a>
       <a class="plain" href="/rfq.html">Request a quote</a>
 
+      <div class="sub">Start from a question</div>
+      <ul class="links">
+        <li><a href="/choose-a-pcba-supplier.html">Should one supplier build the whole product?</a></li>
+        <li><a href="/pcba-cost-and-quotes.html">What actually sits inside a PCBA price</a></li>
+        <li><a href="/pcba-process-limits.html">What the process proves, what it only appears to</a></li>
+        <li><a href="/where-build-risk-sits.html">Which step decides whether the board survives</a></li>
+      </ul>
+
       <div class="sub">Find the page you wanted</div>
-      <form action="https://duckduckgo.com/" method="get" role="search">
-        <input type="hidden" name="sites" value="tenmaypcba.com" />
-        <input type="search" name="q" aria-label="Search tenmaypcba.com" placeholder="Part number, process or board type" />
+      <form action="https://duckduckgo.com/" method="get" role="search" id="search-form">
+        <input type="search" name="q" id="search-input" aria-label="Search tenmaypcba.com" placeholder="Part number, process or board type" />
         <button type="submit">Search</button>
       </form>
+
 
       <div class="sub">Board families</div>
       <ul class="links">
@@ -99,5 +113,94 @@
         <li><a href="/company.html">Company</a></li>
       </ul>
     </main>
+
+    <script>
+      /*
+       * Two jobs, both for the one visitor a 404 page actually has: a person who
+       * arrived on an address that used to work, or an address a colleague
+       * truncated in an email.
+       *
+       * 1. Say what they probably meant. The route list is fetched from
+       *    /404-index.json, which the build writes from the same source as the
+       *    sitemap, so this cannot go stale as pages are added.
+       * 2. Make the search actually scoped to this site. DuckDuckGo restricts by
+       *    a `site:` operator inside the query; the old `sites=` parameter it was
+       *    given here is not a real input, so it returned the whole web.
+       *
+       * No analytics: this file is served without the consent gate the site uses,
+       * so counting 404s here would mean counting people who never agreed to be
+       * counted. Cloudflare's logs and Search Console already answer the question.
+       */
+      (function () {
+        var WORDS = /[\/\-_.\s]+/;
+
+        function words(value) {
+          return String(value || '')
+            .toLowerCase()
+            .split(WORDS)
+            .filter(function (w) { return w.length > 1; });
+        }
+
+        var wanted = window.location.pathname.replace(/\.html$/, '').replace(/\/+$/, '');
+        var wantedWords = words(wanted);
+
+        function render(matches) {
+          if (!matches.length) return;
+          var list = document.getElementById('hint-list');
+          matches.forEach(function (m) {
+            var li = document.createElement('li');
+            var a = document.createElement('a');
+            a.href = m.p === '/' ? '/' : m.p + '.html';
+            a.textContent = m.t;
+            li.appendChild(a);
+            list.appendChild(li);
+          });
+          document.getElementById('hint').hidden = false;
+        }
+
+        if (wantedWords.length) {
+          fetch('/404-index.json')
+            .then(function (r) { return r.ok ? r.json() : []; })
+            .then(function (pages) {
+              var scored = pages
+                .map(function (page) {
+                  var pageWords = words(page.p);
+                  var hits = 0;
+                  wantedWords.forEach(function (w) {
+                    for (var i = 0; i < pageWords.length; i += 1) {
+                      if (pageWords[i].indexOf(w) !== -1 || w.indexOf(pageWords[i]) !== -1) { hits += 1; break; }
+                    }
+                  });
+                  /* A shared word is worth something; sharing the address itself
+                   * is worth much more, because that is the near-miss case — the
+                   * right page with a dropped suffix or a wrong folder. */
+                  var exact = page.p === wanted ? 100 : 0;
+                  /* Only a near miss of real substance counts. Without the length
+                   * floor the homepage matches every request — its path is "/" and
+                   * every path starts with one — which pushed the actual answer
+                   * down the list. */
+                  var near =
+                    page.p.length > 2 && wanted.length > 2 &&
+                    (page.p.indexOf(wanted) === 0 || wanted.indexOf(page.p) === 0)
+                      ? 10
+                      : 0;
+                  return { p: page.p, t: page.t, s: hits * 3 + exact + near };
+                })
+                .filter(function (m) { return m.s > 3; })
+                .sort(function (a, b) { return b.s - a.s; })
+                .slice(0, 3);
+              render(scored);
+            })
+            .catch(function () {});
+        }
+
+        document.getElementById('search-form').addEventListener('submit', function (event) {
+          var input = document.getElementById('search-input');
+          var term = input.value.trim();
+          if (!term) { event.preventDefault(); return; }
+          if (term.indexOf('site:') === -1) input.value = 'site:tenmaypcba.com ' + term;
+        });
+      })();
+    </script>
   </body>
 </html>

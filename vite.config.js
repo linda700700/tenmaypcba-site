@@ -232,6 +232,23 @@ ${urls}
 `
       );
 
+      /*
+       * The 404 page is the only place on this site that has to guess what a
+       * visitor wanted. It gets the real route list plus each page's title, so a
+       * truncated or mistyped address lands on the actual page instead of a
+       * dead end — and because it is generated from `routes`, it cannot drift
+       * out of step with the pages that exist.
+       *
+       * Paths are stored without the `.html` so the matcher compares like with
+       * like: visitors arrive with both forms and the host serves both.
+       */
+      writeFileSync(
+        join(root, 'dist/404-index.json'),
+        JSON.stringify(
+          routes.map((r) => ({ p: r.path.replace(/\.html$/, '') || '/', t: r.head.title }))
+        )
+      );
+
       // RSS for the insight notes. Without it the only way to notice a new
       // article is to re-crawl /insights and diff the page, which is not a
       // cadence anyone keeps. Items are the article routes: those are the only
