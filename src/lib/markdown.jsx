@@ -14,8 +14,22 @@ export function inline(text, keyPrefix = 'i') {
   const parts = String(text).split(INLINE);
   return parts.filter(Boolean).map((part, i) => {
     const key = `${keyPrefix}-${i}`;
+    /*
+     * Emphasis has to re-enter this function on its inner text, not print it.
+     * The split pattern lets `*…*` swallow a whole line, and a line that wraps a
+     * Markdown link — the closing attribution line on a note does exactly that —
+     * would then reach the reader as `[WhatsApp](https://wa.me/…)`, brackets and
+     * all, with no link on it. Nineteen notes were doing this.
+     *
+     * The inner text cannot contain `*` (the pattern excludes it), so the
+     * recursion is one level deep and cannot run away.
+     */
     if (part.startsWith('**') && part.endsWith('**')) {
-      return <strong key={key} className="font-semibold text-slate-900">{part.slice(2, -2)}</strong>;
+      return (
+        <strong key={key} className="font-semibold text-slate-900">
+          {inline(part.slice(2, -2), `${key}-b`)}
+        </strong>
+      );
     }
     if (part.startsWith('`') && part.endsWith('`')) {
       return (
@@ -40,7 +54,11 @@ export function inline(text, keyPrefix = 'i') {
       );
     }
     if (part.startsWith('*') && part.endsWith('*') && part.length > 2) {
-      return <em key={key} className="italic">{part.slice(1, -1)}</em>;
+      return (
+        <em key={key} className="italic">
+          {inline(part.slice(1, -1), `${key}-e`)}
+        </em>
+      );
     }
     return <React.Fragment key={key}>{part}</React.Fragment>;
   });

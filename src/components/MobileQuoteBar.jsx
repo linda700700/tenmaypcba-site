@@ -39,6 +39,7 @@ export default function MobileQuoteBar({ path = '/' }) {
 
   return (
     <div
+      data-component="mobile-quote-bar"
       className={`fixed inset-x-0 bottom-0 z-[60] border-t border-brand-900/30 bg-brand-900/97 px-3 pb-[max(0.6rem,env(safe-area-inset-bottom))] pt-2.5 backdrop-blur transition-transform duration-200 md:hidden ${
         visible ? 'translate-y-0' : 'translate-y-full'
       }`}
