@@ -11,6 +11,7 @@ import {
   assertTopicCoverage,
 } from './tools/insights-meta.mjs';
 import { writeFamilyData } from './tools/family-index.mjs';
+import { DEFAULT_WA_TEXT } from './src/data/company.js';
 import { dirname, join } from 'node:path';
 
 // Absolute origin used for og:image and canonical URLs in the prerendered HTML.
@@ -44,6 +45,53 @@ const familyCount = writeFamilyData();
 
 function esc(value) {
   return String(value).replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;');
+}
+
+/*
+ * Stamps every WhatsApp link with the route it sits on.
+ *
+ * The buttons all open the same chat with the same sentence, so an incoming
+ * message cannot be traced to a page — and WhatsApp strips the referrer, so no
+ * analytics tool can recover it either. The message itself is the only carrier
+ * that survives the hop.
+ *
+ * This runs on the prerendered HTML rather than in React for one reason: it has
+ * to hold for a visitor whose JavaScript never executes. The client-side
+ * attributor in src/lib/waAttribution.js then upgrades the marker to
+ * route + section at click time, replacing this one rather than adding a second.
+ *
+ * The payload is percent-encoded, so the marker is written encoded here and
+ * stripped-then-restored on the client after decoding. Written in one place, read
+ * in another: the two patterns must stay in step.
+ */
+const WA_HREF = /https:\/\/wa\.me\/8617361058693(?:\?text=([^"&]*))?/g;
+
+/* The bare form — `[WhatsApp](https://wa.me/…)` with no query, which is how the
+ * closing line of a note links out — still has to arrive with a request in it,
+ * so it gets the same sentence the buttons use. Imported rather than retyped:
+ * two copies of one sentence is how they stop matching. */
+function attributeWa(html, routePath) {
+  let ref = String(routePath || '/').replace(/\.html$/, '').replace(/\/+$/, '');
+  if (ref === '') ref = 'home';
+  else ref = ref.replace(/^\//, '');
+  const marker = `\n\n[ref: ${ref}]`;
+
+  return html.replace(WA_HREF, (whole, encoded) => {
+    let text;
+    if (encoded === undefined) {
+      text = DEFAULT_WA_TEXT;
+    } else {
+      try {
+        text = decodeURIComponent(encoded);
+      } catch (err) {
+        return whole;
+      }
+    }
+    /* Idempotent: a template already carrying a marker is rewritten, not
+     * appended to, so running this twice cannot double the text. */
+    text = text.replace(/\s*\[ref:[^\]]*\]/g, '');
+    return `https://wa.me/8617361058693?text=${encodeURIComponent(`${text}${marker}`)}`;
+  });
 }
 
 function setMeta(html, kind, key, value) {
@@ -193,6 +241,10 @@ function routePrerender() {
         // client-side renderer sets the property properly either way, so only
         // the serialised HTML needs normalising.
         html = html.replace(/ srcSet=/g, ' srcset=');
+
+        // After the body is in, so the links being stamped are the ones the
+        // visitor will actually see. Keyed to this route, not to the template.
+        html = attributeWa(html, routePath);
 
         if (routePath === '/') {
           writeFileSync(join(root, 'dist/index.html'), html);

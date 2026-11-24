@@ -4,7 +4,10 @@ import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 
 export default function ClosingCta() {
   return (
-    <section className="relative overflow-hidden bg-brand-900 py-14 sm:py-16">
+    <section
+      data-component="closing-cta"
+      className="relative overflow-hidden bg-brand-900 py-14 sm:py-16"
+    >
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 opacity-[0.14]"

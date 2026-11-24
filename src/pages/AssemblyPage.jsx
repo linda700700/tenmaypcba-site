@@ -102,7 +102,7 @@ export default function AssemblyPage() {
   const [tab, setTab] = useState(0);
 
   return (
-    <>
+    <div data-component="assembly-page">
       {/* page hero */}
       <section className="relative overflow-hidden bg-[#062A1E] py-12 sm:py-14">
         <div
@@ -301,6 +301,6 @@ export default function AssemblyPage() {
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 }

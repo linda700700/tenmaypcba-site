@@ -7,11 +7,21 @@ import { prefetchBody } from './lib/insights';
 import { resolvePage } from './lib/routePage';
 import { pageChunk } from './lib/pageChunks';
 import { loadFamilyBody } from './lib/familyContent';
+import { installWaAttribution } from './lib/waAttribution';
 
 // The prerendered markup exists for crawlers. The client takes over the
 // container from there, so no hydration mismatch can ship to users.
 // Not awaited: the compiled copy paints first, overrides land a moment later.
 loadContent();
+
+/*
+ * Before anything renders, and on purpose: the WhatsApp links are already in the
+ * prerendered HTML, so a visitor can tap one without waiting for a page chunk.
+ * Installing here means the href is attributed from the first possible moment,
+ * and stays attributed for links React mounts later — the listener is on the
+ * document, not on any component.
+ */
+installWaAttribution();
 
 const boot = (page, family) => {
   createRoot(document.getElementById('root')).render(
