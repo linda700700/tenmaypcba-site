@@ -207,6 +207,15 @@ function routePrerender() {
         writeFileSync(target, html);
       }
 
+      /* The search corpus is read back from the files that were just written, not
+       * carried out of the loop above. That costs one pass over 107 local files
+       * and buys a property worth having: an entry exists only if the page it
+       * points at exists, because both came from the same byte on disk. The
+       * header fetches this only after a visitor touches the search box, so
+       * nothing on the critical path grows. */
+      const { writeSearchIndex } = await import('./tools/search-index.mjs');
+      const searchIndex = writeSearchIndex(join(root, 'dist'), routes);
+
       // Sitemap is generated rather than hand-maintained: a route that is not in
       // it is a page search engines have to discover on their own.
       // <lastmod> is optional. Stamping every static page with the build date
@@ -301,7 +310,7 @@ ${feedItems}
       writeFileSync(join(root, 'dist/sw.js'), swSource.replace('__CACHE_VERSION__', entry));
 
       this.warn(
-        `prerendered ${routes.length} routes (${familyCount.families} families, ${familyCount.bodies} bodies), sitemap written, service worker v${entry}`
+        `prerendered ${routes.length} routes (${familyCount.families} families, ${familyCount.bodies} bodies), sitemap written, ${searchIndex.length} pages searchable, service worker v${entry}`
       );
     },
   };
