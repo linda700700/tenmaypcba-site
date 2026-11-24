@@ -1,9 +1,10 @@
-import React, { useEffect, useMemo, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
-  ArrowRight, Menu, X, Phone, Search, ChevronDown,
+  ArrowRight, Menu, X, Phone, ChevronDown,
   Upload, MapPin, Clock, MessageCircle, FileDown,
 } from 'lucide-react';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
+import SiteSearch from './SiteSearch';
 import { imgAttrs } from '../lib/imageSize';
 
 /*
@@ -276,19 +277,7 @@ const NAV = [
   },
 ];
 
-/* Flat index used by the header search box. Derived from NAV so it cannot drift. */
 const resolveHref = (href) => (href === 'wa' ? waLink(DEFAULT_WA_TEXT) : href);
-
-const SEARCH_INDEX = NAV.flatMap((section) =>
-  (section.groups || []).flatMap((g) =>
-    g.items.map((item) => ({
-      label: item.label,
-      href: resolveHref(item.href),
-      group: `${section.label} · ${g.title}`,
-      kw: item.kw || '',
-    }))
-  )
-);
 
 const UTILITY = [
   { icon: MapPin, text: 'Shenzhen, China' },
@@ -299,8 +288,6 @@ export default function Navbar({ currentPath = '/' }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openMenu, setOpenMenu] = useState(null);
   const [scrolled, setScrolled] = useState(false);
-  const [query, setQuery] = useState('');
-  const [searchOpen, setSearchOpen] = useState(false);
   const [openMobileGroup, setOpenMobileGroup] = useState(null);
   const headerRef = useRef(null);
 
@@ -315,14 +302,12 @@ export default function Navbar({ currentPath = '/' }) {
     const onKey = (e) => {
       if (e.key === 'Escape') {
         setOpenMenu(null);
-        setSearchOpen(false);
         setMobileOpen(false);
       }
     };
     const onClick = (e) => {
       if (headerRef.current && !headerRef.current.contains(e.target)) {
         setOpenMenu(null);
-        setSearchOpen(false);
       }
     };
     document.addEventListener('keydown', onKey);
@@ -332,26 +317,6 @@ export default function Navbar({ currentPath = '/' }) {
       document.removeEventListener('mousedown', onClick);
     };
   }, []);
-
-  const results = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
-    return SEARCH_INDEX.filter(
-      (r) =>
-        r.label.toLowerCase().includes(q) ||
-        r.group.toLowerCase().includes(q) ||
-        r.kw.includes(q)
-    ).slice(0, 8);
-  }, [query]);
-
-  const submitSearch = (e) => {
-    e.preventDefault();
-    if (results[0]) {
-      window.location.href = results[0].href;
-      setSearchOpen(false);
-      setQuery('');
-    }
-  };
 
   const activeSection = NAV.find((s) => s.id === openMenu);
 
@@ -449,59 +414,10 @@ export default function Navbar({ currentPath = '/' }) {
             </div>
           </a>
 
-          {/* Search */}
-          <form onSubmit={submitSearch} className="relative flex-1 max-w-[460px] hidden md:block">
-            <div className="flex items-stretch border border-slate-300/80 rounded focus-within:border-[#126B3F] focus-within:ring-2 focus-within:ring-blue-100 transition-all bg-white">
-              <input
-                type="search"
-                value={query}
-                onFocus={() => setSearchOpen(true)}
-                onChange={(e) => {
-                  setQuery(e.target.value);
-                  setSearchOpen(true);
-                }}
-                placeholder="Search part number, service or capability"
-                aria-label="Search the site"
-                className="flex-1 min-w-0 px-3 py-2 text-[12.5px] text-slate-800 placeholder:text-slate-400 outline-none bg-transparent"
-              />
-              <button
-                type="submit"
-                aria-label="Search"
-                className="px-3 bg-[#126B3F] hover:bg-[#0B5A34] text-white flex items-center transition-colors rounded-r"
-              >
-                <Search className="w-4 h-4" />
-              </button>
-            </div>
-
-            {searchOpen && query.trim() && (
-              <div className="absolute z-50 left-0 right-0 top-full mt-1.5 bg-white border border-brand-200/50 rounded shadow-xl overflow-hidden">
-                {results.length ? (
-                  <ul className="max-h-[340px] overflow-y-auto divide-y divide-slate-100">
-                    {results.map((r) => (
-                      <li key={r.href + r.label}>
-                        <a
-                          href={r.href}
-                          className="flex items-start justify-between gap-3 px-3 py-2.5 hover:bg-brand-50/70 transition-colors"
-                          onClick={() => setSearchOpen(false)}
-                        >
-                          <span className="text-[12.5px] font-semibold text-slate-800">{r.label}</span>
-                          <span className="text-[10.5px] text-slate-400 shrink-0 pt-0.5">{r.group}</span>
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                ) : (
-                  <div className="px-3 py-4 text-[12px] text-slate-500">
-                    No match. Send the part number to{' '}
-                    <a href={waLink(DEFAULT_WA_TEXT)} target="_blank" rel="noopener noreferrer" className="text-[#126B3F] font-semibold hover:underline">
-                      our engineering desk
-                    </a>
-                    .
-                  </div>
-                )}
-              </div>
-            )}
-          </form>
+          {/* Search. The field and its results live in their own component: the
+              mobile drawer needs the same behaviour, and two copies of a query
+              that must agree on scoring is two chances to disagree. */}
+          <SiteSearch variant="header" />
 
           <div className="ml-auto flex items-center gap-2 sm:gap-3">
             <a
@@ -646,33 +562,11 @@ export default function Navbar({ currentPath = '/' }) {
       {mobileOpen && (
         <div className="lg:hidden bg-white border-b border-brand-200/50 shadow-xl max-h-[calc(100vh-104px)] overflow-y-auto">
           <div className="px-4 py-3 border-b border-slate-100">
-            <form onSubmit={submitSearch} className="flex items-stretch border border-slate-300/80 rounded overflow-hidden">
-              <input
-                type="search"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search service or capability"
-                aria-label="Search the site"
-                className="flex-1 min-w-0 px-3 py-2 text-[13px] outline-none"
-              />
-              <button type="submit" className="px-3 bg-[#126B3F] text-white" aria-label="Search">
-                <Search className="w-4 h-4" />
-              </button>
-            </form>
-            {query.trim() && (
-              <ul className="mt-2 divide-y divide-slate-100 border border-brand-200/50 rounded overflow-hidden">
-                {results.length ? results.map((r) => (
-                  <li key={r.href + r.label}>
-                    <a href={r.href} onClick={() => { setMobileOpen(false); setQuery(''); }} className="block px-3 py-2.5">
-                      <div className="text-[12.5px] font-semibold text-slate-800">{r.label}</div>
-                      <div className="text-[10.5px] text-slate-400">{r.group}</div>
-                    </a>
-                  </li>
-                )) : (
-                  <li className="px-3 py-3 text-[12px] text-slate-500">No match.</li>
-                )}
-              </ul>
-            )}
+            <SiteSearch
+              variant="drawer"
+              autoFocus
+              onNavigate={() => setMobileOpen(false)}
+            />
           </div>
 
           <ul className="divide-y divide-slate-100">
