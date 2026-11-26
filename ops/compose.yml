@@ -42,6 +42,11 @@ services:
       # the container: Search Console today, GA4 later. The process only ever
       # reads them, so a write would be a bug rather than a feature.
       - /opt/tenmay/secrets:/etc/tenmay/secrets:ro
+      # Gerber and BOM archives. Deliberately NOT under /app: /app is the code
+      # directory, and a path inside it would be served the day somebody points
+      # a static file server at it. Each upload is written under a 32-character
+      # token directory, mode 0700.
+      - /opt/tenmay/uploads:/data/uploads
     env_file:
       - /opt/tenmay/dataplane.env
     ports:

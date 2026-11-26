@@ -421,6 +421,16 @@ export default function Navbar({ currentPath = '/' }) {
 
           <div className="ml-auto flex items-center gap-2 sm:gap-3">
             <a
+              href="/catalog/TENMAY-PCBA-Catalogue-2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-slate-700 border border-slate-300/80 hover:border-emerald-600 hover:text-emerald-700 px-3 py-2 rounded transition-colors"
+              title="2026 Engineering & Process Capability Catalog (25-Page PDF)"
+            >
+              <FileDown className="w-3.5 h-3.5 text-emerald-600" />
+              Catalog (PDF)
+            </a>
+            <a
               href="/#rfq"
               className="hidden lg:inline-flex items-center gap-1.5 text-[12.5px] font-semibold text-slate-700 border border-slate-300/80 hover:border-[#126B3F] hover:text-[#126B3F] px-3 py-2 rounded transition-colors"
             >
@@ -625,22 +635,33 @@ export default function Navbar({ currentPath = '/' }) {
             })}
           </ul>
 
-          <div className="p-4 border-t border-slate-100 flex gap-2">
+          <div className="p-4 border-t border-slate-100 flex flex-col gap-2">
             <a
-              href="/#rfq"
-              onClick={() => setMobileOpen(false)}
-              className="flex-1 text-center bg-[#126B3F] text-white py-2.5 rounded text-[13px] font-semibold"
-            >
-              Get a Quote
-            </a>
-            <a
-              href={waLink(DEFAULT_WA_TEXT)}
+              href="/catalog/TENMAY-PCBA-Catalogue-2026.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex-1 text-center border border-slate-300/80 py-2.5 rounded text-[13px] font-semibold text-slate-700"
+              className="w-full flex items-center justify-center gap-2 border border-slate-300/80 text-slate-700 py-2.5 rounded text-[13px] font-semibold hover:bg-slate-50"
             >
-              WhatsApp
+              <FileDown className="w-4 h-4 text-emerald-600" />
+              Download Capability Catalog (25P PDF)
             </a>
+            <div className="flex gap-2">
+              <a
+                href="/#rfq"
+                onClick={() => setMobileOpen(false)}
+                className="flex-1 text-center bg-[#126B3F] text-white py-2.5 rounded text-[13px] font-semibold"
+              >
+                Get a Quote
+              </a>
+              <a
+                href={waLink(DEFAULT_WA_TEXT)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex-1 text-center border border-slate-300/80 py-2.5 rounded text-[13px] font-semibold text-slate-700"
+              >
+                WhatsApp
+              </a>
+            </div>
           </div>
         </div>
       )}

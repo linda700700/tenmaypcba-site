@@ -4,15 +4,16 @@
  * search across three files.
  *
  * These pages describe what the site actually does today: a quote form that
- * posts to our inquiry intake (no file upload), Google Analytics 4 behind a
- * consent default of "denied", and no advertising or cross-site tracking.
+ * posts to our inquiry intake, a one-time tokenised upload page for Gerber and
+ * BOM, Google Analytics 4 behind a consent default of "denied", and no
+ * advertising or cross-site tracking.
  * If any of that changes, this file and the cookie table are what to update.
  */
 
 export const LEGAL = {
   // Shown at the top of all three pages. Bump it whenever the wording changes.
-  updated: '17 November 2026',
-  version: '1.0',
+  updated: '24 November 2026',
+  version: '1.1',
 
   // Single contact point for privacy requests, data questions and legal notices.
   // Must be a mailbox that actually receives: a privacy request sent to an
@@ -23,6 +24,12 @@ export const LEGAL = {
 
   // Months of inactivity after which a quote request is deleted.
   retentionMonths: 24,
+
+  // Days after upload before a design file is deleted, unless it becomes part of
+  // an order. This number is a promise made on the privacy page and enforced by
+  // the sweep in ops/dataplane/server.js — keep the two in step. Changing one
+  // without the other turns the policy into a false statement.
+  uploadRetentionDays: 90,
 
   // Analytics retention as configured in the GA4 property (GA4 permits 2 or 14
   // months; 14 is the maximum and what the site is set to use).

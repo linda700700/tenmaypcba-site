@@ -195,9 +195,15 @@ export default function CapabilitiesPage() {
               <span>Request an Itemized PCBA Quote</span>
               <ArrowRight className="w-4 h-4" />
             </a>
-            <a href="/#rfq" className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300/80 px-5 py-3 rounded text-sm font-semibold transition-colors">
-              <Download className="w-4 h-4 text-slate-500" />
-              <span>Ask for the capability sheet</span>
+            <a
+              href="/catalog/TENMAY-PCBA-Catalogue-2026.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300/80 px-5 py-3 rounded text-sm font-semibold transition-colors shadow-sm"
+              title="Download 2026 Capability Catalog (25-Page PDF)"
+            >
+              <Download className="w-4 h-4 text-emerald-600" />
+              <span>Download 2026 Capability Catalog (25-Page PDF)</span>
             </a>
           </div>
         </div>

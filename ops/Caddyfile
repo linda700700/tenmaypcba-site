@@ -6,6 +6,12 @@
 
 api.tenmaypcba.com {
 	encode zstd gzip
+	# Uploads: must be LARGER than MAX_FILE_BYTES (40MB), not equal. At equal,
+	# a file sitting exactly on the limit is cut here before Node ever answers,
+	# and the buyer sees a broken connection instead of "file too large".
+	request_body {
+		max_size 50MB
+	}
 	reverse_proxy 127.0.0.1:8787
 }
 

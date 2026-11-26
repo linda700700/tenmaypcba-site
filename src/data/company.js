@@ -133,12 +133,12 @@ export const HISTORY = {
 
 /*
  * External profiles that identify this same legal entity, for schema.org
- * sameAs. Deliberately empty: the two directory profiles that carry the old
- * LED product line and an obsolete ISO 9001:2000 claim must be corrected or
- * retired first — pointing sameAs at them would feed the contradiction to
- * answer engines instead of resolving it.
+ * sameAs. The GitHub repository is the canonical engineering fact sheet
+ * and DFM specification host for TENMAY (Shenzhen Tenmay Technology Co., Ltd.).
  */
-export const SAME_AS = [];
+export const SAME_AS = [
+  'https://github.com/linda700700/tenmaypcba-site',
+];
 
 export const waLink = (text) =>
   `${COMPANY.whatsappHref}?text=${encodeURIComponent(text)}`;

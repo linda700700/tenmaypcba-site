@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle2, FileText, Lock, ArrowRight, Clock, Send, MessageCircle } from 'lucide-react';
+import { CheckCircle2, FileText, Lock, ArrowRight, Clock, Send, MessageCircle, UploadCloud } from 'lucide-react';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 
 /*
@@ -41,6 +41,10 @@ export default function RfqFunnel() {
   const [honeypot, setHoneypot] = useState('');
   const [sending, setSending] = useState(false);
   const [reference, setReference] = useState('');
+  // A one-time upload page, issued by the same request that creates the
+  // inquiry. Empty when the API has no writable upload volume — the success
+  // screen then shows exactly what it showed before uploads existed.
+  const [uploadUrl, setUploadUrl] = useState('');
   const [error, setError] = useState('');
   // Composed request, kept so a failed submit can be handed to WhatsApp instead
   // of telling the visitor to email an address that does not exist.
@@ -48,8 +52,11 @@ export default function RfqFunnel() {
 
   /*
    * The request goes to the workbench intake endpoint, which records it in the
-   * inquiry table straight away. Files are not transmitted there, so the copy
-   * still asks the visitor to email the Gerber / BOM archive.
+   * inquiry table straight away. The form still carries no file: the same
+   * response hands back a one-time upload URL, and the success screen offers it.
+   * The upload is therefore decoupled from the submit — a failed upload can
+   * never lose the lead, and a buyer whose Gerber is on another machine can
+   * come back later.
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -61,7 +68,7 @@ export default function RfqFunnel() {
     const lines = [
       `Service wanted: ${serviceType}`,
       `Quantity band: ${quantity} pcs`,
-      'BOM / Gerber: not attached via web form — request upload link in reply.',
+      'BOM / Gerber: a one-time upload link was issued to the buyer on submit.',
       '',
       'Project notes:',
       notes || '(none)',
@@ -121,6 +128,7 @@ export default function RfqFunnel() {
 
       if (res.ok && out.ok) {
         setReference(out.ref || '');
+        setUploadUrl(out.uploadUrl || '');
         setSubmitted(true);
         // No email, no company, no notes: the event carries only what a report
         // needs to segment the lead by service and size.
@@ -172,7 +180,7 @@ export default function RfqFunnel() {
             Request your itemised quote
           </h2>
           <p className="text-sm text-slate-600 mt-2.5 leading-relaxed">
-            Tell us what you are building and we reply with a secure upload link. Our bilingual manufacturing engineering team reviews your design rules and returns an auditable proposal within one working day.
+            Tell us what you are building, and you can hand over the Gerber and BOM the moment you submit. Our bilingual manufacturing engineering team reviews your design rules and returns an auditable proposal within one working day.
           </p>
 
           {/* The three things a first-time visitor is actually unsure about:
@@ -181,7 +189,7 @@ export default function RfqFunnel() {
           <ol className="mt-6 grid grid-cols-1 gap-3 text-left sm:grid-cols-3">
             {[
               ['1', 'You submit the requirement', 'About a minute. No files needed yet — no BOM, no Gerber.'],
-              ['2', 'We reply within one working day', 'A secure upload link plus any DFM questions, in one message.'],
+              ['2', 'We reply within one working day', 'The itemised price plus any DFM questions, in one message.'],
               ['3', 'You get an itemized quote', 'Per-line pricing, lead time, and the assumptions written down.'],
             ].map(([n, title, body]) => (
               <li key={n} className="flex gap-2.5 rounded-xl border border-brand-200/50 bg-white/70 px-3.5 py-3">
@@ -212,9 +220,37 @@ export default function RfqFunnel() {
               <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
                 Your request is logged. An assembly engineer replies to
                 {' '}<span className="font-semibold text-slate-800">{email}</span> within one working day,
-                with a secure upload link for the Gerber / BOM archive. If it is urgent, send the files on
+                with an itemised price and any DFM questions. If it is urgent, write on
                 {' '}<span className="text-[#126B3F] font-bold">WhatsApp {COMPANY.whatsappDisplay}</span> and quote the reference above.
               </p>
+
+              {/* The upload is the primary action here, not a footnote: the buyer
+                  has already decided to engage, and a Gerber is usually on
+                  another machine at that moment. The link stays valid for seven
+                  days, so offering it now costs nothing when they cannot use it
+                  yet. */}
+              {uploadUrl ? (
+                <div className="mx-auto max-w-md rounded-xl border border-brand-200/60 bg-brand-50/50 p-4 text-left">
+                  <div className="text-[13px] font-bold text-slate-900">
+                    Add your Gerber and BOM now, if you have them
+                  </div>
+                  <p className="mt-1 text-[12px] leading-relaxed text-slate-600">
+                    Optional — nothing is missing from your request without them. The link works for
+                    seven days, so you can also send the files after you have read our questions.
+                  </p>
+                  <a
+                    href={uploadUrl}
+                    className="mt-3 inline-flex items-center gap-2 rounded-lg bg-[#126B3F] px-4 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow-sm hover:bg-[#0B5A34]"
+                  >
+                    <UploadCloud className="w-4 h-4" />
+                    Open the upload page
+                  </a>
+                  <p className="mt-2 text-[11px] leading-snug text-slate-500">
+                    Keep this page open, or bookmark the link — we do not email it separately.
+                  </p>
+                </div>
+              ) : null}
+
               <a
                 href={waLink(DEFAULT_WA_TEXT)}
                 target="_blank"
@@ -225,7 +261,7 @@ export default function RfqFunnel() {
                 WhatsApp {COMPANY.whatsappDisplay}
               </a>
               <button
-                onClick={() => { setSubmitted(false); setReference(''); setError(''); }}
+                onClick={() => { setSubmitted(false); setReference(''); setUploadUrl(''); setError(''); }}
                 className="mt-4 px-6 py-2.5 text-xs font-bold uppercase tracking-wider rounded-lg bg-slate-100 text-slate-700 hover:bg-slate-200"
               >
                 Submit Another Project
@@ -244,7 +280,8 @@ export default function RfqFunnel() {
                     </div>
                     <div className="text-xs text-slate-600 mt-1 leading-relaxed">
                       This form only captures your requirement — files are not uploaded here.
-                      Once you submit, we reply within one working day with a secure upload link.
+                      The moment you submit you get a one-time upload link, and an engineer replies
+                      within one working day with an itemised price.
                     </div>
                     {/* What to have ready, and in what format. No size limit is
                         quoted because the upload link sets its own; a number

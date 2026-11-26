@@ -21,12 +21,11 @@ import { ARTICLE_FAQ } from '../data/articleFaq';
  *  1. FAQPage is emitted on the homepage only. The FAQ block is rendered there
  *     and nowhere else, and shipping the same eight questions under eleven URLs
  *     is duplicate markup, not extra coverage.
- *  2. `sameAs` is still empty, deliberately. The two directory profiles that
- *     could fill it carry the old LED product line and an ISO 9001:2000 claim;
- *     pointing sameAs at them would publish the contradiction rather than
- *     resolve it. They go in once those profiles are corrected or retired.
- *     The street address is no longer a placeholder — it is copied from the
- *     licence, and it sits in company.js where the licence fields live.
+ *  2. `sameAs` points to the canonical GitHub engineering repository
+ *     (linda700700/tenmaypcba-site) which publishes machine-readable DFM rules
+ *     and factory capability facts, reinforcing the legal entity across Google,
+ *     Perplexity, and LLM answer engines.
+ *     The street address is copied from the licence, and it sits in company.js.
  */
 function JsonLd({ id, data }) {
   return (
@@ -121,7 +120,15 @@ export default function Seo({ path = '/' }) {
      * settled on it as the entity name. Leaving it out of alternateName does not
      * hide the spelling, it just leaves the engine free to pick it as primary.
      * Listed here, both strings are declared to be the same entity. */
-    alternateName: [COMPANY.legalName, ISO_CERT.holderAsPrinted, COMPANY.shortName],
+    alternateName: [
+      COMPANY.legalName,
+      ISO_CERT.holderAsPrinted,
+      COMPANY.shortName,
+      'Shenzhen Tengmei',
+      'Tengmei',
+      'TENMAY PCBA',
+      COMPANY.registeredName,
+    ],
     /* Two registry identifiers, both checkable by a third party: the credit code
      * against the business licence, the certificate number against the issuing
      * body's register. A buyer asking "is this company real and is the ISO

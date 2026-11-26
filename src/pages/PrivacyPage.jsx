@@ -5,7 +5,7 @@ import { LEGAL } from '../data/legal';
 /*
  * Written against what the site really does, not a template:
  *   - the quote form posts email, company, service, quantity and notes to our
- *     own intake; Gerber and BOM are not uploaded through the site
+ *     own intake; Gerber and BOM go through a one-time tokenised upload page
  *   - analytics is Google Analytics 4, and its consent default is "denied"
  *     until the visitor accepts on the banner
  *   - there is no advertising pixel, no remarketing and no social embed
@@ -47,9 +47,24 @@ const sections = [
           ]}
         />
         <p>
-          <strong>Files are not uploaded through this site.</strong> The form has no attachment field;
-          when you reply to our answer you can send Gerber, BOM and centroid files by email or through
-          the upload link we provide. Anything you send that way is covered by this policy.
+          <strong>Design files you upload.</strong> The quote form has no attachment field. When you
+          submit it we issue a one-time link, and that link opens a page where you can send Gerber,
+          BOM and centroid files. Anything you send there is handled as your confidential design
+          information and is covered by this policy.
+        </p>
+        <LegalList
+          items={[
+            'What we receive: the files you choose, their original filenames, their size, and the time they arrived. A manufacturing file often carries your name or your company in its title block or metadata; we do not strip that out, and we do not use it for anything except the quote.',
+            'Why: to review the design for manufacturability, to price the assembly, and to build it if you order. Nothing else \u2014 not marketing, not a product catalogue, not a case study.',
+            'Who can open it: our engineering team and the one sales contact handling your request. Not other customers. Not a subcontractor unless you agree in writing. Not any analytics or advertising service \u2014 the scripts on our site never see these files.',
+            'Where it sits: on our own server, outside the public web root, reachable only through the link token we gave you or by a signed-in member of staff. The folder is not indexed by search engines and no page links to it.',
+            `How long: deleted ${LEGAL.uploadRetentionDays} days after upload unless an order follows. If an order follows, the design files are kept as production records for as long as accounting and tax law requires, and then deleted.`,
+            'Deleting it sooner: write to the address in section 1 and we delete the files within five working days, whether or not a quote is still open.',
+          ]}
+        />
+        <p>
+          We sign an NDA on request, before you upload. Ask first and the files are covered from the
+          moment they arrive.
         </p>
 
         <p className="pt-2 font-semibold text-slate-800">When you browse</p>
@@ -145,6 +160,7 @@ const sections = [
         <LegalList
           items={[
             `Quote requests that do not become an order: ${LEGAL.retentionMonths} months after our last exchange, then deleted.`,
+            `Design files you upload: ${LEGAL.uploadRetentionDays} days after upload, or longer if they become part of an order, as set out in section 2.`,
             `Analytics data: up to ${LEGAL.analyticsRetentionMonths} months, as configured in our Google Analytics property.`,
             'Orders, invoices and shipping records: as long as accounting and tax law requires, which is longer than the periods above.',
             'Server logs: a short rolling window set by the hosting provider, used only for security and fault diagnosis.',
@@ -181,7 +197,8 @@ const sections = [
           The site is served over TLS. A quote request is held in access-controlled storage behind our
           intake endpoint, reachable only by staff who answer them. Design files you send are held on
           access-controlled storage and are not published, indexed or reused for another customer. We sign
-          an NDA on request, before you send anything.
+          an NDA on request, before you send anything. An upload link is a 32-character random token:
+          it expires seven days after it is issued, and it cannot be guessed or enumerated.
         </p>
         <p>
           No system is perfect. If a breach ever affects your data, we will tell you and the relevant

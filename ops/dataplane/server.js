@@ -14,6 +14,12 @@
  *   POST /intake                  RFQ submit: validates, writes the inquiry to
  *                                 the workbench gateway, records attribution,
  *                                 pushes inquiry_created to every open console
+ *   GET  /upload/<token>          the buyer's upload page (noindex, token-gated)
+ *   PUT  /upload/<token>/file     one file, streamed to disk, size-capped
+ *   POST /upload/<token>/done     the buyer says the set is complete
+ *   GET  /upload/list?token=<jwt> operator: links and what arrived
+ *   GET  /upload/manifest?id=…    operator: files inside one link
+ *   GET  /upload/download?id=…    operator: stream one file back
  *   GET  /attr?ids=26,27          attribution for one or more inquiries
  *   GET  /rt?token=<jwt>          Server-Sent Events stream for the console
  *   GET  /stats/online            how many visitors are active right now
@@ -29,6 +35,11 @@
 
 import http from 'node:http';
 import crypto from 'node:crypto';
+import fs from 'node:fs';
+import fsp from 'node:fs/promises';
+import path from 'node:path';
+import { Transform } from 'node:stream';
+import { pipeline } from 'node:stream/promises';
 import { openStore } from './lib/db.js';
 import { runSync, syncStatus } from './lib/gsc-sync.js';
 
@@ -47,6 +58,36 @@ const ORIGINS = (process.env.ALLOWED_ORIGINS || 'https://tenmaypcba.com,https://
 const store = await openStore();
 const clients = new Set();          // open SSE responses
 const authCache = new Map();        // token hash -> expiry
+
+/* ── upload links (option B) ─────────────────────────────────────────────── */
+
+const UPLOAD_DIR = process.env.UPLOAD_DIR || '/data/uploads';
+const PUBLIC_API = process.env.PUBLIC_API || 'https://api.tenmaypcba.com';
+
+// Two clocks, deliberately separate:
+//   LINK_TTL_MS  how long the link keeps accepting files
+//   PURGE_DAYS   how long the files stay on disk afterwards
+// A quote can take two weeks to become an order; purging on link expiry throws
+// away the Gerber an engineer is still working from. Keeping the link writable
+// for the same period leaves an upload URL alive in an inbox for months.
+const LINK_TTL_MS = Number(process.env.LINK_TTL_MS || 7 * 24 * 3600 * 1000);
+const PURGE_DAYS = Number(process.env.PURGE_DAYS || 90);
+
+const MAX_FILE_BYTES = Number(process.env.MAX_FILE_BYTES || 40 * 1024 * 1024);
+const MAX_FILES = Number(process.env.MAX_FILES || 6);
+const MAX_TOTAL_BYTES = Number(process.env.MAX_TOTAL_BYTES || 120 * 1024 * 1024);
+
+const LINK_DIR = path.join(UPLOAD_DIR, 'links');
+
+// If the volume is not mounted the process must still serve the site. Uploads
+// degrade to "no link issued", which the form treats as the pre-change path.
+let uploadsReady = true;
+try {
+  fs.mkdirSync(LINK_DIR, { recursive: true, mode: 0o700 });
+} catch (err) {
+  uploadsReady = false;
+  console.error(`[upload] disabled — cannot create ${LINK_DIR}: ${err.message}`);
+}
 
 /* ── helpers ─────────────────────────────────────────────────────────────── */
 
@@ -119,6 +160,593 @@ async function operatorOk(token) {
   } catch {
     return false;
   }
+}
+
+/* ── upload links (option B) ─────────────────────────────────────────────── */
+
+/*
+ * The RFQ form never carries a file. /intake mints a token and returns its URL;
+ * the buyer uploads through a page that token opens.
+ *
+ * Why a separate page rather than an attachment field on the form:
+ *   - the upload page is same-origin to this API, so the PUT needs no preflight
+ *     and no CORS change at all
+ *   - the buyer can upload hours or days later without re-submitting, which is
+ *     the common case when the Gerber sits on a colleague's machine
+ *   - a token can expire without touching the inquiry row
+ *
+ * The token is created inside /intake, from the same request that creates the
+ * inquiry, so it is never issued to somebody who did not just submit. An
+ * "email me a link" endpoint could not promise that without an ownership check.
+ *
+ * Nothing here is public: a Gerber archive is the customer's unreleased design,
+ * and an INQ- reference must never be enough to fetch one.
+ */
+
+const TOKEN_RE = /^[A-Za-z0-9_-]{32}$/;
+
+// Operator verbs under /upload. None is 32 characters, so none can collide with
+// a real token.
+const OP_VERBS = new Set(['list', 'manifest', 'download']);
+
+// Ten uploads a minute per IP. Enough for six files plus retries, not enough to
+// fill the disk. In memory on purpose: this runs on one container, and a
+// restart clearing the counters is acceptable for a limit this coarse.
+//
+// Configurable so the limit can be exercised in a test without waiting a
+// minute between assertions.
+const PUT_RATE = Number(process.env.PUT_RATE || 10);
+const putHits = new Map();
+
+function putAllowed(ip) {
+  const now = Date.now();
+  const win = putHits.get(ip);
+  if (!win || win.reset < now) {
+    putHits.set(ip, { n: 1, reset: now + 60_000 });
+    if (putHits.size > 2000) putHits.clear();
+    return true;
+  }
+  if (win.n >= PUT_RATE) return false;
+  win.n += 1;
+  return true;
+}
+
+// Untrusted filename → something safe to touch on disk. The original name is
+// kept as the suffix so the engineer still sees "bom.xlsx", but the prefix is
+// ours: it makes collisions impossible and stops "../" from ever being a path.
+// Lowercased because a case-insensitive volume would otherwise let two uploads
+// overwrite each other.
+function safeName(raw) {
+  const base = path.basename(String(raw || 'file')).toLowerCase();
+  const kept = base.replace(/[^a-z0-9._-]/g, '_').replace(/^[._-]+/, '').slice(-80);
+  const stamp = Date.now().toString(36) + crypto.randomBytes(3).toString('hex');
+  return `${stamp}-${kept || 'file'}`;
+}
+
+const linkPath = (token) => path.join(LINK_DIR, `${token}.json`);
+const linkDir = (token) => path.join(UPLOAD_DIR, token);
+
+async function mkLink(ref, email) {
+  const token = crypto.randomBytes(24).toString('base64url'); // 32 chars
+  const meta = {
+    token,
+    ref,
+    email: email || null,
+    createdAt: new Date().toISOString(),
+    expiresAt: new Date(Date.now() + LINK_TTL_MS).toISOString(),
+    purgeAt: new Date(Date.now() + PURGE_DAYS * 86_400_000).toISOString(),
+    doneAt: null,
+    fileCount: 0,
+    totalBytes: 0,
+  };
+  await fsp.writeFile(linkPath(token), JSON.stringify(meta, null, 2), { mode: 0o600 });
+  return meta;
+}
+
+async function readLink(token) {
+  if (!TOKEN_RE.test(token || '')) return null;
+  const raw = await fsp.readFile(linkPath(token), 'utf8').catch(() => null);
+  if (!raw) return null;
+  try {
+    const meta = JSON.parse(raw);
+    meta.expired = Date.parse(meta.expiresAt) < Date.now();
+    return meta;
+  } catch {
+    return null;
+  }
+}
+
+async function dirUsage(dir) {
+  const names = await fsp.readdir(dir).catch(() => []);
+  let bytes = 0;
+  let count = 0;
+  for (const n of names) {
+    if (n.startsWith('.')) continue;
+    const st = await fsp.stat(path.join(dir, n)).catch(() => null);
+    if (st && st.isFile()) { bytes += st.size; count += 1; }
+  }
+  return { bytes, count };
+}
+
+function sendHtml(res, status, html, origin) {
+  res.writeHead(status, {
+    ...cors(origin),
+    'Content-Type': 'text/html; charset=utf-8',
+    'Content-Length': Buffer.byteLength(html),
+    'Cache-Control': 'no-store',
+    'X-Content-Type-Options': 'nosniff',
+    'Referrer-Policy': 'no-referrer',
+    'X-Robots-Tag': 'noindex, nofollow',
+    // One inline style block and one inline script, nothing else. A crafted file
+    // name therefore cannot pull in a remote script, and connect-src 'self' is
+    // what the PUT needs and nothing more.
+    'Content-Security-Policy':
+      "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'",
+  });
+  res.end(html);
+}
+
+function sendAttachment(res, filePath, size, name, origin) {
+  res.writeHead(200, {
+    ...cors(origin),
+    'Content-Type': 'application/octet-stream',
+    'Content-Length': size,
+    // Always attachment, never inline: a "Gerber" that is really an HTML file
+    // must not be rendered by the browser from our own origin.
+    'Content-Disposition': `attachment; filename="${name.replace(/[^A-Za-z0-9._-]/g, '_')}"`,
+    'X-Content-Type-Options': 'nosniff',
+    'Cache-Control': 'no-store',
+  });
+  fs.createReadStream(filePath).pipe(res);
+}
+
+// Streams the body to disk and counts it. Content-Length is advisory — a chunked
+// request has none — so the cap is enforced on bytes actually seen.
+class ByteLimit extends Transform {
+  constructor(max) {
+    super();
+    this.max = max;
+    this.n = 0;
+  }
+  _transform(chunk, enc, cb) {
+    this.n += chunk.length;
+    if (this.n > this.max) return cb(new Error('file too large'));
+    cb(null, chunk);
+  }
+}
+
+const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+  ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+const day = (iso) => {
+  const d = new Date(iso);
+  return Number.isNaN(d.getTime()) ? '' : d.toISOString().slice(0, 10);
+};
+
+/*
+ * Inline and dependency-free on purpose. This page is the only place a buyer
+ * touches a raw upload, and it must keep working when the marketing site's
+ * bundle is broken or mid-deploy — the two are independent by design.
+ *
+ * No template literals in the browser code below: this string is itself a
+ * template literal, so a nested backtick would need escaping to the point of
+ * being unreadable.
+ */
+const UPLOAD_JS = `
+(function () {
+  var TOKEN = '__TOKEN__';
+  var MAXMB = __MAX_MB__;
+  var MAXF = __MAX_FILES__;
+  var drop = document.getElementById('drop');
+  var pick = document.getElementById('pick');
+  var list = document.getElementById('list');
+  var msg = document.getElementById('msg');
+  var cta = document.getElementById('cta');
+
+  var files = [], ok = 0, busy = false;
+
+  function note(t, k) { msg.hidden = false; msg.className = 'msg ' + (k || ''); msg.textContent = t; }
+  function clearNote() { msg.hidden = true; msg.textContent = ''; }
+
+  function row(name, kb) {
+    var li = document.createElement('li');
+    li.className = 'row';
+    var a = document.createElement('span'); a.className = 'n'; a.textContent = name;
+    var b = document.createElement('span'); b.className = 's'; b.textContent = kb + ' KB';
+    var bar = document.createElement('span'); bar.className = 'bar';
+    var fill = document.createElement('i'); bar.appendChild(fill);
+    var st = document.createElement('span'); st.className = 'st'; st.textContent = 'queued';
+    li.appendChild(a); li.appendChild(b); li.appendChild(bar); li.appendChild(st);
+    list.appendChild(li);
+    return {
+      p: function (v) { fill.style.width = v + '%'; },
+      s: function (v) { st.textContent = v; li.className = 'row ' + v; }
+    };
+  }
+
+  function put(f, ui, next) {
+    var x = new XMLHttpRequest();
+    x.open('PUT', '/upload/' + TOKEN + '/file?name=' + encodeURIComponent(f.name));
+    x.setRequestHeader('content-type', 'application/octet-stream');
+    x.upload.onprogress = function (e) {
+      if (e.lengthComputable) ui.p(Math.round(e.loaded / e.total * 100));
+    };
+    x.onload = function () {
+      if (x.status === 201) { ui.p(100); ui.s('sent'); ok++; next(); return; }
+      var why = 'could not send';
+      try { why = JSON.parse(x.responseText).error || why; } catch (e) {}
+      ui.s('failed');
+      note(f.name + ': ' + why, 'warn');
+      next();
+    };
+    x.onerror = function () {
+      ui.s('failed');
+      note(f.name + ': the connection dropped. Try that file again.', 'warn');
+      next();
+    };
+    x.send(f);
+  }
+
+  function run(i) {
+    if (i >= files.length) return finish();
+    var f = files[i];
+    put(f.file, f.ui, function () { run(i + 1); });
+  }
+
+  function finish() {
+    busy = false;
+    if (!ok) { note('None of the files arrived. Try again, or send them to the email address below.', 'warn'); return; }
+    var x = new XMLHttpRequest();
+    x.open('POST', '/upload/' + TOKEN + '/done');
+    x.setRequestHeader('content-type', 'application/json');
+    x.onload = function () {
+      if (x.status === 200) {
+        drop.hidden = true;
+        cta.hidden = false;
+        note(ok + ' file' + (ok === 1 ? '' : 's') + ' received. Our engineer has them.', 'good');
+      } else {
+        note('The files are on our server but the confirmation did not return. They are safe.', 'warn');
+      }
+    };
+    x.onerror = function () {
+      note('The files are on our server but the confirmation did not return. They are safe.', 'warn');
+    };
+    x.send('{}');
+  }
+
+  function addAll(fl) {
+    if (busy) { note('Still sending the last batch. Add more when it finishes.', 'warn'); return; }
+    clearNote();
+    var start = files.length, room = MAXF - start, big = 0, skipped = 0;
+    for (var i = 0; i < fl.length; i++) {
+      if (i >= room) { skipped++; continue; }
+      if (fl[i].size > MAXMB * 1024 * 1024) { big++; continue; }
+      files.push({ file: fl[i], ui: row(fl[i].name, Math.max(1, Math.round(fl[i].size / 1024))) });
+    }
+    if (skipped) note(skipped + ' file(s) skipped: ' + MAXF + ' is the maximum for one link. Send the rest after we reply.', 'warn');
+    else if (big) note(big + ' file(s) skipped: anything over ' + MAXMB + ' MB is refused. Zip it, or send it after we reply.', 'warn');
+    if (files.length > start) { busy = true; run(start); }
+  }
+
+  drop.addEventListener('click', function () { pick.click(); });
+  pick.addEventListener('change', function () { addAll(pick.files); pick.value = ''; });
+
+  ['dragenter', 'dragover'].forEach(function (t) {
+    drop.addEventListener(t, function (e) { e.preventDefault(); drop.className = 'drop over'; });
+  });
+  ['dragleave', 'drop'].forEach(function (t) {
+    drop.addEventListener(t, function (e) { e.preventDefault(); drop.className = 'drop'; });
+  });
+  drop.addEventListener('drop', function (e) {
+    if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length) addAll(e.dataTransfer.files);
+  });
+})();
+`;
+
+function uploadPage(meta) {
+  const ref = esc(meta.ref || 'your request');
+  const js = UPLOAD_JS
+    .replace('__TOKEN__', meta.token)
+    .replace('__MAX_MB__', String(Math.round(MAX_FILE_BYTES / 1_048_576)))
+    .replace('__MAX_FILES__', String(MAX_FILES));
+
+  return `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Send your design files — Tenmay</title>
+<style>
+:root { --g: #126B3F; --ink: #0f172a; --mut: #64748b; --line: #dbe6df; }
+* { box-sizing: border-box; }
+body { margin: 0; background: #f6faf7; color: var(--ink);
+  font: 15px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; }
+main { max-width: 620px; margin: 0 auto; padding: 40px 20px 64px; }
+.ref { display: inline-block; margin: 0 0 18px; padding: 4px 10px; border-radius: 999px;
+  background: #e8f3ec; color: var(--g); font-size: 11px; font-weight: 700;
+  letter-spacing: .1em; text-transform: uppercase; }
+h1 { font-size: 26px; line-height: 1.25; margin: 0 0 10px; letter-spacing: -.01em; }
+.lede { margin: 0 0 24px; color: var(--mut); font-size: 14px; }
+.drop { display: block; width: 100%; padding: 34px 20px; border: 2px dashed var(--line);
+  border-radius: 14px; background: #fff; text-align: center; cursor: pointer;
+  transition: border-color .15s, background .15s; }
+.drop:hover, .drop.over { border-color: var(--g); background: #f2f9f4; }
+.drop b { display: block; font-size: 14px; color: var(--g); margin-bottom: 4px; }
+.drop span { font-size: 12.5px; color: var(--mut); }
+ul { list-style: none; margin: 18px 0 0; padding: 0; }
+.row { display: grid; grid-template-columns: 1fr auto 90px 56px; gap: 10px;
+  align-items: center; padding: 9px 0; border-bottom: 1px solid #eef3ef; font-size: 12.5px; }
+.row .n { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.row .s { color: var(--mut); font-variant-numeric: tabular-nums; }
+.row .bar { height: 5px; border-radius: 3px; background: #e9efeb; overflow: hidden; }
+.row .bar i { display: block; height: 100%; width: 0; background: var(--g); transition: width .2s; }
+.row .st { text-align: right; color: var(--mut); font-size: 11px; }
+.row.sent .st { color: var(--g); }
+.row.failed .st { color: #b42318; }
+.row.failed .bar i { background: #b42318; }
+.msg { margin: 16px 0 0; padding: 11px 13px; border-radius: 9px; font-size: 13px;
+  background: #eef3ef; color: #334155; }
+.msg.warn { background: #fef3f2; color: #912018; }
+.msg.good { background: #e8f3ec; color: var(--g); }
+#cta { margin: 24px 0 0; padding: 22px; border-radius: 12px; background: #fff;
+  border: 1px solid var(--line); text-align: center; font-size: 14px; }
+#cta a { color: var(--g); font-weight: 600; }
+.fine { margin: 26px 0 0; font-size: 12px; line-height: 1.7; color: var(--mut); }
+.fine b { color: #475569; }
+</style>
+</head>
+<body>
+<main>
+  <p class="ref">Reference ${ref}</p>
+  <h1>Send your Gerber and BOM</h1>
+  <p class="lede">
+    Gerber (RS-274X with the Excellon drill file), BOM (XLSX or CSV) and centroid if you have it.
+    Zipped is fine. Up to ${MAX_FILES} files, ${Math.round(MAX_FILE_BYTES / 1_048_576)} MB each.
+    This link accepts files until <strong>${esc(day(meta.expiresAt))}</strong>.
+  </p>
+
+  <div class="drop" id="drop" role="button" tabindex="0">
+    <input type="file" id="pick" multiple hidden>
+    <b>Choose files or drop them here</b>
+    <span>Nothing is sent until you pick a file.</span>
+  </div>
+
+  <ul id="list"></ul>
+  <div class="msg" id="msg" hidden></div>
+
+  <div id="cta" hidden>
+    Files received. An assembly engineer replies within one working day.
+    If it is urgent, write to <a href="mailto:linda@tenmaypcba.com">linda@tenmaypcba.com</a>
+    and quote reference ${ref}. You can close this page.
+  </div>
+
+  <p class="fine">
+    <b>Where these go.</b> Straight to our engineering team. The folder is not public,
+    not linked from anywhere and not indexed by search engines; it is deleted on
+    ${esc(day(meta.purgeAt))} unless an order follows. We do not share your files with
+    other customers and we do not use them for anything except quoting and building
+    your board. <b>NDA on request</b> — ask before you upload and we will sign yours.
+  </p>
+</main>
+<script>${js}</script>
+</body>
+</html>`;
+}
+
+function expiredPage(reason) {
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Link not available — Tenmay</title>
+<style>body{margin:0;background:#f6faf7;color:#0f172a;font:15px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}
+main{max-width:520px;margin:0 auto;padding:64px 20px}h1{font-size:22px;margin:0 0 12px}
+p{color:#64748b;font-size:14px}a{color:#126B3F;font-weight:600}</style>
+</head><body><main>
+<h1>${esc(reason)}</h1>
+<p>Upload links expire seven days after the quote request. Nothing you sent earlier has been lost —
+write to <a href="mailto:linda@tenmaypcba.com">linda@tenmaypcba.com</a> and we will send a fresh link
+from the same address, or take the files by email.</p>
+</main></body></html>`;
+}
+
+async function handleLinkPage(res, token, origin) {
+  if (!uploadsReady) return send(res, 503, 'uploads are not configured on this server', origin);
+  const meta = await readLink(token);
+  if (!meta) return sendHtml(res, 404, expiredPage('This link is not valid.'), origin);
+  if (meta.expired) return sendHtml(res, 410, expiredPage('This link has expired.'), origin);
+  return sendHtml(res, 200, uploadPage(meta), origin);
+}
+
+async function handleLinkPut(req, res, token, url, origin) {
+  if (!uploadsReady) return send(res, 503, { ok: false, error: 'uploads unavailable' }, origin);
+
+  // The only thing standing between a stranger and a full disk. One real file
+  // is inside this limit; a loop is not.
+  const ip = (req.headers['cf-connecting-ip'] || req.headers['x-forwarded-for'] || req.socket.remoteAddress || '')
+    .split(',')[0].trim();
+  if (!putAllowed(ip)) {
+    return send(res, 429, { ok: false, error: 'too many uploads, try again in a minute' }, origin);
+  }
+
+  const meta = await readLink(token);
+  if (!meta) return send(res, 404, { ok: false, error: 'unknown link' }, origin);
+  if (meta.expired) return send(res, 410, { ok: false, error: 'link expired' }, origin);
+
+  const dir = linkDir(token);
+  await fsp.mkdir(dir, { recursive: true, mode: 0o700 });
+
+  const used = await dirUsage(dir);
+  if (used.count >= MAX_FILES) {
+    return send(res, 409, { ok: false, error: `at most ${MAX_FILES} files per request` }, origin);
+  }
+
+  // The per-link total is a hard ceiling, not an advisory one. The cap handed to
+  // the stream is whatever is left, so a chunked upload cannot overshoot the
+  // total by one file the way a "check before, accept after" limit would.
+  const remaining = MAX_TOTAL_BYTES - used.bytes;
+  if (remaining <= 0) {
+    return send(res, 413, { ok: false, error: 'total size limit reached for this link' }, origin);
+  }
+  const cap = Math.min(MAX_FILE_BYTES, remaining);
+  const capMb = Math.round(cap / 1_048_576);
+
+  const declared = Number(req.headers['content-length'] || 0);
+  if (declared && declared > cap) {
+    return send(res, 413, {
+      ok: false,
+      error: cap < MAX_FILE_BYTES
+        ? `this link has ${capMb} MB left`
+        : `file larger than ${Math.round(MAX_FILE_BYTES / 1_048_576)} MB`,
+    }, origin);
+  }
+
+  const stored = safeName(url.searchParams.get('name'));
+  const dest = path.join(dir, stored);
+  const limiter = new ByteLimit(cap);
+
+  try {
+    // wx: never clobber an existing file, even on a name collision. Overwriting
+    // a 40 MB upload that already succeeded is unrecoverable.
+    await pipeline(req, limiter, fs.createWriteStream(dest, { flags: 'wx', mode: 0o600 }));
+  } catch (err) {
+    await fsp.rm(dest, { force: true }).catch(() => {});
+    if (/too large/.test(err.message)) {
+      return send(res, 413, { ok: false, error: `file larger than the ${capMb} MB allowed for this upload` }, origin);
+    }
+    return send(res, 400, { ok: false, error: 'upload failed' }, origin);
+  }
+
+  if (!limiter.n) {
+    await fsp.rm(dest, { force: true }).catch(() => {});
+    return send(res, 400, { ok: false, error: 'empty file' }, origin);
+  }
+
+  return send(res, 201, { ok: true, stored, bytes: limiter.n }, origin);
+}
+
+async function handleLinkDone(req, res, token, origin) {
+  const meta = await readLink(token);
+  if (!meta) return send(res, 404, { ok: false, error: 'unknown link' }, origin);
+  if (meta.expired) return send(res, 410, { ok: false, error: 'link expired' }, origin);
+
+  const used = await dirUsage(linkDir(token));
+  if (!used.count) return send(res, 400, { ok: false, error: 'no files received' }, origin);
+
+  const next = {
+    ...meta,
+    doneAt: new Date().toISOString(),
+    fileCount: used.count,
+    totalBytes: used.bytes,
+  };
+  delete next.expired;
+  await fsp.writeFile(linkPath(token), JSON.stringify(next, null, 2), { mode: 0o600 });
+
+  broadcast('upload_received', {
+    ref: meta.ref,
+    files: used.count,
+    bytes: used.bytes,
+    at: next.doneAt,
+  });
+
+  return send(res, 200, { ok: true, files: used.count, bytes: used.bytes }, origin);
+}
+
+/* Operator-only. */
+
+async function handleUploadList(res, origin) {
+  const names = (await fsp.readdir(LINK_DIR).catch(() => [])).filter((n) => n.endsWith('.json'));
+  const rows = [];
+  for (const n of names.slice(0, 400)) {
+    const meta = await readLink(n.replace(/\.json$/, ''));
+    if (!meta) continue;
+    rows.push({
+      id: meta.token,
+      ref: meta.ref,
+      email: meta.email,
+      createdAt: meta.createdAt,
+      expiresAt: meta.expiresAt,
+      purgeAt: meta.purgeAt,
+      doneAt: meta.doneAt || null,
+      files: meta.fileCount || 0,
+      bytes: meta.totalBytes || 0,
+      expired: Boolean(meta.expired),
+    });
+  }
+  rows.sort((a, b) => String(b.createdAt).localeCompare(String(a.createdAt)));
+  return send(res, 200, { ok: true, rows }, origin);
+}
+
+async function handleUploadManifest(res, url, origin) {
+  const token = clean(url.searchParams.get('id'), 40);
+  const meta = await readLink(token);
+  if (!meta) return send(res, 404, { ok: false, error: 'not found' }, origin);
+
+  const dir = linkDir(token);
+  const names = (await fsp.readdir(dir).catch(() => [])).filter((n) => !n.startsWith('.'));
+  const files = [];
+  for (const n of names) {
+    const st = await fsp.stat(path.join(dir, n)).catch(() => null);
+    if (st && st.isFile()) files.push({ stored: n, bytes: st.size });
+  }
+
+  return send(res, 200, {
+    ok: true,
+    ref: meta.ref,
+    email: meta.email,
+    createdAt: meta.createdAt,
+    doneAt: meta.doneAt || null,
+    files,
+  }, origin);
+}
+
+async function handleUploadDownload(res, url, origin) {
+  const token = clean(url.searchParams.get('id'), 40);
+  const name = path.basename(clean(url.searchParams.get('file'), 200));
+  const meta = await readLink(token);
+  if (!meta) return send(res, 404, { ok: false, error: 'not found' }, origin);
+
+  const dir = linkDir(token);
+  const target = path.join(dir, name);
+  // basename() already removes any traversal, but assert it: this is the one
+  // place where a query string decides a filesystem path.
+  if (!target.startsWith(dir + path.sep)) {
+    return send(res, 400, { ok: false, error: 'bad path' }, origin);
+  }
+
+  const st = await fsp.stat(target).catch(() => null);
+  if (!st || !st.isFile()) return send(res, 404, { ok: false, error: 'no such file' }, origin);
+
+  return sendAttachment(res, target, st.size, name, origin);
+}
+
+/*
+ * Retention for uploads only. Expired links stop accepting files immediately;
+ * the directory survives until purgeAt so an engineer can still download from
+ * an in-flight quote.
+ *
+ * This is not the inquiry retention policy. The row in the workbench and the
+ * file on disk are on different clocks, and only the file clock is written down
+ * in the privacy policy's "how long we keep it" (LEGAL.uploadRetentionDays).
+ * Keep PURGE_DAYS equal to that number or the policy becomes a false statement.
+ */
+async function sweepUploads() {
+  const names = await fsp.readdir(LINK_DIR).catch(() => []);
+  for (const n of names) {
+    if (!n.endsWith('.json')) continue;
+    const token = n.replace(/\.json$/, '');
+    const meta = await readLink(token);
+    const purgeDue = meta ? Date.parse(meta.purgeAt) < Date.now() : true;
+    if (!purgeDue) continue;
+    await fsp.rm(linkPath(token), { force: true }).catch(() => {});
+    await fsp.rm(linkDir(token), { recursive: true, force: true }).catch(() => {});
+  }
+}
+
+if (uploadsReady) {
+  sweepUploads().catch(() => {});
+  setInterval(() => sweepUploads().catch(() => {}), 6 * 3600_000).unref();
 }
 
 /* ── inquiry intake ──────────────────────────────────────────────────────── */
@@ -231,6 +859,22 @@ async function handleIntake(req, res, origin) {
     });
   }
 
+  // A link is issued by the same request that creates the inquiry, so it can
+  // only ever reach somebody who just submitted. Failure here must not fail the
+  // inquiry: a lead without attachments is worth far more than no lead.
+  //
+  // null is a valid outcome — the form then behaves exactly as it did before
+  // uploads existed.
+  let uploadUrl = null;
+  if (email && uploadsReady) {
+    try {
+      const meta = await mkLink(id ? `INQ-${String(id).padStart(4, '0')}` : null, email);
+      uploadUrl = `${PUBLIC_API}/upload/${meta.token}`;
+    } catch (err) {
+      console.error(`[upload] could not mint link: ${err.message}`);
+    }
+  }
+
   broadcast('inquiry_created', {
     id,
     ref: id ? `INQ-${String(id).padStart(4, '0')}` : null,
@@ -241,7 +885,12 @@ async function handleIntake(req, res, origin) {
     at: new Date().toISOString(),
   });
 
-  return send(res, 201, { ok: true, id, ref: id ? `INQ-${String(id).padStart(4, '0')}` : null }, origin);
+  return send(res, 201, {
+    ok: true,
+    id,
+    ref: id ? `INQ-${String(id).padStart(4, '0')}` : null,
+    uploadUrl,
+  }, origin);
 }
 
 /* ── behaviour collection ────────────────────────────────────────────────── */
@@ -411,6 +1060,37 @@ const server = http.createServer(async (req, res) => {
     }
     if (url.pathname === '/collect' && req.method === 'POST') return await handleCollect(req, res, origin);
     if (url.pathname === '/intake' && req.method === 'POST') return await handleIntake(req, res, origin);
+
+    // Everything under /upload is either token-gated or operator-gated. There is
+    // no public listing here and the page is noindex.
+    if (url.pathname.startsWith('/upload')) {
+      const parts = url.pathname.split('/').filter(Boolean); // ['upload', token, ...]
+      const token = parts[1] || '';
+      const bearer = (req.headers.authorization || '').replace(/^Bearer\s+/i, '');
+      const opToken = bearer || url.searchParams.get('token') || '';
+
+      if (parts.length === 2 && req.method === 'GET') {
+        // The operator verbs are spelled like tokens but are shorter than the
+        // 32 characters TOKEN_RE demands, so they can never shadow a real one.
+        // They must answer 401 when unauthenticated rather than falling through
+        // to the upload page: a 404 there looks like a typo to whoever is
+        // debugging the console, and hides the real cause.
+        if (OP_VERBS.has(token)) {
+          if (!(await operatorOk(opToken))) return send(res, 401, { ok: false, error: 'unauthorized' }, origin);
+          if (token === 'list') return await handleUploadList(res, origin);
+          if (token === 'manifest') return await handleUploadManifest(res, url, origin);
+          return await handleUploadDownload(res, url, origin);
+        }
+        return await handleLinkPage(res, token, origin);
+      }
+      if (parts.length === 3 && parts[2] === 'file' && req.method === 'PUT') {
+        return await handleLinkPut(req, res, token, url, origin);
+      }
+      if (parts.length === 3 && parts[2] === 'done' && req.method === 'POST') {
+        return await handleLinkDone(req, res, token, origin);
+      }
+      return send(res, 404, { ok: false, error: 'not found' }, origin);
+    }
 
     if (url.pathname === '/rt') return await handleStream(req, res, url, origin);
 

@@ -155,6 +155,16 @@ BOT_EMAIL=
 BOT_PASS=
 DRY_RUN=0
 DEV_ALLOW=0
+# Uploads (option B). PURGE_DAYS must equal uploadRetentionDays in
+# src/data/legal.js: that pair is the privacy page's promise and its enforcer.
+UPLOAD_DIR=/data/uploads
+PUBLIC_API=https://api.tenmaypcba.com
+LINK_TTL_MS=604800000
+PURGE_DAYS=90
+MAX_FILE_BYTES=41943040
+MAX_FILES=6
+MAX_TOTAL_BYTES=125829120
+PUT_RATE=10
 EOF
 chmod 600 "$ROOT/.env" "$ROOT/dataplane.env"
 chmod 755 "$ROOT"

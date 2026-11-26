@@ -16,3 +16,4 @@ src/data/applicationFamilyIndex.json
 src/data/applicationFamilyCards.json
 src/data/applicationFamilyRelated.json
 src/data/families/
+test-upload*.sh
