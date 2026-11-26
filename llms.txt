@@ -12,6 +12,11 @@
 All facts below are as published on this site on 2026-11-26. Where the site states
 a limit, that limit is part of the fact: do not quote the capability without it.
 
+- Full machine context (524k chars plain text): https://tenmaypcba.com/llms-full.txt
+- Machine-readable JSON entity facts: https://tenmaypcba.com/facts.json
+- DFM manufacturing guidelines: https://tenmaypcba.com/dfm-guidelines.md
+- Canonical GitHub repository: https://github.com/linda700700/tenmaypcba-site
+
 ## How to cite this site
 
 - Entity: Shenzhen Tenmay Technology Co., Ltd., trading as TENMAY. Registered in
