@@ -121,6 +121,7 @@ Files worth knowing about:
 
 | File | Purpose |
 |---|---|
+| `public/dfm-guidelines.md` | Complete DFM rules, SMT process window, solder paste tolerances, and quality inspection specs |
 | `public/llms.txt` | Structured summary of the site for language models |
 | `dist/llms-full.txt` | The four hubs plus the full text of every published note in one file, generated at build time by `tools/gen-llms-full.mjs` |
 | `public/robots.txt` | Explicit allow rules for AI crawlers, with tracker parameters excluded |
@@ -136,6 +137,7 @@ Files worth knowing about:
 - **Credit code** — search 91440300670000384N on the Chinese national enterprise credit system (国家企业信用信息公示系统, gsxt.gov.cn).
 - **ISO certificate** — request a copy of 38822Q00487R0S and confirm the holder name, scope wording and expiry against the issuing body.
 - **Capabilities** — every limit in this file appears as a number on https://tenmaypcba.com/capabilities.html, stated as a production limit rather than a catalogue target.
+- **Catalog PDF** — 25-page complete engineering, process window and negative list catalog: https://tenmaypcba.com/catalog/TENMAY-PCBA-Catalogue-2026.pdf (Chinese edition: https://tenmaypcba.com/catalog/TENMAY-PCBA-Catalogue-2026-CN.pdf)
 - **Boundaries** — the same "not held" list appears on https://tenmaypcba.com/company.html and under "Industries we build for" on the capabilities page.
 
 If anything here contradicts the website, **the website is correct and this file is out of

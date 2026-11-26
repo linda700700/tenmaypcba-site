@@ -1,19 +1,19 @@
 {
-  "_LegalShell-ByNJtmDN.js": {
-    "file": "assets/LegalShell-ByNJtmDN.js",
+  "_LegalShell-j0vMiTNs.js": {
+    "file": "assets/LegalShell-j0vMiTNs.js",
     "name": "LegalShell",
     "imports": [
       "_react-BFDfz19Z.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "_familyCards-B4y4PmlT.js": {
     "file": "assets/familyCards-B4y4PmlT.js",
     "name": "familyCards"
   },
-  "_icons-DQw3Jp1J.js": {
-    "file": "assets/icons-DQw3Jp1J.js",
+  "_icons-qwWa3WTO.js": {
+    "file": "assets/icons-qwWa3WTO.js",
     "name": "icons",
     "imports": [
       "_react-BFDfz19Z.js"
@@ -24,13 +24,13 @@
     "name": "react"
   },
   "index.html": {
-    "file": "assets/index-dBHhHONC.js",
+    "file": "assets/index-B-pl5D_1.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ],
     "dynamicImports": [
       "src/content/insights/01005-placement-what-limits-yield.md?raw",
@@ -139,7 +139,7 @@
       "src/data/families/wearables.json"
     ],
     "css": [
-      "assets/index-BEXQm1S8.css"
+      "assets/index-DkKrsbWL.css"
     ]
   },
   "src/content/insights/01005-placement-what-limits-yield.md?raw": {
@@ -689,18 +689,18 @@
     "isDynamicEntry": true
   },
   "src/pages/ApplicationFamilyPage.jsx": {
-    "file": "assets/ApplicationFamilyPage-BXpVKi5y.js",
+    "file": "assets/ApplicationFamilyPage-DbSEe9Cc.js",
     "name": "ApplicationFamilyPage",
     "src": "src/pages/ApplicationFamilyPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/ApplicationsPage.jsx": {
-    "file": "assets/ApplicationsPage-CSBQjB_V.js",
+    "file": "assets/ApplicationsPage-Cxj_jr6p.js",
     "name": "ApplicationsPage",
     "src": "src/pages/ApplicationsPage.jsx",
     "isDynamicEntry": true,
@@ -708,67 +708,67 @@
       "_react-BFDfz19Z.js",
       "index.html",
       "_familyCards-B4y4PmlT.js",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/ArticlePage.jsx": {
-    "file": "assets/ArticlePage-DRb98QNR.js",
+    "file": "assets/ArticlePage-Cvvsy_0U.js",
     "name": "ArticlePage",
     "src": "src/pages/ArticlePage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/AssemblyPage.jsx": {
-    "file": "assets/AssemblyPage-izcsmFLm.js",
+    "file": "assets/AssemblyPage-COjmV6UX.js",
     "name": "AssemblyPage",
     "src": "src/pages/AssemblyPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/CapabilitiesPage.jsx": {
-    "file": "assets/CapabilitiesPage-C1mXjWKB.js",
+    "file": "assets/CapabilitiesPage-BOIJSD6Z.js",
     "name": "CapabilitiesPage",
     "src": "src/pages/CapabilitiesPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/CompanyPage.jsx": {
-    "file": "assets/CompanyPage-C_bE2FQ3.js",
+    "file": "assets/CompanyPage-NegAWoOH.js",
     "name": "CompanyPage",
     "src": "src/pages/CompanyPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/CookiePage.jsx": {
-    "file": "assets/CookiePage-BjGWlCtK.js",
+    "file": "assets/CookiePage-BfJSj-bN.js",
     "name": "CookiePage",
     "src": "src/pages/CookiePage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-ByNJtmDN.js",
-      "_icons-DQw3Jp1J.js",
+      "_LegalShell-j0vMiTNs.js",
+      "_icons-qwWa3WTO.js",
       "index.html"
     ]
   },
   "src/pages/DefenceRoboticsPage.jsx": {
-    "file": "assets/DefenceRoboticsPage-B6KNeo_U.js",
+    "file": "assets/DefenceRoboticsPage-ChSeigjW.js",
     "name": "DefenceRoboticsPage",
     "src": "src/pages/DefenceRoboticsPage.jsx",
     "isDynamicEntry": true,
@@ -776,64 +776,64 @@
       "_react-BFDfz19Z.js",
       "index.html",
       "_familyCards-B4y4PmlT.js",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/InsightsPage.jsx": {
-    "file": "assets/InsightsPage-Ck06Ky9k.js",
+    "file": "assets/InsightsPage-BlxIXJUG.js",
     "name": "InsightsPage",
     "src": "src/pages/InsightsPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/PrivacyPage.jsx": {
-    "file": "assets/PrivacyPage-CRR1_m2X.js",
+    "file": "assets/PrivacyPage-DGzaY1jd.js",
     "name": "PrivacyPage",
     "src": "src/pages/PrivacyPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-ByNJtmDN.js",
+      "_LegalShell-j0vMiTNs.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/RfqPage.jsx": {
-    "file": "assets/RfqPage-DywFF-kP.js",
+    "file": "assets/RfqPage-C44enPuD.js",
     "name": "RfqPage",
     "src": "src/pages/RfqPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/TermsPage.jsx": {
-    "file": "assets/TermsPage-CQ3kw0zD.js",
+    "file": "assets/TermsPage-Dfo4yYWd.js",
     "name": "TermsPage",
     "src": "src/pages/TermsPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-ByNJtmDN.js",
+      "_LegalShell-j0vMiTNs.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/TopicPage.jsx": {
-    "file": "assets/TopicPage-J-9uly6u.js",
+    "file": "assets/TopicPage-BHNzVfql.js",
     "name": "TopicPage",
     "src": "src/pages/TopicPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
       "index.html",
-      "_icons-DQw3Jp1J.js"
+      "_icons-qwWa3WTO.js"
     ]
   }
 }
