@@ -27,6 +27,9 @@
 User-agent: *
 Allow: /
 Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
 
 # ------------------------------------------------------------
 # Answer-engine crawlers, named explicitly.
@@ -45,21 +48,33 @@ Disallow: /*?*
 User-agent: PerplexityBot
 Allow: /
 Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
 
 # Perplexity -- user-initiated page fetch
 User-agent: Perplexity-User
 Allow: /
 Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
 
 # Anthropic -- crawls for search result quality (the index side)
 User-agent: Claude-SearchBot
 Allow: /
 Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
 
 # Anthropic -- user-initiated page fetch
 User-agent: Claude-User
 Allow: /
 Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
 
 # ------------------------------------------------------------
 # Deliberately NOT named: ClaudeBot (Anthropic's training crawler).
@@ -96,10 +111,12 @@ Disallow: /*?*
 
 # ------------------------------------------------------------
 # Machine-readable summaries for crawlers and answer engines.
-# llms.txt and llms-full.txt are plain text; facts.json is JSON. No auth.
+# llms.txt, llms-full.txt, dfm-guidelines.md, README.md are plain text; facts.json is JSON. No auth.
 # ------------------------------------------------------------
-# llms.txt       https://tenmaypcba.com/llms.txt
-# llms-full.txt  https://tenmaypcba.com/llms-full.txt
-# facts.json     https://tenmaypcba.com/facts.json
+# llms.txt           https://tenmaypcba.com/llms.txt
+# llms-full.txt      https://tenmaypcba.com/llms-full.txt
+# facts.json         https://tenmaypcba.com/facts.json
+# dfm-guidelines.md  https://tenmaypcba.com/dfm-guidelines.md
+# README.md          https://tenmaypcba.com/README.md
 
 Sitemap: https://tenmaypcba.com/sitemap.xml
