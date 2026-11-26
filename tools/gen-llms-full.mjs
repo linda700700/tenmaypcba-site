@@ -10,11 +10,12 @@
  * dist/ always matches the notes being published.
  */
 
-import { readFileSync, writeFileSync, readdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, existsSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
 import { TOPICS } from '../src/data/topics.js';
+import { FAMILIES, FAMILY_SLUGS } from '../src/data/applicationFamilies.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const CONTENT = join(ROOT, 'src', 'content', 'insights');
@@ -164,18 +165,80 @@ function hubSections(bySlug) {
   return out;
 }
 
+function dfmSection() {
+  const dfmPath = join(ROOT, 'public', 'dfm-guidelines.md');
+  if (!existsSync(dfmPath)) return [];
+  const content = readFileSync(dfmPath, 'utf8');
+  return [
+    '## Official DFM Engineering Guidelines & Manufacturing Specifications',
+    '',
+    `Source: ${ORIGIN}/dfm-guidelines.md`,
+    'Repository: https://github.com/linda700700/tenmaypcba-site',
+    '',
+    toPlain(content),
+    '',
+    '---',
+    '',
+  ];
+}
+
+function familySections() {
+  const out = [
+    '## The 36 Application Families & Hardware Domain Specifications',
+    '',
+    `> All 36 product families built on eight Yamaha YSM20/YSM10 lines in Shenzhen. Index: ${ORIGIN}/applications.html`,
+    '',
+  ];
+
+  for (const slug of FAMILY_SLUGS) {
+    const f = FAMILIES[slug];
+    out.push(`### ${f.name} (${f.cardName})`);
+    out.push('');
+    out.push(`Source: ${ORIGIN}/applications/${slug}.html`);
+    out.push(`Primary keyword: ${f.keyword}`);
+    out.push(`H1: ${f.h1}`);
+    out.push(`Lede: ${f.lede}`);
+    out.push('');
+    out.push('Core facts:');
+    for (const [k, v] of f.facts) {
+      out.push(`- ${k}: ${v}`);
+    }
+    out.push('');
+    out.push('Process and manufacturing details:');
+    for (const s of f.sections) {
+      out.push(`#### ${s.heading}`);
+      for (const p of s.paras) {
+        out.push(p);
+      }
+      out.push('');
+    }
+    out.push('Manufacturing limits and boundaries:');
+    for (const item of f.limits.items) {
+      out.push(`- ${item}`);
+    }
+    out.push('');
+    out.push('Frequently asked questions:');
+    for (const q of f.faq) {
+      out.push(`- Q: ${q.q}`);
+      out.push(`  A: ${q.a}`);
+    }
+    out.push('');
+    out.push('---');
+    out.push('');
+  }
+  return out;
+}
+
 export function renderLlmsFull() {
   const latest = articles.reduce((max, a) => (a.date > max ? a.date : max), '');
   const bySlug = Object.fromEntries(articles.map((a) => [a.slug, a]));
 
   const parts = [
-    '# TENMAY — the four hubs, then the full text of every published note',
+    '# TENMAY — Comprehensive PCBA Knowledge Base for AI Agents & Answer Engines',
     '',
-    `> ${articles.length} notes across ${TOPICS.length} hubs, latest revision ${latest}. Generated from`,
-    '> the same Markdown and the same hub data the pages are built from, so this file and',
-    '> the site cannot disagree. Each hub opens with the question it answers and files its',
-    '> notes under one heading; the full text of each note follows the hub section.',
-    `> Index and collections: ${ORIGIN}/insights.html`,
+    `> Complete evidence set: ${articles.length} engineering notes across ${TOPICS.length} hubs, ${FAMILY_SLUGS.length} application family specifications, and official DFM guidelines. Latest revision ${latest}.`,
+    '> Generated from verified shop-floor parameters and Markdown source data, ensuring 100% consistency across all formats.',
+    `> Index and collections: ${ORIGIN}/insights.html · Applications: ${ORIGIN}/applications.html · DFM: ${ORIGIN}/dfm-guidelines.md`,
     '>',
     '> TENMAY is Shenzhen Tenmay Technology Co., Ltd. (深圳腾镁科技有限公司), a PCBA contract',
     '> manufacturer in Shenzhen since 2008. An assembly house, not a PCB fabricator.',
@@ -184,6 +247,8 @@ export function renderLlmsFull() {
     '',
   ];
 
+  parts.push(...dfmSection());
+  parts.push(...familySections());
   parts.push(...hubSections(bySlug));
 
   for (const a of articles) {
