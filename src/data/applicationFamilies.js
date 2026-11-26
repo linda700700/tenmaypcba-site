@@ -1023,6 +1023,13 @@ export const FAMILIES = {
           'One boundary is worth stating plainly because it decides fit before price does: this is commercial IPC-A-610 workmanship inside the confirmed process window, not aerospace process control. No AS9100, no NADCAP special-process accreditation and no ITAR-registered handling is held here, and a programme that requires any of them is the wrong shop regardless of the batch size.',
         ],
       },
+      {
+        heading: 'Batch band, prototype iterations and commercial reality',
+        paras: [
+          'One hundred to one thousand sets is the normal operating band for commercial and industrial drone electronics. Below a hundred, tooling and first-article costs dominate; above a few thousand a month, a dedicated consumer drone line will underbid a high-mix floor.',
+          'The real value for drone makers here is iteration agility. Flight controllers and ESC designs evolve rapidly as sensor revisions and motor combinations change. On an unchanged Gerber and BOM, repeat batches build in 3 working days from kitted parts, enabling flight-test teams to stay on schedule without waiting weeks for an offshore manufacturing slot.',
+        ],
+      },
     ],
     limits: {
       heading: 'Where this floor is the wrong shop for a drone programme',
@@ -1093,6 +1100,13 @@ export const FAMILIES = {
         paras: [
           'Radio alignment and calibration need a shielded room and the manufacturer’s service software. Protocol and waveform conformance need the network or the standard harness. Drop, vibration, ingress and salt-fog qualification need environmental chambers and a test house. Battery pack assembly, keypad overmoulding and housing sealing are mechanical work.',
           'What this floor provides is the assembly, the coating to an agreed drawing, the inspection records and the first-article evidence those qualification submissions ask for. On a programme with an audit trail, that record set is worth more than a lower piece price, because a missing record turns a short qualification into a long one.',
+        ],
+      },
+      {
+        heading: 'Batch band, field maintenance and reorder rhythm',
+        paras: [
+          'One hundred to one thousand sets is the natural volume for professional handhelds, baseband boards, and tactical terminals. Unlike consumer phones that are replaced annually, rugged field equipment has an operating life of five to ten years, with repeat orders arriving as maintenance batches and depot spares.',
+          'What makes this shop the right partner for radio builders is the continuity of documentation: identical solder profiles, verified IPC-CC-830 conformal coating thickness across batches, and full first-article inspection records retained so that field audits and recertification reviews pass without friction.',
         ],
       },
     ],
@@ -1166,6 +1180,13 @@ export const FAMILIES = {
           'One more boundary belongs on the page because it decides the programme rather than the price: uncooled and cooled detector cores are frequently export-controlled, and the classification of the design, the detector and the end use is the buyer’s to establish. This floor assembles boards to commercial workmanship standards and does not handle export-controlled technical data.',
         ],
       },
+      {
+        heading: 'Batch band, detector supply and commercial reality',
+        paras: [
+          'Fifty to five hundred sets is the realistic production window for thermal cores. Because high-resolution microbolometers and cooled MWIR detectors carry long component lead times and high unit costs, production batches are gated by sensor allocation rather than raw placement capacity.',
+          'At this batch scale, what buyers need is high-yield first-pass assembly with zero rework under the sensor package, documented 3D SPI and X-ray inspection on every ball, and strict cleanroom-level handling of optical keep-outs. A high-mix floor with 3-day turnaround from kitted parts fits this procurement rhythm far better than an inflexible mega-factory.',
+        ],
+      },
     ],
     limits: {
       heading: 'Where a thermal programme should look elsewhere',
@@ -1236,6 +1257,13 @@ export const FAMILIES = {
           'What a robot programme needs from an assembler is different from what a consumer programme needs: shorter setup, faster revision turnaround, and the willingness to run a hundred identical boards rather than a thousand. Fifty pieces is normal work here, and three working days from kitted parts is what makes a weekly revision cycle possible at all.',
         ],
       },
+      {
+        heading: 'Batch band, robot scaling and prototype iteration rhythm',
+        paras: [
+          'One hundred to one thousand joint boards is the standard build band — which corresponds to roughly 5 to 25 complete humanoid or quadruped robots. Because actuators represent the largest bill-of-materials cost in robotic joints, hardware teams purchase in iterative tranches rather than locking down thousands of units.',
+          'A three-day turnaround from kitted parts on an unchanged revision means an engineering team can iterate gate drive tuning, bridge layouts, or encoder clearances without stalling actuator assembly. When a design finally transitions to tens of thousands of units a month, a dedicated line takes over; during development and pilot production, precision repeatability on small runs is the exact fit.',
+        ],
+      },
     ],
     limits: {
       heading: 'Where this floor is the wrong fit for a robot programme',
@@ -1300,7 +1328,14 @@ export const FAMILIES = {
         ],
       },
       {
-        heading: 'The commercial truth about this category',
+        heading: 'What inspection proves, and what stays with the eyewear maker',
+        paras: [
+          'In-line 3D SPI measures paste volume on the 01005 pads and 0.3 mm pitch ICs before reflow. Dual-camera 3D AOI verifies placement accuracy and coplanarity across the rigid-flex board. 3D X-ray is applied to the hinge flex attach and BGA packages to verify void percentage against IPC-7095 Class 2 standards.',
+          'What this floor does not run is optical waveguide alignment, camera modulation transfer function (MTF) tuning, acoustic chamber testing for MEMS microphones, or mechanical drop and hinge fold-life endurance testing. Those require dedicated optical fixtures and environmental test cells that belong with the eyewear brand.',
+        ],
+      },
+      {
+        heading: 'Batch band, second-sourcing and commercial reality',
         paras: [
           'Volume is real and the buyers are brand owners, solution houses and the accessory makers around them. The category leaders quote in the tens of thousands and buy on a dedicated line. The workable entry here is the second source, the pilot build before a brand commits a line, and the accessory or charging board around the main product.',
           'That is judgement about where the work sits, not a forecast. If your first order is five thousand sets and the only open question is price per board, a dedicated high-volume house will beat this floor and the honest answer is to say so before a sample run rather than after it.',
@@ -1371,11 +1406,16 @@ export const FAMILIES = {
         ],
       },
       {
-        heading: 'What is not done here, and where the volume actually goes',
+        heading: 'What is not proven here: load banks, burn-in and safety certification',
         paras: [
           'No burn-in under load, no automated test with an electronic load, no efficiency or power-factor measurement, and no safety certification. Those produce the numbers a data-centre buyer asks for, and they need a rack, a load bank and a certified laboratory. A shelf that has not been run at load has not been proven. What the floor does run is a chamber soak, quoted per product with its temperature and duration written on the order.',
-          'Commercially, the module volume sits with plants that build in tens of thousands and test in line. The workable entry for a high-mix floor is the second-source run, the battery-backup control and monitoring board, the fan tray and shelf controller, and the pilot build before a brand commits a line.',
-          'What is changing in the racks is worth one sentence, offered as a description of the products rather than as a market forecast: 48 V DC distribution with battery backup inside the rack has moved from a proposal to a shipping architecture, which turns a power-supply purchase into a board-level one. That is the reason this family is on the site at all.',
+        ],
+      },
+      {
+        heading: 'Batch band, second-sourcing and the 48 V rack rhythm',
+        paras: [
+          'Commercially, primary module volume sits with plants that build in tens of thousands and test in line. The workable entry for a high-mix floor is the second-source run, the battery-backup control and monitoring board, the fan tray and shelf controller, and the pilot build before a brand commits a line.',
+          'What is changing in the racks is worth stating plainly: 48 V DC distribution with battery backup inside the rack has moved from a proposal to a shipping architecture, which turns a power-supply purchase into a board-level one. In batches of one hundred to one thousand modules, a 3-day turnaround on unchanged assemblies keeps data centre power deployments on schedule.',
         ],
       },
     ],
@@ -1446,6 +1486,13 @@ export const FAMILIES = {
         paras: [
           'Pack and cabinet assembly, high-voltage wiring, fire suppression, thermal management and every unit-level certification are outside this building. So is functional test with a real pack and a load bank, because the pass criteria live in the control firmware and the cell chemistry.',
           'What a storage programme does ask for, more than most, is a record: first-article evidence, per-lot inspection data and a coating process defined well enough to survive an audit. That is what a certified assembler actually sells on this family, and it is why the DFM review before the first run is worth more than a rate discussion.',
+        ],
+      },
+      {
+        heading: 'Batch band, container scaling and the integrator cadence',
+        paras: [
+          'One hundred to one thousand board sets is the standard build band for commercial and utility energy storage. With dozens of BMU boards required for a single battery rack, an order of five hundred BMUs maps to a manageable deployment of ten to fifteen storage racks.',
+          'For system integrators, the primary requirement is absolute consistency across channels: a 2 mV sensing discrepancy between cells causes phantom balancing alarms in the container controller. Providing automated 3D SPI and AOI records with each lot, conformal coating with verified isolation gaps, and 3-day turnaround from kitted parts allows integrators to scale container deliveries without carrying excessive finished-goods inventory.',
         ],
       },
     ],
