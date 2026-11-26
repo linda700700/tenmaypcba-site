@@ -171,6 +171,7 @@ export default function Seo({ path = '/' }) {
       streetAddress: COMPANY.streetAddress,
       addressLocality: COMPANY.city,
       addressRegion: COMPANY.region,
+      postalCode: COMPANY.postalCode,
       addressCountry: COMPANY.country,
     },
     contactPoint: [

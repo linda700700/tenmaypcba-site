@@ -33,6 +33,7 @@ export const COMPANY = {
   foundedFull: '2008-01-09',
   city: 'Shenzhen',
   region: 'Guangdong',
+  postalCode: '518106',
   country: 'CN',
   /* Registered address on the licence. The LED-era directory listings still
    * carry the old Xili address, which is one reason they need retiring. */
