@@ -70,6 +70,7 @@ export default function Footer() {
               <li><a href="/capabilities.html#tht" className="hover:text-white transition-colors">Box Build & Enclosure Fitting</a></li>
               <li><a href="/assembly.html" className="hover:text-white transition-colors">NPI Rapid Prototyping (48h)</a></li>
               <li><a href="/capabilities.html#test" className="hover:text-white transition-colors">SPI, AOI, X-Ray & Soak Burn-In</a></li>
+              <li><a href="/dfm-guidelines.md" target="_blank" className="text-emerald-400 hover:text-white transition-colors font-medium">DFM Guidelines & Tolerances</a></li>
             </ul>
           </div>
 
@@ -180,6 +181,10 @@ export default function Footer() {
           <a href="/terms.html" className="hover:text-white transition-colors">Terms of Use</a>
           <span className="text-slate-700">·</span>
           <a href="/cookies.html" className="hover:text-white transition-colors">Cookie Policy</a>
+          <span className="text-slate-700">·</span>
+          <a href="/dfm-guidelines.md" target="_blank" className="hover:text-white transition-colors">DFM Specifications</a>
+          <span className="text-slate-700">·</span>
+          <a href="/catalog/TENMAY-PCBA-Catalogue-2026.pdf" target="_blank" className="hover:text-white transition-colors">Engineering Catalog (PDF)</a>
           <span className="text-slate-700">·</span>
           <button
             type="button"

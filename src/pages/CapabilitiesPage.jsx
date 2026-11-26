@@ -205,6 +205,16 @@ export default function CapabilitiesPage() {
               <Download className="w-4 h-4 text-emerald-600" />
               <span>Download 2026 Capability Catalog (25-Page PDF)</span>
             </a>
+            <a
+              href="/dfm-guidelines.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 bg-white hover:bg-slate-50 text-slate-700 border border-slate-300/80 px-5 py-3 rounded text-sm font-semibold transition-colors shadow-sm"
+              title="DFM Engineering Guidelines & Process Tolerances"
+            >
+              <FileText className="w-4 h-4 text-sky-600" />
+              <span>DFM Engineering Guidelines</span>
+            </a>
           </div>
         </div>
       </section>
