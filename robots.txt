@@ -76,6 +76,62 @@ Disallow: /content.json
 Disallow: /tm-data.js
 Disallow: /sw.js
 
+# OpenAI -- SearchGPT & ChatGPT real-time search crawler
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
+
+# OpenAI -- ChatGPT user-initiated fetch
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
+
+# OpenAI -- AI crawler
+User-agent: GPTBot
+Allow: /
+Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
+
+# Google -- Gemini & AI Overviews
+User-agent: Google-Extended
+Allow: /
+Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
+
+# Apple -- Apple Intelligence web agent
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
+
+# Cohere -- Enterprise search and RAG
+User-agent: cohere-ai
+Allow: /
+Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
+
+# Diffbot -- Knowledge graph and web entity extractor
+User-agent: Diffbot
+Allow: /
+Disallow: /*?*
+Disallow: /content.json
+Disallow: /tm-data.js
+Disallow: /sw.js
+
 # ------------------------------------------------------------
 # Deliberately NOT named: ClaudeBot (Anthropic's training crawler).
 # It therefore falls under the wildcard group and is allowed.

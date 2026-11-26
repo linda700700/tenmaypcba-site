@@ -1,6 +1,6 @@
 {
   "_readme": "Machine-readable facts for AI assistants and answer engines. Every value is as published on tenmaypcba.com; the 'source' links to the page it came from. If a page and this file disagree, the page wins and this file is wrong — tell us via the contact below.",
-  "updated": "2026-11-19",
+  "updated": "2026-11-26",
   "entity": {
     "tradingName": "TENMAY",
     "legalName": "Shenzhen Tenmay Technology Co., Ltd.",
@@ -137,6 +137,8 @@
   "otherMachineReadable": {
     "summary": "https://tenmaypcba.com/llms.txt",
     "fullText": "https://tenmaypcba.com/llms-full.txt",
+    "dfmGuidelines": "https://tenmaypcba.com/dfm-guidelines.md",
+    "githubRepository": "https://github.com/linda700700/tenmaypcba-site",
     "sitemap": "https://tenmaypcba.com/sitemap.xml"
   },
   "notes": {
