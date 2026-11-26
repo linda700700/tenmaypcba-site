@@ -1,6 +1,6 @@
 {
-  "_LegalShell-B3VTCRcF.js": {
-    "file": "assets/LegalShell-B3VTCRcF.js",
+  "_LegalShell-Dtg5reHR.js": {
+    "file": "assets/LegalShell-Dtg5reHR.js",
     "name": "LegalShell",
     "imports": [
       "_react-BFDfz19Z.js",
@@ -24,7 +24,7 @@
     "name": "react"
   },
   "index.html": {
-    "file": "assets/index-DxdzIRjx.js",
+    "file": "assets/index-BLp2Ou3v.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
@@ -473,7 +473,7 @@
     "isDynamicEntry": true
   },
   "src/data/families/ai-power.json": {
-    "file": "assets/ai-power-DegRSfFJ.js",
+    "file": "assets/ai-power-Gs5tQ5xV.js",
     "name": "ai-power",
     "src": "src/data/families/ai-power.json",
     "isDynamicEntry": true
@@ -485,7 +485,7 @@
     "isDynamicEntry": true
   },
   "src/data/families/bess.json": {
-    "file": "assets/bess-DH40w6LX.js",
+    "file": "assets/bess-C8UDVAK8.js",
     "name": "bess",
     "src": "src/data/families/bess.json",
     "isDynamicEntry": true
@@ -533,7 +533,7 @@
     "isDynamicEntry": true
   },
   "src/data/families/humanoid.json": {
-    "file": "assets/humanoid-KEBvqxe0.js",
+    "file": "assets/humanoid-DF39x741.js",
     "name": "humanoid",
     "src": "src/data/families/humanoid.json",
     "isDynamicEntry": true
@@ -623,7 +623,7 @@
     "isDynamicEntry": true
   },
   "src/data/families/rugged-radio.json": {
-    "file": "assets/rugged-radio-BaRBsPT8.js",
+    "file": "assets/rugged-radio-Cb59D40v.js",
     "name": "rugged-radio",
     "src": "src/data/families/rugged-radio.json",
     "isDynamicEntry": true
@@ -641,7 +641,7 @@
     "isDynamicEntry": true
   },
   "src/data/families/smart-glasses.json": {
-    "file": "assets/smart-glasses-B5Wn0RJW.js",
+    "file": "assets/smart-glasses-DxcTC9PA.js",
     "name": "smart-glasses",
     "src": "src/data/families/smart-glasses.json",
     "isDynamicEntry": true
@@ -659,7 +659,7 @@
     "isDynamicEntry": true
   },
   "src/data/families/thermal-imaging.json": {
-    "file": "assets/thermal-imaging-CWBlWUdH.js",
+    "file": "assets/thermal-imaging-g9jgB9YJ.js",
     "name": "thermal-imaging",
     "src": "src/data/families/thermal-imaging.json",
     "isDynamicEntry": true
@@ -671,7 +671,7 @@
     "isDynamicEntry": true
   },
   "src/data/families/uav.json": {
-    "file": "assets/uav-DV4f2mZD.js",
+    "file": "assets/uav-B2egPN8o.js",
     "name": "uav",
     "src": "src/data/families/uav.json",
     "isDynamicEntry": true
@@ -689,7 +689,7 @@
     "isDynamicEntry": true
   },
   "src/pages/ApplicationFamilyPage.jsx": {
-    "file": "assets/ApplicationFamilyPage-C9SYI1oz.js",
+    "file": "assets/ApplicationFamilyPage-FrbuQxLP.js",
     "name": "ApplicationFamilyPage",
     "src": "src/pages/ApplicationFamilyPage.jsx",
     "isDynamicEntry": true,
@@ -700,7 +700,7 @@
     ]
   },
   "src/pages/ApplicationsPage.jsx": {
-    "file": "assets/ApplicationsPage-CfdrwS-0.js",
+    "file": "assets/ApplicationsPage-BbOub8Yp.js",
     "name": "ApplicationsPage",
     "src": "src/pages/ApplicationsPage.jsx",
     "isDynamicEntry": true,
@@ -712,7 +712,7 @@
     ]
   },
   "src/pages/ArticlePage.jsx": {
-    "file": "assets/ArticlePage-B9cuFezk.js",
+    "file": "assets/ArticlePage-BMgVdmN3.js",
     "name": "ArticlePage",
     "src": "src/pages/ArticlePage.jsx",
     "isDynamicEntry": true,
@@ -723,7 +723,7 @@
     ]
   },
   "src/pages/AssemblyPage.jsx": {
-    "file": "assets/AssemblyPage-D3VwIYKD.js",
+    "file": "assets/AssemblyPage-BunFjU66.js",
     "name": "AssemblyPage",
     "src": "src/pages/AssemblyPage.jsx",
     "isDynamicEntry": true,
@@ -734,7 +734,7 @@
     ]
   },
   "src/pages/CapabilitiesPage.jsx": {
-    "file": "assets/CapabilitiesPage-CcdgUmtc.js",
+    "file": "assets/CapabilitiesPage-B-z1Cb4p.js",
     "name": "CapabilitiesPage",
     "src": "src/pages/CapabilitiesPage.jsx",
     "isDynamicEntry": true,
@@ -745,7 +745,7 @@
     ]
   },
   "src/pages/CompanyPage.jsx": {
-    "file": "assets/CompanyPage-D1oeDkhT.js",
+    "file": "assets/CompanyPage-CrfbwSeP.js",
     "name": "CompanyPage",
     "src": "src/pages/CompanyPage.jsx",
     "isDynamicEntry": true,
@@ -756,19 +756,19 @@
     ]
   },
   "src/pages/CookiePage.jsx": {
-    "file": "assets/CookiePage-CVb31drp.js",
+    "file": "assets/CookiePage-C_HMgTjD.js",
     "name": "CookiePage",
     "src": "src/pages/CookiePage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-B3VTCRcF.js",
+      "_LegalShell-Dtg5reHR.js",
       "_icons-qwWa3WTO.js",
       "index.html"
     ]
   },
   "src/pages/DefenceRoboticsPage.jsx": {
-    "file": "assets/DefenceRoboticsPage-CE5PbQIh.js",
+    "file": "assets/DefenceRoboticsPage-B4tuU267.js",
     "name": "DefenceRoboticsPage",
     "src": "src/pages/DefenceRoboticsPage.jsx",
     "isDynamicEntry": true,
@@ -780,7 +780,7 @@
     ]
   },
   "src/pages/InsightsPage.jsx": {
-    "file": "assets/InsightsPage-eg3g7THm.js",
+    "file": "assets/InsightsPage-CTaketuh.js",
     "name": "InsightsPage",
     "src": "src/pages/InsightsPage.jsx",
     "isDynamicEntry": true,
@@ -791,19 +791,19 @@
     ]
   },
   "src/pages/PrivacyPage.jsx": {
-    "file": "assets/PrivacyPage-BtBt3AA6.js",
+    "file": "assets/PrivacyPage-FpvfaXEA.js",
     "name": "PrivacyPage",
     "src": "src/pages/PrivacyPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-B3VTCRcF.js",
+      "_LegalShell-Dtg5reHR.js",
       "index.html",
       "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/RfqPage.jsx": {
-    "file": "assets/RfqPage-CVfuYVdN.js",
+    "file": "assets/RfqPage-Ch4qNLy6.js",
     "name": "RfqPage",
     "src": "src/pages/RfqPage.jsx",
     "isDynamicEntry": true,
@@ -814,19 +814,19 @@
     ]
   },
   "src/pages/TermsPage.jsx": {
-    "file": "assets/TermsPage-BnU8aUsQ.js",
+    "file": "assets/TermsPage-DtIaTAkM.js",
     "name": "TermsPage",
     "src": "src/pages/TermsPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-B3VTCRcF.js",
+      "_LegalShell-Dtg5reHR.js",
       "index.html",
       "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/TopicPage.jsx": {
-    "file": "assets/TopicPage-BeVg7yxy.js",
+    "file": "assets/TopicPage-D-Eo4AKQ.js",
     "name": "TopicPage",
     "src": "src/pages/TopicPage.jsx",
     "isDynamicEntry": true,
