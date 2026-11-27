@@ -43,7 +43,7 @@ Ask three questions and listen for numbers:
 
 - "What is your finest IC pitch?" → *0.30 mm* is an answer; "fine pitch capable" is not.
 - "What is the largest board you place?" → *800 × 480 mm* is an answer.
-- "What is your daily placement capacity?" → *300,000 points per day across eight lines* is an answer, and it is checkable against the machine count.
+- "What is your daily placement capacity?" → *5,000,000 points per day across eight lines* is an answer, and it is checkable against the machine count.
 
 A trading office can repeat marketing numbers. What a trading office cannot do is **assign the work to a line, a machine and a shift**. So follow up: *"Which line would this board run on, and what else is booked on it that week?"* The answer either refers to their own schedule or it does not.
 
@@ -77,7 +77,7 @@ Say the limits out loud, because geography is not a capability:
 | Certificate | ISO 9001, 38822Q00487R0S, holder name Shenzhen Tengmei Technology Co., Ltd. |
 | Finest pitch | 0.30 mm · finest passive 01005 (0.4 × 0.2 mm) |
 | Largest board | 800 × 480 mm, double-sided |
-| Capacity | 8 × Yamaha YSM20/YSM10, 300,000 points per day |
+| Capacity | 8 × Yamaha YSM20/YSM10, 5,000,000 points per day |
 | Minimum order | 50 pcs, same for turnkey, partial turnkey and consigned kit |
 | Lead time | 3 working days from kitted parts |
 | Not held | IATF 16949 · ISO 13485 · third-party IPC Class 3 · in-house ICT/FCT · bare-board fabrication |

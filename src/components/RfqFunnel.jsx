@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CheckCircle2, FileText, Lock, ArrowRight, Clock, Send, MessageCircle, UploadCloud } from 'lucide-react';
+import { CheckCircle2, FileText, Lock, ArrowRight, Clock, Send, MessageCircle, UploadCloud, Cpu } from 'lucide-react';
 import { COMPANY, waLink, DEFAULT_WA_TEXT } from '../data/company';
 
 /*
@@ -25,6 +25,9 @@ const track = (name, params) => {
 };
 
 export default function RfqFunnel() {
+  const [mode, setMode] = useState('quote'); // 'quote' | 'dfm'
+  const [dfmStage, setDfmStage] = useState('Routing in progress');
+  const [dfmFocus, setDfmFocus] = useState('BGA / QFN pitch');
   const [quantity, setQuantity] = useState('50');
   const [serviceType, setServiceType] = useState('turnkey');
   const [submitted, setSubmitted] = useState(false);
@@ -65,35 +68,58 @@ export default function RfqFunnel() {
     setSending(true);
     setError('');
 
-    const lines = [
-      `Service wanted: ${serviceType}`,
-      `Quantity band: ${quantity} pcs`,
-      'BOM / Gerber: a one-time upload link was issued to the buyer on submit.',
-      '',
-      'Project notes:',
-      notes || '(none)',
-    ];
+    const lines = mode === 'dfm'
+      ? [
+          '[Inquiry Type: Free 24h DFM Risk Scan]',
+          `Design Stage: ${dfmStage}`,
+          `Primary Review Focus: ${dfmFocus}`,
+          'BOM / Gerber: Preliminary engineering check before formal Gerber release.',
+          '',
+          'Project Specs & Engineering Questions:',
+          notes || '(none provided)',
+        ]
+      : [
+          `Service wanted: ${serviceType}`,
+          `Quantity band: ${quantity} pcs`,
+          'BOM / Gerber: a one-time upload link was issued to the buyer on submit.',
+          '',
+          'Project notes:',
+          notes || '(none)',
+        ];
 
     setFallbackText(
-      [
-        'Hello Tenmay, I would like a quote for a PCBA build.',
-        '',
-        `Service: ${serviceType}`,
-        `Quantity: ${quantity} pcs`,
-        `Email: ${email}`,
-        company ? `Company: ${company}` : '',
-        notes ? `Notes: ${notes}` : '',
-        '',
-        'I can share Gerber and BOM.',
-      ].filter(Boolean).join('\n'),
+      mode === 'dfm'
+        ? [
+            'Hello Tenmay, I would like to request a 24h DFM risk review.',
+            '',
+            `Stage: ${dfmStage}`,
+            `Focus: ${dfmFocus}`,
+            `Email: ${email}`,
+            company ? `Company: ${company}` : '',
+            notes ? `Specs/Notes: ${notes}` : '',
+            '',
+            'I would like an assembly engineer to review design feasibility.',
+          ].filter(Boolean).join('\n')
+        : [
+            'Hello Tenmay, I would like a quote for a PCBA build.',
+            '',
+            `Service: ${serviceType}`,
+            `Quantity: ${quantity} pcs`,
+            `Email: ${email}`,
+            company ? `Company: ${company}` : '',
+            notes ? `Notes: ${notes}` : '',
+            '',
+            'I can share Gerber and BOM.',
+          ].filter(Boolean).join('\n'),
     );
 
     // Records the attempt separately from the success: without it a falling
     // submit rate cannot be told apart from falling traffic.
     track('form_submit_attempt', {
       form: 'rfq',
-      service: serviceType,
-      quantity: Number(quantity) || 0,
+      mode,
+      service: mode === 'dfm' ? 'dfm-scan' : serviceType,
+      quantity: mode === 'dfm' ? 0 : (Number(quantity) || 0),
       has_notes: Boolean(notes),
       has_company: Boolean(company),
     });
@@ -111,8 +137,8 @@ export default function RfqFunnel() {
           company: company || email,
           email,
           channel: 'form',
-          process: serviceType,
-          quantity: Number(quantity) || null,
+          process: mode === 'dfm' ? 'dfm-scan' : serviceType,
+          quantity: mode === 'dfm' ? null : (Number(quantity) || null),
           need: lines.join('\n'),
           // Filled only by something that fills every input on the page.
           website: honeypot,
@@ -134,8 +160,9 @@ export default function RfqFunnel() {
         // needs to segment the lead by service and size.
         track('form_submit_success', {
           form: 'rfq',
-          service: serviceType,
-          quantity: Number(quantity) || 0,
+          mode,
+          service: mode === 'dfm' ? 'dfm-scan' : serviceType,
+          quantity: mode === 'dfm' ? 0 : (Number(quantity) || 0),
         });
       } else if (res.status === 429) {
         setError('Too many requests from this network. Try again in a minute.');
@@ -177,21 +204,30 @@ export default function RfqFunnel() {
             <span>NDA ON REQUEST · SUBMITTED OVER HTTPS</span>
           </div>
           <h2 className="text-2xl sm:text-4xl font-bold text-slate-900 tracking-tight">
-            Request your itemised quote
+            {mode === 'dfm' ? 'Free 24h DFM Risk & Feasibility Review' : 'Request your itemised quote'}
           </h2>
           <p className="text-sm text-slate-600 mt-2.5 leading-relaxed">
-            Tell us what you are building, and you can hand over the Gerber and BOM the moment you submit. Our bilingual manufacturing engineering team reviews your design rules and returns an auditable proposal within one working day.
+            {mode === 'dfm'
+              ? 'Still routing your PCB or selecting components? An SMT process engineer reviews your fine-pitch clearances, stackup, and solderability within 24 business hours — zero manufacturing files required.'
+              : 'Tell us what you are building, and you can hand over the Gerber and BOM the moment you submit. Our bilingual manufacturing engineering team reviews your design rules and returns an auditable proposal within one working day.'}
           </p>
 
           {/* The three things a first-time visitor is actually unsure about:
               how long this takes, whether files are needed now, and what comes
               back. Stated before the form so the ask feels bounded. */}
           <ol className="mt-6 grid grid-cols-1 gap-3 text-left sm:grid-cols-3">
-            {[
-              ['1', 'You submit the requirement', 'About a minute. No files needed yet — no BOM, no Gerber.'],
-              ['2', 'We reply within one working day', 'The itemised price plus any DFM questions, in one message.'],
-              ['3', 'You get an itemized quote', 'Per-line pricing, lead time, and the assumptions written down.'],
-            ].map(([n, title, body]) => (
+            {(mode === 'dfm'
+              ? [
+                  ['1', 'Submit basic board parameters', 'Takes 60 seconds. No final Gerber or BOM required.'],
+                  ['2', 'SMT process engineer review', 'Checked against 01005 passives & 0.30mm IC limits within 24h.'],
+                  ['3', 'Actionable technical feedback', 'Clear guidance on aperture, clearances, and manufacturing risk.'],
+                ]
+              : [
+                  ['1', 'You submit the requirement', 'About a minute. No files needed yet — no BOM, no Gerber.'],
+                  ['2', 'We reply within one working day', 'The itemised price plus any DFM questions, in one message.'],
+                  ['3', 'You get an itemized quote', 'Per-line pricing, lead time, and the assumptions written down.'],
+                ]
+            ).map(([n, title, body]) => (
               <li key={n} className="flex gap-2.5 rounded-xl border border-brand-200/50 bg-white/70 px-3.5 py-3">
                 <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#126B3F] text-[11px] font-bold text-white">
                   {n}
@@ -213,15 +249,26 @@ export default function RfqFunnel() {
               <div className="w-16 h-16 bg-emerald-50 border border-emerald-200 text-emerald-600 rounded-full flex items-center justify-center mx-auto">
                 <CheckCircle2 className="w-9 h-9" />
               </div>
-              <h3 className="text-2xl font-bold text-slate-900">Request received</h3>
+              <h3 className="text-2xl font-bold text-slate-900">
+                {mode === 'dfm' ? 'DFM Review Request Logged' : 'Request received'}
+              </h3>
               {reference ? (
                 <p className="text-xs font-bold uppercase tracking-widest text-[#126B3F]">Reference {reference}</p>
               ) : null}
               <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
-                Your request is logged. An assembly engineer replies to
-                {' '}<span className="font-semibold text-slate-800">{email}</span> within one working day,
-                with an itemised price and any DFM questions. If it is urgent, write on
-                {' '}<span className="text-[#126B3F] font-bold">WhatsApp {COMPANY.whatsappDisplay}</span> and quote the reference above.
+                {mode === 'dfm' ? (
+                  <>
+                    Your board parameters are logged. An SMT assembly engineer will review your design rules and email written DFM feedback to{' '}
+                    <span className="font-semibold text-slate-800">{email}</span> within 24 business hours (Monday–Friday, GMT+8). If urgent, write on{' '}
+                    <span className="text-[#126B3F] font-bold">WhatsApp {COMPANY.whatsappDisplay}</span> and quote the reference above.
+                  </>
+                ) : (
+                  <>
+                    Your request is logged. An assembly engineer replies to{' '}
+                    <span className="font-semibold text-slate-800">{email}</span> within one working day, with an itemised price and any DFM questions. If it is urgent, write on{' '}
+                    <span className="text-[#126B3F] font-bold">WhatsApp {COMPANY.whatsappDisplay}</span> and quote the reference above.
+                  </>
+                )}
               </p>
 
               {/* The upload is the primary action here, not a footnote: the buyer
@@ -270,104 +317,249 @@ export default function RfqFunnel() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-7">
               
-              {/* Step 1: files are NOT uploaded here — say so plainly. */}
-              <div className="rounded-xl border border-brand-200/60 bg-brand-50/40 p-5">
-                <div className="flex items-start gap-3">
-                  <FileText className="w-5 h-5 text-[#126B3F] mt-0.5 shrink-0" />
+              {/* Mode Selector Tabs */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 p-1.5 bg-slate-100/80 rounded-xl border border-slate-200/80">
+                <button
+                  type="button"
+                  onClick={() => setMode('quote')}
+                  className={`p-3.5 rounded-lg text-left transition-all flex items-start gap-3 ${
+                    mode === 'quote'
+                      ? 'bg-white shadow-sm border border-brand-200/80 text-slate-900 ring-1 ring-brand-500/20'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <div className={`mt-0.5 p-2 rounded-lg shrink-0 ${mode === 'quote' ? 'bg-[#126B3F] text-white' : 'bg-slate-200/70 text-slate-600'}`}>
+                    <FileText className="w-4 h-4" />
+                  </div>
                   <div>
-                    <div className="text-sm font-semibold text-slate-800">
-                      BOM / Gerber: send after you submit
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] font-bold text-slate-900">Production Quote</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider bg-brand-50 text-[#126B3F] px-1.5 py-0.5 rounded border border-brand-200/50">
+                        Turnkey / Kit
+                      </span>
                     </div>
-                    <div className="text-xs text-slate-600 mt-1 leading-relaxed">
-                      This form only captures your requirement — files are not uploaded here.
-                      The moment you submit you get a one-time upload link, and an engineer replies
-                      within one working day with an itemised price.
-                    </div>
-                    {/* What to have ready, and in what format. No size limit is
-                        quoted because the upload link sets its own; a number
-                        invented here would be the first thing to contradict it. */}
-                    <div className="mt-3 border-t border-brand-200/60 pt-3">
-                      <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-700">
-                        What to have ready
-                      </div>
-                      <ul className="mt-2 grid grid-cols-1 gap-1.5 text-[12px] leading-snug text-slate-600 sm:grid-cols-2">
-                        <li><span className="font-semibold text-slate-800">Gerber / ODB++:</span> RS-274X with the Excellon drill file, zipped</li>
-                        <li><span className="font-semibold text-slate-800">BOM:</span> XLSX or CSV with manufacturer part numbers</li>
-                        <li><span className="font-semibold text-slate-800">Placement:</span> centroid / pick-and-place, CSV or TXT</li>
-                        <li><span className="font-semibold text-slate-800">Optional:</span> assembly drawing, test spec, target date</li>
-                      </ul>
-                      <div className="mt-2 text-[11.5px] leading-snug text-slate-500">
-                        PDFs and screenshots of a BOM cannot be programmed from — send the source
-                        file. If the archive is too big to send, a download link is fine.
-                      </div>
-                    </div>
+                    <p className="text-[11.5px] text-slate-500 mt-1 leading-snug">
+                      Have or will upload Gerber & BOM. Need itemised pricing, lead times, and batch costs.
+                    </p>
                   </div>
-                </div>
+                </button>
+
+                <button
+                  type="button"
+                  onClick={() => setMode('dfm')}
+                  className={`p-3.5 rounded-lg text-left transition-all flex items-start gap-3 ${
+                    mode === 'dfm'
+                      ? 'bg-white shadow-sm border border-emerald-300 text-slate-900 ring-1 ring-emerald-400/30'
+                      : 'text-slate-600 hover:text-slate-900'
+                  }`}
+                >
+                  <div className={`mt-0.5 p-2 rounded-lg shrink-0 ${mode === 'dfm' ? 'bg-[#126B3F] text-white' : 'bg-slate-200/70 text-slate-600'}`}>
+                    <Cpu className="w-4 h-4" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-[13px] font-bold text-slate-900">Free 24h DFM Risk Scan</span>
+                      <span className="text-[10px] font-bold uppercase tracking-wider bg-emerald-50 text-emerald-800 px-1.5 py-0.5 rounded border border-emerald-200">
+                        No Files Required
+                      </span>
+                    </div>
+                    <p className="text-[11.5px] text-slate-500 mt-1 leading-snug">
+                      Design in progress. Review stackup, fine-pitch BGA/QFN, or thermal risks before tape-out.
+                    </p>
+                  </div>
+                </button>
               </div>
 
-              {/* Step 2: Target Volume & Procurement Model */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-1">
-                <div>
-                  <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">
-                    Step 2A: Target Quantity (Batch Size)
-                  </label>
-                  <div className="grid grid-cols-5 gap-2">
-                    {['5-10', '50', '200', '1000', '5000+'].map((qty) => (
-                      <button
-                        type="button"
-                        key={qty}
-                        onClick={() => setQuantity(qty)}
-                        className={`py-2.5 text-xs font-bold rounded-lg border transition-colors ${
-                          quantity === qty
-                            ? 'bg-[#126B3F] text-white border-[#126B3F] shadow-sm'
-                            : 'bg-white text-slate-700 border-brand-200/50 hover:border-slate-300/80'
-                        }`}
-                      >
-                        {qty}
-                      </button>
-                    ))}
+              {/* Step 1 & Step 2: Adaptive to mode */}
+              {mode === 'dfm' ? (
+                <>
+                  {/* DFM Step 1: No files required */}
+                  <div className="rounded-xl border border-brand-200/60 bg-emerald-50/40 p-5">
+                    <div className="flex items-start gap-3">
+                      <Cpu className="w-5 h-5 text-[#126B3F] mt-0.5 shrink-0" />
+                      <div>
+                        <div className="text-sm font-semibold text-slate-800">
+                          Early DFM Review: Zero manufacturing files required to start
+                        </div>
+                        <div className="text-xs text-slate-600 mt-1 leading-relaxed">
+                          You do not need to share completed files or unreleased board designs. Describe your layer stackup, smallest IC pitch, or thermal constraints below. An assembly engineer reviews clearances, solderability, and production limits within 24 business hours.
+                        </div>
+                        <div className="mt-3 border-t border-brand-200/60 pt-3">
+                          <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-700">
+                            What our SMT engineers check for free
+                          </div>
+                          <ul className="mt-2 grid grid-cols-1 gap-1.5 text-[12px] leading-snug text-slate-600 sm:grid-cols-2">
+                            <li><span className="font-semibold text-slate-800">Fine-pitch ICs:</span> BGA/QFN pad geometry down to 0.30 mm pitch</li>
+                            <li><span className="font-semibold text-slate-800">Passives clearances:</span> 01005 / 0201 spacing & tombstone prevention</li>
+                            <li><span className="font-semibold text-slate-800">Board stackup:</span> Layer count, copper weight (1–3 oz), thermal isolation</li>
+                            <li><span className="font-semibold text-slate-800">Process route:</span> Selective soldering, conformal coating boundaries, lead times</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                <div>
-                  <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">
-                    Step 2B: Procurement Model
-                  </label>
-                  <div className="grid grid-cols-2 gap-2">
-                    <button
-                      type="button"
-                      onClick={() => setServiceType('turnkey')}
-                      className={`py-2.5 px-3.5 text-xs text-left rounded-lg border transition-colors ${
-                        serviceType === 'turnkey'
-                          ? 'bg-brand-50 border-[#126B3F] text-[#126B3F]'
-                          : 'bg-white text-slate-700 border-brand-200/50'
-                      }`}
-                    >
-                      <span className="font-bold block text-slate-900">Full Turnkey</span>
-                      <span className="text-[12px] text-slate-500">We source PCB + BOM</span>
-                    </button>
+                  {/* DFM Step 2: Design Stage & Review Focus */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-1">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">
+                        Step 2A: Current Design Stage
+                      </label>
+                      <div className="grid grid-cols-2 gap-2">
+                        {[
+                          ['Schematic / Parts', 'Selecting components'],
+                          ['Routing in progress', 'PCB layout underway'],
+                          ['Pre-Gerber review', 'Layout done, verifying DFM'],
+                          ['Revision / Redesign', 'Fixing issues on v2'],
+                        ].map(([stg, desc]) => (
+                          <button
+                            type="button"
+                            key={stg}
+                            onClick={() => setDfmStage(stg)}
+                            className={`py-2 px-3 text-xs text-left rounded-lg border transition-colors ${
+                              dfmStage === stg
+                                ? 'bg-brand-50 border-[#126B3F] text-[#126B3F]'
+                                : 'bg-white text-slate-700 border-brand-200/50 hover:border-slate-300'
+                            }`}
+                          >
+                            <span className="font-bold block text-slate-900">{stg}</span>
+                            <span className="text-[11px] text-slate-500">{desc}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
 
-                    <button
-                      type="button"
-                      onClick={() => setServiceType('consigned')}
-                      className={`py-2.5 px-3.5 text-xs text-left rounded-lg border transition-colors ${
-                        serviceType === 'consigned'
-                          ? 'bg-brand-50 border-[#126B3F] text-[#126B3F]'
-                          : 'bg-white text-slate-700 border-brand-200/50'
-                      }`}
-                    >
-                      <span className="font-bold block text-slate-900">Consigned Kit</span>
-                      <span className="text-[12px] text-slate-500">You supply components</span>
-                    </button>
+                    <div>
+                      <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">
+                        Step 2B: Primary Review Focus
+                      </label>
+                      <div className="grid grid-cols-2 gap-2">
+                        {[
+                          ['BGA / QFN pitch', '≤0.4mm pitch & voiding'],
+                          ['Stackup & Copper', 'Impedance & thermal copper'],
+                          ['High-voltage / Creepage', 'Isolation gaps & coating'],
+                          ['Sourcing & Assembly', 'Lead time & alternate parts'],
+                        ].map(([foc, desc]) => (
+                          <button
+                            type="button"
+                            key={foc}
+                            onClick={() => setDfmFocus(foc)}
+                            className={`py-2 px-3 text-xs text-left rounded-lg border transition-colors ${
+                              dfmFocus === foc
+                                ? 'bg-brand-50 border-[#126B3F] text-[#126B3F]'
+                                : 'bg-white text-slate-700 border-brand-200/50 hover:border-slate-300'
+                            }`}
+                          >
+                            <span className="font-bold block text-slate-900">{foc}</span>
+                            <span className="text-[11px] text-slate-500">{desc}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
+                </>
+              ) : (
+                <>
+                  {/* Quote Step 1: files are NOT uploaded here — say so plainly. */}
+                  <div className="rounded-xl border border-brand-200/60 bg-brand-50/40 p-5">
+                    <div className="flex items-start gap-3">
+                      <FileText className="w-5 h-5 text-[#126B3F] mt-0.5 shrink-0" />
+                      <div>
+                        <div className="text-sm font-semibold text-slate-800">
+                          BOM / Gerber: send after you submit
+                        </div>
+                        <div className="text-xs text-slate-600 mt-1 leading-relaxed">
+                          This form only captures your requirement — files are not uploaded here.
+                          The moment you submit you get a one-time upload link, and an engineer replies
+                          within one working day with an itemised price.
+                        </div>
+                        {/* What to have ready, and in what format. No size limit is
+                            quoted because the upload link sets its own; a number
+                            invented here would be the first thing to contradict it. */}
+                        <div className="mt-3 border-t border-brand-200/60 pt-3">
+                          <div className="text-[11px] font-bold uppercase tracking-[0.12em] text-slate-700">
+                            What to have ready
+                          </div>
+                          <ul className="mt-2 grid grid-cols-1 gap-1.5 text-[12px] leading-snug text-slate-600 sm:grid-cols-2">
+                            <li><span className="font-semibold text-slate-800">Gerber / ODB++:</span> RS-274X with the Excellon drill file, zipped</li>
+                            <li><span className="font-semibold text-slate-800">BOM:</span> XLSX or CSV with manufacturer part numbers</li>
+                            <li><span className="font-semibold text-slate-800">Placement:</span> centroid / pick-and-place, CSV or TXT</li>
+                            <li><span className="font-semibold text-slate-800">Optional:</span> assembly drawing, test spec, target date</li>
+                          </ul>
+                          <div className="mt-2 text-[11.5px] leading-snug text-slate-500">
+                            PDFs and screenshots of a BOM cannot be programmed from — send the source
+                            file. If the archive is too big to send, a download link is fine.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Quote Step 2: Target Volume & Procurement Model */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-1">
+                    <div>
+                      <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">
+                        Step 2A: Target Quantity (Batch Size)
+                      </label>
+                      <div className="grid grid-cols-5 gap-2">
+                        {['5-10', '50', '200', '1000', '5000+'].map((qty) => (
+                          <button
+                            type="button"
+                            key={qty}
+                            onClick={() => setQuantity(qty)}
+                            className={`py-2.5 text-xs font-bold rounded-lg border transition-colors ${
+                              quantity === qty
+                                ? 'bg-[#126B3F] text-white border-[#126B3F] shadow-sm'
+                                : 'bg-white text-slate-700 border-brand-200/50 hover:border-slate-300/80'
+                            }`}
+                          >
+                            {qty}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div>
+                      <label className="block text-xs font-bold text-slate-900 uppercase tracking-wider mb-2">
+                        Step 2B: Procurement Model
+                      </label>
+                      <div className="grid grid-cols-2 gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setServiceType('turnkey')}
+                          className={`py-2.5 px-3.5 text-xs text-left rounded-lg border transition-colors ${
+                            serviceType === 'turnkey'
+                              ? 'bg-brand-50 border-[#126B3F] text-[#126B3F]'
+                              : 'bg-white text-slate-700 border-brand-200/50'
+                          }`}
+                        >
+                          <span className="font-bold block text-slate-900">Full Turnkey</span>
+                          <span className="text-[12px] text-slate-500">We source PCB + BOM</span>
+                        </button>
+
+                        <button
+                          type="button"
+                          onClick={() => setServiceType('consigned')}
+                          className={`py-2.5 px-3.5 text-xs text-left rounded-lg border transition-colors ${
+                            serviceType === 'consigned'
+                              ? 'bg-brand-50 border-[#126B3F] text-[#126B3F]'
+                              : 'bg-white text-slate-700 border-brand-200/50'
+                          }`}
+                        >
+                          <span className="font-bold block text-slate-900">Consigned Kit</span>
+                          <span className="text-[12px] text-slate-500">You supply components</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
 
               {/* Step 3: Contact Details */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
                 <div>
                   <label htmlFor="tm-email" className="block text-xs font-semibold text-slate-700 mb-1">
-                    Your Work Email * (For Quote Delivery)
+                    Your Work Email * (For {mode === 'dfm' ? 'DFM Feedback' : 'Quote Delivery'})
                   </label>
                   <input
                     id="tm-email"
@@ -401,15 +593,21 @@ export default function RfqFunnel() {
 
               <div>
                 <label htmlFor="tm-notes" className="block text-xs font-semibold text-slate-700 mb-1">
-                  Project Notes, Critical Tolerances or Special Requirements
+                  {mode === 'dfm'
+                    ? 'Board Specs, Critical Tolerances or Engineering Questions'
+                    : 'Project Notes, Critical Tolerances or Special Requirements'}
                 </label>
                 <textarea
                   id="tm-notes"
-                  rows={2}
+                  rows={mode === 'dfm' ? 3 : 2}
                   name="notes"
                   value={notes}
                   onChange={(e) => setNotes(e.target.value)}
-                  placeholder="e.g. Requires IPC Class 3 inspection, 0.4mm BGA on top side, conformal coating needed, target delivery within 10 days..."
+                  placeholder={
+                    mode === 'dfm'
+                      ? 'e.g. 4-layer FR4 1.6mm, 0.35mm pitch BGA on bottom, 1oz copper. Need advice on stencil aperture reduction to prevent solder bridges, and whether 0201 passives can be placed 0.2mm from BGA edge...'
+                      : 'e.g. Requires IPC Class 3 inspection, 0.4mm BGA on top side, conformal coating needed, target delivery within 10 days...'
+                  }
                   className="w-full bg-slate-50 border border-brand-200/50 rounded-lg p-3 text-xs text-slate-900 focus:bg-white focus:border-[#126B3F] outline-none"
                 ></textarea>
               </div>
@@ -439,7 +637,11 @@ export default function RfqFunnel() {
               <div className="pt-4 border-t border-brand-200/50 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-2 text-xs text-slate-600 font-medium">
                   <Clock className="w-4 h-4 text-emerald-600" />
-                  <span>Quote and DFM feedback within one working day</span>
+                  <span>
+                    {mode === 'dfm'
+                      ? 'Guaranteed SMT engineer review within 24 business hours'
+                      : 'Quote and DFM feedback within one working day'}
+                  </span>
                 </div>
 
                 {error ? (
@@ -465,7 +667,7 @@ export default function RfqFunnel() {
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#126B3F] hover:bg-[#0B5A34] disabled:opacity-60 disabled:cursor-not-allowed text-white px-8 py-3.5 rounded-lg text-xs font-bold uppercase tracking-wider transition-all shadow-md hover:shadow-lg"
                 >
                   <Send className="w-3.5 h-3.5" />
-                  <span>{sending ? 'Sending…' : 'Send the request'}</span>
+                  <span>{sending ? 'Sending…' : (mode === 'dfm' ? 'Request Free 24h DFM Review' : 'Send the request')}</span>
                 </button>
               </div>
 

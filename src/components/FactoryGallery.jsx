@@ -16,7 +16,7 @@ const STATIONS = [
     tag: 'PLACEMENT · SMT LINE',
     specs: [
       'Yamaha YSM20 / YSM10 placement — eight lines in total',
-      '300,000 placement points per day in total',
+      '5,000,000 placement points per day in total',
       '01005 passives to 0.3 mm pitch ICs',
       'Double-sided boards up to 800 × 480 mm',
     ],

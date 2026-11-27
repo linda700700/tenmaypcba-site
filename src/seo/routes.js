@@ -20,7 +20,7 @@ export const ROUTE_HEADS = {
       'PCBA contract manufacturer in Shenzhen since 2008. Eight Yamaha YSM20/YSM10 lines, SMT from 01005, in-line SPI/AOI/X-ray, three-day standard lead time.',
     ogTitle: 'TENMAY — PCBA Contract Manufacturer, Shenzhen',
     ogDescription:
-      'Eight production lines, 300,000 placement points a day, three-day standard lead time. High-mix low-volume PCBA from fifty pieces upward.',
+      'Eight production lines, 5,000,000 placement points a day, three-day standard lead time. High-mix low-volume PCBA from fifty pieces upward.',
   },
   '/assembly': {
     title: 'PCBA Assembly Services — SMT, THT, Coating | TENMAY',

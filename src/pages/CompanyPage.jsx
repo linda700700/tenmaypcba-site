@@ -94,7 +94,7 @@ const capabilityRows = [
     'Yes, continuous',
     `Since ${HISTORY.pcbaSince}. The LED lighting line was a product venture inside this business, not a predecessor to it`,
   ],
-  ['SMT and through-hole assembly', 'Yes', 'Eight Yamaha lines, 300,000 placement points per day, from 01005 upward'],
+  ['SMT and through-hole assembly', 'Yes', 'Eight Yamaha lines, 5,000,000 placement points per day, from 01005 upward'],
   ['Bare PCB fabrication', 'No', 'Boards are bought from qualified partner fabs. This is an assembly house, not a PCB house'],
   ['In-circuit test', 'Not in-house', 'Fixture and program are built with a qualified partner and quoted as a separate line'],
   ['Finished LED lighting fixtures', 'No longer made', 'LED driver boards are still assembled — as boards, which is a different job from building a fixture'],

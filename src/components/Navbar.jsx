@@ -48,7 +48,7 @@ const NAV = [
     promo: {
       image: '/assets/images/feeder-kitting.webp',
       title: 'What the line can actually take',
-      body: '01005 passives · 0.3 mm IC pitch · 800 × 480 mm boards · 300,000 placements a day across eight lines.',
+      body: '01005 passives · 0.3 mm IC pitch · 800 × 480 mm boards · 5,000,000 placements a day across eight lines.',
       cta: 'Open the assembly page',
       href: '/assembly.html',
     },
