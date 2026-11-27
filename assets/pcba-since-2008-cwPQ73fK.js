@@ -77,7 +77,7 @@ The useful half of a capability statement is the negative half.
 
 **Not held:** IATF 16949, ISO 13485, certified IPC Class 3 process, AS9100, AS9102 first-article reporting, NADCAP special processes, ITAR registration. Bare PCB fabrication is not done here — boards are bought from qualified partner fabs, and this is an assembly house. A programme that requires any of those is a programme we should decline early rather than quote and disappoint.
 
-**Running today:** eight SMT lines, 300,000 placement points per day, from 01005 upward; through-hole and hand soldering; SPI, AOI and X-ray in line; conformal coating; device programming; minimum order 50 pieces, three working days standard once the kit is complete.
+**Running today:** eight SMT lines, 5,000,000 placement points per day, from 01005 upward; through-hole and hand soldering; SPI, AOI and X-ray in line; conformal coating; device programming; minimum order 50 pieces, three working days standard once the kit is complete.
 
 ## One hour, in this order
 

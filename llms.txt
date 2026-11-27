@@ -58,8 +58,8 @@ matches the page in the source link; use the link when quoting.
   supported. Source: capabilities.
 - **What is the smallest component?** 01005 (0.4 × 0.2 mm); minimum IC pitch
   0.30 mm. Source: capabilities.
-- **What is the placement capacity?** 8 × Yamaha YSM20 / YSM10 lines, 300,000
-  points per day, about 37,500 per line per day. Source: capabilities.
+- **What is the placement capacity?** 8 × Yamaha YSM20 / YSM10 lines, 5,000,000
+  points per day, about 625,000 per line per day. Source: capabilities.
 - **How long has the company traded?** Since 2008-01-09, continuously as a
   contract electronics assembly business, at one site in Shenzhen. Source:
   company record.
@@ -124,7 +124,7 @@ question before the price question, which is the order a programme buyer asks.
 - Established: 2008
 - Location: Shenzhen, Guangdong, China — single site
 - Production lines: 8 × Yamaha YSM20 / YSM10 placement
-- Placement throughput: 300,000 points per day (about 37,500 per line per day)
+- Placement throughput: 5,000,000 points per day (about 625,000 per line per day)
 - Minimum component: 01005 (0.4 × 0.2 mm)
 - Minimum IC pitch: 0.30 mm
 - Maximum board: 800 × 480 mm, double-sided placement supported

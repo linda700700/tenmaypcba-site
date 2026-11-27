@@ -61,7 +61,7 @@
     "minimumComponent": "01005 (0.4 x 0.2 mm)",
     "minimumIcPitchMm": 0.3,
     "placementLines": "8 x Yamaha YSM20 / YSM10",
-    "placementPointsPerDay": 300000,
+    "placementPointsPerDay": 5000000,
     "inspection": "In-line SPI before placement; AOI after reflow every shift; X-ray on BGA / QFN and power-device joints, read by an operator",
     "conformalCoating": "In-house, applied after inspection to a documented masking drawing",
     "alsoInHouse": [

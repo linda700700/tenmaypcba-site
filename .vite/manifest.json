@@ -1,6 +1,6 @@
 {
-  "_LegalShell-CpwUFq66.js": {
-    "file": "assets/LegalShell-CpwUFq66.js",
+  "_LegalShell-DNqY5SuW.js": {
+    "file": "assets/LegalShell-DNqY5SuW.js",
     "name": "LegalShell",
     "imports": [
       "_react-BFDfz19Z.js",
@@ -24,7 +24,7 @@
     "name": "react"
   },
   "index.html": {
-    "file": "assets/index-BhefZA0Z.js",
+    "file": "assets/index-CWKoWbAl.js",
     "name": "index",
     "src": "index.html",
     "isEntry": true,
@@ -139,7 +139,7 @@
       "src/data/families/wearables.json"
     ],
     "css": [
-      "assets/index--kD41D5d.css"
+      "assets/index-BEq5GJVv.css"
     ]
   },
   "src/content/insights/01005-placement-what-limits-yield.md?raw": {
@@ -341,13 +341,13 @@
     "isDynamicEntry": true
   },
   "src/content/insights/pcba-since-2008.md?raw": {
-    "file": "assets/pcba-since-2008-DWNxPFsC.js",
+    "file": "assets/pcba-since-2008-cwPQ73fK.js",
     "name": "pcba-since-2008",
     "src": "src/content/insights/pcba-since-2008.md?raw",
     "isDynamicEntry": true
   },
   "src/content/insights/pcba-supplier-audit-checklist.md?raw": {
-    "file": "assets/pcba-supplier-audit-checklist-BMt53fwV.js",
+    "file": "assets/pcba-supplier-audit-checklist-CSVkcV1-.js",
     "name": "pcba-supplier-audit-checklist",
     "src": "src/content/insights/pcba-supplier-audit-checklist.md?raw",
     "isDynamicEntry": true
@@ -395,7 +395,7 @@
     "isDynamicEntry": true
   },
   "src/content/insights/shenzhen-pcba-factory-guide.md?raw": {
-    "file": "assets/shenzhen-pcba-factory-guide-vjL0-5pR.js",
+    "file": "assets/shenzhen-pcba-factory-guide-CLTde9YT.js",
     "name": "shenzhen-pcba-factory-guide",
     "src": "src/content/insights/shenzhen-pcba-factory-guide.md?raw",
     "isDynamicEntry": true
@@ -689,7 +689,7 @@
     "isDynamicEntry": true
   },
   "src/pages/ApplicationFamilyPage.jsx": {
-    "file": "assets/ApplicationFamilyPage-DQtu-X7N.js",
+    "file": "assets/ApplicationFamilyPage-FjumQQjI.js",
     "name": "ApplicationFamilyPage",
     "src": "src/pages/ApplicationFamilyPage.jsx",
     "isDynamicEntry": true,
@@ -700,7 +700,7 @@
     ]
   },
   "src/pages/ApplicationsPage.jsx": {
-    "file": "assets/ApplicationsPage-Br9mbw0i.js",
+    "file": "assets/ApplicationsPage-nAzHnnDk.js",
     "name": "ApplicationsPage",
     "src": "src/pages/ApplicationsPage.jsx",
     "isDynamicEntry": true,
@@ -712,7 +712,7 @@
     ]
   },
   "src/pages/ArticlePage.jsx": {
-    "file": "assets/ArticlePage-BA1VYjho.js",
+    "file": "assets/ArticlePage-BTFlFcfl.js",
     "name": "ArticlePage",
     "src": "src/pages/ArticlePage.jsx",
     "isDynamicEntry": true,
@@ -723,7 +723,7 @@
     ]
   },
   "src/pages/AssemblyPage.jsx": {
-    "file": "assets/AssemblyPage-YItDqv7d.js",
+    "file": "assets/AssemblyPage-BxtLNrlq.js",
     "name": "AssemblyPage",
     "src": "src/pages/AssemblyPage.jsx",
     "isDynamicEntry": true,
@@ -734,7 +734,7 @@
     ]
   },
   "src/pages/CapabilitiesPage.jsx": {
-    "file": "assets/CapabilitiesPage-rrrsdqjj.js",
+    "file": "assets/CapabilitiesPage-BuaZenhw.js",
     "name": "CapabilitiesPage",
     "src": "src/pages/CapabilitiesPage.jsx",
     "isDynamicEntry": true,
@@ -745,7 +745,7 @@
     ]
   },
   "src/pages/CompanyPage.jsx": {
-    "file": "assets/CompanyPage-k1yinfQj.js",
+    "file": "assets/CompanyPage-BGSiVYBk.js",
     "name": "CompanyPage",
     "src": "src/pages/CompanyPage.jsx",
     "isDynamicEntry": true,
@@ -756,19 +756,19 @@
     ]
   },
   "src/pages/CookiePage.jsx": {
-    "file": "assets/CookiePage-BxJTgVbz.js",
+    "file": "assets/CookiePage-BGigBS0M.js",
     "name": "CookiePage",
     "src": "src/pages/CookiePage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-CpwUFq66.js",
+      "_LegalShell-DNqY5SuW.js",
       "_icons-qwWa3WTO.js",
       "index.html"
     ]
   },
   "src/pages/DefenceRoboticsPage.jsx": {
-    "file": "assets/DefenceRoboticsPage-MpdysEM1.js",
+    "file": "assets/DefenceRoboticsPage-Ddol37s6.js",
     "name": "DefenceRoboticsPage",
     "src": "src/pages/DefenceRoboticsPage.jsx",
     "isDynamicEntry": true,
@@ -780,7 +780,7 @@
     ]
   },
   "src/pages/InsightsPage.jsx": {
-    "file": "assets/InsightsPage-DfHnbK-B.js",
+    "file": "assets/InsightsPage-CJnlXkIq.js",
     "name": "InsightsPage",
     "src": "src/pages/InsightsPage.jsx",
     "isDynamicEntry": true,
@@ -791,19 +791,19 @@
     ]
   },
   "src/pages/PrivacyPage.jsx": {
-    "file": "assets/PrivacyPage-BHSXy8c6.js",
+    "file": "assets/PrivacyPage-gB5LXi2U.js",
     "name": "PrivacyPage",
     "src": "src/pages/PrivacyPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-CpwUFq66.js",
+      "_LegalShell-DNqY5SuW.js",
       "index.html",
       "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/RfqPage.jsx": {
-    "file": "assets/RfqPage-CaQp1QJh.js",
+    "file": "assets/RfqPage-DCJhcu2S.js",
     "name": "RfqPage",
     "src": "src/pages/RfqPage.jsx",
     "isDynamicEntry": true,
@@ -814,19 +814,19 @@
     ]
   },
   "src/pages/TermsPage.jsx": {
-    "file": "assets/TermsPage-CAb_uTvd.js",
+    "file": "assets/TermsPage-DaLblU6l.js",
     "name": "TermsPage",
     "src": "src/pages/TermsPage.jsx",
     "isDynamicEntry": true,
     "imports": [
       "_react-BFDfz19Z.js",
-      "_LegalShell-CpwUFq66.js",
+      "_LegalShell-DNqY5SuW.js",
       "index.html",
       "_icons-qwWa3WTO.js"
     ]
   },
   "src/pages/TopicPage.jsx": {
-    "file": "assets/TopicPage-_5AsF0kU.js",
+    "file": "assets/TopicPage-CKxm4FSJ.js",
     "name": "TopicPage",
     "src": "src/pages/TopicPage.jsx",
     "isDynamicEntry": true,

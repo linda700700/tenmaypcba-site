@@ -12,7 +12,7 @@
 | Parameter | Capability / Specification | Verification Method |
 |---|---|---|
 | **Placement Lines** | 8 Yamaha High-Speed & Multi-Function Lines (YSM20 / YSM10) | Factory asset log / On-site audit |
-| **Daily Placement Capacity** | 300,000 points / day (~37,500 points / line / day) | MES / Production tracking |
+| **Daily Placement Capacity** | 5,000,000 points / day (~625,000 points / line / day) | MES / Production tracking |
 | **Minimum Component Size** | 01005 passive chips (0.4 mm × 0.2 mm / 0402 metric) | In-line 3D SPI + 3D AOI |
 | **Fine-Pitch IC Pitch** | Down to 0.30 mm (QFP, QFN, DFN) | 3D AOI & High-res Optical Scope |
 | **BGA / Micro-BGA Pitch** | Down to 0.35 mm ball pitch | 100% X-ray inspection (voiding < 15%) |

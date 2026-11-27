@@ -36,8 +36,8 @@ service, which is a different scope.
 
 ## What this plant does
 
-Eight Yamaha YSM20 / YSM10 placement lines, 300,000 placement points per day in total
-(about 37,500 per line per day).
+Eight Yamaha YSM20 / YSM10 placement lines, 5,000,000 placement points per day in total
+(about 625,000 per line per day).
 
 | Item | Limit |
 |---|---|

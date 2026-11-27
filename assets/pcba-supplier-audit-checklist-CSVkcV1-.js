@@ -40,7 +40,7 @@ A supplier who answers capability questions with adjectives is telling you they 
 | Finest passive you place | 01005 (0.4 × 0.2 mm) |
 | Finest IC pitch | 0.30 mm |
 | Largest board | 800 × 480 mm |
-| Daily placement capacity | 300,000 points per day across 8 lines |
+| Daily placement capacity | 5,000,000 points per day across 8 lines |
 | Minimum order | 50 pcs, same for all three order models |
 | Standard lead time | 3 working days from kitted parts |
 | Workmanship reference | IPC-A-610, class agreed per order |
